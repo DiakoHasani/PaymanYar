@@ -23,6 +23,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Presenter.P_HomeFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 public class HomeFragment extends BaseFragment implements S_HomeFragment, View.OnClickListener {
 
@@ -43,6 +44,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         implement();
 
         p_homeFragment.start();
+
+        ErrorAplicationDialog dialog = new ErrorAplicationDialog();
+        dialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
 
         return view;
     }
