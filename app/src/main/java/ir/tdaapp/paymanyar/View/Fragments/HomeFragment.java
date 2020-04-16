@@ -45,9 +45,6 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
 
         p_homeFragment.start();
 
-        ErrorAplicationDialog dialog = new ErrorAplicationDialog();
-        dialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
-
         return view;
     }
 
