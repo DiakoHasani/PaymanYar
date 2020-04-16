@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/No_Internet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="120dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:visibility="gone"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_internet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_internet"/>
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/vazir"
+        android:textSize="12dp"
+        android:layout_marginTop="5dp"
+        android:padding="3dp"
+        android:textColor="@color/colorBlack"
+        android:text="@string/please_Checked_Your_Internet_Connection"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/btn_NoInternet_Retry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/Again"
+        android:fontFamily="@font/vazir"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimary"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"/>
+
+</LinearLayout>

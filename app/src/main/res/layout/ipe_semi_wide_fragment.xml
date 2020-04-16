@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl">
+
+    <com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_ipe_semi_wide"
+                        android:padding="8dp"/>
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/mToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:id="@+id/btn_Item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </RelativeLayout>
+
+    </com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout>
+
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        //برای مخفی کردن نوار بالای گوشی در اپلیکیشن
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+        //////////////////////////////////////////////
+
+        //در اینجا انیمیشن جابجایی بین اکتیویتی ست می شود
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+
+    </style>
+
+    //در اینجا استایل ادیت تکست صفحه لاگین ست می شود
+    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorTextHint</item>
+    </style>
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/vazir</item>
+        <item name="android:fontFamily">@font/vazir</item>
+    </style>
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/vazir</item>
+        <item name="android:fontFamily">@font/vazir</item>
+    </style>
+    /////////////////////////////////////////////////////////////
+
+    <style name="AppTheme.MyRipple">
+        <item name="colorControlHighlight">@color/colorLowPrimary</item>
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
+    <style name="AppTheme.MyRipple2">
+        <item name="colorControlHighlight">@color/colorLowBlue2</item>
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
+    //در اینجا انیمیشن جابجایی بین اکتیویتی ست می شود
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/fadein</item>
+        <item name="android:activityOpenExitAnimation">@anim/fadeout</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fadein</item>
+        <item name="android:activityCloseExitAnimation">@anim/fadeout</item>
+    </style>
+
+    //در اینجا استایل رادیو باتن ست می شود
+    <style name="RadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+    </style>
+
+</resources>

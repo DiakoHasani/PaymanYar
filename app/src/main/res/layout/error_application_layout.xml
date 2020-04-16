@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/error"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="120dp"
+    android:visibility="gone">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_error"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/vazir"
+        android:textSize="12dp"
+        android:layout_marginTop="5dp"
+        android:padding="3dp"
+        android:textColor="@color/colorBlack"
+        android:text="@string/There_Was_an_Error_In_The_Application"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/btn_Error_Again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/Again"
+        android:fontFamily="@font/vazir"
+        android:textSize="12dp"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimary"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"/>
+
+</LinearLayout>
