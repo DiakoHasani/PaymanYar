@@ -68,4 +68,6 @@
     <string name="Force">نیرو</string>
     <string name="Torque">گشتاور</string>
     <string name="Lighting">روشنایی</string>
+    <string name="Error">خطا</string>
+    <string name="TenderNotification">اطلاع رسانی مناقصات</string>
 </resources>

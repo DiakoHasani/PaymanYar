@@ -5,6 +5,7 @@
     <string name="SMS_Code">کد پیامک</string>
     <string name="Url_Site">www.paymanyar.com</string>
     <string name="There_Was_an_Error_In_The_Application">در برنامه خطای رخ داده است</string>
+    <string name="There_Was_an_Error_In_The_Server">در سرور خطای رخ داده است</string>
     <string name="You_Have_Not_Saved_Any_Maps">شما هیچ نقشه ای ذخیره نکرده اید</string>
     <string name="please_Checked_Your_Internet_Connection">لطفا اتصال اینترنت خود را چک نمایید</string>
     <string name="YourInternetIsVrySlow">اینترنت شما بسیار کند است</string>
