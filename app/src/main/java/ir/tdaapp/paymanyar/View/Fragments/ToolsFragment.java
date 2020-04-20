@@ -21,7 +21,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
     public final static String TAG = "ToolsFragment";
     ShimmerFrameLayout animationLogo;
     P_ToolsFragment p_toolsFragment;
-    CardView btn_StallTable, btn_GPS, btn_UnitConversionFragment;
+    CardView btn_StallTable, btn_GPS, btn_UnitConversionFragment, btn_Level;
 
     @Nullable
     @Override
@@ -40,6 +40,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
         btn_StallTable = view.findViewById(R.id.btn_StallTable);
         btn_GPS = view.findViewById(R.id.btn_GPS);
         btn_UnitConversionFragment = view.findViewById(R.id.btn_UnitConversionFragment);
+        btn_Level = view.findViewById(R.id.btn_Level);
     }
 
     void implement() {
@@ -47,6 +48,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
         btn_StallTable.setOnClickListener(this);
         btn_GPS.setOnClickListener(this);
         btn_UnitConversionFragment.setOnClickListener(this);
+        btn_Level.setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +67,9 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
                 break;
             case R.id.btn_UnitConversionFragment:
                 ((ToolsActivity) getActivity()).onAddFragment(new UnitConversionFragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, UnitConversionFragment.TAG);
+                break;
+            case R.id.btn_Level:
+                ((ToolsActivity) getActivity()).onAddFragment(new LevelFragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, LevelFragment.TAG);
                 break;
         }
     }

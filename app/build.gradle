@@ -53,4 +53,7 @@ dependencies {
     //مربوط به نقشه
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    //این کتابخانه مربوط به اسپینر است که قابلیت جستجو را دارد
+    implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
+
 }

@@ -335,6 +335,7 @@
                     android:layout_weight="2.25">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_Level"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:cardElevation="2dp"

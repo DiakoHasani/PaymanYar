@@ -6,10 +6,12 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +23,16 @@ import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.TenderNotificationAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
 import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 //صفحه مربوط به اطلاع رسانی مناقصات
 public class TenderNotificationFragment extends BaseFragment implements S_TenderNotificationFragment {
@@ -41,6 +47,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     ProgressBar loading_paging;
     TenderNotificationAdapter tenderNotificationAdapter;
     LinearLayoutManager layoutManager;
+    SearchableSpinner cmb_City,cmb_Major;
 
     @Nullable
     @Override
@@ -51,6 +58,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         implement();
         setToolbar();
 
+        p_tenderNotificationFragment.getSpinnerDatas();
         p_tenderNotificationFragment.start(page);
 
         return view;
@@ -61,6 +69,8 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         recycler = view.findViewById(R.id.recycler);
         Loading = view.findViewById(R.id.Loading);
         loading_paging = view.findViewById(R.id.loading_paging);
+        cmb_City = view.findViewById(R.id.cmb_City);
+        cmb_Major = view.findViewById(R.id.cmb_Major);
     }
 
     void implement() {
@@ -83,6 +93,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         setHasOptionsMenu(true);
     }
 
+    //در اینجا چک می کند که زمان پیجینگ رسیده است اگر رسیده باشد عملیات را شروع می کند
     RecyclerView.OnScrollListener pOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -104,13 +115,19 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         }
     };
 
+    //در اینجا اگر مقدار ترو برگشت داده شود یعنی زمان پیجینگ رسیده است و نیاز به خواندن داده از سرور می باشد
     boolean isLastItemDisplaying() {
 
-        if (recycler.getAdapter().getItemCount() != 0) {
+        if (!isLoading) {
 
-            int lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+            int visibleItemCount = layoutManager.getChildCount() + 5;
+            int totalItemCount = layoutManager.getItemCount();
+            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
 
-            if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recycler.getAdapter().getItemCount() - 1) {
+            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= PAGE_SIZE) {
+                isLoading = true;
                 return true;
             }
         }
@@ -200,6 +217,18 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onItemTender(VM_TenderNotification notification) {
         tenderNotificationAdapter.add(notification);
+    }
+
+    //در اینجا داده های اسپینر شهر ست می شود
+    @Override
+    public void onItemCitySpinner(ArrayAdapter<VM_City> adapter) {
+        cmb_City.setAdapter(adapter);
+    }
+
+    //در اینجا داده های اسپینر رشته تحصیلی ست می شود
+    @Override
+    public void onItemMajorSpinner(ArrayAdapter<VM_Major> adapter) {
+        cmb_Major.setAdapter(adapter);
     }
 
     @Override

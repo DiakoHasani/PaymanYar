@@ -19,7 +19,7 @@ public class Api_Tender {
 
                     List<VM_TenderNotification> notifications = new ArrayList<>();
 
-                    for (int i = 1; i <= 50; i++) {
+                    for (int i = 1; i <= 20; i++) {
 
                         VM_TenderNotification notification = new VM_TenderNotification();
 
