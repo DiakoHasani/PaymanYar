@@ -1,46 +1,35 @@
 package ir.tdaapp.paymanyar.Model.ViewModels;
 
-//ویو مدل مربوط به اطلاع رسانی مناقصات
+import java.util.List;
+
+//مربوط به اطلاع رسانی مناقصات
 public class VM_TenderNotification {
 
-    private int Id;
-    private String Title;
+    private List<VM_TenderNotifications> TenderNotifications;
 
-    //در اینجا اگر مقدار ترو باشد یعنی مناقصخ در لیست علاقه مندی ها ذخیره شده است
-    private boolean IsStar;
+    private int CountTenders;
 
-    //اگر مقدار فالس باشد یعنی پولی است اگر ترو باشد یعنی رایگان است
-    private boolean Free;
-
-    public int getId() {
-        return Id;
+    public VM_TenderNotification() {
     }
 
-    public void setId(int id) {
-        Id = id;
+    public VM_TenderNotification(List<VM_TenderNotifications> tenderNotifications, int countTenders) {
+        TenderNotifications = tenderNotifications;
+        CountTenders = countTenders;
     }
 
-    public String getTitle() {
-        return Title;
+    public List<VM_TenderNotifications> getTenderNotifications() {
+        return TenderNotifications;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public void setTenderNotifications(List<VM_TenderNotifications> tenderNotifications) {
+        TenderNotifications = tenderNotifications;
     }
 
-    public boolean isFree() {
-        return Free;
+    public int getCountTenders() {
+        return CountTenders;
     }
 
-    public void setFree(boolean free) {
-        Free = free;
-    }
-
-    public boolean isStar() {
-        return IsStar;
-    }
-
-    public void setStar(boolean star) {
-        IsStar = star;
+    public void setCountTenders(int countTenders) {
+        CountTenders = countTenders;
     }
 }
