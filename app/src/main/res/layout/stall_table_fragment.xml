@@ -44,6 +44,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_IPB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -101,7 +102,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/btn_IPE_Semi_Wide"
+                    android:id="@+id/btn_IPE_Semi_Wide_IPE"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -178,6 +179,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_UNP"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -235,6 +237,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_INP"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -311,6 +314,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_ST"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -368,6 +372,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_L"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -444,6 +449,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_P"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"
@@ -501,6 +507,7 @@
                 android:layout_weight="2.1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_IPE_Semi_Wide_T"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardElevation="2dp"

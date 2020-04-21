@@ -32,6 +32,7 @@
                     android:background="@color/colorWhite">
 
                     <ImageView
+                        android:id="@+id/ipe_img"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/img_ipe_semi_wide"
@@ -77,7 +78,7 @@
                             android:layout_marginTop="5dp">
 
                             <RelativeLayout
-                                android:id="@+id/btn_Item"
+                                android:id="@+id/ipe_btn_Item1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -128,115 +129,7 @@
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_field_semi_wide_fragment"
-                                    android:layout_marginTop="12dp"
-                                    android:layout_marginBottom="12dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:padding="8dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="16dp"
-                                        android:fontFamily="@font/vazir"
-                                        android:textColor="@color/colorEditText"
-                                        android:text="80"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:fontFamily="@font/vazir"
-                                        android:textSize="12dp"
-                                        android:textColor="@color/colorGray"
-                                        android:layout_centerVertical="true"
-                                        android:text="کیلوگرم"/>
-
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="12dp"
-                                    android:text="ممان اینرسی"
-                                    android:background="@color/colorWhite"
-                                    android:paddingRight="5dp"
-                                    android:paddingLeft="5dp"
-                                    android:layout_marginRight="18dp"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:weightSum="4"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp">
-
-                            <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_field_semi_wide_fragment"
-                                    android:layout_marginTop="12dp"
-                                    android:layout_marginBottom="12dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:padding="8dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="16dp"
-                                        android:fontFamily="@font/vazir"
-                                        android:textColor="@color/colorEditText"
-                                        android:text="80"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:fontFamily="@font/vazir"
-                                        android:textSize="12dp"
-                                        android:textColor="@color/colorGray"
-                                        android:layout_centerVertical="true"
-                                        android:text="کیلوگرم"/>
-
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="12dp"
-                                    android:text="ممان اینرسی"
-                                    android:background="@color/colorWhite"
-                                    android:paddingRight="5dp"
-                                    android:paddingLeft="5dp"
-                                    android:layout_marginRight="18dp"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -296,6 +189,7 @@
                             android:layout_marginTop="5dp">
 
                             <RelativeLayout
+                                android:id="@+id/ipe_btn_Item3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -346,115 +240,7 @@
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_field_semi_wide_fragment"
-                                    android:layout_marginTop="12dp"
-                                    android:layout_marginBottom="12dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:padding="8dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="16dp"
-                                        android:fontFamily="@font/vazir"
-                                        android:textColor="@color/colorEditText"
-                                        android:text="80"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:fontFamily="@font/vazir"
-                                        android:textSize="12dp"
-                                        android:textColor="@color/colorGray"
-                                        android:layout_centerVertical="true"
-                                        android:text="کیلوگرم"/>
-
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="12dp"
-                                    android:text="ممان اینرسی"
-                                    android:background="@color/colorWhite"
-                                    android:paddingRight="5dp"
-                                    android:paddingLeft="5dp"
-                                    android:layout_marginRight="18dp"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:weightSum="4"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp">
-
-                            <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_field_semi_wide_fragment"
-                                    android:layout_marginTop="12dp"
-                                    android:layout_marginBottom="12dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:padding="8dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="16dp"
-                                        android:fontFamily="@font/vazir"
-                                        android:textColor="@color/colorEditText"
-                                        android:text="80"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:fontFamily="@font/vazir"
-                                        android:textSize="12dp"
-                                        android:textColor="@color/colorGray"
-                                        android:layout_centerVertical="true"
-                                        android:text="کیلوگرم"/>
-
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="12dp"
-                                    android:text="ممان اینرسی"
-                                    android:background="@color/colorWhite"
-                                    android:paddingRight="5dp"
-                                    android:paddingLeft="5dp"
-                                    android:layout_marginRight="18dp"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item4"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -514,6 +300,7 @@
                             android:layout_marginTop="5dp">
 
                             <RelativeLayout
+                                android:id="@+id/ipe_btn_Item5"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -564,115 +351,7 @@
                             </RelativeLayout>
 
                             <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_field_semi_wide_fragment"
-                                    android:layout_marginTop="12dp"
-                                    android:layout_marginBottom="12dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:padding="8dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="16dp"
-                                        android:fontFamily="@font/vazir"
-                                        android:textColor="@color/colorEditText"
-                                        android:text="80"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:fontFamily="@font/vazir"
-                                        android:textSize="12dp"
-                                        android:textColor="@color/colorGray"
-                                        android:layout_centerVertical="true"
-                                        android:text="کیلوگرم"/>
-
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="12dp"
-                                    android:text="ممان اینرسی"
-                                    android:background="@color/colorWhite"
-                                    android:paddingRight="5dp"
-                                    android:paddingLeft="5dp"
-                                    android:layout_marginRight="18dp"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:weightSum="4"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp">
-
-                            <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2">
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/border_field_semi_wide_fragment"
-                                    android:layout_marginTop="12dp"
-                                    android:layout_marginBottom="12dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:padding="8dp">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="16dp"
-                                        android:fontFamily="@font/vazir"
-                                        android:textColor="@color/colorEditText"
-                                        android:text="80"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentLeft="true"
-                                        android:fontFamily="@font/vazir"
-                                        android:textSize="12dp"
-                                        android:textColor="@color/colorGray"
-                                        android:layout_centerVertical="true"
-                                        android:text="کیلوگرم"/>
-
-                                </RelativeLayout>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="12dp"
-                                    android:text="ممان اینرسی"
-                                    android:background="@color/colorWhite"
-                                    android:paddingRight="5dp"
-                                    android:paddingLeft="5dp"
-                                    android:layout_marginRight="18dp"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item6"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -732,6 +411,7 @@
                             android:layout_marginTop="5dp">
 
                             <RelativeLayout
+                                android:id="@+id/ipe_btn_Item7"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">
@@ -782,6 +462,340 @@
                             </RelativeLayout>
 
                             <RelativeLayout
+                                android:id="@+id/ipe_btn_Item8"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item10"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item11"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item12"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="4"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item13"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/border_field_semi_wide_fragment"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:padding="8dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textSize="16dp"
+                                        android:fontFamily="@font/vazir"
+                                        android:textColor="@color/colorEditText"
+                                        android:text="80"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:fontFamily="@font/vazir"
+                                        android:textSize="12dp"
+                                        android:textColor="@color/colorGray"
+                                        android:layout_centerVertical="true"
+                                        android:text="کیلوگرم"/>
+
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="12dp"
+                                    android:text="ممان اینرسی"
+                                    android:background="@color/colorWhite"
+                                    android:paddingRight="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:layout_marginRight="18dp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/ipe_btn_Item14"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2">

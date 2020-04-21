@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -24,11 +25,17 @@ import ir.tdaapp.paymanyar.View.Dialogs.FilterWideDialog;
 //مربوط به صفحه نیم پهن
 public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWideFragment, View.OnClickListener {
 
+    public IPE_SemiWideFragment(int Eshtal_item){
+        this.Current_eshtal_id=Eshtal_item;
+    }
+
     public final static String TAG = "IPE_SemiWideFragment";
 
     Toolbar toolBar;
     P_IPE_SemiWideFragment p_ipe_semiWideFragment;
-    RelativeLayout btn_Item;
+    RelativeLayout btn_Item1,btn_Item2,btn_Item3,btn_Item4,btn_Item5,btn_Item6,btn_Item7,btn_Item8,btn_Item9,btn_Item10,btn_Item11,btn_Item12,btn_Item13,btn_Item14;
+    public int Current_eshtal_id=0;
+    ImageView imageView;
 
     @Nullable
     @Override
@@ -46,12 +53,39 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
     void findItem(View view) {
         toolBar = view.findViewById(R.id.mToolbar);
-        btn_Item = view.findViewById(R.id.btn_Item);
+        btn_Item1 = view.findViewById(R.id.ipe_btn_Item1);
+        btn_Item2 = view.findViewById(R.id.ipe_btn_Item2);
+        btn_Item3 = view.findViewById(R.id.ipe_btn_Item3);
+        btn_Item4 = view.findViewById(R.id.ipe_btn_Item4);
+        btn_Item5 = view.findViewById(R.id.ipe_btn_Item5);
+        btn_Item6 = view.findViewById(R.id.ipe_btn_Item6);
+        btn_Item7 = view.findViewById(R.id.ipe_btn_Item7);
+        btn_Item8 = view.findViewById(R.id.ipe_btn_Item8);
+        btn_Item9 = view.findViewById(R.id.ipe_btn_Item9);
+        btn_Item10 = view.findViewById(R.id.ipe_btn_Item10);
+        btn_Item11 = view.findViewById(R.id.ipe_btn_Item11);
+        btn_Item12 = view.findViewById(R.id.ipe_btn_Item12);
+        btn_Item13 = view.findViewById(R.id.ipe_btn_Item13);
+        btn_Item14 = view.findViewById(R.id.ipe_btn_Item14);
+        imageView=view.findViewById(R.id.ipe_img);
     }
 
     void implement() {
-        p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this);
-        btn_Item.setOnClickListener(this);
+        p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this,Current_eshtal_id);
+        btn_Item1.setOnClickListener(this);
+        btn_Item2.setOnClickListener(this);
+        btn_Item3.setOnClickListener(this);
+        btn_Item4.setOnClickListener(this);
+        btn_Item5.setOnClickListener(this);
+        btn_Item6.setOnClickListener(this);
+        btn_Item7.setOnClickListener(this);
+        btn_Item8.setOnClickListener(this);
+        btn_Item9.setOnClickListener(this);
+        btn_Item10.setOnClickListener(this);
+        btn_Item11.setOnClickListener(this);
+        btn_Item12.setOnClickListener(this);
+        btn_Item13.setOnClickListener(this);
+        btn_Item14.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -76,7 +110,7 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_Item:
+            case R.id.ipe_btn_Item1:
                 showDialog();
                 break;
         }

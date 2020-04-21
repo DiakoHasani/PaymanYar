@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
 import ir.tdaapp.paymanyar.Model.Services.S_ToolsActivity;
 import ir.tdaapp.paymanyar.Presenter.P_ToolsActivity;
 import ir.tdaapp.paymanyar.R;
@@ -14,6 +15,7 @@ public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity 
 
     public final static String TAG="ToolsActivity";
     P_ToolsActivity p_toolsActivity;
+    private DBExcute dbExcute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,13 @@ public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity 
     @Override
     public void OnStart() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dbExcute=DBExcute.getInstance(this);
+        dbExcute.Open();
     }
 
     //در این متد یک فرگمنت می گیرد و آن را نمایش می دهد

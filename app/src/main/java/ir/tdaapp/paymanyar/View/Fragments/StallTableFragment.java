@@ -23,7 +23,7 @@ public class StallTableFragment extends BaseFragment implements S_StallTableFrag
     public final static String TAG = "StallTableFragment";
     Toolbar toolBar;
     P_StallTableFragment p_stallTableFragment;
-    CardView btn_IPE_Semi_Wide;
+    CardView btn_IPE_Semi_Wide_INP,btn_IPE_Semi_Wide_IPE,btn_IPE_Semi_Wide_UNP,btn_IPE_Semi_Wide_IPB,btn_IPE_Semi_Wide_L,btn_IPE_Semi_Wide_P,btn_IPE_Semi_Wide_ST,btn_IPE_Semi_Wide_T;
 
     @Nullable
     @Override
@@ -41,11 +41,28 @@ public class StallTableFragment extends BaseFragment implements S_StallTableFrag
 
     void findItem(View view){
         toolBar=view.findViewById(R.id.toolBar);
-        btn_IPE_Semi_Wide=view.findViewById(R.id.btn_IPE_Semi_Wide);
+        btn_IPE_Semi_Wide_INP=view.findViewById(R.id.btn_IPE_Semi_Wide_INP);
+        btn_IPE_Semi_Wide_IPB=view.findViewById(R.id.btn_IPE_Semi_Wide_IPB);
+        btn_IPE_Semi_Wide_IPE=view.findViewById(R.id.btn_IPE_Semi_Wide_IPE);
+        btn_IPE_Semi_Wide_UNP=view.findViewById(R.id.btn_IPE_Semi_Wide_UNP);
+        btn_IPE_Semi_Wide_T=view.findViewById(R.id.btn_IPE_Semi_Wide_T);
+        btn_IPE_Semi_Wide_ST=view.findViewById(R.id.btn_IPE_Semi_Wide_ST);
+        btn_IPE_Semi_Wide_L=view.findViewById(R.id.btn_IPE_Semi_Wide_L);
+        btn_IPE_Semi_Wide_P=view.findViewById(R.id.btn_IPE_Semi_Wide_P);
+
     }
     void implement(){
         p_stallTableFragment=new P_StallTableFragment(getContext(),this);
-        btn_IPE_Semi_Wide.setOnClickListener(this);
+        btn_IPE_Semi_Wide_INP.setOnClickListener(this);
+        btn_IPE_Semi_Wide_UNP.setOnClickListener(this);
+        btn_IPE_Semi_Wide_IPE.setOnClickListener(this);
+        btn_IPE_Semi_Wide_IPB.setOnClickListener(this);
+        btn_IPE_Semi_Wide_L.setOnClickListener(this);
+        btn_IPE_Semi_Wide_P.setOnClickListener(this);
+        btn_IPE_Semi_Wide_T.setOnClickListener(this);
+        btn_IPE_Semi_Wide_ST.setOnClickListener(this);
+
+
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -70,8 +87,36 @@ public class StallTableFragment extends BaseFragment implements S_StallTableFrag
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_IPE_Semi_Wide:
-                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(),0,
+            case R.id.btn_IPE_Semi_Wide_INP:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(7),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_IPB:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(6),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_IPE:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(8),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_L:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(4),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_P:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(2),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_ST:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(3),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_T:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(1),0,
+                        0,true,IPE_SemiWideFragment.TAG);
+                break;
+            case R.id.btn_IPE_Semi_Wide_UNP:
+                ((ToolsActivity)getActivity()).onAddFragment(new IPE_SemiWideFragment(5),0,
                         0,true,IPE_SemiWideFragment.TAG);
                 break;
         }
