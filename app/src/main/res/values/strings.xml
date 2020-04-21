@@ -70,4 +70,15 @@
     <string name="Lighting">روشنایی</string>
     <string name="Error">خطا</string>
     <string name="TenderNotification">اطلاع رسانی مناقصات</string>
+    <string name="IncludesTheWord">شامل کلمه</string>
+    <string name="FromDate">از تاریخ</string>
+    <string name="FromEstimate">برآورد از</string>
+    <string name="UntilEstimate">تا برآورد</string>
+    <string name="from">از</string>
+    <string name="until">تا</string>
+    <string name="ok">باشه</string>
+    <string name="NeverMind">بیخیال</string>
+    <string name="Today">امروز</string>
+    <string name="Search">جستجو</string>
+    <string name="Let_me_know">باخبرم کن</string>
 </resources>

@@ -1,41 +1,50 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.TenderNotificationAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.KeyBoard;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
-import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
 //صفحه مربوط به اطلاع رسانی مناقصات
-public class TenderNotificationFragment extends BaseFragment implements S_TenderNotificationFragment {
+public class TenderNotificationFragment extends BaseFragment implements S_TenderNotificationFragment, View.OnClickListener {
 
     public final static String TAG = "TenderNotificationFragment";
     P_TenderNotificationFragment p_tenderNotificationFragment;
@@ -47,7 +56,9 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     ProgressBar loading_paging;
     TenderNotificationAdapter tenderNotificationAdapter;
     LinearLayoutManager layoutManager;
-    SearchableSpinner cmb_City,cmb_Major;
+    SearchableSpinner cmb_City, cmb_Major, cmb_IncludesTheWord, cmb_FromEstimate, cmb_UntilEstimate;
+    TextInputEditText txt_Date;
+    int countTenders = 0;
 
     @Nullable
     @Override
@@ -71,12 +82,18 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         loading_paging = view.findViewById(R.id.loading_paging);
         cmb_City = view.findViewById(R.id.cmb_City);
         cmb_Major = view.findViewById(R.id.cmb_Major);
+        cmb_IncludesTheWord = view.findViewById(R.id.cmb_IncludesTheWord);
+        cmb_FromEstimate = view.findViewById(R.id.cmb_FromEstimate);
+        cmb_UntilEstimate = view.findViewById(R.id.cmb_UntilEstimate);
+        txt_Date = view.findViewById(R.id.txt_Date);
     }
 
     void implement() {
         p_tenderNotificationFragment = new P_TenderNotificationFragment(getContext(), this);
 
         recycler.setOnScrollListener(pOnScrollListener);
+
+        txt_Date.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -104,14 +121,26 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            if (!isLoading) {
-                if (isLastItemDisplaying()) {
-                    isLoading = true;
+            //در اینجا چک می کند آداپتر رسایکلر نال نباشد که در برنامه خطای رخ دهد
+            if (recycler.getAdapter() != null) {
 
-                    onLoadingPaging(true);
-                    p_tenderNotificationFragment.start(++page);
+                //اگر متغیر زیر ترو باشد یعنی مشغول عملیات پیجینگ است تا عملیات به پایان نرسد اجازه پیجینگ نمی دهد
+                if (!isLoading) {
+
+                    //اگر اسکرول رسایکلر ما به آخر برسد یعنی زمان پیجینگ است و شرط زیر اجرا می شود
+                    if (isLastItemDisplaying()) {
+
+                        //در اینجا اگر تعداد کل مناقصه ها در سرور با تعداد مناقصه ها در رسایکلر برابر باشد یعنی تمام مناقصه ها گرفته شده و اجازه عملیات پیجینگ نمی دهد
+                        if (recycler.getAdapter().getItemCount() < countTenders) {
+                            isLoading = true;
+
+                            onLoadingPaging(true);
+                            p_tenderNotificationFragment.start(++page);
+                        }
+                    }
                 }
             }
+
         }
     };
 
@@ -135,8 +164,26 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         return false;
     }
 
+    //در اینجا دیالوگ تاریخ فارسی نمایش داده می شود
+    void showDatePersian() {
+        PersianDatePickerDialog picker = p_tenderNotificationFragment.getDatePicker();
+        picker.setListener(new Listener() {
+            @Override
+            public void onDateSelected(PersianCalendar persianCalendar) {
+                txt_Date.setText(persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay());
+            }
+
+            @Override
+            public void onDismissed() {
+
+            }
+        });
+        picker.show();
+    }
+
     @Override
     public void OnStart() {
+
         Loading.startShimmerAnimation();
 
         layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -215,7 +262,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
     //در اینجا مناقصات یکی یکی به رسایکلر اضافه می شوند
     @Override
-    public void onItemTender(VM_TenderNotification notification) {
+    public void onItemTender(VM_TenderNotifications notification) {
         tenderNotificationAdapter.add(notification);
     }
 
@@ -231,9 +278,42 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         cmb_Major.setAdapter(adapter);
     }
 
+    //در اینجا داده های اسپینر شامل کلمه ست می شود
+    @Override
+    public void onItemIncludesTheWordSpinner(ArrayAdapter<VM_IncludesTheWord> adapter) {
+        cmb_IncludesTheWord.setAdapter(adapter);
+    }
+
+    //در اینجا داده های برآورد از ست می شود
+    @Override
+    public void onItemFromEstimateSpinner(ArrayAdapter<VM_Estimate> adapter) {
+        cmb_FromEstimate.setAdapter(adapter);
+    }
+
+    //در اینجا داده های برآورد تا ست می شود
+    @Override
+    public void onItemUntilEstimateSpinner(ArrayAdapter<VM_Estimate> adapter) {
+        cmb_UntilEstimate.setAdapter(adapter);
+    }
+
+    //در اینجا تعداد مناقصه ها در سرور گرفته می شود تا از پیجینگ اضافی جلوگیری کنیم
+    @Override
+    public void onCountTenders(int count) {
+        countTenders = count;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         p_tenderNotificationFragment.Cancel(TAG);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txt_Date:
+                showDatePersian();
+                break;
+        }
     }
 }

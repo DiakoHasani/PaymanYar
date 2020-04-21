@@ -14,14 +14,14 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.R;
 
 //مربوط به آداپتر اطلاع رسانی مناقصات
 public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotificationAdapter.MyViewHolder> {
 
     Context context;
-    List<VM_TenderNotification> tenders;
+    List<VM_TenderNotifications> tenders;
     AlphaAnimation anim;
 
     public TenderNotificationAdapter(Context context) {
@@ -30,7 +30,7 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
         anim = new AlphaAnimation(0.0f, 1.0f);
     }
 
-    public void add(VM_TenderNotification tender) {
+    public void add(VM_TenderNotifications tender) {
         tenders.add(tender);
         notifyItemInserted(tenders.size());
     }

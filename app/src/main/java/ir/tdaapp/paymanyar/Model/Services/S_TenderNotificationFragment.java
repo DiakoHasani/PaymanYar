@@ -4,8 +4,10 @@ import android.widget.ArrayAdapter;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
 public interface S_TenderNotificationFragment {
 
@@ -17,7 +19,11 @@ public interface S_TenderNotificationFragment {
     void onLoadingPaging(boolean load);
     void onError(ResaultCode result);
     void onShowRecycler();
-    void onItemTender(VM_TenderNotification notification);
+    void onItemTender(VM_TenderNotifications notification);
     void onItemCitySpinner(ArrayAdapter<VM_City> adapter);
     void onItemMajorSpinner(ArrayAdapter<VM_Major> adapter);
+    void onItemIncludesTheWordSpinner(ArrayAdapter<VM_IncludesTheWord> adapter);
+    void onItemFromEstimateSpinner(ArrayAdapter<VM_Estimate> adapter);
+    void onItemUntilEstimateSpinner(ArrayAdapter<VM_Estimate> adapter);
+    void onCountTenders(int count);
 }
