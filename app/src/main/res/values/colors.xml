@@ -17,4 +17,5 @@
     <color name="colorSelected">#c1e1f8</color>
     <color name="colorUnderline">#E0E0E0</color>
     <color name="colorTextLoading">#5E5E5E</color>
+    <color name="colorSubTitle">#BBBBBB</color>
 </resources>
