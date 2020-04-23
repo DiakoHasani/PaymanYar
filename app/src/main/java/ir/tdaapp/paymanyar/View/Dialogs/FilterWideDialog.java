@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ir.tdaapp.paymanyar.Model.Services.SelectedItemFilterWideDialog;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_EshtalItem;
 import ir.tdaapp.paymanyar.R;
 
 public class FilterWideDialog extends BaseDialogFragment implements View.OnClickListener {
@@ -19,6 +20,7 @@ public class FilterWideDialog extends BaseDialogFragment implements View.OnClick
 
     private SelectedItemFilterWideDialog selectedItemFilterWideDialog;
     Button btn_Select, btn_Cancel;
+    public VM_EshtalItem item;
 
     public FilterWideDialog(SelectedItemFilterWideDialog selectedItemFilterWideDialog) {
         this.selectedItemFilterWideDialog = selectedItemFilterWideDialog;

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import ir.tdaapp.paymanyar.Model.Services.S_IPE_SemiWideFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_EshtalItem;
 import ir.tdaapp.paymanyar.Presenter.P_IPE_SemiWideFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
@@ -36,6 +39,8 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
     RelativeLayout btn_Item1,btn_Item2,btn_Item3,btn_Item4,btn_Item5,btn_Item6,btn_Item7,btn_Item8,btn_Item9,btn_Item10,btn_Item11,btn_Item12,btn_Item13,btn_Item14;
     public int Current_eshtal_id=0;
     ImageView imageView;
+    ArrayList<VM_EshtalItem> columns;
+    ArrayList<RelativeLayout> arrCols;
 
     @Nullable
     @Override
@@ -71,7 +76,9 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
     }
 
     void implement() {
-        p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this,Current_eshtal_id);
+        p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this,String.valueOf(Current_eshtal_id));
+        arrCols=new ArrayList<>();
+
         btn_Item1.setOnClickListener(this);
         btn_Item2.setOnClickListener(this);
         btn_Item3.setOnClickListener(this);
@@ -108,16 +115,114 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
     }
 
     @Override
+    public void SetItems(ArrayList<VM_EshtalItem> list) {
+
+        //We Set Columns Here
+        columns=list;
+        ShowColumns(columns.size());
+
+
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ipe_btn_Item1:
-                showDialog();
+                showDialog(1);
+                break;
+            case R.id.ipe_btn_Item2:
+                showDialog(2);
+                break;
+            case R.id.ipe_btn_Item3:
+                showDialog(3);
+                break;
+            case R.id.ipe_btn_Item4:
+                showDialog(4);
+                break;
+            case R.id.ipe_btn_Item5:
+                showDialog(5);
+                break;
+            case R.id.ipe_btn_Item6:
+                showDialog(6);
+                break;
+            case R.id.ipe_btn_Item7:
+                showDialog(7);
+                break;
+            case R.id.ipe_btn_Item8:
+                showDialog(8);
+                break;
+            case R.id.ipe_btn_Item9:
+                showDialog(9);
+                break;
+            case R.id.ipe_btn_Item10:
+                showDialog(10);
+                break;
+            case R.id.ipe_btn_Item11:
+                showDialog(11);
+                break;
+            case R.id.ipe_btn_Item12:
+                showDialog(12);
+                break;
+            case R.id.ipe_btn_Item13:
+                showDialog(13);
                 break;
         }
     }
 
+    void ShowColumns(int count){
+        //Set Visible Or Invisible Of Columns base on our Needs
+        btn_Item1.setVisibility(View.INVISIBLE);
+        btn_Item2.setVisibility(View.INVISIBLE);
+        btn_Item3.setVisibility(View.INVISIBLE);
+        btn_Item4.setVisibility(View.INVISIBLE);
+        btn_Item5.setVisibility(View.INVISIBLE);
+        btn_Item6.setVisibility(View.INVISIBLE);
+        btn_Item7.setVisibility(View.INVISIBLE);
+        btn_Item8.setVisibility(View.INVISIBLE);
+        btn_Item9.setVisibility(View.INVISIBLE);
+        btn_Item10.setVisibility(View.INVISIBLE);
+        btn_Item11.setVisibility(View.INVISIBLE);
+        btn_Item12.setVisibility(View.INVISIBLE);
+        btn_Item13.setVisibility(View.INVISIBLE);
+        btn_Item14.setVisibility(View.INVISIBLE);
+
+        switch (count){
+            case 3:
+                btn_Item1.setVisibility(View.VISIBLE);
+                btn_Item2.setVisibility(View.VISIBLE);
+                btn_Item3.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                btn_Item1.setVisibility(View.VISIBLE);
+                btn_Item2.setVisibility(View.VISIBLE);
+                btn_Item3.setVisibility(View.VISIBLE);
+                btn_Item4.setVisibility(View.VISIBLE);
+                btn_Item5.setVisibility(View.VISIBLE);
+                btn_Item6.setVisibility(View.VISIBLE);
+                break;
+            case 13:
+                btn_Item1.setVisibility(View.VISIBLE);
+                btn_Item2.setVisibility(View.VISIBLE);
+                btn_Item3.setVisibility(View.VISIBLE);
+                btn_Item4.setVisibility(View.VISIBLE);
+                btn_Item5.setVisibility(View.VISIBLE);
+                btn_Item6.setVisibility(View.VISIBLE);
+                btn_Item7.setVisibility(View.VISIBLE);
+                btn_Item8.setVisibility(View.VISIBLE);
+                btn_Item9.setVisibility(View.VISIBLE);
+                btn_Item10.setVisibility(View.VISIBLE);
+                btn_Item11.setVisibility(View.VISIBLE);
+                btn_Item12.setVisibility(View.VISIBLE);
+                btn_Item13.setVisibility(View.VISIBLE);
+                break;
+        }
+
+
+    }
+
     //در اینجا دیالوگ فیلتر ما ست می شود
-    void showDialog() {
+    void showDialog(int index) {
         new Thread(() -> {
 
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

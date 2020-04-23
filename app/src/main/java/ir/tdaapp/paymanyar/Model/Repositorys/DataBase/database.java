@@ -196,9 +196,9 @@ public class database extends SQLiteOpenHelper {
     }
 
 
-    //*********** User Queries
-    public static String QRY_GET_USER_INFO="select * from tbl_user";
-    public static String QRY_DELETE_USER_INFO="delete from tbl_user";
+    //*********** Eshtal Queries
+    public static String QRY_Eshtal_INFO="select * from tbl_eshtal where id=#1# ";
+    public static String QRY_Eshtal_Item="select  tbl_eshtal_cols_related.id,tbl_eshtal_cols.name,tbl_eshtal_cols.unit,tbl_eshtal_values.col_id,tbl_eshtal_values.value,tbl_eshtal_values.parent from tbl_eshtal_values inner join tbl_eshtal_cols_related on tbl_eshtal_values.col_id=tbl_eshtal_cols_related.id inner join tbl_eshtal_cols on tbl_eshtal_cols_related.cols_id=tbl_eshtal_cols.id where tbl_eshtal_cols_related.eshtal_id=#1# and (tbl_eshtal_values.id=#2# OR tbl_eshtal_values.parent=#3#);";
     public static String QRY_INSERT_USER_INFO="insert into tbl_user( phone , activation , user_id ) values( '@i1' ,1, '@i2' )";
 
     //*********** Setting Queries
