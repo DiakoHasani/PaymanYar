@@ -26,6 +26,7 @@
     <string name="StallTable">جدول اشتال</string>
     <string name="ruler">خط کش</string>
     <string name="GPS">GPS</string>
+    <string name="Charge">شارژ</string>
     <string name="Level">تراز</string>
     <string name="magnifier">ذره بین</string>
     <string name="IPB_Wide">عریض IPB</string>
@@ -81,4 +82,6 @@
     <string name="Today">امروز</string>
     <string name="Search">جستجو</string>
     <string name="Let_me_know">باخبرم کن</string>
+    <string name="Toman">تومان</string>
+    <string name="PaymanyarCode">کد پیمانیار:</string>
 </resources>

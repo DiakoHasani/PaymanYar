@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="100dp"
+        android:layout_height="56dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_charge_store"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/img"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/lbl_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazir"
+            android:textSize="16dp"
+            android:textColor="@color/colorTitle"
+            android:singleLine="true"
+            android:paddingLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/lbl_SubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vazir"
+            android:textSize="14dp"
+            android:textColor="@color/colorSubTitle"
+            android:singleLine="true"
+            android:paddingLeft="5dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorUnderline"
+        android:layout_marginRight="100dp"/>
+
+</RelativeLayout>
