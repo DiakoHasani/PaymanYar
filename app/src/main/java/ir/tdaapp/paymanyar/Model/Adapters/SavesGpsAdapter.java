@@ -21,6 +21,7 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
 
     Context context;
     List<VM_SavesGps> vals;
+    ItemListener listener;
 
     public SavesGpsAdapter(Context context) {
         this.context = context;
@@ -38,6 +39,10 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
         notifyDataSetChanged();
     }
 
+    public void setListener(ItemListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,7 +57,15 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
         holder.lbl_Wide.setText(vals.get(position).getWide() + "");
 
         holder.ic_close.setOnClickListener(view -> {
+            if(this.listener!=null)listener.RemoveITem(vals.get(position));
             RemoveItem(position);
+        });
+
+        holder.ic_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener!=null)listener.ShareItem(vals.get(position));
+            }
         });
     }
 
@@ -80,5 +93,10 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
             lbl_Wide = view.findViewById(R.id.lbl_Wide);
             lbl_Length = view.findViewById(R.id.lbl_Length);
         }
+    }
+
+    public interface ItemListener{
+        public void RemoveITem(VM_SavesGps item);
+        public void ShareItem(VM_SavesGps item);
     }
 }

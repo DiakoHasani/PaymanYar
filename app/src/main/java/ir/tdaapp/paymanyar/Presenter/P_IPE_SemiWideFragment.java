@@ -24,8 +24,11 @@ public class P_IPE_SemiWideFragment {
         this.s_ipe_semiWideFragment = s_ipe_semiWideFragment;
         this.eshtal_id=Current_eshtaal_id;
         this.dbExcute=DBExcute.getInstance(this.context);
-        this.dbExcute.Open();
 
+    }
+
+    public void GetColumns(){
+        this.dbExcute.Open();
         //Get Last Choosed Value + Get Columns Count of that table
         dbExcute.Read(database.QRY_Eshtal_INFO,new RecordHolder(new FieldItem("#1#",eshtal_id))).RecordFound(new DBCursor.ListCounter() {
             @Override
@@ -39,7 +42,6 @@ public class P_IPE_SemiWideFragment {
                 GetItems();
             }
         }, 4);
-
     }
 
     private void GetItems(){
@@ -50,8 +52,9 @@ public class P_IPE_SemiWideFragment {
             @Override
             public void onEachrecord(ArrayList<FieldItem> record) {
                 VM_EshtalItem item = new VM_EshtalItem();
-                item.setId(record.get(0).value);
+                item.setColumn_id(record.get(0).value);
                 item.setParent(record.get(5).value);
+                item.setId(record.get(6).value);
                 item.setTitle(record.get(1).value);
                 item.setValue(record.get(4).value);
                 item.setUnit(record.get(2).value);
@@ -62,7 +65,7 @@ public class P_IPE_SemiWideFragment {
             public void onFinish() {
                 s_ipe_semiWideFragment.SetItems(arrayList);
             }
-        }, Integer.valueOf(colNumber));
+        }, 7);
     }
 
 

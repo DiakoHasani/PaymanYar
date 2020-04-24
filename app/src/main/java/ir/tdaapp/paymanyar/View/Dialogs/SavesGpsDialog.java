@@ -58,6 +58,17 @@ public class SavesGpsDialog extends BaseBottomSheetDialogFragment implements S_S
     @Override
     public void OnStart() {
         adapter = new SavesGpsAdapter(getContext());
+        adapter.setListener(new SavesGpsAdapter.ItemListener() {
+            @Override
+            public void RemoveITem(VM_SavesGps item) {
+                p_savesGpsDialog.RemoveITem(item.getId());
+            }
+
+            @Override
+            public void ShareItem(VM_SavesGps item) {
+                p_savesGpsDialog.ShareItem(item);
+            }
+        });
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
     }
@@ -104,7 +115,7 @@ public class SavesGpsDialog extends BaseBottomSheetDialogFragment implements S_S
     @Override
     public void onDestroy() {
         super.onDestroy();
-        p_savesGpsDialog.Cancel();
+        //p_savesGpsDialog.Cancel();
     }
 
     @Override

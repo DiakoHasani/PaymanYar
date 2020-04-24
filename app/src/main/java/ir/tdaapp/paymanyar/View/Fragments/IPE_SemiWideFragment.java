@@ -1,5 +1,6 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,11 +38,11 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
     Toolbar toolBar;
     P_IPE_SemiWideFragment p_ipe_semiWideFragment;
-    RelativeLayout btn_Item1,btn_Item2,btn_Item3,btn_Item4,btn_Item5,btn_Item6,btn_Item7,btn_Item8,btn_Item9,btn_Item10,btn_Item11,btn_Item12,btn_Item13,btn_Item14;
     public int Current_eshtal_id=0;
     ImageView imageView;
     ArrayList<VM_EshtalItem> columns;
     ArrayList<RelativeLayout> arrCols;
+    ArrayList<TextView> arrTitles,arrValues,arrUnits;
 
     @Nullable
     @Override
@@ -58,41 +60,90 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
     void findItem(View view) {
         toolBar = view.findViewById(R.id.mToolbar);
-        btn_Item1 = view.findViewById(R.id.ipe_btn_Item1);
-        btn_Item2 = view.findViewById(R.id.ipe_btn_Item2);
-        btn_Item3 = view.findViewById(R.id.ipe_btn_Item3);
-        btn_Item4 = view.findViewById(R.id.ipe_btn_Item4);
-        btn_Item5 = view.findViewById(R.id.ipe_btn_Item5);
-        btn_Item6 = view.findViewById(R.id.ipe_btn_Item6);
-        btn_Item7 = view.findViewById(R.id.ipe_btn_Item7);
-        btn_Item8 = view.findViewById(R.id.ipe_btn_Item8);
-        btn_Item9 = view.findViewById(R.id.ipe_btn_Item9);
-        btn_Item10 = view.findViewById(R.id.ipe_btn_Item10);
-        btn_Item11 = view.findViewById(R.id.ipe_btn_Item11);
-        btn_Item12 = view.findViewById(R.id.ipe_btn_Item12);
-        btn_Item13 = view.findViewById(R.id.ipe_btn_Item13);
-        btn_Item14 = view.findViewById(R.id.ipe_btn_Item14);
+        arrCols=new ArrayList<>();
+        arrTitles=new ArrayList<>();
+        arrUnits=new ArrayList<>();
+        arrValues=new ArrayList<>();
+
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item1));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item2));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item3));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item4));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item5));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item6));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item7));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item8));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item9));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item10));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item11));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item12));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item13));
+        arrCols.add(view.findViewById(R.id.ipe_btn_Item14));
+
+        arrTitles.add(view.findViewById(R.id.ipe_title1));
+        arrTitles.add(view.findViewById(R.id.ipe_title2));
+        arrTitles.add(view.findViewById(R.id.ipe_title3));
+        arrTitles.add(view.findViewById(R.id.ipe_title4));
+        arrTitles.add(view.findViewById(R.id.ipe_title5));
+        arrTitles.add(view.findViewById(R.id.ipe_title6));
+        arrTitles.add(view.findViewById(R.id.ipe_title7));
+        arrTitles.add(view.findViewById(R.id.ipe_title8));
+        arrTitles.add(view.findViewById(R.id.ipe_title9));
+        arrTitles.add(view.findViewById(R.id.ipe_title10));
+        arrTitles.add(view.findViewById(R.id.ipe_title11));
+        arrTitles.add(view.findViewById(R.id.ipe_title12));
+        arrTitles.add(view.findViewById(R.id.ipe_title13));
+        arrTitles.add(view.findViewById(R.id.ipe_title14));
+
+        arrValues.add(view.findViewById(R.id.ipe_value1));
+        arrValues.add(view.findViewById(R.id.ipe_value2));
+        arrValues.add(view.findViewById(R.id.ipe_value3));
+        arrValues.add(view.findViewById(R.id.ipe_value4));
+        arrValues.add(view.findViewById(R.id.ipe_value5));
+        arrValues.add(view.findViewById(R.id.ipe_value6));
+        arrValues.add(view.findViewById(R.id.ipe_value7));
+        arrValues.add(view.findViewById(R.id.ipe_value8));
+        arrValues.add(view.findViewById(R.id.ipe_value9));
+        arrValues.add(view.findViewById(R.id.ipe_value10));
+        arrValues.add(view.findViewById(R.id.ipe_value11));
+        arrValues.add(view.findViewById(R.id.ipe_value12));
+        arrValues.add(view.findViewById(R.id.ipe_value13));
+        arrValues.add(view.findViewById(R.id.ipe_value14));
+
+        arrUnits.add(view.findViewById(R.id.ipe_unit1));
+        arrUnits.add(view.findViewById(R.id.ipe_unit2));
+        arrUnits.add(view.findViewById(R.id.ipe_unit3));
+        arrUnits.add(view.findViewById(R.id.ipe_unit4));
+        arrUnits.add(view.findViewById(R.id.ipe_unit5));
+        arrUnits.add(view.findViewById(R.id.ipe_unit6));
+        arrUnits.add(view.findViewById(R.id.ipe_unit7));
+        arrUnits.add(view.findViewById(R.id.ipe_unit8));
+        arrUnits.add(view.findViewById(R.id.ipe_unit9));
+        arrUnits.add(view.findViewById(R.id.ipe_unit10));
+        arrUnits.add(view.findViewById(R.id.ipe_unit11));
+        arrUnits.add(view.findViewById(R.id.ipe_unit12));
+        arrUnits.add(view.findViewById(R.id.ipe_unit13));
+        arrUnits.add(view.findViewById(R.id.ipe_unit14));
+
         imageView=view.findViewById(R.id.ipe_img);
     }
 
     void implement() {
         p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this,String.valueOf(Current_eshtal_id));
-        arrCols=new ArrayList<>();
 
-        btn_Item1.setOnClickListener(this);
-        btn_Item2.setOnClickListener(this);
-        btn_Item3.setOnClickListener(this);
-        btn_Item4.setOnClickListener(this);
-        btn_Item5.setOnClickListener(this);
-        btn_Item6.setOnClickListener(this);
-        btn_Item7.setOnClickListener(this);
-        btn_Item8.setOnClickListener(this);
-        btn_Item9.setOnClickListener(this);
-        btn_Item10.setOnClickListener(this);
-        btn_Item11.setOnClickListener(this);
-        btn_Item12.setOnClickListener(this);
-        btn_Item13.setOnClickListener(this);
-        btn_Item14.setOnClickListener(this);
+        //p_ipe_semiWideFragment.GetColumns();
+
+        //Set Listener to Items
+        for(int i=0;i<arrCols.size();i++){
+            arrCols.get(i).setOnClickListener(this);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        p_ipe_semiWideFragment.GetColumns();
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -121,7 +172,12 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
         columns=list;
         ShowColumns(columns.size());
 
-
+        //Now Set Texts and Values
+        for(int i=0;i<list.size();i++){
+            arrValues.get(i).setText(list.get(i).getValue());
+            arrUnits.get(i).setText(list.get(i).getUnit());
+            arrTitles.get(i).setText(list.get(i).getTitle());
+        }
 
     }
 
@@ -172,52 +228,13 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
     void ShowColumns(int count){
         //Set Visible Or Invisible Of Columns base on our Needs
-        btn_Item1.setVisibility(View.INVISIBLE);
-        btn_Item2.setVisibility(View.INVISIBLE);
-        btn_Item3.setVisibility(View.INVISIBLE);
-        btn_Item4.setVisibility(View.INVISIBLE);
-        btn_Item5.setVisibility(View.INVISIBLE);
-        btn_Item6.setVisibility(View.INVISIBLE);
-        btn_Item7.setVisibility(View.INVISIBLE);
-        btn_Item8.setVisibility(View.INVISIBLE);
-        btn_Item9.setVisibility(View.INVISIBLE);
-        btn_Item10.setVisibility(View.INVISIBLE);
-        btn_Item11.setVisibility(View.INVISIBLE);
-        btn_Item12.setVisibility(View.INVISIBLE);
-        btn_Item13.setVisibility(View.INVISIBLE);
-        btn_Item14.setVisibility(View.INVISIBLE);
-
-        switch (count){
-            case 3:
-                btn_Item1.setVisibility(View.VISIBLE);
-                btn_Item2.setVisibility(View.VISIBLE);
-                btn_Item3.setVisibility(View.VISIBLE);
-                break;
-            case 6:
-                btn_Item1.setVisibility(View.VISIBLE);
-                btn_Item2.setVisibility(View.VISIBLE);
-                btn_Item3.setVisibility(View.VISIBLE);
-                btn_Item4.setVisibility(View.VISIBLE);
-                btn_Item5.setVisibility(View.VISIBLE);
-                btn_Item6.setVisibility(View.VISIBLE);
-                break;
-            case 13:
-                btn_Item1.setVisibility(View.VISIBLE);
-                btn_Item2.setVisibility(View.VISIBLE);
-                btn_Item3.setVisibility(View.VISIBLE);
-                btn_Item4.setVisibility(View.VISIBLE);
-                btn_Item5.setVisibility(View.VISIBLE);
-                btn_Item6.setVisibility(View.VISIBLE);
-                btn_Item7.setVisibility(View.VISIBLE);
-                btn_Item8.setVisibility(View.VISIBLE);
-                btn_Item9.setVisibility(View.VISIBLE);
-                btn_Item10.setVisibility(View.VISIBLE);
-                btn_Item11.setVisibility(View.VISIBLE);
-                btn_Item12.setVisibility(View.VISIBLE);
-                btn_Item13.setVisibility(View.VISIBLE);
-                break;
+        for(int i=0;i<arrCols.size();i++){
+            arrCols.get(i).setVisibility(View.GONE);
         }
 
+        for(int i=0;i<count;i++){
+            arrCols.get(i).setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -230,12 +247,16 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
             if (prev == null) {
                 ft.addToBackStack(null);
-                DialogFragment dialogFragment = new FilterWideDialog(value -> {
-                    Toast.makeText(getContext(), value + "", Toast.LENGTH_SHORT).show();
+                DialogFragment dialogFragment = new FilterWideDialog(columns.get(index - 1), String.valueOf(Current_eshtal_id), new FilterWideDialog.DialogListener() {
+                    @Override
+                    public void OnDialogClosed() {
+                        p_ipe_semiWideFragment.GetColumns();
+                    }
                 });
                 dialogFragment.show(ft, FilterWideDialog.TAG);
             }
 
         }).run();
     }
+
 }

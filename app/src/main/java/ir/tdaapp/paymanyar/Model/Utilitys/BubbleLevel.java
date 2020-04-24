@@ -24,6 +24,11 @@ import ir.tdaapp.paymanyar.R;
 
 /**
  * Created by Victor on 13/03/2019.
+ *
+ * این کلاس برای تراز است.
+ *
+ * This Class Used for Calculating the Level. By Sensors
+ *
  */
 
 public class BubbleLevel implements SensorEventListener{
@@ -35,7 +40,6 @@ public class BubbleLevel implements SensorEventListener{
 
     private Sensor                  sensor;
     private SensorManager           sensorManager;
-//    private TextView                userMessage;
     private ToneGenerator           toneGenerator;
     private Canvas                  canvasY;
     private Canvas                  canvasX;
@@ -65,8 +69,6 @@ public class BubbleLevel implements SensorEventListener{
         this.sensorManager = sensorManager;
         this.sensor = sensor;
 
-
-//        userMessage = (TextView) ((Activity) ctx).findViewById(R.id.user_message);
         toneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
 
         bitmapY = Bitmap.createBitmap(
@@ -140,12 +142,9 @@ public class BubbleLevel implements SensorEventListener{
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-
-        //Part 1 : Create Backgrounds
-
+        //This Actions are Physics Formulas
         double gx = sensorEvent.values[0] > GRAVITY ? GRAVITY : sensorEvent.values[0];
         double gy = sensorEvent.values[1] > GRAVITY ? GRAVITY : sensorEvent.values[1];
-        double gz = sensorEvent.values[2];
 
         gx = gx < -GRAVITY ? -GRAVITY : gx;
         gy = gy < -GRAVITY ? -GRAVITY : gy;
@@ -153,28 +152,23 @@ public class BubbleLevel implements SensorEventListener{
         thetaX = Math.toDegrees(Math.asin(gy/GRAVITY));
         thetaY = Math.toDegrees(Math.asin(gx/GRAVITY));
 
+        //Create Backgrounds
         canvasY.drawRect(rectangleY, paintRectangle);
         canvasX.drawRect(rectangleX, paintRectangle);
-        canvasZ.drawCircle(300,300,300,paintRectangle);
+        canvasZ.drawCircle(300,300,300,paintRectangle);//We Draw Circle for the Circular Shape in Center of Screen.
 
-        // Draw Thresholds
-        canvasY.drawLine(0, getLineLocation(MAX_DEGREE)*4+200, canvasY.getWidth(), getLineLocation(MAX_DEGREE)*4+200, paintLine);
-        canvasY.drawLine(0, getLineLocation(MIN_DEGREE)*4-200, canvasY.getWidth(), getLineLocation(MIN_DEGREE)*4-200, paintLine);
 
-        canvasX.drawLine(getLineLocation(MAX_DEGREE)*4+200, 0, getLineLocation(MAX_DEGREE)*4+200, canvasX.getHeight()*4+200, paintLine);
-        canvasX.drawLine(getLineLocation(MIN_DEGREE)*4-200, 0, getLineLocation(MIN_DEGREE)*4-200, canvasX.getHeight()*4-200, paintLine);
-
-        canvasY.drawCircle(100f, getLineLocation(thetaY)*4, 100, paintCrcle);
-        canvasX.drawCircle(getLineLocation(thetaX)*4, 100f, 100, paintCrcle);
-
+        //Draw Bubbles in X and Y Axises
         Bitmap bmp = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.ic_bubble);
-        int x=getLineLocationC(thetaX);
-        int y=getLineLocationC(thetaY);
-        canvasZ.drawBitmap(bmp,y, x, paintRectangle);
+        int x=getLineLocation(thetaX)*2-25;
+        int y=getLineLocation(thetaY)*2-25;
+        canvasY.drawBitmap(bmp,55, x, paintRectangle);
+        canvasX.drawBitmap(bmp,y, 55, paintRectangle);
 
-       /* mImageViewY.setImageBitmap(bitmapY);
-        mImageViewX.setImageBitmap(bitmapX);
-        mImageViewZ.setImageBitmap(bitmapZ);*/
+        //Draw Bubble in Circular Shape is Different with others.
+        x=getLineLocationC(thetaX);
+        y=getLineLocationC(thetaY);
+        canvasZ.drawBitmap(bmp,y, x, paintRectangle);
 
         if(this.s_levelFragment!=null){s_levelFragment.OnImageFinished(bitmapY,1);}
         if(this.s_levelFragment!=null){s_levelFragment.OnImageFinished(bitmapX,0);}

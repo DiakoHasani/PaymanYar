@@ -46,13 +46,10 @@ public class DBExcute {
     }
 
     public void Execute(String QRY, @Nullable RecordHolder fields){
-//        this.db.open();
 
         String qry=QRY;
         if(fields!=null)qry=MixQuery(QRY, fields.GetRecords());
         this.db.ExectueQuery(qry);
-
-//        this.db.close();
     }
 
     public DBCursor Read(String Qry,@Nullable RecordHolder fields){
@@ -60,7 +57,6 @@ public class DBExcute {
         DBCursor row=new DBCursor();
 
         try {
-//            this.db.open();
 
             String qry=Qry;
             if(fields!=null)qry=MixQuery(Qry, fields.GetRecords());

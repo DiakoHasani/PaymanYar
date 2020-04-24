@@ -23,9 +23,9 @@ public class Tbl_SavesGps {
 
                         VM_SavesGps v = new VM_SavesGps();
 
-                        v.setId(i);
-                        v.setLength(65 * i);
-                        v.setWide(78 * i);
+//                        v.setId(i);
+//                        v.setLength(65 * i);
+//                        v.setWide(78 * i);
 
                         vals.add(v);
                     }

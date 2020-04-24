@@ -9,15 +9,17 @@ public class VM_EshtalItem {
     private String Value;
     private String Parent;
     private String Unit;
+    private String Column_id;
     public VM_EshtalItem() {
     }
 
-    public VM_EshtalItem(String id, String title,String value,String parent,String unit) {
+    public VM_EshtalItem(String id, String title,String value,String parent,String unit,String ColumnID) {
         Id = id;
         Title = title;
         Value=value;
         Parent=parent;
         this.Unit=unit;
+        this.Column_id=ColumnID;
     }
 
     public String getId() {
@@ -58,6 +60,14 @@ public class VM_EshtalItem {
 
     public void setUnit(String unit) {
         Unit = unit;
+    }
+
+    public String getColumn_id() {
+        return Column_id;
+    }
+
+    public void setColumn_id(String column_id) {
+        Column_id = column_id;
     }
 
     @NonNull

@@ -68,6 +68,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="55555"
+                        android:id="@+id/gps_lon"
                         android:textColor="@color/colorBlack"
                         android:maxLines="1"
                         android:textSize="12dp"/>
@@ -109,6 +110,7 @@
                         android:text="55555"
                         android:textColor="@color/colorBlack"
                         android:maxLines="1"
+                        android:id="@+id/gps_lat"
                         android:textSize="12dp"/>
 
                 </LinearLayout>
@@ -127,6 +129,7 @@
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="4dp"
+                android:id="@+id/gps_savebtn"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground">
 
@@ -181,6 +184,7 @@
                 app:cardCornerRadius="4dp"
                 app:cardBackgroundColor="@color/colorSelected"
                 android:clickable="true"
+                android:id="@+id/gps_defaultbtn"
                 android:foreground="?attr/selectableItemBackground"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp">
@@ -246,6 +250,7 @@
                 app:cardCornerRadius="4dp"
                 app:cardBackgroundColor="@color/colorWhite"
                 android:clickable="true"
+                android:id="@+id/gps_satelitebtn"
                 android:foreground="?attr/selectableItemBackground"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp">
@@ -311,6 +316,7 @@
                 app:cardCornerRadius="4dp"
                 app:cardBackgroundColor="@color/colorWhite"
                 android:clickable="true"
+                android:id="@+id/gps_groundbtn"
                 android:foreground="?attr/selectableItemBackground"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp">

@@ -2,13 +2,18 @@ package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_SavesGps;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBCursor;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.FieldItem;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.RecordHolder;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.database;
 import ir.tdaapp.paymanyar.Model.Services.S_SavesGpsDialog;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_SavesGps;
 
@@ -16,26 +21,39 @@ public class P_SavesGpsDialog {
 
     private Context context;
     private S_SavesGpsDialog s_savesGpsDialog;
-    Tbl_SavesGps tbl_savesGps;
     Disposable dispose_getSavesGps, dispose_setGPS;
+    private DBExcute dbExcute;
 
     public P_SavesGpsDialog(Context context, S_SavesGpsDialog s_savesGpsDialog) {
         this.context = context;
         this.s_savesGpsDialog = s_savesGpsDialog;
-        tbl_savesGps = new Tbl_SavesGps();
+        dbExcute=DBExcute.getInstance(this.context);
     }
 
     public void start() {
         s_savesGpsDialog.OnStart();
 
         s_savesGpsDialog.onHideAll();
-        getSavesGps();
+        ShowLocations();
     }
 
     //در اینجا نقشه ها گرفته می شوند
-    void getSavesGps() {
+    void getSavesGps(ArrayList<VM_SavesGps> arrayList) {
 
-        Single<List<VM_SavesGps>> vals = tbl_savesGps.getSavesGps();
+        Single<List<VM_SavesGps>> vals = Single.create(emitter -> {
+
+            new Thread(() -> {
+                try {
+
+                    emitter.onSuccess(arrayList);
+
+                } catch (Exception ex) {
+                    emitter.onError(ex);
+                }
+            }).run();
+
+        });
+
 
         dispose_getSavesGps = vals.subscribeWith(new DisposableSingleObserver<List<VM_SavesGps>>() {
             @Override
@@ -70,13 +88,38 @@ public class P_SavesGpsDialog {
                 });
     }
 
-    //در اینجا اگر کاربر صفحه را ببندد عملیات گرفتن داده ها لغو می شود
-    public void Cancel() {
-        if (dispose_getSavesGps != null) {
-            dispose_getSavesGps.dispose();
-        }
-        if (dispose_setGPS != null) {
-            dispose_setGPS.dispose();
-        }
+    public void ShowLocations(){
+        dbExcute.Open();
+
+        ArrayList<VM_SavesGps> arrayList=new ArrayList<>();
+
+        dbExcute.Read(database.QRY_GPS_GET_All,null).RecordFound(new DBCursor.ListCounter() {
+            @Override
+            public void onEachrecord(ArrayList<FieldItem> record) {
+                VM_SavesGps item=new VM_SavesGps();
+                item.setId(record.get(0).value);
+                item.setLength(record.get(1).value);
+                item.setWide(record.get(2).value);
+                arrayList.add(item);
+            }
+        }, null, new DBCursor.FetchFinishListener() {
+            @Override
+            public void onFinish() {
+                getSavesGps(arrayList);
+            }
+        },3);
+
     }
+
+
+    public void RemoveITem(String id){
+        dbExcute.Open();
+        dbExcute.Execute(database.QRY_GPS_REMOVE_ITEM,new RecordHolder(new FieldItem("#1#",id)));
+    }
+
+    public void ShareItem(VM_SavesGps item){
+
+    }
+
+
 }

@@ -3,44 +3,44 @@ package ir.tdaapp.paymanyar.Model.ViewModels;
 public class VM_SavesGps {
 
     //آی دی نقشه
-    private int Id;
+    private String Id;
 
     //عرض نقشه
-    private int Wide;
+    private String Wide;
 
     //طول نقشه
-    private int Length;
+    private String Length;
 
     public VM_SavesGps() {
     }
 
-    public VM_SavesGps(int id, int wide, int length) {
+    public VM_SavesGps(String id, String wide, String length) {
         Id = id;
         Wide = wide;
         Length = length;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 
-    public int getLength() {
+    public String getLength() {
         return Length;
     }
 
-    public void setLength(int length) {
+    public void setLength(String length) {
         Length = length;
     }
 
-    public int getWide() {
+    public String getWide() {
         return Wide;
     }
 
-    public void setWide(int wide) {
+    public void setWide(String wide) {
         Wide = wide;
     }
 }
