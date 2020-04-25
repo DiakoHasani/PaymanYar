@@ -1,18 +1,12 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,7 +24,6 @@ import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.TenderNotificationAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
-import ir.tdaapp.paymanyar.Model.Utilitys.KeyBoard;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
@@ -39,7 +32,6 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
-import ir.tdaapp.paymanyar.View.Dialogs.DetailsTenderDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
@@ -194,7 +186,8 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         //زمانی که کاربر یک روی یکی از مناقصات کلیک کند متد زیر فراخوانی شده و آی دی آن را به ما می دهد
         tenderNotificationAdapter.setOnClickTenderNotification(id -> {
-            new DetailsTenderDialog(id).show(getActivity().getSupportFragmentManager(), DetailsTenderDialog.TAG);
+            ((MainActivity) getActivity()).onAddFragment(new DetailsTenderFragment(id), R.anim.fadein
+                    , R.anim.fadeout, true, DetailsTenderFragment.TAG);
         });
 
     }

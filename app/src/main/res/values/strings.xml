@@ -93,4 +93,5 @@
     <string name="TenderDevice">دستگاه مناقصه گذار:</string>
     <string name="website">سایت اینترنتی:</string>
     <string name="Description">توضیحات:</string>
+    <string name="DetailTender">جزئیات مناقصات</string>
 </resources>

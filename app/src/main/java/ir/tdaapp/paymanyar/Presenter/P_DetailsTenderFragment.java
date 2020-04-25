@@ -6,18 +6,18 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
-import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderDialog;
+import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 
-public class P_DetailsTenderDialog {
+public class P_DetailsTenderFragment {
 
     Context context;
-    S_DetailsTenderDialog s_detailsTenderDialog;
+    S_DetailsTenderFragment s_detailsTenderDialog;
     Api_Tender api_tender;
     Disposable dispose_getDetails;
 
-    public P_DetailsTenderDialog(Context context, S_DetailsTenderDialog s_detailsTenderDialog) {
+    public P_DetailsTenderFragment(Context context, S_DetailsTenderFragment s_detailsTenderDialog) {
         this.context = context;
         this.s_detailsTenderDialog = s_detailsTenderDialog;
         api_tender = new Api_Tender();

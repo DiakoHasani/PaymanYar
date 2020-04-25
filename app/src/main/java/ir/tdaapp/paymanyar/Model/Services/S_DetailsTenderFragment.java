@@ -3,7 +3,7 @@ package ir.tdaapp.paymanyar.Model.Services;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 
-public interface S_DetailsTenderDialog {
+public interface S_DetailsTenderFragment {
     void OnStart();
     void onLoading(boolean load);
     void onFinish();

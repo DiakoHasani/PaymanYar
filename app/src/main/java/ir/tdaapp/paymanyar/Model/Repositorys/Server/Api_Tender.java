@@ -60,10 +60,10 @@ public class Api_Tender {
                     VM_DetailsTender detailsTender = new VM_DetailsTender();
 
                     detailsTender.setId(1);
-                    detailsTender.setDescription("توضیحات الزامی است");
+                    detailsTender.setDescription("توضیحات الزامی است توضیحات الزامی است توضیحات الزامی است");
                     detailsTender.setGetDocumentsUp("1399/58/69");
-                    detailsTender.setNationalEstimate("sdgsetewst");
-                    detailsTender.setPlace_of_Receipt_of_Documents("sgfgfgdfg");
+                    detailsTender.setNationalEstimate("sdgsetewstsdgsetewstsdgsetewstsdgsetewst");
+                    detailsTender.setPlace_of_Receipt_of_Documents("sgfgfgdfgsdgsetewstsdgsetewstsdgsetewst");
                     detailsTender.setReopeningDate("6546797");
                     detailsTender.setSendSuggestionsUp("stg3s4f6sd54f");
                     detailsTender.setTenderDevice("rtwr87twe+9r8");

@@ -1,11 +1,11 @@
-package ir.tdaapp.paymanyar.View.Dialogs;
+package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,24 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
-import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderDialog;
-import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
+import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
-import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderDialog;
+import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
 import pl.droidsonroids.gif.GifImageView;
 
-//دیالوگ مربوط به جزئیات مناقصات
-public class DetailsTenderDialog extends BaseDialogFragment implements S_DetailsTenderDialog {
+//صفحه جزئیات مناقصه
+public class DetailsTenderFragment extends BaseFragment implements S_DetailsTenderFragment,View.OnClickListener {
 
-    public DetailsTenderDialog(int id) {
+    public DetailsTenderFragment(int id) {
         Id = id;
     }
 
     private int Id;
-    public final static String TAG = "DetailsTenderDialog";
+    public final static String TAG = "DetailsTenderFragment";
 
-    P_DetailsTenderDialog p_detailsTenderDialog;
+    P_DetailsTenderFragment p_detailsTenderFragment;
 
     ScrollView detail;
     ImageView btn_reload;
@@ -39,17 +39,17 @@ public class DetailsTenderDialog extends BaseDialogFragment implements S_Details
     CardView btn_Analize, btn_Share, btn_Star, btn_Right, btn_Left;
     TextView lbl_PaymanyarCode, lbl_NationalEstimate, lbl_ReopeningDate, SendSuggestionsUp, GetDocumentsUp;
     TextView lbl_Place_of_Receipt_of_Documents, lbl_TenderDevice, lbl_website, lbl_Description;
+    RelativeLayout background;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.details_tender_dialog, container, false);
+        View view = inflater.inflate(R.layout.details_tender_fragment, container, false);
 
         findItem(view);
         implement();
 
-        p_detailsTenderDialog.start(Id);
+        p_detailsTenderFragment.start(Id);
 
         return view;
     }
@@ -72,10 +72,12 @@ public class DetailsTenderDialog extends BaseDialogFragment implements S_Details
         lbl_TenderDevice = view.findViewById(R.id.lbl_TenderDevice);
         lbl_website = view.findViewById(R.id.lbl_website);
         lbl_Description = view.findViewById(R.id.lbl_Description);
+        background = view.findViewById(R.id.background);
     }
 
     void implement() {
-        p_detailsTenderDialog = new P_DetailsTenderDialog(getContext(), this);
+        p_detailsTenderFragment = new P_DetailsTenderFragment(getContext(), this);
+        background.setOnClickListener(this);
     }
 
     //در اینجا دکمه ها فعال یا غیرفعال می شوند
@@ -160,6 +162,15 @@ public class DetailsTenderDialog extends BaseDialogFragment implements S_Details
     @Override
     public void onDestroy() {
         super.onDestroy();
-        p_detailsTenderDialog.Cancel(TAG);
+        p_detailsTenderFragment.Cancel(TAG);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.background:
+                getActivity().onBackPressed();
+                break;
+        }
     }
 }
