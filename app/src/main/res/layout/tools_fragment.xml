@@ -399,6 +399,7 @@
                         app:cardUseCompatPadding="false"
                         android:clipToPadding="false"
                         app:cardCornerRadius="5dp"
+                        android:id="@+id/tools_btnMagnifier"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:layout_margin="2dp"
                         android:foreground="?attr/selectableItemBackground"
