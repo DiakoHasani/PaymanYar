@@ -14,6 +14,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.paymanyar.Model.Services.onClickTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.R;
 
@@ -23,11 +24,16 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
     Context context;
     List<VM_TenderNotifications> tenders;
     AlphaAnimation anim;
+    onClickTenderNotification onClickTenderNotification;
 
     public TenderNotificationAdapter(Context context) {
         this.context = context;
         tenders = new ArrayList<>();
         anim = new AlphaAnimation(0.0f, 1.0f);
+    }
+
+    public void setOnClickTenderNotification(ir.tdaapp.paymanyar.Model.Services.onClickTenderNotification onClickTenderNotification) {
+        this.onClickTenderNotification = onClickTenderNotification;
     }
 
     public void add(VM_TenderNotifications tender) {
@@ -61,11 +67,17 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
         }
 
         //در اینجا آیکون مربوط به مناقصه های که در لیست علاقه مندی وجود دارد ست می شود
-        if (tenders.get(position).isStar()){
+        if (tenders.get(position).isStar()) {
             holder.ic_star.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_black));
-        }else{
+        } else {
             holder.ic_star.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_black));
         }
+
+        holder.layout.setOnClickListener(view -> {
+            if (onClickTenderNotification != null) {
+                onClickTenderNotification.onClick(tenders.get(position).getId());
+            }
+        });
 
 //        setFadeAnimation(holder.itemView);
     }

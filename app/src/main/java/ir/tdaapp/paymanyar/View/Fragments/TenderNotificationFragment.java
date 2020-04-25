@@ -39,6 +39,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.DetailsTenderDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
@@ -190,6 +191,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         tenderNotificationAdapter = new TenderNotificationAdapter(getContext());
         recycler.setAdapter(tenderNotificationAdapter);
         recycler.setLayoutManager(layoutManager);
+
+        //زمانی که کاربر یک روی یکی از مناقصات کلیک کند متد زیر فراخوانی شده و آی دی آن را به ما می دهد
+        tenderNotificationAdapter.setOnClickTenderNotification(id -> {
+            new DetailsTenderDialog(id).show(getActivity().getSupportFragmentManager(), DetailsTenderDialog.TAG);
+        });
+
     }
 
     @Override
