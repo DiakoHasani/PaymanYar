@@ -81,7 +81,17 @@
     <string name="NeverMind">بیخیال</string>
     <string name="Today">امروز</string>
     <string name="Search">جستجو</string>
+    <string name="Analize">آنالیز</string>
     <string name="Let_me_know">باخبرم کن</string>
     <string name="Toman">تومان</string>
     <string name="PaymanyarCode">کد پیمانیار:</string>
+    <string name="NationalEstimate">برآورد ملی:</string>
+    <string name="ReopeningDate">تاریخ بازگشایی:</string>
+    <string name="SendSuggestionsUp">ارسال پیشنهاد تا:</string>
+    <string name="GetDocumentsUp">دریافت اسناد تا:</string>
+    <string name="Place_of_Receipt_of_Documents">محل دریافت اسناد:</string>
+    <string name="TenderDevice">دستگاه مناقصه گذار:</string>
+    <string name="website">سایت اینترنتی:</string>
+    <string name="Description">توضیحات:</string>
+    <string name="DetailTender">جزئیات مناقصات</string>
 </resources>
