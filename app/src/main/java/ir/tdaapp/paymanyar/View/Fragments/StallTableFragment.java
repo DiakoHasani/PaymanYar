@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.digidemic.unitof.UnitOf;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -61,7 +63,6 @@ public class StallTableFragment extends BaseFragment implements S_StallTableFrag
         btn_IPE_Semi_Wide_P.setOnClickListener(this);
         btn_IPE_Semi_Wide_T.setOnClickListener(this);
         btn_IPE_Semi_Wide_ST.setOnClickListener(this);
-
 
     }
 

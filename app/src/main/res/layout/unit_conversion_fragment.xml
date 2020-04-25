@@ -50,6 +50,7 @@
                         android:layout_weight="2">
 
                         <Spinner
+                            android:id="@+id/unit_spinnerValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"/>
@@ -81,6 +82,7 @@
                                 android:textColor="@color/colorEditText"
                                 android:textAlignment="center"
                                 android:maxLines="1"
+                                android:id="@+id/unit_value"
                                 android:inputType="number"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -112,6 +114,7 @@
                         android:layout_weight="2">
 
                         <Spinner
+                            android:id="@+id/unit_spinnerAnswer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"/>
@@ -143,6 +146,8 @@
                                 android:textColor="@color/colorEditText"
                                 android:textAlignment="center"
                                 android:maxLines="1"
+                                android:id="@+id/unit_answer"
+                                android:enabled="false"
                                 android:inputType="number"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -175,6 +180,7 @@
                         android:layout_weight="4.25"
                         android:clipToPadding="false"
                         app:cardUseCompatPadding="false"
+                        android:id="@+id/unit_btnChange"
                         app:cardBackgroundColor="@color/colorPrimary"
                         android:theme="@style/AppTheme.MyRipple"
                         app:cardCornerRadius="4dp"
@@ -240,6 +246,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorSelected"
                         android:clickable="true"
+                        android:id="@+id/unit_btnDistance"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -302,6 +309,8 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+
+                        android:id="@+id/unit_btnArea"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -364,6 +373,8 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+
+                        android:id="@+id/unit_btnVolume"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -426,6 +437,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnPressure"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -507,6 +519,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnMass"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -569,6 +582,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnDensity"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -631,6 +645,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnPower"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -693,6 +708,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnEnergy"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -774,6 +790,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnTime"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -836,6 +853,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnAcceleration"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -898,6 +916,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnSpeed"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -960,6 +979,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnFerequence"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -1041,6 +1061,8 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+
+                        android:id="@+id/unit_btnAngel"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -1103,6 +1125,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnForce"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -1165,6 +1188,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnTorque"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
@@ -1227,6 +1251,7 @@
                         app:cardCornerRadius="4dp"
                         app:cardBackgroundColor="@color/colorWhite"
                         android:clickable="true"
+                        android:id="@+id/unit_btnLight"
                         android:foreground="?attr/selectableItemBackground">
 
                         <LinearLayout
