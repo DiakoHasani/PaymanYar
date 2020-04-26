@@ -36,7 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class Magnifier_Fragment extends Fragment implements View.OnClickListener, S_MagnifierFragment,SurfaceHolder.Callback  {
+public class Magnifier_Fragment extends Fragment implements View.OnClickListener, S_MagnifierFragment  {
 
     public final static String TAG = "MagnifierFragment";
     Toolbar toolbar;
@@ -44,12 +44,6 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     SurfaceView surfaceView;
     private P_MagnifierFragment p_magnifierFragment;
 
-    Camera camera;
-    SurfaceHolder surfaceHolder;
-    android.hardware.Camera.PictureCallback rawCallback;
-    android.hardware.Camera.ShutterCallback shutterCallback;
-    android.hardware.Camera.PictureCallback jpegCallback;
-    int zoom=1;
 
     @Nullable
     @Override
@@ -80,40 +74,8 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         ZoomIn.setOnClickListener(this);
         ZoomOut.setOnClickListener(this);
 
-        surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        rawCallback = new android.hardware.Camera.PictureCallback() {
-            public void onPictureTaken(byte[] data, Camera camera) {
-                Log.d("Log", "onPictureTaken - raw");
-            }
-        };
-
-        /** Handles data for jpeg picture */
-        shutterCallback = new android.hardware.Camera.ShutterCallback() {
-            public void onShutter() {
-                Log.i("Log", "onShutter'd");
-            }
-        };
-        jpegCallback = new android.hardware.Camera.PictureCallback() {
-            public void onPictureTaken(byte[] data, Camera camera) {
-                FileOutputStream outStream = null;
-                try {
-                    outStream = new FileOutputStream(String.format(
-                            "/sdcard/%d.jpg", System.currentTimeMillis()));
-                    outStream.write(data);
-                    outStream.close();
-                    Log.d("Log", "onPictureTaken - wrote bytes: " + data.length);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                }
-                Log.d("Log", "onPictureTaken - jpeg");
-            }
-        };
-        start_camera();
+        p_magnifierFragment.Initial(surfaceView);
+        p_magnifierFragment.start_camera();
     }
 
 
@@ -126,7 +88,7 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     @Override
     public void onPause() {
         super.onPause();
-        stop_camera();
+        p_magnifierFragment.stop_camera();
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -149,87 +111,20 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
 
         switch (view.getId()){
             case R.id.magnifier_btnSave:
-                captureImage();
+                p_magnifierFragment.captureImage();
                 break;
             case R.id.magnifier_zoombtn:
-                zoom++;
-                ChangeZoom();
+                p_magnifierFragment.ZoomIn();
                 break;
             case R.id.magnifier_zoomoutbtn:
-                zoom--;
-                ChangeZoom();
+                p_magnifierFragment.ZoomOut();
                 break;
 
         }
     }
 
-    private void captureImage() {
-        // TODO Auto-generated method stub
-        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-    }
 
-    private void start_camera()
-    {
-        try{
-            camera = Camera.open();
-        }catch(RuntimeException e){
-            Log.e("tag", "init_camera: " + e);
-            return;
-        }
-        Camera.Parameters param;
-        param = camera.getParameters();
-        //modify parameter
-        param.setPreviewFrameRate(20);
-        param.setPreviewSize(176, 144);
-        ChangeZoom();
-        camera.setParameters(param);
-        try {
-            camera.setPreviewDisplay(surfaceHolder);
-            camera.startPreview();
-            //camera.takePicture(shutter, raw, jpeg)
-        } catch (Exception e) {
-            Log.e("tag", "init_camera: " + e);
-            return;
-        }
-    }
 
-    private void stop_camera()
-    {
-        camera.stopPreview();
-        camera.release();
-    }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        try{
-            camera.setDisplayOrientation(90);
-            camera.setPreviewDisplay(surfaceHolder);
-            camera.startPreview();
-        }catch (Exception e){}
-    }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
-    }
-
-    private void ChangeZoom(){
-        try{
-            Camera.Parameters parameters = camera.getParameters();
-            int maxZoom = parameters.getMaxZoom();
-            if (parameters.isZoomSupported()) {
-                if (zoom>0 && zoom < maxZoom) {
-                    parameters.setZoom(zoom);
-                    camera.setParameters(parameters);
-                } else {
-                    // zoom parameter is incorrect
-                }
-            }
-        }catch (Exception e){}
-    }
 }

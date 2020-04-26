@@ -553,7 +553,7 @@ public class UnitConversion {
 
             // Angel
             case 2:
-
+                ans=Angel(value,value_unit,answer_unit);
                 break;
 
             // Area
@@ -881,6 +881,112 @@ public class UnitConversion {
                 break;
             case "YardsPerSecondSquared":
                 ans=String.valueOf(unitOf.toYardsPerSecondSquared());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Angel(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Angle unitOf;
+
+        switch (value_unit){
+
+            case "Degrees":
+                unitOf=new UnitOf.Angle().fromDegrees(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Gradians":
+                unitOf=new UnitOf.Angle().fromGradians(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Mils":
+                unitOf=new UnitOf.Angle().fromMils(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Minutes":
+                unitOf=new UnitOf.Angle().fromMinutes(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Quadrants":
+                unitOf=new UnitOf.Angle().fromQuadrants(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Radians":
+                unitOf=new UnitOf.Angle().fromRadians(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Revolutions":
+                unitOf=new UnitOf.Angle().fromRevolutions(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "RightAngles":
+                unitOf=new UnitOf.Angle().fromRightAngles(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Seconds":
+                unitOf=new UnitOf.Angle().fromSeconds(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Sextants":
+                unitOf=new UnitOf.Angle().fromSextants(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Signs":
+                unitOf=new UnitOf.Angle().fromSigns(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+            case "Turns":
+                unitOf=new UnitOf.Angle().fromTurns(Double.valueOf(value));
+                ans=AngelHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
+    private String AngelHelper(String answer_unit,UnitOf.Angle unitOf){
+        String ans="0";
+
+        switch (answer_unit){
+
+            case "Degrees":
+                ans=String.valueOf(unitOf.toDegrees());
+                break;
+
+            case "Gradians":
+                ans=String.valueOf(unitOf.toGradians());
+                break;
+            case "Mils":
+                ans=String.valueOf(unitOf.toMils());
+                break;
+            case "Minutes":
+                ans=String.valueOf(unitOf.toMinutes());
+                break;
+            case "Quadrants":
+                ans=String.valueOf(unitOf.toQuadrants());
+                break;
+            case "Radians":
+                ans=String.valueOf(unitOf.toRadians());
+                break;
+            case "Revolutions":
+                ans=String.valueOf(unitOf.toRevolutions());
+                break;
+            case "RightAngles":
+                ans=String.valueOf(unitOf.toRightAngles());
+                break;
+            case "Seconds":
+                ans=String.valueOf(unitOf.toSeconds());
+                break;
+            case "Sextants":
+                ans=String.valueOf(unitOf.toSextants());
+                break;
+            case "Signs":
+                ans=String.valueOf(unitOf.toSigns());
+                break;
+            case "Turns":
+                ans=String.valueOf(unitOf.toTurns());
                 break;
 
         }
