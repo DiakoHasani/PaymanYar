@@ -558,7 +558,7 @@ public class UnitConversion {
 
             // Area
             case 3:
-
+                ans=Area(value,value_unit,answer_unit);
                 break;
 
             // Denisty
@@ -987,6 +987,205 @@ public class UnitConversion {
                 break;
             case "Turns":
                 ans=String.valueOf(unitOf.toTurns());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Area(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Area unitOf;
+        
+        switch (value_unit){
+
+            case "Area":
+                unitOf=new UnitOf.Area().fromAres(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "Arpents":
+                unitOf=new UnitOf.Area().fromArpents(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "Barns":
+                unitOf=new UnitOf.Area().fromBarns(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "CircularInches":
+                unitOf=new UnitOf.Area().fromCircularInches(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "CircularMils":
+                unitOf=new UnitOf.Area().fromCircularMils(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "Hectares":
+                unitOf=new UnitOf.Area().fromHectares(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "Homesteads":
+                unitOf=new UnitOf.Area().fromHomesteads(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "Roods":
+                unitOf=new UnitOf.Area().fromRoods(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "Sabins":
+                unitOf=new UnitOf.Area().fromSabins(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareCentimeters":
+                unitOf=new UnitOf.Area().fromSquareCentimeters(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareChains":
+                unitOf=new UnitOf.Area().fromSquareChains(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareDecimeters":
+                unitOf=new UnitOf.Area().fromSquareDecimeters(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareFeet":
+                unitOf=new UnitOf.Area().fromSquareFeet(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareHectometers":
+                unitOf=new UnitOf.Area().fromSquareHectometers(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareInches":
+                unitOf=new UnitOf.Area().fromSquareInches(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareKilometers":
+                unitOf=new UnitOf.Area().fromSquareKilometers(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareMeters":
+                unitOf=new UnitOf.Area().fromSquareMeters(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareMicrometers":
+                unitOf=new UnitOf.Area().fromSquareMicrometers(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareMiles":
+                unitOf=new UnitOf.Area().fromSquareMiles(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareMillimeters":
+                unitOf=new UnitOf.Area().fromSquareMillimeters(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareNanometers":
+                unitOf=new UnitOf.Area().fromSquareNanometers(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquarePerches":
+                unitOf=new UnitOf.Area().fromSquarePerches(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquarePoles":
+                unitOf=new UnitOf.Area().fromSquarePoles(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareRods":
+                unitOf=new UnitOf.Area().fromSquareRods(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+            case "SquareYards":
+                unitOf=new UnitOf.Area().fromSquareYards(Double.valueOf(value));
+                ans=AreaHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
+    private String AreaHelper(String answer_unit,UnitOf.Area unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case"Ares":
+                ans=String.valueOf(unitOf.toAres());
+                break;
+            case"Arpents":
+                ans=String.valueOf(unitOf.toArpents());
+                break;
+            case"Barns":
+                ans=String.valueOf(unitOf.toBarns());
+                break;
+            case"CircularInches":
+                ans=String.valueOf(unitOf.toCircularInches());
+                break;
+            case"CircularMils":
+                ans=String.valueOf(unitOf.toCircularMils());
+                break;
+            case"Hectares":
+                ans=String.valueOf(unitOf.toHectares());
+                break;
+            case"Homesteads":
+                ans=String.valueOf(unitOf.toHomesteads());
+                break;
+            case"Roods":
+                ans=String.valueOf(unitOf.toRoods());
+                break;
+            case"Sabins":
+                ans=String.valueOf(unitOf.toSabins());
+                break;
+            case"SquareCentimeters":
+                ans=String.valueOf(unitOf.toSquareCentimeters());
+                break;
+            case"SquareChains":
+                ans=String.valueOf(unitOf.toSquareChains());
+                break;
+            case"SquareDecimeters":
+                ans=String.valueOf(unitOf.toSquareDecimeters());
+                break;
+            case"SquareDekameters":
+                ans=String.valueOf(unitOf.toSquareDekameters());
+                break;
+            case"SquareFeet":
+                ans=String.valueOf(unitOf.toSquareFeet());
+                break;
+            case"SquareHectometers":
+                ans=String.valueOf(unitOf.toSquareHectometers());
+                break;
+            case"SquareInches":
+                ans=String.valueOf(unitOf.toSquareInches());
+                break;
+            case"SquareKilometers":
+                ans=String.valueOf(unitOf.toSquareKilometers());
+                break;
+            case"SquareMeters":
+                ans=String.valueOf(unitOf.toSquareMeters());
+                break;
+            case"SquareMicrometers":
+                ans=String.valueOf(unitOf.toSquareMicrometers());
+                break;
+            case"SquareMiles":
+                ans=String.valueOf(unitOf.toSquareMiles());
+                break;
+            case"SquareMillimeters":
+                ans=String.valueOf(unitOf.toSquareMillimeters());
+                break;
+            case"SquareNanometers":
+                ans=String.valueOf(unitOf.toSquareNanometers());
+                break;
+            case"SquarePerches":
+                ans=String.valueOf(unitOf.toSquarePerches());
+                break;
+            case"SquarePoles":
+                ans=String.valueOf(unitOf.toSquarePoles());
+                break;
+            case"SquareRods":
+                ans=String.valueOf(unitOf.toSquareRods());
+                break;
+            case"SquareYards":
+                ans=String.valueOf(unitOf.toSquareYards());
                 break;
 
         }
