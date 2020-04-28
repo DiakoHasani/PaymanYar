@@ -4,6 +4,8 @@ import android.content.Context;
 
 import ir.tdaapp.paymanyar.Model.Services.S_MainActivity;
 import ir.tdaapp.paymanyar.View.Fragments.ChargeFragment;
+import ir.tdaapp.paymanyar.View.Fragments.HomeFragment;
+import ir.tdaapp.paymanyar.View.Fragments.NewsPaperFragment;
 import ir.tdaapp.paymanyar.View.Fragments.TenderNotificationFragment;
 
 public class P_MainActivity {
@@ -17,8 +19,8 @@ public class P_MainActivity {
     }
 
     //زمانی که این متد فراخوانی شود تمام عملیات اکتیویتی انجام می شود
-    public void start(){
+    public void start() {
         s_mainActivity.OnStart();
-        s_mainActivity.onAddFragment(new TenderNotificationFragment(),0,0,false, TenderNotificationFragment.TAG);
+        s_mainActivity.onAddFragment(new TenderNotificationFragment(), 0, 0, false, TenderNotificationFragment.TAG);
     }
 }
