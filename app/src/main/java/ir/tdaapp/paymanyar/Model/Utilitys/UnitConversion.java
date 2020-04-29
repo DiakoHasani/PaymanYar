@@ -568,7 +568,7 @@ public class UnitConversion {
 
             // Distance
             case 5:
-
+                ans=Distance(value,value_unit,answer_unit);
                 break;
 
             // Energy
@@ -1191,5 +1191,390 @@ public class UnitConversion {
         }
         return ans;
     }
+
+    private String Distance(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Length unitOf;
+        switch (value_unit){
+
+            case "Attometers":
+                unitOf=new UnitOf.Length().fromAttometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Barleycorns":
+                unitOf=new UnitOf.Length().fromBarleycorns(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "CablesImperial":
+                unitOf=new UnitOf.Length().fromCablesImperial(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "CablesInternational":
+                unitOf=new UnitOf.Length().fromCablesInternational(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "CablesUSCustomary":
+                unitOf=new UnitOf.Length().fromCablesUSCustomary(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Caliber":
+                unitOf=new UnitOf.Length().fromCaliber(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Centiinches":
+                unitOf=new UnitOf.Length().fromCentiinches(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Centimeters":
+                unitOf=new UnitOf.Length().fromCentimeters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Chains":
+                unitOf=new UnitOf.Length().fromChains(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Cubits":
+                unitOf=new UnitOf.Length().fromCubits(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Decimeters":
+                unitOf=new UnitOf.Length().fromDecimeters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Dekameters":
+                unitOf=new UnitOf.Length().fromDekameters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Ells":
+                unitOf=new UnitOf.Length().fromElls(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Exameters":
+                unitOf=new UnitOf.Length().fromExameters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Fathoms":
+                unitOf=new UnitOf.Length().fromFathoms(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Feet":
+                unitOf=new UnitOf.Length().fromFeet(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Femtometers":
+                unitOf=new UnitOf.Length().fromFemtometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Fingers":
+                unitOf=new UnitOf.Length().fromFingers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Furlongs":
+                unitOf=new UnitOf.Length().fromFurlongs(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Gigameters":
+                unitOf=new UnitOf.Length().fromGigameters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Hands":
+                unitOf=new UnitOf.Length().fromHands(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Hectometers":
+                unitOf=new UnitOf.Length().fromHectometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Inches":
+                unitOf=new UnitOf.Length().fromInches(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Kilometers":
+                unitOf=new UnitOf.Length().fromKilometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Kiloyards":
+                unitOf=new UnitOf.Length().fromKiloyards(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Leagues":
+                unitOf=new UnitOf.Length().fromLeagues(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "LightYears":
+                unitOf=new UnitOf.Length().fromLightYears(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Links":
+                unitOf=new UnitOf.Length().fromLinks(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Megameters":
+                unitOf=new UnitOf.Length().fromMegameters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Meters":
+                unitOf=new UnitOf.Length().fromMeters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Microinches":
+                unitOf=new UnitOf.Length().fromMicroinches(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Micrometers":
+                unitOf=new UnitOf.Length().fromMicrometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Microns":
+                unitOf=new UnitOf.Length().fromMicrons(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Miles":
+                unitOf=new UnitOf.Length().fromMiles(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Millimeters":
+                unitOf=new UnitOf.Length().fromMillimeters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Nails":
+                unitOf=new UnitOf.Length().fromNails(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Nanometers":
+                unitOf=new UnitOf.Length().fromNanometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "NauticalLeaguesInternational":
+                unitOf=new UnitOf.Length().fromNauticalLeaguesInternational(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "NauticalLeaguesUK":
+                unitOf=new UnitOf.Length().fromNauticalLeaguesUK(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "NauticalMilesInternational":
+                unitOf=new UnitOf.Length().fromNauticalMilesInternational(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "NauticalMilesUK":
+                unitOf=new UnitOf.Length().fromNauticalMilesUK(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "NauticalMilesUSCustomary":
+                unitOf=new UnitOf.Length().fromNauticalMilesUSCustomary(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Perches":
+                unitOf=new UnitOf.Length().fromPerches(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Petameters":
+                unitOf=new UnitOf.Length().fromPetameters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Picometers":
+                unitOf=new UnitOf.Length().fromPicometers(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Poles":
+                unitOf=new UnitOf.Length().fromPoles(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Rods":
+                unitOf=new UnitOf.Length().fromRods(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Ropes":
+                unitOf=new UnitOf.Length().fromRopes(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Spans":
+                unitOf=new UnitOf.Length().fromSpans(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Terameters":
+                unitOf=new UnitOf.Length().fromTerameters(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "ThousandthInches":
+                unitOf=new UnitOf.Length().fromThousandthInches(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+            case "Yards":
+                unitOf=new UnitOf.Length().fromYards(Double.valueOf(value));
+                ans=DistanceHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
+    private String DistanceHelper(String answer_unit,UnitOf.Length unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "Attometers":
+                ans=String.valueOf(unitOf.toAttometers());
+                break;
+            case "Barleycorns":
+                ans=String.valueOf(unitOf.toBarleycorns());
+                break;
+            case "CablesImperial":
+                ans=String.valueOf(unitOf.toCablesImperial());
+                break;
+            case "CablesInternational":
+                ans=String.valueOf(unitOf.toCablesInternational());
+                break;
+            case "CablesUSCustomary":
+                ans=String.valueOf(unitOf.toCablesUSCustomary());
+                break;
+            case "Caliber":
+                ans=String.valueOf(unitOf.toCaliber());
+                break;
+            case "Centiinches":
+                ans=String.valueOf(unitOf.toCentiinches());
+                break;
+            case "Centimeters":
+                ans=String.valueOf(unitOf.toCentimeters());
+                break;
+            case "Chains":
+                ans=String.valueOf(unitOf.toChains());
+                break;
+            case "Cubits":
+                ans=String.valueOf(unitOf.toCubits());
+                break;
+            case "Decimeters":
+                ans=String.valueOf(unitOf.toDecimeters());
+                break;
+            case "Dekameters":
+                ans=String.valueOf(unitOf.toDekameters());
+                break;
+            case "Ells":
+                ans=String.valueOf(unitOf.toElls());
+                break;
+            case "Exameters":
+                ans=String.valueOf(unitOf.toExameters());
+                break;
+            case "Fathoms":
+                ans=String.valueOf(unitOf.toFathoms());
+                break;
+            case "Feet":
+                ans=String.valueOf(unitOf.toFeet());
+                break;
+            case "Femtometers":
+                ans=String.valueOf(unitOf.toFemtometers());
+                break;
+            case "Fingers":
+                ans=String.valueOf(unitOf.toFingers());
+                break;
+            case "Furlongs":
+                ans=String.valueOf(unitOf.toFurlongs());
+                break;
+            case "Gigameters":
+                ans=String.valueOf(unitOf.toGigameters());
+                break;
+            case "Hands":
+                ans=String.valueOf(unitOf.toHands());
+                break;
+            case "Hectometers":
+                ans=String.valueOf(unitOf.toHectometers());
+                break;
+            case "Inches":
+                ans=String.valueOf(unitOf.toInches());
+                break;
+            case "Kilometers":
+                ans=String.valueOf(unitOf.toKilometers());
+                break;
+            case "Kiloyards":
+                ans=String.valueOf(unitOf.toKiloyards());
+                break;
+            case "Leagues":
+                ans=String.valueOf(unitOf.toLeagues());
+                break;
+            case "LightYears":
+                ans=String.valueOf(unitOf.toLightYears());
+                break;
+            case "Links":
+                ans=String.valueOf(unitOf.toLinks());
+                break;
+            case "Megameters":
+                ans=String.valueOf(unitOf.toMegameters());
+                break;
+            case "Meters":
+                ans=String.valueOf(unitOf.toMeters());
+                break;
+            case "Microinches":
+                ans=String.valueOf(unitOf.toMicroinches());
+                break;
+            case "Micrometers":
+                ans=String.valueOf(unitOf.toMicrometers());
+                break;
+            case "Microns":
+                ans=String.valueOf(unitOf.toMicrons());
+                break;
+            case "Miles":
+                ans=String.valueOf(unitOf.toMiles());
+                break;
+            case "Millimeters":
+                ans=String.valueOf(unitOf.toMillimeters());
+                break;
+            case "Nails":
+                ans=String.valueOf(unitOf.toNails());
+                break;
+            case "Nanometers":
+                ans=String.valueOf(unitOf.toNanometers());
+                break;
+            case "NauticalLeaguesInternational":
+                ans=String.valueOf(unitOf.toNauticalLeaguesInternational());
+                break;
+            case "NauticalLeaguesUK":
+                ans=String.valueOf(unitOf.toNauticalLeaguesUK());
+                break;
+            case "NauticalMilesInternational":
+                ans=String.valueOf(unitOf.toNauticalMilesInternational());
+                break;
+            case "NauticalMilesUK":
+                ans=String.valueOf(unitOf.toNauticalMilesUK());
+                break;
+            case "NauticalMilesUSCustomary":
+                ans=String.valueOf(unitOf.toNauticalMilesUSCustomary());
+                break;
+            case "Perches":
+                ans=String.valueOf(unitOf.toPerches());
+                break;
+            case "Petameters":
+                ans=String.valueOf(unitOf.toPetameters());
+                break;
+            case "Picometers":
+                ans=String.valueOf(unitOf.toPicometers());
+                break;
+            case "Poles":
+                ans=String.valueOf(unitOf.toPoles());
+                break;
+            case "Rods":
+                ans=String.valueOf(unitOf.toRods());
+                break;
+            case "Ropes":
+                ans=String.valueOf(unitOf.toRopes());
+                break;
+            case "Spans":
+                ans=String.valueOf(unitOf.toSpans());
+                break;
+            case "Terameters":
+                ans=String.valueOf(unitOf.toTerameters());
+                break;
+            case "ThousandthInches":
+                ans=String.valueOf(unitOf.toThousandthInches());
+                break;
+            case "Yards":
+                ans=String.valueOf(unitOf.toYards());
+                break;
+
+        }
+        return ans;
+    }
+
 
 }
