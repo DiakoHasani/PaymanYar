@@ -22,7 +22,6 @@ public interface S_TenderNotificationFragment {
     void onItemTender(VM_TenderNotifications notification);
     void onItemCitySpinner(ArrayAdapter<VM_City> adapter);
     void onItemMajorSpinner(ArrayAdapter<VM_Major> adapter);
-    void onItemIncludesTheWordSpinner(ArrayAdapter<VM_IncludesTheWord> adapter);
     void onItemFromEstimateSpinner(ArrayAdapter<VM_Estimate> adapter);
     void onItemUntilEstimateSpinner(ArrayAdapter<VM_Estimate> adapter);
     void onCountTenders(int count);

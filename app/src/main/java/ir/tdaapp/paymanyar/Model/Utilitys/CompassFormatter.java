@@ -37,15 +37,15 @@ public class CompassFormatter {
 
         if (names == null) {
             names = new String[]{
-                    context.getString(R.string.sotw_north),
-                    context.getString(R.string.sotw_northeast),
-                    context.getString(R.string.sotw_east),
-                    context.getString(R.string.sotw_southeast),
-                    context.getString(R.string.sotw_south),
-                    context.getString(R.string.sotw_southwest),
-                    context.getString(R.string.sotw_west),
-                    context.getString(R.string.sotw_northwest),
-                    context.getString(R.string.sotw_north)
+//                    context.getString(R.string.sotw_north),
+//                    context.getString(R.string.sotw_northeast),
+//                    context.getString(R.string.sotw_east),
+//                    context.getString(R.string.sotw_southeast),
+//                    context.getString(R.string.sotw_south),
+//                    context.getString(R.string.sotw_southwest),
+//                    context.getString(R.string.sotw_west),
+//                    context.getString(R.string.sotw_northwest),
+//                    context.getString(R.string.sotw_north)
             };
         }
     }

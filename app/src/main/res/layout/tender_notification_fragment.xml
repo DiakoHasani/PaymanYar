@@ -85,31 +85,26 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="@string/IncludesTheWord"
+                        style="@style/LoginTextInputLayoutStyle"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp">
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/cmb_IncludesTheWord"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_IncludesTheWord"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
+                            android:fontFamily="@font/vazir"
+                            android:textSize="16dp"
+                            android:textColor="@color/colorEditText"
+                            android:maxLines="1"
+                            android:textAlignment="center"/>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
-
-                    </RelativeLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"

@@ -26,6 +26,7 @@ import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
@@ -49,9 +50,10 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     ProgressBar loading_paging;
     TenderNotificationAdapter tenderNotificationAdapter;
     LinearLayoutManager layoutManager;
-    SearchableSpinner cmb_City, cmb_Major, cmb_IncludesTheWord, cmb_FromEstimate, cmb_UntilEstimate;
-    TextInputEditText txt_Date;
+    SearchableSpinner cmb_City, cmb_Major, cmb_FromEstimate, cmb_UntilEstimate;
+    TextInputEditText txt_Date, txt_IncludesTheWord;
     int countTenders = 0;
+    ErrorAplicationDialog errorAplicationDialog;
 
     @Nullable
     @Override
@@ -63,7 +65,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         setToolbar();
 
         p_tenderNotificationFragment.getSpinnerDatas();
-        p_tenderNotificationFragment.start(page);
+        p_tenderNotificationFragment.start(getFilter());
 
         return view;
     }
@@ -75,10 +77,10 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         loading_paging = view.findViewById(R.id.loading_paging);
         cmb_City = view.findViewById(R.id.cmb_City);
         cmb_Major = view.findViewById(R.id.cmb_Major);
-        cmb_IncludesTheWord = view.findViewById(R.id.cmb_IncludesTheWord);
         cmb_FromEstimate = view.findViewById(R.id.cmb_FromEstimate);
         cmb_UntilEstimate = view.findViewById(R.id.cmb_UntilEstimate);
         txt_Date = view.findViewById(R.id.txt_Date);
+        txt_IncludesTheWord = view.findViewById(R.id.txt_IncludesTheWord);
     }
 
     void implement() {
@@ -128,7 +130,9 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                             isLoading = true;
 
                             onLoadingPaging(true);
-                            p_tenderNotificationFragment.start(++page);
+
+                            ++page;
+                            p_tenderNotificationFragment.start(getFilter());
                         }
                     }
                 }
@@ -174,6 +178,34 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         picker.show();
     }
 
+    //در اینجا فیلتر جستجو کاربر گرفته می شود
+    VM_FilterTenderNotification getFilter() {
+
+        VM_FilterTenderNotification filter = new VM_FilterTenderNotification();
+
+        //در اینجا آیدی استان گرفته می شود
+        filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+
+        //در اینجا آیدی رشته تحصیلی گرفته می شود
+        filter.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
+
+        //در اینجا شامل کلمه ست می شود
+        filter.setIncludesTheWord(txt_IncludesTheWord.getText().toString());
+
+        //در اینجا از تاریخ ست می شود
+        filter.setDate(txt_Date.getText().toString());
+
+        //در اینجا برآورد از ست می شود
+        filter.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
+
+        //در اینجا تا برآورد ست می شود
+        filter.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
+
+        filter.setPage(page);
+
+        return filter;
+    }
+
     @Override
     public void OnStart() {
 
@@ -186,7 +218,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         //زمانی که کاربر یک روی یکی از مناقصات کلیک کند متد زیر فراخوانی شده و آی دی آن را به ما می دهد
         tenderNotificationAdapter.setOnClickTenderNotification(id -> {
-            ((MainActivity) getActivity()).onAddFragment(new DetailsTenderFragment(id), R.anim.fadein
+            ((MainActivity) getActivity()).onAddFragment(new DetailsTenderFragment(0), R.anim.fadein
                     , R.anim.fadeout, true, DetailsTenderFragment.TAG);
         });
 
@@ -249,9 +281,11 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 break;
         }
 
-        new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
-            p_tenderNotificationFragment.start(page);
-        }).show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+        errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
+            p_tenderNotificationFragment.start(getFilter());
+            errorAplicationDialog.dismiss();
+        });
+        errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
     }
 
     //در اینجا رسایکلر نمایش داده می شود
@@ -276,12 +310,6 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onItemMajorSpinner(ArrayAdapter<VM_Major> adapter) {
         cmb_Major.setAdapter(adapter);
-    }
-
-    //در اینجا داده های اسپینر شامل کلمه ست می شود
-    @Override
-    public void onItemIncludesTheWordSpinner(ArrayAdapter<VM_IncludesTheWord> adapter) {
-        cmb_IncludesTheWord.setAdapter(adapter);
     }
 
     //در اینجا داده های برآورد از ست می شود

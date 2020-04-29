@@ -1,17 +1,30 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
+import android.content.Context;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
+import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
+import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
-public class Api_Tender {
+public class Api_Tender extends Base_Api {
+
+    PostJsonObjectVolley volley_getTenderNotification;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
-    public Single<VM_TenderNotification> getTenderNotification(int page) {
+    public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter) {
 
         return Single.create(emitter -> {
 
@@ -19,30 +32,73 @@ public class Api_Tender {
 
                 try {
 
-                    List<VM_TenderNotifications> notifications = new ArrayList<>();
-                    VM_TenderNotification notification = new VM_TenderNotification();
+                    JSONObject input = new JSONObject();
 
-                    for (int i = 1; i <= 20; i++) {
+                    try {
 
-                        VM_TenderNotifications no = new VM_TenderNotifications();
+                        input.put("StateId ", filter.getCityId());
+                        input.put("FieldId", filter.getMajorId());
+                        input.put("Word", filter.getIncludesTheWord());
+                        input.put("FromDate", filter.getDate());
+                        input.put("FromFeeId", filter.getFromEstimateId());
+                        input.put("UpFeeId", filter.getUntilEstimateId());
+                        input.put("Paging", filter.getPage());
 
-                        no.setId(i);
-                        no.setTitle("مناقصه شماره " + i + " " + page);
-                        no.setFree(i % 2 == 0);
-                        no.setStar(i % 2 != 0);
+                    } catch (Exception e) {
 
-                        notifications.add(no);
                     }
 
-                    notification.setCountTenders(40);
-                    notification.setTenderNotifications(notifications);
-                    emitter.onSuccess(notification);
+
+                    volley_getTenderNotification = new PostJsonObjectVolley(ApiUrl + "Tender/PostTender", input, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            List<VM_TenderNotifications> notifications = new ArrayList<>();
+                            VM_TenderNotification notification = new VM_TenderNotification();
+                            JSONArray array = new JSONArray();
+
+                            try {
+                                array = resault.getObject().getJSONArray("Tenders");
+                                notification.setCountTenders(resault.getObject().getInt("CountTender"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                try {
+
+                                    VM_TenderNotifications n = new VM_TenderNotifications();
+                                    JSONObject object = array.getJSONObject(i);
+
+                                    n.setId(object.getString("TenderId"));
+                                    n.setTitle(object.getString("Title"));
+                                    n.setFree(object.getBoolean("Free"));
+                                    n.setStar(false);
+
+                                    notifications.add(n);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            notification.setTenderNotifications(notifications);
+
+                            emitter.onSuccess(notification);
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
 
                 } catch (Exception e) {
                     emitter.onError(e);
                 }
 
-            }).run();
+            }).start();
 
         });
 
@@ -78,6 +134,14 @@ public class Api_Tender {
             }).run();
 
         });
+
+    }
+
+    public void Cancel(String Tag, Context context) {
+
+        if (volley_getTenderNotification != null) {
+            volley_getTenderNotification.Cancel(Tag, context);
+        }
 
     }
 
