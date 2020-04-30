@@ -15,13 +15,13 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_City;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Estimate;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Major;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
@@ -34,10 +34,9 @@ public class P_TenderNotificationFragment {
     private S_TenderNotificationFragment s_tenderNotificationFragment;
     Api_Tender api_tender;
     Disposable dispose_getTenderNotification, dispose_setTenders, dispose_getSpinnerDatas, dispose_getMajors;
-    Disposable dispose_getIncludesTheWord, dispose_getFromEstimate, dispose_getUntilEstimate;
+    Disposable dispose_getFromEstimate, dispose_getUntilEstimate;
     Tbl_City tbl_city;
     Tbl_Major tbl_major;
-    Tbl_IncludesTheWord tbl_includesTheWord;
     Tbl_Estimate tbl_estimate;
     PersianCalendar initDate;
 
@@ -47,17 +46,16 @@ public class P_TenderNotificationFragment {
         api_tender = new Api_Tender();
         tbl_city = new Tbl_City();
         tbl_major = new Tbl_Major();
-        tbl_includesTheWord = new Tbl_IncludesTheWord();
         tbl_estimate = new Tbl_Estimate();
         initDate = new PersianCalendar();
         initDate.setPersianDate(1398, 3, 10);
     }
 
-    public void start(int page) {
+    public void start(VM_FilterTenderNotification filter) {
 
         //اگر مقدار پیج ما صفر باشد یعنی صفحه ما تازه باز شده است یا ریست شده است و عملیات اولیه آن نیز انجام می شود
         //اگر غیر از صفر باشد یعنی کاربر به آخر رسایکلر رسیده و داده های بعدی را از سرور می گیریم
-        if (page == 0) {
+        if (filter.getPage() == 0) {
             s_tenderNotificationFragment.OnStart();
             s_tenderNotificationFragment.onHideAll();
             s_tenderNotificationFragment.onLoading(true);
@@ -65,13 +63,13 @@ public class P_TenderNotificationFragment {
             s_tenderNotificationFragment.onLoadingPaging(true);
         }
 
-        getTenderNotification(page);
+        getTenderNotification(filter);
     }
 
     //در اینجا مناقصه ها برگشت داده میشوند
-    void getTenderNotification(int page) {
+    void getTenderNotification(VM_FilterTenderNotification filter) {
 
-        Single<VM_TenderNotification> data = api_tender.getTenderNotification(page);
+        Single<VM_TenderNotification> data = api_tender.getTenderNotification(filter);
         dispose_getTenderNotification = data.subscribeWith(new DisposableSingleObserver<VM_TenderNotification>() {
 
             @Override
@@ -80,7 +78,7 @@ public class P_TenderNotificationFragment {
                 s_tenderNotificationFragment.onSuccess();
                 s_tenderNotificationFragment.onCountTenders(notification.getCountTenders());
 
-                if (page == 0) {
+                if (filter.getPage() == 0) {
                     s_tenderNotificationFragment.onHideAll();
                     s_tenderNotificationFragment.onShowRecycler();
                 } else {
@@ -94,7 +92,7 @@ public class P_TenderNotificationFragment {
 
             @Override
             public void onError(Throwable e) {
-                if (page == 0) {
+                if (filter.getPage() == 0) {
                     s_tenderNotificationFragment.onHideAll();
                     s_tenderNotificationFragment.onError(Error.GetErrorVolley(e.toString()));
                 } else {
@@ -123,7 +121,6 @@ public class P_TenderNotificationFragment {
     public void getSpinnerDatas() {
         getCitiesSpinner();
         getMajorsSpinner();
-        getIncludesTheWord();
         getFromEstimate();
         getUntilEstimate();
     }
@@ -174,28 +171,6 @@ public class P_TenderNotificationFragment {
             }
         });
 
-    }
-
-    //در اینجا داده های اسپینر شامل کلمه ست می شوند
-    void getIncludesTheWord() {
-
-        Single<List<VM_IncludesTheWord>> includesTheWords = tbl_includesTheWord.getIncludesTheWords(context);
-
-        dispose_getIncludesTheWord = includesTheWords.subscribeWith(new DisposableSingleObserver<List<VM_IncludesTheWord>>() {
-            @Override
-            public void onSuccess(List<VM_IncludesTheWord> vm_includesTheWords) {
-                ArrayAdapter<VM_IncludesTheWord> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, vm_includesTheWords);
-                s_tenderNotificationFragment.onItemIncludesTheWordSpinner(adapter);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                List<VM_IncludesTheWord> c = new ArrayList<>();
-                c.add(new VM_IncludesTheWord(0, context.getResources().getString(R.string.Error)));
-                ArrayAdapter<VM_IncludesTheWord> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, c);
-                s_tenderNotificationFragment.onItemIncludesTheWordSpinner(adapter);
-            }
-        });
     }
 
     //در اینجا داده های اسپینر برآورد از گرفته می شود
@@ -257,6 +232,9 @@ public class P_TenderNotificationFragment {
     }
 
     public void Cancel(String Tag) {
+
+        api_tender.Cancel(Tag, context);
+
         if (dispose_getTenderNotification != null) {
             dispose_getTenderNotification.dispose();
         }

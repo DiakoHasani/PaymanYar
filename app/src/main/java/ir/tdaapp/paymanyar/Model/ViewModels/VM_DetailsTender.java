@@ -30,6 +30,15 @@ public class VM_DetailsTender {
     //توضیحات
     private String Description;
 
+    //آیا کاربر اجازه نگاه کردن به این مناقصه را دارد
+    private boolean Status;
+
+    //آیدی آیتم قبل
+    private String BeforeTenderId;
+
+    //آیدی آیتم بعد
+    private String NextTenderId;
+
     public int getId() {
         return Id;
     }
@@ -100,5 +109,29 @@ public class VM_DetailsTender {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public boolean isStatus() {
+        return Status;
+    }
+
+    public void setStatus(boolean status) {
+        Status = status;
+    }
+
+    public String getBeforeTenderId() {
+        return BeforeTenderId;
+    }
+
+    public void setBeforeTenderId(String beforeTenderId) {
+        BeforeTenderId = beforeTenderId;
+    }
+
+    public String getNextTenderId() {
+        return NextTenderId;
+    }
+
+    public void setNextTenderId(String nextTenderId) {
+        NextTenderId = nextTenderId;
     }
 }

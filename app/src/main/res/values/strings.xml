@@ -24,7 +24,7 @@
     <string name="YourSMS">پیام های شما</string>
     <string name="UnitConversion">تبدیل واحد</string>
     <string name="StallTable">جدول اشتال</string>
-    <string name="compass">قطب نما</string>
+    <string name="ruler">خط کش</string>
     <string name="GPS">GPS</string>
     <string name="Charge">شارژ</string>
     <string name="Level">تراز</string>
@@ -94,15 +94,6 @@
     <string name="website">سایت اینترنتی:</string>
     <string name="Description">توضیحات:</string>
     <string name="DetailTender">جزئیات مناقصات</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sotw_north">شمال</string>
-    <string name="sotw_northeast">شمال شرقی</string>
-    <string name="sotw_east">شرق</string>
-    <string name="sotw_southeast">جنوب شرقی</string>
-    <string name="sotw_south">جنوب</string>
-    <string name="sotw_southwest">جنوب غربی</string>
-    <string name="sotw_west">غرب</string>
-    <string name="sotw_northwest">شمال غربی</string>
+    <string name="Seen">مشاهده</string>
+    <string name="compass">قطب نما</string>
 </resources>

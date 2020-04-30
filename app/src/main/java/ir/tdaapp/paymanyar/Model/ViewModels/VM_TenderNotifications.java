@@ -3,7 +3,7 @@ package ir.tdaapp.paymanyar.Model.ViewModels;
 //ویو مدل لیست مناقصات
 public class VM_TenderNotifications {
 
-    private int Id;
+    private String Id;
     private String Title;
 
     //در اینجا اگر مقدار ترو باشد یعنی مناقصخ در لیست علاقه مندی ها ذخیره شده است
@@ -12,11 +12,11 @@ public class VM_TenderNotifications {
     //اگر مقدار فالس باشد یعنی پولی است اگر ترو باشد یعنی رایگان است
     private boolean Free;
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 

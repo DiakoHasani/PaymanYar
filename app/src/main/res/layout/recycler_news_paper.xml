@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="false"
+    android:clipToPadding="false"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    app:cardBackgroundColor="@color/colorWhite"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
+
+            <TextView
+                android:id="@+id/lbl_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/vazir"
+                android:textSize="16dp"
+                android:singleLine="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorUnderline"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorUnderline"
+                android:layout_alignParentTop="true"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_Seen"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_marginRight="5dp"
+                app:cardCornerRadius="4dp"
+                android:clipToPadding="false"
+                app:cardUseCompatPadding="false"
+                android:clickable="true"
+                android:theme="@style/AppTheme.MyRipple"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/vazir"
+                    android:gravity="center"
+                    android:text="@string/Seen"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_Share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_icons_details_dialog"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginLeft="5dp"
+                app:cardUseCompatPadding="false"
+                android:clipToPadding="false"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_share"
+                    android:padding="2dp" />
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -9,6 +9,7 @@ import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 
 public class P_DetailsTenderFragment {
 
@@ -23,25 +24,32 @@ public class P_DetailsTenderFragment {
         api_tender = new Api_Tender();
     }
 
-    public void start(int Id) {
+    public void start(VM_FilterTenderNotification filter) {
         s_detailsTenderDialog.OnStart();
         s_detailsTenderDialog.onHideAll();
         s_detailsTenderDialog.onLoading(true);
 
-        getDetails(Id);
+        getDetails(filter);
     }
 
     //در اینجا جزئیات مناقصه از سرور گرفته می شود
-    void getDetails(int Id) {
+    void getDetails(VM_FilterTenderNotification filter) {
 
-        Single<VM_DetailsTender> data = api_tender.getDetailsTender(Id);
+        Single<VM_DetailsTender> data = api_tender.getDetailsTender(filter);
 
         dispose_getDetails = data.subscribeWith(new DisposableSingleObserver<VM_DetailsTender>() {
             @Override
             public void onSuccess(VM_DetailsTender detailsTender) {
-                s_detailsTenderDialog.onHideAll();
-                s_detailsTenderDialog.onGetDetail(detailsTender);
-                s_detailsTenderDialog.onFinish();
+
+                //اگر مناقصه پولی باشد و کاربر موجودی داشته باشد می تواند آن را نگاه کند در غیر این صورت آیتم ویژه مشترکان نمایش داده می شود
+                if (detailsTender.isStatus()) {
+                    s_detailsTenderDialog.onHideAll();
+                    s_detailsTenderDialog.onGetDetail(detailsTender);
+                    s_detailsTenderDialog.onFinish();
+                } else {
+                    s_detailsTenderDialog.onHideAll();
+                    s_detailsTenderDialog.onShowSubscribers();
+                }
             }
 
             @Override
@@ -53,6 +61,9 @@ public class P_DetailsTenderFragment {
     }
 
     public void Cancel(String Tag) {
+
+        api_tender.Cancel(Tag, context);
+
         if (dispose_getDetails != null) {
             dispose_getDetails.dispose();
         }
