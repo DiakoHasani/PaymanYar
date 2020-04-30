@@ -172,7 +172,7 @@
                             android:layout_gravity="center_vertical"/>
 
                         <TextView
-                            android:id="@+id/SendSuggestionsUp"
+                            android:id="@+id/lbl_SendSuggestionsUp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -202,7 +202,7 @@
                             android:layout_gravity="center_vertical"/>
 
                         <TextView
-                            android:id="@+id/GetDocumentsUp"
+                            android:id="@+id/lbl_GetDocumentsUp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

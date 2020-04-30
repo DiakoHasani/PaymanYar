@@ -41,6 +41,9 @@ dependencies {
     //مربوط به فریم وورک وولی
     implementation project(path: ':li_volley')
 
+    //مربوط به فریم وورک یوتایلیتی می باشد
+    implementation project(path: ':li_utility')
+
     //مربوط به کتابخانه نمایش عکس در سرور
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 

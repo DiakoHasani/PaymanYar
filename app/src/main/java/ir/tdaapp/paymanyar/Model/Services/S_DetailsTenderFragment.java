@@ -11,4 +11,6 @@ public interface S_DetailsTenderFragment {
     void onHideAll();
     void onGetDetail(VM_DetailsTender detailsTender);
     void onShowSubscribers();
+    void onGetNextTender(String tenderId);
+    void onGetPrevTender(String tenderId);
 }
