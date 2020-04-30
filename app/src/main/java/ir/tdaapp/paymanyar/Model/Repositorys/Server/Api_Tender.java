@@ -21,7 +21,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
 public class Api_Tender extends Base_Api {
 
-    PostJsonObjectVolley volley_getTenderNotification;
+    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
     public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter) {
@@ -105,7 +105,7 @@ public class Api_Tender extends Base_Api {
     }
 
     //در اینجا جزئیات مناقصات برگشت داده می شود
-    public Single<VM_DetailsTender> getDetailsTender(int Id) {
+    public Single<VM_DetailsTender> getDetailsTender(VM_FilterTenderNotification filter) {
 
         return Single.create(emitter -> {
 
@@ -113,25 +113,61 @@ public class Api_Tender extends Base_Api {
 
                 try {
 
-                    VM_DetailsTender detailsTender = new VM_DetailsTender();
+                    JSONObject obg = new JSONObject();
 
-                    detailsTender.setId(1);
-                    detailsTender.setDescription("توضیحات الزامی است توضیحات الزامی است توضیحات الزامی است");
-                    detailsTender.setGetDocumentsUp("1399/58/69");
-                    detailsTender.setNationalEstimate("sdgsetewstsdgsetewstsdgsetewstsdgsetewst");
-                    detailsTender.setPlace_of_Receipt_of_Documents("sgfgfgdfgsdgsetewstsdgsetewstsdgsetewst");
-                    detailsTender.setReopeningDate("6546797");
-                    detailsTender.setSendSuggestionsUp("stg3s4f6sd54f");
-                    detailsTender.setTenderDevice("rtwr87twe+9r8");
-                    detailsTender.setWebsite("www.rrrrr.com");
+                    try {
 
-                    emitter.onSuccess(detailsTender);
+                        obg.put("StateId", filter.getCityId());
+                        obg.put("FieldId", filter.getMajorId());
+                        obg.put("Word", filter.getIncludesTheWord());
+                        obg.put("FromDate", filter.getDate());
+                        obg.put("FromFeeId", filter.getFromEstimateId());
+                        obg.put("UpFeeId", filter.getUntilEstimateId());
+                        obg.put("UserId", filter.getUserId());
+                        obg.put("TenderId", filter.getTenderId());
+
+                    } catch (Exception e) {
+                    }
+
+                    volley_getDetailsTender = new PostJsonObjectVolley(ApiUrl + "Tender/PostTenderInfo", obg, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            VM_DetailsTender detailsTender = new VM_DetailsTender();
+
+                            try {
+
+                                JSONObject object = resault.getObject();
+
+                                detailsTender.setStatus(object.getBoolean("Status"));
+                                detailsTender.setId(object.getInt("TenderId"));
+                                detailsTender.setDescription(object.getString("Description"));
+                                detailsTender.setGetDocumentsUp(object.getString("DateReceiveDocument"));
+                                detailsTender.setNationalEstimate(object.getString("Fee"));
+                                detailsTender.setPlace_of_Receipt_of_Documents(object.getString("LocationOfReceiveDocument"));
+                                detailsTender.setReopeningDate(object.getString("DateOpen"));
+                                detailsTender.setSendSuggestionsUp(object.getString("DateExpireSuggest"));
+                                detailsTender.setTenderDevice(object.getString("Organization"));
+                                detailsTender.setWebsite(object.getString("WebSite"));
+                                detailsTender.setNextTenderId(object.getString("NextTenderId"));
+                                detailsTender.setBeforeTenderId(object.getString("BeforeTenderId"));
+
+                            } catch (Exception e) {
+                            }
+
+                            emitter.onSuccess(detailsTender);
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
 
                 } catch (Exception e) {
                     emitter.onError(e);
                 }
 
-            }).run();
+            }).start();
 
         });
 
@@ -141,6 +177,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_getTenderNotification != null) {
             volley_getTenderNotification.Cancel(Tag, context);
+        }
+
+        if (volley_getDetailsTender != null) {
+            volley_getDetailsTender.Cancel(Tag, context);
         }
 
     }

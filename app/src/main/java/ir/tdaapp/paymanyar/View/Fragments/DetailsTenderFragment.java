@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
 import pl.droidsonroids.gif.GifImageView;
@@ -24,11 +26,13 @@ import pl.droidsonroids.gif.GifImageView;
 //صفحه جزئیات مناقصه
 public class DetailsTenderFragment extends BaseFragment implements S_DetailsTenderFragment,View.OnClickListener {
 
-    public DetailsTenderFragment(int id) {
-        Id = id;
+
+    private VM_FilterTenderNotification filter;
+
+    public DetailsTenderFragment(VM_FilterTenderNotification filter) {
+        this.filter = filter;
     }
 
-    private int Id;
     public final static String TAG = "DetailsTenderFragment";
 
     P_DetailsTenderFragment p_detailsTenderFragment;
@@ -40,6 +44,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     TextView lbl_PaymanyarCode, lbl_NationalEstimate, lbl_ReopeningDate, SendSuggestionsUp, GetDocumentsUp;
     TextView lbl_Place_of_Receipt_of_Documents, lbl_TenderDevice, lbl_website, lbl_Description;
     RelativeLayout background;
+    LinearLayout subscribers;
 
     @Nullable
     @Override
@@ -49,7 +54,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         findItem(view);
         implement();
 
-        p_detailsTenderFragment.start(Id);
+        p_detailsTenderFragment.start(filter);
 
         return view;
     }
@@ -73,6 +78,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         lbl_website = view.findViewById(R.id.lbl_website);
         lbl_Description = view.findViewById(R.id.lbl_Description);
         background = view.findViewById(R.id.background);
+        subscribers = view.findViewById(R.id.subscribers);
     }
 
     void implement() {
@@ -135,9 +141,10 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
     @Override
     public void onHideAll() {
-        btn_reload.setVisibility(View.GONE);
-        loading.setVisibility(View.GONE);
-        detail.setVisibility(View.GONE);
+        btn_reload.setVisibility(View.INVISIBLE);
+        loading.setVisibility(View.INVISIBLE);
+        detail.setVisibility(View.INVISIBLE);
+        subscribers.setVisibility(View.INVISIBLE);
     }
 
     //در اینجا جزئیات مناقصات در تکست ویوها ست می شوند
@@ -157,6 +164,12 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
         } catch (Exception e) {
         }
+    }
+
+    //در اینجا اگر کاربر موجودی برای نمایش مناقصات پولی نداشته باشد آیتم مربوط به ویژه مشترکان نمایش داده می شود
+    @Override
+    public void onShowSubscribers() {
+        subscribers.setVisibility(View.VISIBLE);
     }
 
     @Override

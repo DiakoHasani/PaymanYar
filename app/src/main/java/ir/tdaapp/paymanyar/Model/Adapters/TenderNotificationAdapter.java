@@ -75,7 +75,7 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
 
         holder.layout.setOnClickListener(view -> {
             if (onClickTenderNotification != null) {
-                onClickTenderNotification.onClick("sdf");
+                onClickTenderNotification.onClick(tenders.get(position).getId());
             }
         });
 

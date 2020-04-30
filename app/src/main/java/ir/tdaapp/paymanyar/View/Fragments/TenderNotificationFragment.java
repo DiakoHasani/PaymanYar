@@ -218,7 +218,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         //زمانی که کاربر یک روی یکی از مناقصات کلیک کند متد زیر فراخوانی شده و آی دی آن را به ما می دهد
         tenderNotificationAdapter.setOnClickTenderNotification(id -> {
-            ((MainActivity) getActivity()).onAddFragment(new DetailsTenderFragment(0), R.anim.fadein
+
+            VM_FilterTenderNotification filter=getFilter();
+            filter.setTenderId(id);
+            filter.setUserId(1);
+
+            ((MainActivity) getActivity()).onAddFragment(new DetailsTenderFragment(filter), R.anim.fadein
                     , R.anim.fadeout, true, DetailsTenderFragment.TAG);
         });
 

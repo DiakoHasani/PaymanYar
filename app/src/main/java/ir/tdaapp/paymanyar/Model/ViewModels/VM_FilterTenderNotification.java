@@ -23,6 +23,12 @@ public class VM_FilterTenderNotification {
 
     private int page;
 
+    //آی دی گاربر
+    private int userId;
+
+    //آی دی مناقصه
+    private String tenderId;
+
     public int getCityId() {
         return cityId;
     }
@@ -77,5 +83,21 @@ public class VM_FilterTenderNotification {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getTenderId() {
+        return tenderId;
+    }
+
+    public void setTenderId(String tenderId) {
+        this.tenderId = tenderId;
     }
 }

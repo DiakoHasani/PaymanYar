@@ -11,4 +11,5 @@
     <string name="YourInternetIsVrySlow">اینترنت شما بسیار کند است</string>
     <string name="SelectedOneCity">یک استان انتخاب کنید</string>
     <string name="SelectedOneMajor">یک رشته تحصیلی انتخاب کنید</string>
+    <string name="DisplayableForSubscribers">قابل نمایش برای مشترکان</string>
 </resources>

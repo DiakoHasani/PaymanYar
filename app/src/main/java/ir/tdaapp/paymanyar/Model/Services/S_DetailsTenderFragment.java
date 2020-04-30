@@ -10,4 +10,5 @@ public interface S_DetailsTenderFragment {
     void onError(ResaultCode result);
     void onHideAll();
     void onGetDetail(VM_DetailsTender detailsTender);
+    void onShowSubscribers();
 }
