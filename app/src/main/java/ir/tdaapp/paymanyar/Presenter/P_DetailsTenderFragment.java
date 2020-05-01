@@ -43,9 +43,21 @@ public class P_DetailsTenderFragment {
 
                 //اگر مناقصه پولی باشد و کاربر موجودی داشته باشد می تواند آن را نگاه کند در غیر این صورت آیتم ویژه مشترکان نمایش داده می شود
                 if (detailsTender.isStatus()) {
+
+                    //در اینجا تمامی آیتم ها مخفی می شوند
                     s_detailsTenderDialog.onHideAll();
+
+                    //در اینجا جزئیات مناقصه ها در المنت ها ست می شود
                     s_detailsTenderDialog.onGetDetail(detailsTender);
+
+                    //برای زمانی که عملیات ما به پایان رسیده باشد
                     s_detailsTenderDialog.onFinish();
+
+                    //در اینجا دکمه آیتم بعدی ست می شود
+                    s_detailsTenderDialog.onGetNextTender(detailsTender.getNextTenderId());
+
+                    //در اینجا دکمه آیتم قبلی ست می شود
+                    s_detailsTenderDialog.onGetPrevTender(detailsTender.getBeforeTenderId());
                 } else {
                     s_detailsTenderDialog.onHideAll();
                     s_detailsTenderDialog.onShowSubscribers();

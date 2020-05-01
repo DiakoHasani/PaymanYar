@@ -11,9 +11,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
@@ -21,13 +24,20 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import pl.droidsonroids.gif.GifImageView;
 
 //صفحه جزئیات مناقصه
-public class DetailsTenderFragment extends BaseFragment implements S_DetailsTenderFragment,View.OnClickListener {
+public class DetailsTenderFragment extends BaseFragment implements S_DetailsTenderFragment, View.OnClickListener {
 
 
     private VM_FilterTenderNotification filter;
+
+    //در اینجا آیدی آیتم بعدی ست می شود
+    String NextTenderId = "";
+
+    //در اینجا آیدی آیتم قبلی ست می شود
+    String PrevTenderId = "";
 
     public DetailsTenderFragment(VM_FilterTenderNotification filter) {
         this.filter = filter;
@@ -41,7 +51,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     ImageView btn_reload;
     GifImageView loading;
     CardView btn_Analize, btn_Share, btn_Star, btn_Right, btn_Left;
-    TextView lbl_PaymanyarCode, lbl_NationalEstimate, lbl_ReopeningDate, SendSuggestionsUp, GetDocumentsUp;
+    TextView lbl_PaymanyarCode, lbl_NationalEstimate, lbl_ReopeningDate, lbl_SendSuggestionsUp, lbl_GetDocumentsUp;
     TextView lbl_Place_of_Receipt_of_Documents, lbl_TenderDevice, lbl_website, lbl_Description;
     RelativeLayout background;
     LinearLayout subscribers;
@@ -71,8 +81,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         lbl_PaymanyarCode = view.findViewById(R.id.lbl_PaymanyarCode);
         lbl_NationalEstimate = view.findViewById(R.id.lbl_NationalEstimate);
         lbl_ReopeningDate = view.findViewById(R.id.lbl_ReopeningDate);
-        SendSuggestionsUp = view.findViewById(R.id.SendSuggestionsUp);
-        GetDocumentsUp = view.findViewById(R.id.GetDocumentsUp);
+        lbl_SendSuggestionsUp = view.findViewById(R.id.lbl_SendSuggestionsUp);
+        lbl_GetDocumentsUp = view.findViewById(R.id.lbl_GetDocumentsUp);
         lbl_Place_of_Receipt_of_Documents = view.findViewById(R.id.lbl_Place_of_Receipt_of_Documents);
         lbl_TenderDevice = view.findViewById(R.id.lbl_TenderDevice);
         lbl_website = view.findViewById(R.id.lbl_website);
@@ -84,6 +94,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     void implement() {
         p_detailsTenderFragment = new P_DetailsTenderFragment(getContext(), this);
         background.setOnClickListener(this);
+        btn_Right.setOnClickListener(this);
+        btn_Left.setOnClickListener(this);
     }
 
     //در اینجا دکمه ها فعال یا غیرفعال می شوند
@@ -95,9 +107,23 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         btn_Left.setEnabled(enable);
     }
 
+    //در اینجا به تکست ویوها مقدار پیش فرض داده می شود
+    void setDefaultVals(){
+        lbl_PaymanyarCode.setText("-");
+        lbl_NationalEstimate.setText("-");
+        lbl_ReopeningDate.setText("-");
+        lbl_SendSuggestionsUp.setText("-");
+        lbl_GetDocumentsUp.setText("-");
+        lbl_Place_of_Receipt_of_Documents.setText("-");
+        lbl_TenderDevice.setText("-");
+        lbl_website.setText("-");
+        lbl_Description.setText("-");
+    }
+
     @Override
     public void OnStart() {
         setEnabledButtons(false);
+        setDefaultVals();
     }
 
     @Override
@@ -161,6 +187,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
             lbl_ReopeningDate.setText(detailsTender.getReopeningDate());
             lbl_TenderDevice.setText(detailsTender.getTenderDevice());
             lbl_website.setText(detailsTender.getWebsite());
+            lbl_GetDocumentsUp.setText(detailsTender.getGetDocumentsUp());
+            lbl_SendSuggestionsUp.setText(detailsTender.getSendSuggestionsUp());
 
         } catch (Exception e) {
         }
@@ -172,6 +200,31 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         subscribers.setVisibility(View.VISIBLE);
     }
 
+    //در اینجا آیدی مناقصه بعدی گرفته می شود
+    @Override
+    public void onGetNextTender(String tenderId) {
+
+        NextTenderId = tenderId;
+
+        if (!tenderId.equalsIgnoreCase("")) {
+            btn_Right.setEnabled(true);
+        } else {
+            btn_Right.setEnabled(false);
+        }
+    }
+
+    //در اینجا آیدی مناقصه قبلی گرفته می شود
+    @Override
+    public void onGetPrevTender(String tenderId) {
+        PrevTenderId = tenderId;
+
+        if (!tenderId.equalsIgnoreCase("")) {
+            btn_Left.setEnabled(true);
+        } else {
+            btn_Left.setEnabled(false);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -180,9 +233,21 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.background:
                 getActivity().onBackPressed();
+                break;
+            case R.id.btn_Right:
+
+                filter.setTenderId(NextTenderId);
+                p_detailsTenderFragment.start(filter);
+
+                break;
+            case R.id.btn_Left:
+
+                filter.setTenderId(PrevTenderId);
+                p_detailsTenderFragment.start(filter);
+
                 break;
         }
     }

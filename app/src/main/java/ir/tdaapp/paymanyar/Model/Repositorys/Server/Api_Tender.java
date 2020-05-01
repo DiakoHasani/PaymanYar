@@ -143,7 +143,7 @@ public class Api_Tender extends Base_Api {
                                 detailsTender.setId(object.getInt("TenderId"));
                                 detailsTender.setDescription(object.getString("Description"));
                                 detailsTender.setGetDocumentsUp(object.getString("DateReceiveDocument"));
-                                detailsTender.setNationalEstimate(object.getString("Fee"));
+                                detailsTender.setNationalEstimate(object.getLong("Fee") + "");
                                 detailsTender.setPlace_of_Receipt_of_Documents(object.getString("LocationOfReceiveDocument"));
                                 detailsTender.setReopeningDate(object.getString("DateOpen"));
                                 detailsTender.setSendSuggestionsUp(object.getString("DateExpireSuggest"));
