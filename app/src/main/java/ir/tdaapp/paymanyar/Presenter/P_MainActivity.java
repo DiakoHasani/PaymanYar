@@ -21,6 +21,6 @@ public class P_MainActivity {
     //زمانی که این متد فراخوانی شود تمام عملیات اکتیویتی انجام می شود
     public void start() {
         s_mainActivity.OnStart();
-        s_mainActivity.onAddFragment(new TenderNotificationFragment(), 0, 0, false, TenderNotificationFragment.TAG);
+        s_mainActivity.onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
     }
 }
