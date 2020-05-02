@@ -573,7 +573,7 @@ public class UnitConversion {
 
             // Energy
             case 6:
-
+                ans=Enegy(value,value_unit,answer_unit);
                 break;
 
             // Ferequence
@@ -1576,5 +1576,374 @@ public class UnitConversion {
         return ans;
     }
 
+    private String Enegy(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Energy unitOf;
+        switch (value_unit){
+
+            case "BTUsInternationalStandard":
+                unitOf=new UnitOf.Energy().fromBTUsInternationalStandard(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "BTUsThermochemical":
+                unitOf=new UnitOf.Energy().fromBTUsThermochemical(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "BarrelsOfOilEquivalent":
+                unitOf=new UnitOf.Energy().fromBarrelsOfOilEquivalent(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "CaloriesInternationalSteam":
+                unitOf=new UnitOf.Energy().fromCaloriesInternationalSteam(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "CaloriesNutritional":
+                unitOf=new UnitOf.Energy().fromCaloriesNutritional(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "CaloriesThermochemical":
+                unitOf=new UnitOf.Energy().fromCaloriesThermochemical(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "DyneCentimeters":
+                unitOf=new UnitOf.Energy().fromDyneCentimeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "ElectronVolts":
+                unitOf=new UnitOf.Energy().fromElectronVolts(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Ergs":
+                unitOf=new UnitOf.Energy().fromErgs(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "FootPounds":
+                unitOf=new UnitOf.Energy().fromFootPounds(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Gigajoules":
+                unitOf=new UnitOf.Energy().fromGigajoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "GigatonsOfTNT":
+                unitOf=new UnitOf.Energy().fromGigatonsOfTNT(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "GigawattHours":
+                unitOf=new UnitOf.Energy().fromGigawattHours(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "GramForceCentimeters":
+                unitOf=new UnitOf.Energy().fromGramForceCentimeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "GramForceMeters":
+                unitOf=new UnitOf.Energy().fromGramForceMeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Hartrees":
+                unitOf=new UnitOf.Energy().fromHartrees(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "HorsepowerHours":
+                unitOf=new UnitOf.Energy().fromHorsepowerHours(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "HorsepowerHoursMetric":
+                unitOf=new UnitOf.Energy().fromHorsepowerHoursMetric(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "InchOunces":
+                unitOf=new UnitOf.Energy().fromInchOunces(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "InchPounds":
+                unitOf=new UnitOf.Energy().fromInchPounds(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Joules":
+                unitOf=new UnitOf.Energy().fromJoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilocaloriesInternationalSteam":
+                unitOf=new UnitOf.Energy().fromKilocaloriesInternationalSteam(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilocaloriesThermochemical":
+                unitOf=new UnitOf.Energy().fromKilocaloriesThermochemical(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KiloelectronVolts":
+                unitOf=new UnitOf.Energy().fromKiloelectronVolts(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilogramForceCentimeters":
+                unitOf=new UnitOf.Energy().fromKilogramForceCentimeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilogramForceMeters":
+                unitOf=new UnitOf.Energy().fromKilogramForceMeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilogramsOfTNT":
+                unitOf=new UnitOf.Energy().fromKilogramsOfTNT(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Kilojoules":
+                unitOf=new UnitOf.Energy().fromKilojoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilopondMeters":
+                unitOf=new UnitOf.Energy().fromKilopondMeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilotonsOfTNT":
+                unitOf=new UnitOf.Energy().fromKilotonsOfTNT(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilowattHours":
+                unitOf=new UnitOf.Energy().fromKilowattHours(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "KilowattSeconds":
+                unitOf=new UnitOf.Energy().fromKilowattSeconds(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "LiterAtmospheres":
+                unitOf=new UnitOf.Energy().fromLiterAtmospheres(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "MegaBTUsInternationalStandard":
+                unitOf=new UnitOf.Energy().fromMegaBTUsInternationalStandard(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "MegaelectronVolts":
+                unitOf=new UnitOf.Energy().fromMegaelectronVolts(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Megajoules":
+                unitOf=new UnitOf.Energy().fromMegajoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "MegatonsOfTNT":
+                unitOf=new UnitOf.Energy().fromMegatonsOfTNT(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "MegawattHours":
+                unitOf=new UnitOf.Energy().fromMegawattHours(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Microjoules":
+                unitOf=new UnitOf.Energy().fromMicrojoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Millijoules":
+                unitOf=new UnitOf.Energy().fromMillijoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Nanojoules":
+                unitOf=new UnitOf.Energy().fromNanojoules(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "NewtonMeters":
+                unitOf=new UnitOf.Energy().fromNewtonMeters(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "PlanckEnergy":
+                unitOf=new UnitOf.Energy().fromPlanckEnergy(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "PoundalFeet":
+                unitOf=new UnitOf.Energy().fromPoundalFeet(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "Rydbergs":
+                unitOf=new UnitOf.Energy().fromRydbergs(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "ThermsEC":
+                unitOf=new UnitOf.Energy().fromThermsEC(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "ThermsUS":
+                unitOf=new UnitOf.Energy().fromThermsUS(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "TonsOfTNT":
+                unitOf=new UnitOf.Energy().fromTonsOfTNT(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "WattHours":
+                unitOf=new UnitOf.Energy().fromWattHours(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+            case "WattSeconds":
+                unitOf=new UnitOf.Energy().fromWattSeconds(Double.valueOf(value));
+                ans=EnergyHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
+    private String EnergyHelper(String answer_unit,UnitOf.Energy unitOf){
+        String ans="0";
+
+        switch (answer_unit){
+
+            case "BTUsInternationalStandard":
+                ans=String.valueOf(unitOf.toBTUsInternationalStandard());
+                break;
+            case "BTUsThermochemical":
+                ans=String.valueOf(unitOf.toBTUsThermochemical());
+                break;
+            case "BarrelsOfOilEquivalent":
+                ans=String.valueOf(unitOf.toBarrelsOfOilEquivalent());
+                break;
+            case "CaloriesInternationalSteam":
+                ans=String.valueOf(unitOf.toCaloriesInternationalSteam());
+                break;
+            case "CaloriesNutritional":
+                ans=String.valueOf(unitOf.toCaloriesNutritional());
+                break;
+            case "CaloriesThermochemical":
+                ans=String.valueOf(unitOf.toCaloriesThermochemical());
+                break;
+            case "DyneCentimeters":
+                ans=String.valueOf(unitOf.toDyneCentimeters());
+                break;
+            case "ElectronVolts":
+                ans=String.valueOf(unitOf.toElectronVolts());
+                break;
+            case "Ergs":
+                ans=String.valueOf(unitOf.toErgs());
+                break;
+            case "FootPounds":
+                ans=String.valueOf(unitOf.toFootPounds());
+                break;
+            case "Gigajoules":
+                ans=String.valueOf(unitOf.toGigajoules());
+                break;
+            case "GigatonsOfTNT":
+                ans=String.valueOf(unitOf.toGigatonsOfTNT());
+                break;
+            case "GigawattHours":
+                ans=String.valueOf(unitOf.toGigawattHours());
+                break;
+            case "GramForceCentimeters":
+                ans=String.valueOf(unitOf.toGramForceCentimeters());
+                break;
+            case "GramForceMeters":
+                ans=String.valueOf(unitOf.toGramForceMeters());
+                break;
+            case "Hartrees":
+                ans=String.valueOf(unitOf.toHartrees());
+                break;
+            case "HorsepowerHours":
+                ans=String.valueOf(unitOf.toHorsepowerHours());
+                break;
+            case "HorsepowerHoursMetric":
+                ans=String.valueOf(unitOf.toHorsepowerHoursMetric());
+                break;
+            case "InchOunces":
+                ans=String.valueOf(unitOf.toInchOunces());
+                break;
+            case "InchPounds":
+                ans=String.valueOf(unitOf.toInchPounds());
+                break;
+            case "Joules":
+                ans=String.valueOf(unitOf.toJoules());
+                break;
+            case "KilocaloriesInternationalSteam":
+                ans=String.valueOf(unitOf.toKilocaloriesInternationalSteam());
+                break;
+            case "KilocaloriesThermochemical":
+                ans=String.valueOf(unitOf.toKilocaloriesThermochemical());
+                break;
+            case "KiloelectronVolts":
+                ans=String.valueOf(unitOf.toKiloelectronVolts());
+                break;
+            case "KilogramForceCentimeters":
+                ans=String.valueOf(unitOf.toKilogramForceCentimeters());
+                break;
+            case "KilogramForceMeters":
+                ans=String.valueOf(unitOf.toKilogramForceMeters());
+                break;
+            case "KilogramsOfTNT":
+                ans=String.valueOf(unitOf.toKilogramsOfTNT());
+                break;
+            case "Kilojoules":
+                ans=String.valueOf(unitOf.toKilojoules());
+                break;
+            case "KilopondMeters":
+                ans=String.valueOf(unitOf.toKilopondMeters());
+                break;
+            case "KilotonsOfTNT":
+                ans=String.valueOf(unitOf.toKilotonsOfTNT());
+                break;
+            case "KilowattHours":
+                ans=String.valueOf(unitOf.toKilowattHours());
+                break;
+            case "KilowattSeconds":
+                ans=String.valueOf(unitOf.toKilowattSeconds());
+                break;
+            case "LiterAtmospheres":
+                ans=String.valueOf(unitOf.toLiterAtmospheres());
+                break;
+            case "MegaBTUsInternationalStandard":
+                ans=String.valueOf(unitOf.toMegaBTUsInternationalStandard());
+                break;
+            case "MegaelectronVolts":
+                ans=String.valueOf(unitOf.toMegaelectronVolts());
+                break;
+            case "Megajoules":
+                ans=String.valueOf(unitOf.toMegajoules());
+                break;
+            case "MegatonsOfTNT":
+                ans=String.valueOf(unitOf.toMegatonsOfTNT());
+                break;
+            case "MegawattHours":
+                ans=String.valueOf(unitOf.toMegawattHours());
+                break;
+            case "Microjoules":
+                ans=String.valueOf(unitOf.toMicrojoules());
+                break;
+            case "Millijoules":
+                ans=String.valueOf(unitOf.toMillijoules());
+                break;
+            case "Nanojoules":
+                ans=String.valueOf(unitOf.toNanojoules());
+                break;
+            case "NewtonMeters":
+                ans=String.valueOf(unitOf.toNewtonMeters());
+                break;
+            case "PlanckEnergy":
+                ans=String.valueOf(unitOf.toPlanckEnergy());
+                break;
+            case "PoundalFeet":
+                ans=String.valueOf(unitOf.toPoundalFeet());
+                break;
+            case "Rydbergs":
+                ans=String.valueOf(unitOf.toRydbergs());
+                break;
+            case "ThermsEC":
+                ans=String.valueOf(unitOf.toThermsEC());
+                break;
+            case "ThermsUS":
+                ans=String.valueOf(unitOf.toThermsUS());
+                break;
+            case "TonsOfTNT":
+                ans=String.valueOf(unitOf.toTonsOfTNT());
+                break;
+            case "WattHours":
+                ans=String.valueOf(unitOf.toWattHours());
+                break;
+            case "WattSeconds":
+                ans=String.valueOf(unitOf.toWattSeconds());
+                break;
+
+        }
+        return ans;
+    }
 
 }
