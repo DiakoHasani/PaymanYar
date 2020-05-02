@@ -96,4 +96,8 @@
     <string name="DetailTender">جزئیات مناقصات</string>
     <string name="Seen">مشاهده</string>
     <string name="compass">قطب نما</string>
+    <string name="PaymanYar">پیمانیار</string>
+    <string name="TenderCharge">شارژ مناقصات</string>
+    <string name="Open">باز</string>
+    <string name="Close">بستن</string>
 </resources>

@@ -3,6 +3,7 @@ package ir.tdaapp.paymanyar.Presenter;
 import android.content.Context;
 
 import ir.tdaapp.paymanyar.Model.Services.S_ToolsActivity;
+import ir.tdaapp.paymanyar.View.Fragments.ChargeFragment;
 import ir.tdaapp.paymanyar.View.Fragments.ToolsFragment;
 
 public class P_ToolsActivity {
@@ -16,8 +17,8 @@ public class P_ToolsActivity {
     }
 
     //زمانی که این متد فراخوانی شود تمام عملیات اکتیویتی انجام می شود
-    public void start(){
+    public void start() {
         s_toolsActivity.OnStart();
-        s_toolsActivity.onAddFragment(new ToolsFragment(),0,0,false, ToolsFragment.TAG);
+        s_toolsActivity.onAddFragment(new ToolsFragment(), 0, 0, false, ToolsFragment.TAG);
     }
 }

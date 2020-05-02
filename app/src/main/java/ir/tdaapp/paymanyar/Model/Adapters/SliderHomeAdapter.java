@@ -46,7 +46,7 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
 
         Glide.with(context)
                 .load(vals.get(position).getUrl())
-                .error(R.drawable.ic_not_found_slider)
+                .error(R.drawable.ic_loading)
                 .into(holder.img);
 
         holder.lbl_Title.setText(vals.get(position).getTitle());

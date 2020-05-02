@@ -10,8 +10,7 @@
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"/>
+            android:layout_height="match_parent"/>
 
         <TextView
             android:id="@+id/lbl_Title"

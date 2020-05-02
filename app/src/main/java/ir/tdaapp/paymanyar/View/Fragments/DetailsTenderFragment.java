@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import ir.tdaapp.li_utility.Codes.ShowPriceTextView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
@@ -108,7 +109,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     }
 
     //در اینجا به تکست ویوها مقدار پیش فرض داده می شود
-    void setDefaultVals(){
+    void setDefaultVals() {
         lbl_PaymanyarCode.setText("-");
         lbl_NationalEstimate.setText("-");
         lbl_ReopeningDate.setText("-");
@@ -181,7 +182,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
             detail.setVisibility(View.VISIBLE);
 
             lbl_Description.setText(detailsTender.getDescription());
-            lbl_NationalEstimate.setText(detailsTender.getNationalEstimate());
+            new ShowPriceTextView(detailsTender.getNationalEstimate(), lbl_NationalEstimate);
             lbl_PaymanyarCode.setText(detailsTender.getId() + "");
             lbl_Place_of_Receipt_of_Documents.setText(detailsTender.getPlace_of_Receipt_of_Documents());
             lbl_ReopeningDate.setText(detailsTender.getReopeningDate());
