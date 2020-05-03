@@ -578,7 +578,7 @@ public class UnitConversion {
 
             // Ferequence
             case 7:
-
+                ans=Ferequence(value,value_unit,answer_unit);
                 break;
 
             // Force
@@ -1940,6 +1940,181 @@ public class UnitConversion {
                 break;
             case "WattSeconds":
                 ans=String.valueOf(unitOf.toWattSeconds());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Ferequence(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Frequency unitOf;
+        
+        switch (value_unit){
+
+            case "Attohertz":
+                unitOf=new UnitOf.Frequency().fromAttohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Centihertz":
+                unitOf=new UnitOf.Frequency().fromCentihertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "CyclesPerSecond":
+                unitOf=new UnitOf.Frequency().fromCyclesPerSecond(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Decihertz":
+                unitOf=new UnitOf.Frequency().fromDecihertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Dekahertz":
+                unitOf=new UnitOf.Frequency().fromDekahertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Exahertz":
+                unitOf=new UnitOf.Frequency().fromExahertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Femtohertz":
+                unitOf=new UnitOf.Frequency().fromFemtohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Gigahertz":
+                unitOf=new UnitOf.Frequency().fromGigahertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Hectohertz":
+                unitOf=new UnitOf.Frequency().fromHectohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Hertz":
+                unitOf=new UnitOf.Frequency().fromHertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Kilohertz":
+                unitOf=new UnitOf.Frequency().fromKilohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Megahertz":
+                unitOf=new UnitOf.Frequency().fromMegahertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Microhertz":
+                unitOf=new UnitOf.Frequency().fromMicrohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Millihertz":
+                unitOf=new UnitOf.Frequency().fromMillihertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Nanohertz":
+                unitOf=new UnitOf.Frequency().fromNanohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Petahertz":
+                unitOf=new UnitOf.Frequency().fromPetahertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Picohertz":
+                unitOf=new UnitOf.Frequency().fromPicohertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "RevolutionsPerDay":
+                unitOf=new UnitOf.Frequency().fromRevolutionsPerDay(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "RevolutionsPerHour":
+                unitOf=new UnitOf.Frequency().fromRevolutionsPerHour(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "RevolutionsPerMinute":
+                unitOf=new UnitOf.Frequency().fromRevolutionsPerMinute(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "RevolutionsPerSecond":
+                unitOf=new UnitOf.Frequency().fromRevolutionsPerSecond(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+            case "Terahertz":
+                unitOf=new UnitOf.Frequency().fromTerahertz(Double.valueOf(value));
+                ans=FerequenceHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
+    private String FerequenceHelper(String answer_unit,UnitOf.Frequency unitOf){
+        String ans="0";
+
+        switch (answer_unit){
+
+            case "Attohertz":
+                ans=String.valueOf(unitOf.toAttohertz());
+                break;
+            case "Centihertz":
+                ans=String.valueOf(unitOf.toCentihertz());
+                break;
+            case "CyclesPerSecond":
+                ans=String.valueOf(unitOf.toCyclesPerSecond());
+                break;
+            case "Decihertz":
+                ans=String.valueOf(unitOf.toDecihertz());
+                break;
+            case "Dekahertz":
+                ans=String.valueOf(unitOf.toDekahertz());
+                break;
+            case "Exahertz":
+                ans=String.valueOf(unitOf.toExahertz());
+                break;
+            case "Femtohertz":
+                ans=String.valueOf(unitOf.toFemtohertz());
+                break;
+            case "Gigahertz":
+                ans=String.valueOf(unitOf.toGigahertz());
+                break;
+            case "Hectohertz":
+                ans=String.valueOf(unitOf.toHectohertz());
+                break;
+            case "Hertz":
+                ans=String.valueOf(unitOf.toHertz());
+                break;
+            case "Kilohertz":
+                ans=String.valueOf(unitOf.toKilohertz());
+                break;
+            case "Megahertz":
+                ans=String.valueOf(unitOf.toMegahertz());
+                break;
+            case "Microhertz":
+                ans=String.valueOf(unitOf.toMicrohertz());
+                break;
+            case "Millihertz":
+                ans=String.valueOf(unitOf.toMillihertz());
+                break;
+            case "Nanohertz":
+                ans=String.valueOf(unitOf.toNanohertz());
+                break;
+            case "Petahertz":
+                ans=String.valueOf(unitOf.toPetahertz());
+                break;
+            case "Picohertz":
+                ans=String.valueOf(unitOf.toPicohertz());
+                break;
+            case "RevolutionsPerDay":
+                ans=String.valueOf(unitOf.toRevolutionsPerDay());
+                break;
+            case "RevolutionsPerHour":
+                ans=String.valueOf(unitOf.toRevolutionsPerHour());
+                break;
+            case "RevolutionsPerMinute":
+                ans=String.valueOf(unitOf.toRevolutionsPerMinute());
+                break;
+            case "RevolutionsPerSecond":
+                ans=String.valueOf(unitOf.toRevolutionsPerSecond());
+                break;
+            case "Terahertz":
+                ans=String.valueOf(unitOf.toTerahertz());
                 break;
 
         }
