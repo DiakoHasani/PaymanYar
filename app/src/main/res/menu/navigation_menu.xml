@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_Tender"
         android:title="@string/TenderCharge"
         android:icon="@drawable/ic_charge"/>
 

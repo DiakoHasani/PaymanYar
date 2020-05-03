@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "143886996061",
+    "firebase_url": "https://paymanyar-559ce.firebaseio.com",
+    "project_id": "paymanyar-559ce",
+    "storage_bucket": "paymanyar-559ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143886996061:android:9e72ae1cbbda75b8c9b3b4",
+        "android_client_info": {
+          "package_name": "ir.tdaapp.paymanyar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143886996061-2bgfh2ustk7k8fo7qabljphe0t6j7ai7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_WwSit4Bdz6wOhy077htaopYxvuBDyRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143886996061-2bgfh2ustk7k8fo7qabljphe0t6j7ai7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

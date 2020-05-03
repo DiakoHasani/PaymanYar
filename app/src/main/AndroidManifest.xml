@@ -31,10 +31,24 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCII8Avqrt-tBZBaLs3CWygkFglhgBWU9s" />
 
-    </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <service android:name=".Model.Utilitys.TokenNotification">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
+        <service android:name=".Model.Utilitys.GetNotificationToCloseApp">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <permission
         android:name="com.android.pharmacy.myapplication.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
