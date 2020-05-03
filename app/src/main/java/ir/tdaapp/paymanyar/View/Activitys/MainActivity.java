@@ -10,11 +10,13 @@ import ir.tdaapp.paymanyar.Model.Services.S_MainActivity;
 import ir.tdaapp.paymanyar.Presenter.P_MainActivity;
 import ir.tdaapp.paymanyar.R;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
-    public final static String TAG="MainActivity";
+    public final static String TAG = "MainActivity";
     P_MainActivity p_mainActivity;
 
     @Override
@@ -22,15 +24,34 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getNotification();
+
         findItem();
         implement();
         p_mainActivity.start();
     }
 
-    void findItem(){}
+    void findItem() {
+    }
 
-    void implement(){
-        p_mainActivity=new P_MainActivity(getApplicationContext(),this);
+    void implement() {
+        p_mainActivity = new P_MainActivity(getApplicationContext(), this);
+    }
+
+    //زمانی که کاربر روی نوتیفیکشن کلیک کند متد زیر فراخوانی می شود
+    void getNotification() {
+
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
+        if (extras != null) {
+            for (String key : extras.keySet()) {
+                Object value = extras.get(key);
+                if (key.equalsIgnoreCase("key1"))
+                    Toast.makeText(MainActivity.this, value.toString(), Toast.LENGTH_LONG).show();
+            }
+
+        }
+
     }
 
     //زمانی که اکتیویتی عملیات اولیه خود را انجام دهد متد زیر فراخوانی می شود
@@ -63,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         transaction.add(R.id.FrameMain, fragment, fragmentTAG);
 
         //در اینجا فرگمنت را به پشته اضافه می کند
-        if (backStack){
+        if (backStack) {
             transaction.addToBackStack(null);
         }
 

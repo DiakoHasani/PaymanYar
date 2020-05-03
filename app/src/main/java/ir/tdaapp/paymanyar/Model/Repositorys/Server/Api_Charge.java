@@ -23,23 +23,13 @@ public class Api_Charge extends Base_Api {
 
                     List<VM_Charge> charges = new ArrayList<>();
 
-                    for (int i = 1; i < 6; i++) {
-
-                        VM_Charge charge = new VM_Charge();
-                        charge.setId(i);
-                        charge.setTitle(i * 5000 + context.getString(R.string.Toman));
-                        charge.setSubTitle("اطلاع رسانی مناقصات به مدت شش ماه");
-
-                        charges.add(charge);
-                    }
-
                     emitter.onSuccess(charges);
 
                 } catch (Exception e) {
                     emitter.onError(e);
                 }
 
-            }).run();
+            }).start();
 
         });
 

@@ -32,7 +32,7 @@ import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 public class HomeFragment extends BaseFragment implements S_HomeFragment, View.OnClickListener,
-        NavigationView.OnNavigationItemSelectedListener{
+        NavigationView.OnNavigationItemSelectedListener {
 
     public static final String TAG = "HomeFragment";
 
@@ -188,8 +188,10 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        switch (menuItem.getItemId()){
-
+        switch (menuItem.getItemId()) {
+            case R.id.menu_Tender:
+                ((MainActivity) getActivity()).onAddFragment(new ChargeFragment(), R.anim.fadein, R.anim.fadeout, true, ChargeFragment.TAG);
+                break;
         }
 
         drawer.closeDrawers();
