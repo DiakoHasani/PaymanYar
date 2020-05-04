@@ -23,7 +23,9 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.R;
@@ -34,6 +36,7 @@ public class P_TenderNotificationFragment {
     private S_TenderNotificationFragment s_tenderNotificationFragment;
     Api_Tender api_tender;
     Disposable dispose_getTenderNotification, dispose_setTenders, dispose_getSpinnerDatas, dispose_getMajors;
+    Disposable dispose_LetMeKnow;
     Disposable dispose_getFromEstimate, dispose_getUntilEstimate;
     Tbl_City tbl_city;
     Tbl_Major tbl_major;
@@ -231,6 +234,25 @@ public class P_TenderNotificationFragment {
         return picker;
     }
 
+    //در اینجا عملیات باخبرم کن انجام می شود
+    public void LetMeKnow(VM_Let_me_know filter) {
+
+        Single<VM_Message> data = api_tender.postLetMeKnow(filter);
+
+        dispose_LetMeKnow = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
+            @Override
+            public void onSuccess(VM_Message vm_message) {
+                s_tenderNotificationFragment.onSuccessLetMeKnow(vm_message);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_tenderNotificationFragment.onErrorLetMeKnow(Error.GetErrorVolley(e.toString()));
+            }
+        });
+
+    }
+
     public void Cancel(String Tag) {
 
         api_tender.Cancel(Tag, context);
@@ -257,6 +279,10 @@ public class P_TenderNotificationFragment {
 
         if (dispose_getUntilEstimate != null) {
             dispose_getUntilEstimate.dispose();
+        }
+
+        if (dispose_LetMeKnow != null) {
+            dispose_LetMeKnow.dispose();
         }
     }
 }

@@ -62,4 +62,8 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
     </style>
 
+    <style name="ProgressBarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
 </resources>

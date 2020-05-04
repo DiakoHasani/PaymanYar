@@ -187,6 +187,7 @@
                         android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_search"
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             app:cardBackgroundColor="@color/colorPrimary"
@@ -211,6 +212,7 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/btn_Let_me_know"
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             app:cardBackgroundColor="@color/colorPrimary"
@@ -222,6 +224,7 @@
                             android:theme="@style/AppTheme.MyRipple">
 
                             <TextView
+                                android:id="@+id/text_btn_Let_me_know"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/vazir"
@@ -231,6 +234,14 @@
                                 android:textSize="14dp"
                                 android:paddingLeft="16dp"
                                 android:paddingRight="16dp"/>
+
+                            <ProgressBar
+                                android:id="@+id/progress_btn_Let_me_know"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:theme="@style/ProgressBarTheme"
+                                android:visibility="invisible"/>
 
                         </androidx.cardview.widget.CardView>
 
