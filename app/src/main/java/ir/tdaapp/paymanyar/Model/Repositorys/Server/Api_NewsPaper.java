@@ -13,25 +13,30 @@ public class Api_NewsPaper {
     //در اینجا لیست روزنامه ها پاس داده می شود
     public Single<List<VM_NewsPaper>> getNews() {
         return Single.create(emitter -> {
-            try {
 
-                HandleXML obj;
-                obj = new HandleXML("http://www.pishkhaan.net/pishkhaan.xml", new S_HandleXML() {
-                    @Override
-                    public void onSuccess(List<VM_NewsPaper> newsPapers) {
-                        emitter.onSuccess(newsPapers);
-                    }
+            new Thread(() -> {
 
-                    @Override
-                    public void onError(Exception e) {
-                        emitter.onError(e);
-                    }
-                });
-                obj.fetchXML();
+                try {
 
-            } catch (Exception e) {
-                emitter.onError(e);
-            }
+                    HandleXML obj;
+                    obj = new HandleXML("https://www.pishkhan.com/pishkhaan.xml", new S_HandleXML() {
+                        @Override
+                        public void onSuccess(List<VM_NewsPaper> newsPapers) {
+                            emitter.onSuccess(newsPapers);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            emitter.onError(e);
+                        }
+                    });
+                    obj.fetchXML();
+
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+
+            }).start();
         });
     }
 }

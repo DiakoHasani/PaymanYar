@@ -16,12 +16,14 @@ import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
 public class Api_Tender extends Base_Api {
 
-    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender;
+    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
     public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter) {
@@ -173,6 +175,58 @@ public class Api_Tender extends Base_Api {
 
     }
 
+    //در اینجا داده ها برای باخبرم کن به سرور پاس داده می شوند
+    public Single<VM_Message> postLetMeKnow(VM_Let_me_know filter) {
+
+        return Single.create(emitter -> {
+
+            new Thread(() -> {
+
+                JSONObject object = new JSONObject();
+
+                try {
+
+                    object.put("FkState", filter.getCityId());
+                    object.put("FkField", filter.getMajorId());
+                    object.put("FkMinPrice", filter.getFromEstimateId());
+                    object.put("FkMaxPrice", filter.getUntilEstimateId());
+                    object.put("ApiKey", filter.getToken());
+
+                } catch (Exception e) {
+
+                }
+
+                volley_postLetMeKnow = new PostJsonObjectVolley(ApiUrl+"Tender/PostLetMeKnow", object, resault -> {
+
+                    if (resault.getResault()==ResaultCode.Success){
+
+                        VM_Message message=new VM_Message();
+                        JSONObject obj=resault.getObject();
+
+                        try {
+
+                            message.setCode(obj.getInt("Code"));
+                            message.setMessage(obj.getString("MessageText"));
+                            message.setResult(obj.getBoolean("Result"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        emitter.onSuccess(message);
+
+                    }else{
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+
+            }).start();
+
+        });
+
+    }
+
     public void Cancel(String Tag, Context context) {
 
         if (volley_getTenderNotification != null) {
@@ -181,6 +235,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_getDetailsTender != null) {
             volley_getDetailsTender.Cancel(Tag, context);
+        }
+
+        if (volley_postLetMeKnow != null) {
+            volley_postLetMeKnow.Cancel(Tag, context);
         }
 
     }

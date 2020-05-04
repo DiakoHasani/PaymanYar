@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -15,6 +17,7 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -28,7 +31,9 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
@@ -36,6 +41,7 @@ import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+import static android.nfc.tech.MifareUltralight.get;
 
 //صفحه مربوط به اطلاع رسانی مناقصات
 public class TenderNotificationFragment extends BaseFragment implements S_TenderNotificationFragment, View.OnClickListener {
@@ -54,6 +60,9 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     TextInputEditText txt_Date, txt_IncludesTheWord;
     int countTenders = 0;
     ErrorAplicationDialog errorAplicationDialog;
+    CardView btn_Let_me_know, btn_search;
+    TextView text_btn_Let_me_know;
+    ProgressBar progress_btn_Let_me_know;
 
     @Nullable
     @Override
@@ -81,6 +90,10 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         cmb_UntilEstimate = view.findViewById(R.id.cmb_UntilEstimate);
         txt_Date = view.findViewById(R.id.txt_Date);
         txt_IncludesTheWord = view.findViewById(R.id.txt_IncludesTheWord);
+        btn_Let_me_know = view.findViewById(R.id.btn_Let_me_know);
+        btn_search = view.findViewById(R.id.btn_search);
+        text_btn_Let_me_know = view.findViewById(R.id.text_btn_Let_me_know);
+        progress_btn_Let_me_know = view.findViewById(R.id.progress_btn_Let_me_know);
     }
 
     void implement() {
@@ -88,7 +101,14 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         recycler.setOnScrollListener(pOnScrollListener);
 
-        txt_Date.setOnClickListener(this);
+        btn_search.setOnClickListener(this);
+        btn_Let_me_know.setOnClickListener(this);
+
+        txt_Date.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                showDatePersian();
+            }
+        });
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -206,6 +226,37 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         return filter;
     }
 
+    //در اینجا فیلترهای با خبرم کن گرفته می شود
+    VM_Let_me_know getLet_Me_KnowFilter() {
+
+        VM_Let_me_know vm = new VM_Let_me_know();
+
+        vm.setCityId(((VM_City)cmb_City.getSelectedItem()).getId());
+        vm.setMajorId(((VM_Major)cmb_Major.getSelectedItem()).getId());
+        vm.setFromEstimateId(((VM_Estimate)cmb_FromEstimate.getSelectedItem()).getId());
+        vm.setUntilEstimateId(((VM_Estimate)cmb_UntilEstimate.getSelectedItem()).getId());
+        vm.setToken(((MainActivity)getActivity()).getTbl_notification().getToken(getContext()));
+
+        return vm;
+    }
+
+    //در اینجا لودینگ دکمه باخبرم کن ست می شود
+    void loadingLet_me_know(boolean load){
+
+        if (load){
+
+            btn_Let_me_know.setEnabled(false);
+            text_btn_Let_me_know.setVisibility(View.INVISIBLE);
+            progress_btn_Let_me_know.setVisibility(View.VISIBLE);
+
+        }else{
+            btn_Let_me_know.setEnabled(true);
+            text_btn_Let_me_know.setVisibility(View.VISIBLE);
+            progress_btn_Let_me_know.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
     @Override
     public void OnStart() {
 
@@ -219,7 +270,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         //زمانی که کاربر یک روی یکی از مناقصات کلیک کند متد زیر فراخوانی شده و آی دی آن را به ما می دهد
         tenderNotificationAdapter.setOnClickTenderNotification(id -> {
 
-            VM_FilterTenderNotification filter=getFilter();
+            VM_FilterTenderNotification filter = getFilter();
             filter.setTenderId(id);
             filter.setUserId(1);
 
@@ -335,6 +386,41 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         countTenders = count;
     }
 
+    //اگر در ارسال باخبرم کن خطای رخ دهد متد زیر فراخوانی می شود
+    @Override
+    public void onErrorLetMeKnow(ResaultCode result) {
+
+        loadingLet_me_know(false);
+
+        String text = "";
+
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+
+    }
+
+    //اگر عملیات باخبرم کن با موفقیت انجام شود متد زیر فراخوانی می شود
+    @Override
+    public void onSuccessLetMeKnow(VM_Message message) {
+        loadingLet_me_know(false);
+        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -344,8 +430,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.txt_Date:
-                showDatePersian();
+            case R.id.btn_Let_me_know:
+                loadingLet_me_know(true);
+                p_tenderNotificationFragment.LetMeKnow(getLet_Me_KnowFilter());
+                break;
+            case R.id.btn_search:
+                p_tenderNotificationFragment.start(getFilter());
                 break;
         }
     }

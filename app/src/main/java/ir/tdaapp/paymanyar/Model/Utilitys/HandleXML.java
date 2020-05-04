@@ -19,7 +19,6 @@ public class HandleXML {
     private S_HandleXML s_handleXML;
     private XmlPullParserFactory xmlFactoryObject;
     public volatile boolean parsingComplete = true;
-    Thread thread;
 
     public HandleXML(String urlString, S_HandleXML s_handleXML) {
         this.urlString = urlString;
@@ -129,36 +128,31 @@ public class HandleXML {
 
     public void fetchXML() {
 
-        thread = new Thread(() -> {
+        try {
 
-            try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-                URL url = new URL(urlString);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000 /* milliseconds */);
+            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
 
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("GET");
-                conn.setDoInput(true);
+            // Starts the query
+            conn.connect();
+            InputStream stream = conn.getInputStream();
 
-                // Starts the query
-                conn.connect();
-                InputStream stream = conn.getInputStream();
+            xmlFactoryObject = XmlPullParserFactory.newInstance();
+            XmlPullParser myparser = xmlFactoryObject.newPullParser();
 
-                xmlFactoryObject = XmlPullParserFactory.newInstance();
-                XmlPullParser myparser = xmlFactoryObject.newPullParser();
+            myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            myparser.setInput(stream, null);
 
-                myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-                myparser.setInput(stream, null);
+            parseXMLAndStoreIt(myparser);
+            stream.close();
 
-                parseXMLAndStoreIt(myparser);
-                stream.close();
-
-            } catch (Exception e) {
-                s_handleXML.onError(e);
-            }
-        });
-
-        thread.start();
+        } catch (Exception e) {
+            s_handleXML.onError(e);
+        }
     }
 }

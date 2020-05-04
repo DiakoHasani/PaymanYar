@@ -6,4 +6,6 @@ public class SharedPreferences_Names {
     public static final String MyPREFERENCES = "MyPreference";
 
     public static final String NotificationToken = "NotificationToken";
+
+    public static final String UserId = "UserId";
 }

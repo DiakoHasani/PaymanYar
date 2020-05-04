@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Notification;
 import ir.tdaapp.paymanyar.Model.Services.S_MainActivity;
 import ir.tdaapp.paymanyar.Presenter.P_MainActivity;
 import ir.tdaapp.paymanyar.R;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     public final static String TAG = "MainActivity";
     P_MainActivity p_mainActivity;
+    private Tbl_Notification tbl_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     void implement() {
         p_mainActivity = new P_MainActivity(getApplicationContext(), this);
+        tbl_notification=new Tbl_Notification();
     }
 
     //زمانی که کاربر روی نوتیفیکشن کلیک کند متد زیر فراخوانی می شود
@@ -90,5 +93,9 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
         //در اینجا فرگمنت نمایش داده می شود
         transaction.commit();
+    }
+
+    public Tbl_Notification getTbl_notification() {
+        return tbl_notification;
     }
 }
