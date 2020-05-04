@@ -583,7 +583,7 @@ public class UnitConversion {
 
             // Force
             case 8:
-
+                ans=Force(value,value_unit,answer_unit);
                 break;
 
             // Light
@@ -1946,10 +1946,86 @@ public class UnitConversion {
         return ans;
     }
 
+    private String FerequenceHelper(String answer_unit,UnitOf.Frequency unitOf){
+        String ans="0";
+
+        switch (answer_unit){
+
+            case "Attohertz":
+                ans=String.valueOf(unitOf.toAttohertz());
+                break;
+            case "Centihertz":
+                ans=String.valueOf(unitOf.toCentihertz());
+                break;
+            case "CyclesPerSecond":
+                ans=String.valueOf(unitOf.toCyclesPerSecond());
+                break;
+            case "Decihertz":
+                ans=String.valueOf(unitOf.toDecihertz());
+                break;
+            case "Dekahertz":
+                ans=String.valueOf(unitOf.toDekahertz());
+                break;
+            case "Exahertz":
+                ans=String.valueOf(unitOf.toExahertz());
+                break;
+            case "Femtohertz":
+                ans=String.valueOf(unitOf.toFemtohertz());
+                break;
+            case "Gigahertz":
+                ans=String.valueOf(unitOf.toGigahertz());
+                break;
+            case "Hectohertz":
+                ans=String.valueOf(unitOf.toHectohertz());
+                break;
+            case "Hertz":
+                ans=String.valueOf(unitOf.toHertz());
+                break;
+            case "Kilohertz":
+                ans=String.valueOf(unitOf.toKilohertz());
+                break;
+            case "Megahertz":
+                ans=String.valueOf(unitOf.toMegahertz());
+                break;
+            case "Microhertz":
+                ans=String.valueOf(unitOf.toMicrohertz());
+                break;
+            case "Millihertz":
+                ans=String.valueOf(unitOf.toMillihertz());
+                break;
+            case "Nanohertz":
+                ans=String.valueOf(unitOf.toNanohertz());
+                break;
+            case "Petahertz":
+                ans=String.valueOf(unitOf.toPetahertz());
+                break;
+            case "Picohertz":
+                ans=String.valueOf(unitOf.toPicohertz());
+                break;
+            case "RevolutionsPerDay":
+                ans=String.valueOf(unitOf.toRevolutionsPerDay());
+                break;
+            case "RevolutionsPerHour":
+                ans=String.valueOf(unitOf.toRevolutionsPerHour());
+                break;
+            case "RevolutionsPerMinute":
+                ans=String.valueOf(unitOf.toRevolutionsPerMinute());
+                break;
+            case "RevolutionsPerSecond":
+                ans=String.valueOf(unitOf.toRevolutionsPerSecond());
+                break;
+            case "Terahertz":
+                ans=String.valueOf(unitOf.toTerahertz());
+                break;
+
+        }
+        return ans;
+    }
+
     private String Ferequence(String value,String value_unit,String answer_unit){
         String ans="0";
         UnitOf.Frequency unitOf;
-        
+
         switch (value_unit){
 
             case "Attohertz":
@@ -2045,80 +2121,271 @@ public class UnitConversion {
         return ans;
     }
 
-    private String FerequenceHelper(String answer_unit,UnitOf.Frequency unitOf){
+    private String ForceHelper(String answer_unit,UnitOf.Force unitOf){
         String ans="0";
-
+        
         switch (answer_unit){
 
-            case "Attohertz":
-                ans=String.valueOf(unitOf.toAttohertz());
+            case "Attonewtons":
+                ans=String.valueOf(unitOf.toAttonewtons());
                 break;
-            case "Centihertz":
-                ans=String.valueOf(unitOf.toCentihertz());
+            case "Centinewtons":
+                ans=String.valueOf(unitOf.toCentinewtons());
                 break;
-            case "CyclesPerSecond":
-                ans=String.valueOf(unitOf.toCyclesPerSecond());
+            case "Decinewtons":
+                ans=String.valueOf(unitOf.toDecinewtons());
                 break;
-            case "Decihertz":
-                ans=String.valueOf(unitOf.toDecihertz());
+            case "Dekanewtons":
+                ans=String.valueOf(unitOf.toDekanewtons());
                 break;
-            case "Dekahertz":
-                ans=String.valueOf(unitOf.toDekahertz());
+            case "Dynes":
+                ans=String.valueOf(unitOf.toDynes());
                 break;
-            case "Exahertz":
-                ans=String.valueOf(unitOf.toExahertz());
+            case "Exanewtons":
+                ans=String.valueOf(unitOf.toExanewtons());
                 break;
-            case "Femtohertz":
-                ans=String.valueOf(unitOf.toFemtohertz());
+            case "Femtonewtons":
+                ans=String.valueOf(unitOf.toFemtonewtons());
                 break;
-            case "Gigahertz":
-                ans=String.valueOf(unitOf.toGigahertz());
+            case "Giganewtons":
+                ans=String.valueOf(unitOf.toGiganewtons());
                 break;
-            case "Hectohertz":
-                ans=String.valueOf(unitOf.toHectohertz());
+            case "GramForces":
+                ans=String.valueOf(unitOf.toGramForces());
                 break;
-            case "Hertz":
-                ans=String.valueOf(unitOf.toHertz());
+            case "GraveForces":
+                ans=String.valueOf(unitOf.toGraveForces());
                 break;
-            case "Kilohertz":
-                ans=String.valueOf(unitOf.toKilohertz());
+            case "Hectonewtons":
+                ans=String.valueOf(unitOf.toHectonewtons());
                 break;
-            case "Megahertz":
-                ans=String.valueOf(unitOf.toMegahertz());
+            case "JouleCentimeters":
+                ans=String.valueOf(unitOf.toJouleCentimeters());
                 break;
-            case "Microhertz":
-                ans=String.valueOf(unitOf.toMicrohertz());
+            case "JouleMeters":
+                ans=String.valueOf(unitOf.toJouleMeters());
                 break;
-            case "Millihertz":
-                ans=String.valueOf(unitOf.toMillihertz());
+            case "KilogramForces":
+                ans=String.valueOf(unitOf.toKilogramForces());
                 break;
-            case "Nanohertz":
-                ans=String.valueOf(unitOf.toNanohertz());
+            case "Kilonewtons":
+                ans=String.valueOf(unitOf.toKilonewtons());
                 break;
-            case "Petahertz":
-                ans=String.valueOf(unitOf.toPetahertz());
+            case "Kiloponds":
+                ans=String.valueOf(unitOf.toKiloponds());
                 break;
-            case "Picohertz":
-                ans=String.valueOf(unitOf.toPicohertz());
+            case "KilopoundForces":
+                ans=String.valueOf(unitOf.toKilopoundForces());
                 break;
-            case "RevolutionsPerDay":
-                ans=String.valueOf(unitOf.toRevolutionsPerDay());
+            case "LongTonForces":
+                ans=String.valueOf(unitOf.toLongTonForces());
                 break;
-            case "RevolutionsPerHour":
-                ans=String.valueOf(unitOf.toRevolutionsPerHour());
+            case "Meganewtons":
+                ans=String.valueOf(unitOf.toMeganewtons());
                 break;
-            case "RevolutionsPerMinute":
-                ans=String.valueOf(unitOf.toRevolutionsPerMinute());
+            case "MetricTonForces":
+                ans=String.valueOf(unitOf.toMetricTonForces());
                 break;
-            case "RevolutionsPerSecond":
-                ans=String.valueOf(unitOf.toRevolutionsPerSecond());
+            case "Micronewtons":
+                ans=String.valueOf(unitOf.toMicronewtons());
                 break;
-            case "Terahertz":
-                ans=String.valueOf(unitOf.toTerahertz());
+            case "MilligraveForces":
+                ans=String.valueOf(unitOf.toMilligraveForces());
+                break;
+            case "Millinewtons":
+                ans=String.valueOf(unitOf.toMillinewtons());
+                break;
+            case "Nanonewtons":
+                ans=String.valueOf(unitOf.toNanonewtons());
+                break;
+            case "Newtons":
+                ans=String.valueOf(unitOf.toNewtons());
+                break;
+            case "OunceForces":
+                ans=String.valueOf(unitOf.toOunceForces());
+                break;
+            case "Petanewtons":
+                ans=String.valueOf(unitOf.toPetanewtons());
+                break;
+            case "Piconewtons":
+                ans=String.valueOf(unitOf.toPiconewtons());
+                break;
+            case "Ponds":
+                ans=String.valueOf(unitOf.toPonds());
+                break;
+            case "PoundFeetPerSecondSquared":
+                ans=String.valueOf(unitOf.toPoundFeetPerSecondSquared());
+                break;
+            case "PoundForces":
+                ans=String.valueOf(unitOf.toPoundForces());
+                break;
+            case "Poundals":
+                ans=String.valueOf(unitOf.toPoundals());
+                break;
+            case "ShortTonForces":
+                ans=String.valueOf(unitOf.toShortTonForces());
+                break;
+            case "Sthenes":
+                ans=String.valueOf(unitOf.toSthenes());
+                break;
+            case "Teranewtons":
+                ans=String.valueOf(unitOf.toTeranewtons());
                 break;
 
         }
         return ans;
     }
+
+    private String Force(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Force unitOf;
+
+        switch (value_unit){
+
+            case "Attonewtons":
+                unitOf=new UnitOf.Force().fromAttonewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Centinewtons":
+                unitOf=new UnitOf.Force().fromCentinewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Decinewtons":
+                unitOf=new UnitOf.Force().fromDecinewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Dekanewtons":
+                unitOf=new UnitOf.Force().fromDekanewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Dynes":
+                unitOf=new UnitOf.Force().fromDynes(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Exanewtons":
+                unitOf=new UnitOf.Force().fromExanewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Femtonewtons":
+                unitOf=new UnitOf.Force().fromFemtonewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Giganewtons":
+                unitOf=new UnitOf.Force().fromGiganewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "GramForces":
+                unitOf=new UnitOf.Force().fromGramForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "GraveForces":
+                unitOf=new UnitOf.Force().fromGraveForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Hectonewtons":
+                unitOf=new UnitOf.Force().fromHectonewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "JouleCentimeters":
+                unitOf=new UnitOf.Force().fromJouleCentimeters(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "JouleMeters":
+                unitOf=new UnitOf.Force().fromJouleMeters(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "KilogramForces":
+                unitOf=new UnitOf.Force().fromKilogramForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Kilonewtons":
+                unitOf=new UnitOf.Force().fromKilonewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Kiloponds":
+                unitOf=new UnitOf.Force().fromKiloponds(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "KilopoundForces":
+                unitOf=new UnitOf.Force().fromKilopoundForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "LongTonForces":
+                unitOf=new UnitOf.Force().fromLongTonForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Meganewtons":
+                unitOf=new UnitOf.Force().fromMeganewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "MetricTonForces":
+                unitOf=new UnitOf.Force().fromMetricTonForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Micronewtons":
+                unitOf=new UnitOf.Force().fromMicronewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "MilligraveForces":
+                unitOf=new UnitOf.Force().fromMilligraveForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Millinewtons":
+                unitOf=new UnitOf.Force().fromMillinewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Nanonewtons":
+                unitOf=new UnitOf.Force().fromNanonewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Newtons":
+                unitOf=new UnitOf.Force().fromNewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "OunceForces":
+                unitOf=new UnitOf.Force().fromOunceForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Petanewtons":
+                unitOf=new UnitOf.Force().fromPetanewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Piconewtons":
+                unitOf=new UnitOf.Force().fromPiconewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Ponds":
+                unitOf=new UnitOf.Force().fromPonds(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "PoundFeetPerSecondSquared":
+                unitOf=new UnitOf.Force().fromPoundFeetPerSecondSquared(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "PoundForces":
+                unitOf=new UnitOf.Force().fromPoundForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Poundals":
+                unitOf=new UnitOf.Force().fromPoundals(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "ShortTonForces":
+                unitOf=new UnitOf.Force().fromShortTonForces(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Sthenes":
+                unitOf=new UnitOf.Force().fromSthenes(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+            case "Teranewtons":
+                unitOf=new UnitOf.Force().fromTeranewtons(Double.valueOf(value));
+                ans=ForceHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
 
 }
