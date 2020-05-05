@@ -593,7 +593,7 @@ public class UnitConversion {
 
             // Mass
             case 10:
-
+                ans=Mass(value,value_unit,answer_unit);
                 break;
 
             // Power
@@ -2387,5 +2387,242 @@ public class UnitConversion {
         return ans;
     }
 
+    private String MassHelper(String answer_unit,UnitOf.Mass unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "Carats":
+                ans=String.valueOf(unitOf.toCarats());
+                break;
+            case "Centigrams":
+                ans=String.valueOf(unitOf.toCentigrams());
+                break;
+            case "Centners":
+                ans=String.valueOf(unitOf.toCentners());
+                break;
+            case "Decigrams":
+                ans=String.valueOf(unitOf.toDecigrams());
+                break;
+            case "Dekagrams":
+                ans=String.valueOf(unitOf.toDekagrams());
+                break;
+            case "Exagrams":
+                ans=String.valueOf(unitOf.toExagrams());
+                break;
+            case "Femtograms":
+                ans=String.valueOf(unitOf.toFemtograms());
+                break;
+            case "Gamma":
+                ans=String.valueOf(unitOf.toGamma());
+                break;
+            case "Gigagrams":
+                ans=String.valueOf(unitOf.toGigagrams());
+                break;
+            case "Grams":
+                ans=String.valueOf(unitOf.toGrams());
+                break;
+            case "Hectograms":
+                ans=String.valueOf(unitOf.toHectograms());
+                break;
+            case "Kilograms":
+                ans=String.valueOf(unitOf.toKilograms());
+                break;
+            case "Kilopounds":
+                ans=String.valueOf(unitOf.toKilopounds());
+                break;
+            case "KilotonsMetric":
+                ans=String.valueOf(unitOf.toKilotonsMetric());
+                break;
+            case "Megagrams":
+                ans=String.valueOf(unitOf.toMegagrams());
+                break;
+            case "Micrograms":
+                ans=String.valueOf(unitOf.toMicrograms());
+                break;
+            case "Milligrams":
+                ans=String.valueOf(unitOf.toMilligrams());
+                break;
+            case "Nanograms":
+                ans=String.valueOf(unitOf.toNanograms());
+                break;
+            case "OuncesMetric":
+                ans=String.valueOf(unitOf.toOuncesMetric());
+                break;
+            case "OuncesUS":
+                ans=String.valueOf(unitOf.toOuncesUS());
+                break;
+            case "Petagrams":
+                ans=String.valueOf(unitOf.toPetagrams());
+                break;
+            case "Picograms":
+                ans=String.valueOf(unitOf.toPicograms());
+                break;
+            case "c":
+                ans=String.valueOf(unitOf.toPicograms());
+                break;
+            case "Quintals":
+                ans=String.valueOf(unitOf.toQuintals());
+                break;
+            case "Slugs":
+                ans=String.valueOf(unitOf.toSlugs());
+                break;
+            case "StonesUK":
+                ans=String.valueOf(unitOf.toStonesUK());
+                break;
+            case "StonesUS":
+                ans=String.valueOf(unitOf.toStonesUS());
+                break;
+            case "Teragrams":
+                ans=String.valueOf(unitOf.toTeragrams());
+                break;
+            case "TonsImperial":
+                ans=String.valueOf(unitOf.toTonsImperial());
+                break;
+            case "TonsMetric":
+                ans=String.valueOf(unitOf.toTonsMetric());
+                break;
+            case "TonsUS":
+                ans=String.valueOf(unitOf.toTonsUS());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Mass(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Mass unitOf;
+        
+        switch (value_unit){
+
+            case "Carats":
+                unitOf=new UnitOf.Mass().fromCarats(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Centigrams":
+                unitOf=new UnitOf.Mass().fromCentigrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Centners":
+                unitOf=new UnitOf.Mass().fromCentners(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Decigrams":
+                unitOf=new UnitOf.Mass().fromDecigrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Dekagrams":
+                unitOf=new UnitOf.Mass().fromDekagrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Exagrams":
+                unitOf=new UnitOf.Mass().fromExagrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Femtograms":
+                unitOf=new UnitOf.Mass().fromFemtograms(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Gamma":
+                unitOf=new UnitOf.Mass().fromGamma(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Gigagrams":
+                unitOf=new UnitOf.Mass().fromGigagrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Grams":
+                unitOf=new UnitOf.Mass().fromGrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Hectograms":
+                unitOf=new UnitOf.Mass().fromHectograms(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Kilograms":
+                unitOf=new UnitOf.Mass().fromKilograms(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Kilopounds":
+                unitOf=new UnitOf.Mass().fromKilopounds(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "KilotonsMetric":
+                unitOf=new UnitOf.Mass().fromKilotonsMetric(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Megagrams":
+                unitOf=new UnitOf.Mass().fromMegagrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Micrograms":
+                unitOf=new UnitOf.Mass().fromMicrograms(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Milligrams":
+                unitOf=new UnitOf.Mass().fromMilligrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Nanograms":
+                unitOf=new UnitOf.Mass().fromNanograms(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "OuncesMetric":
+                unitOf=new UnitOf.Mass().fromOuncesMetric(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "OuncesUS":
+                unitOf=new UnitOf.Mass().fromOuncesUS(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Petagrams":
+                unitOf=new UnitOf.Mass().fromPetagrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Picograms":
+                unitOf=new UnitOf.Mass().fromPicograms(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Pounds":
+                unitOf=new UnitOf.Mass().fromPounds(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Quintals":
+                unitOf=new UnitOf.Mass().fromQuintals(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Slugs":
+                unitOf=new UnitOf.Mass().fromSlugs(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "StonesUK":
+                unitOf=new UnitOf.Mass().fromStonesUK(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "StonesUS":
+                unitOf=new UnitOf.Mass().fromStonesUS(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "Teragrams":
+                unitOf=new UnitOf.Mass().fromTeragrams(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "TonsImperial":
+                unitOf=new UnitOf.Mass().fromTonsImperial(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "TonsMetric":
+                unitOf=new UnitOf.Mass().fromTonsMetric(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+            case "TonsUS":
+                unitOf=new UnitOf.Mass().fromTonsUS(Double.valueOf(value));
+                ans=MassHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
 
 }
