@@ -100,4 +100,9 @@
     <string name="TenderCharge">شارژ مناقصات</string>
     <string name="Open">باز</string>
     <string name="Close">بستن</string>
+    <string name="Buy">خرید</string>
+    <string name="Remaining_Time">زمان باقی مانده:</string>
+    <string name="Day">روز</string>
+    <string name="Hour">ساعت</string>
+    <string name="LessThanAnHour">کمتر از یک ساعت</string>
 </resources>

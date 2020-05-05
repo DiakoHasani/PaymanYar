@@ -146,4 +146,10 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
     public void onItemCharge(VM_Charge charge) {
         chargeAdapter.add(charge);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        p_chargeFragment.Cancel(TAG);
+    }
 }

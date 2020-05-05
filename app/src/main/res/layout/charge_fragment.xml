@@ -19,9 +19,9 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_below="@id/toolBar"
-        android:layout_marginTop="8dp"/>
+        android:layout_above="@id/btn_Home"/>
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/Loading"
@@ -45,6 +45,7 @@
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/btn_Home"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:cardUseCompatPadding="false"

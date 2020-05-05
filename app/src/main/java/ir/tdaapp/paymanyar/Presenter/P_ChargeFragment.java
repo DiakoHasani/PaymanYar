@@ -35,7 +35,7 @@ public class P_ChargeFragment {
 
     void getCharges() {
 
-        Single<List<VM_Charge>> data = api_charge.getCharges(context);
+        Single<List<VM_Charge>> data = api_charge.getCharges();
 
         dispose_getCharges = data.subscribeWith(new DisposableSingleObserver<List<VM_Charge>>() {
             @Override
@@ -56,14 +56,28 @@ public class P_ChargeFragment {
 
     //در اینجا شارژها یکی یکی به رسایکلر اضافه می شوند
     void setCharges(List<VM_Charge> charges) {
-        Observable<VM_Charge> data=Observable.fromIterable(charges);
-        dispose_setCharges=data.subscribe(charge -> {
+        Observable<VM_Charge> data = Observable.fromIterable(charges);
+        dispose_setCharges = data.subscribe(charge -> {
             s_chargeFragment.onItemCharge(charge);
-        },throwable -> {
+        }, throwable -> {
 
-        },() -> {
+        }, () -> {
             s_chargeFragment.onFinish();
         });
+    }
+
+    public void Cancel(String Tag) {
+
+        api_charge.Cancel(context, Tag);
+
+        if (dispose_getCharges != null) {
+            dispose_getCharges.dispose();
+        }
+
+        if (dispose_setCharges != null) {
+            dispose_setCharges.dispose();
+        }
+
     }
 
 }

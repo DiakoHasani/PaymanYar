@@ -1,54 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
     android:textDirection="rtl"
     android:layoutDirection="rtl"
     android:clickable="true"
-    android:background="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    app:cardElevation="2dp"
+    android:clipToPadding="false"
+    app:cardUseCompatPadding="false"
+    android:layout_marginBottom="8dp">
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="100dp"
-        android:layout_height="56dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_charge_store"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/img"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/lbl_Title"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/anim"
+            android:layout_width="100dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="100dp"
+                android:layout_height="56dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_charge_store"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/vazir"
-            android:textSize="16dp"
-            android:textColor="@color/colorTitle"
-            android:singleLine="true"
-            android:paddingLeft="5dp"/>
+            android:layout_toLeftOf="@id/anim"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerVertical="true">
 
-        <TextView
-            android:id="@+id/lbl_SubTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/vazir"
-            android:textSize="14dp"
-            android:textColor="@color/colorSubTitle"
-            android:singleLine="true"
-            android:paddingLeft="5dp"/>
+            <TextView
+                android:id="@+id/lbl_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vazir"
+                android:textSize="16dp"
+                android:textColor="@color/colorTitle"
+                android:singleLine="true"
+                android:paddingLeft="5dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/lbl_SubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vazir"
+                android:textSize="14dp"
+                android:textColor="@color/colorSubTitle"
+                android:singleLine="true"
+                android:paddingLeft="5dp"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorUnderline"
-        android:layout_marginRight="100dp"/>
+            <LinearLayout
+                android:id="@+id/specialLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorSubTitle"
+                    android:text="@string/Remaining_Time"
+                    android:layout_marginTop="5dp"/>
+
+                <LinearLayout
+                    android:id="@+id/hourLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:cardUseCompatPadding="false"
+                        android:clipToPadding="false"
+                        app:cardBackgroundColor="@color/colorBackgroundHour">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/lbl_Hour"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/vazir"
+                                android:textSize="14dp"
+                                android:textColor="@color/colorWhite"
+                                android:padding="3dp"
+                                android:gravity="center"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/Hour"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dayLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:cardUseCompatPadding="false"
+                        android:clipToPadding="false"
+                        app:cardBackgroundColor="@color/colorBackgroundDay">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/lbl_Day"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/vazir"
+                                android:textSize="14dp"
+                                android:textColor="@color/colorWhite"
+                                android:padding="3dp"
+                                android:gravity="center"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/Day"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lbl_LessThanAnHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorTitle"
+                    android:text="@string/LessThanAnHour"
+                    android:visibility="gone"
+                    android:layout_marginTop="3dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
