@@ -603,7 +603,7 @@ public class UnitConversion {
 
             // Pressure
             case 12:
-
+                ans=Pressure(value,value_unit,answer_unit);
                 break;
 
             // Speed
@@ -2624,5 +2624,433 @@ public class UnitConversion {
         }
         return ans;
     }
+
+    private String PressureHelper(String answer_unit,UnitOf.Pressure unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "Bars":
+                ans=String.valueOf(unitOf.toBars());
+                break;
+            case "Baryes":
+                ans=String.valueOf(unitOf.toBaryes());
+                break;
+            case "CentimetersOfMercury0C":
+                ans=String.valueOf(unitOf.toCentimetersOfMercury0C());
+                break;
+            case "CentimetersOfWater4C":
+                ans=String.valueOf(unitOf.toCentimetersOfWater4C());
+                break;
+            case "Centipascals":
+                ans=String.valueOf(unitOf.toCentipascals());
+                break;
+            case "Decibars":
+                ans=String.valueOf(unitOf.toDecibars());
+                break;
+            case "Decipascals":
+                ans=String.valueOf(unitOf.toDecipascals());
+                break;
+            case "Dekapascals":
+                ans=String.valueOf(unitOf.toDekapascals());
+                break;
+            case "DynesPerSquareCentimeter":
+                ans=String.valueOf(unitOf.toDynesPerSquareCentimeter());
+                break;
+            case "Exapascals":
+                ans=String.valueOf(unitOf.toExapascals());
+                break;
+            case "FeetOfSeaWater":
+                ans=String.valueOf(unitOf.toFeetOfSeaWater());
+                break;
+            case "FeetOfWater4C":
+                ans=String.valueOf(unitOf.toFeetOfWater4C());
+                break;
+            case "FeetOfWater60F":
+                ans=String.valueOf(unitOf.toFeetOfWater60F());
+                break;
+            case "Femtopascals":
+                ans=String.valueOf(unitOf.toFemtopascals());
+                break;
+            case "Gigapascals":
+                ans=String.valueOf(unitOf.toGigapascals());
+                break;
+            case "GramsPerSquareCentimeter":
+                ans=String.valueOf(unitOf.toGramsPerSquareCentimeter());
+                break;
+            case "Hectopascals":
+                ans=String.valueOf(unitOf.toHectopascals());
+                break;
+            case "InchesOfMercury32F":
+                ans=String.valueOf(unitOf.toInchesOfMercury32F());
+                break;
+            case "InchesOfMercury60F":
+                ans=String.valueOf(unitOf.toInchesOfMercury60F());
+                break;
+            case "InchesOfWater4C":
+                ans=String.valueOf(unitOf.toInchesOfWater4C());
+                break;
+            case "InchesOfWater60F":
+                ans=String.valueOf(unitOf.toInchesOfWater60F());
+                break;
+            case "KSI":
+                ans=String.valueOf(unitOf.toKSI());
+                break;
+            case "KilogramsPerSquareCentimeter":
+                ans=String.valueOf(unitOf.toKilogramsPerSquareCentimeter());
+                break;
+            case "KilogramsPerSquareMeter":
+                ans=String.valueOf(unitOf.toKilogramsPerSquareMeter());
+                break;
+            case "KilogramsPerSquareMillimeter":
+                ans=String.valueOf(unitOf.toKilogramsPerSquareMillimeter());
+                break;
+            case "KilonewtonsPerSquareMeter":
+                ans=String.valueOf(unitOf.toKilonewtonsPerSquareMeter());
+                break;
+            case "Kilopascals":
+                ans=String.valueOf(unitOf.toKilopascals());
+                break;
+            case "KipsPerSquareInch":
+                ans=String.valueOf(unitOf.toKipsPerSquareInch());
+                break;
+            case "LongTonsPerSquareFoot":
+                ans=String.valueOf(unitOf.toLongTonsPerSquareFoot());
+                break;
+            case "LongTonsPerSquareInch":
+                ans=String.valueOf(unitOf.toLongTonsPerSquareInch());
+                break;
+            case "Megapascals":
+                ans=String.valueOf(unitOf.toMegapascals());
+                break;
+            case "MetersOfSeaWater":
+                ans=String.valueOf(unitOf.toMetersOfSeaWater());
+                break;
+            case "MetersOfWater4C":
+                ans=String.valueOf(unitOf.toMetersOfWater4C());
+                break;
+            case "Microbars":
+                ans=String.valueOf(unitOf.toMicrobars());
+                break;
+            case "Micropascals":
+                ans=String.valueOf(unitOf.toMicropascals());
+                break;
+            case "Millibars":
+                ans=String.valueOf(unitOf.toMillibars());
+                break;
+            case "MillimetersOfMercury0C":
+                ans=String.valueOf(unitOf.toMillimetersOfMercury0C());
+                break;
+            case "MillimetersOfWater4C":
+                ans=String.valueOf(unitOf.toMillimetersOfWater4C());
+                break;
+            case "Millipascals":
+                ans=String.valueOf(unitOf.toMillipascals());
+                break;
+            case "Nanopascals":
+                ans=String.valueOf(unitOf.toNanopascals());
+                break;
+            case "NewtonsPerSquareCentimeter":
+                ans=String.valueOf(unitOf.toNewtonsPerSquareCentimeter());
+                break;
+            case "NewtonsPerSquareMeter":
+                ans=String.valueOf(unitOf.toNewtonsPerSquareMeter());
+                break;
+            case "NewtonsPerSquareMillimeter":
+                ans=String.valueOf(unitOf.toNewtonsPerSquareMillimeter());
+                break;
+            case "PSI":
+                ans=String.valueOf(unitOf.toPSI());
+                break;
+            case "Pascals":
+                ans=String.valueOf(unitOf.toPascals());
+                break;
+            case "Petapascals":
+                ans=String.valueOf(unitOf.toPetapascals());
+                break;
+            case "Picopascals":
+                ans=String.valueOf(unitOf.toPicopascals());
+                break;
+            case "Pieze":
+                ans=String.valueOf(unitOf.toPieze());
+                break;
+            case "PoundalsPerSquareFoot":
+                ans=String.valueOf(unitOf.toPoundalsPerSquareFoot());
+                break;
+            case "PoundsPerSquareFoot":
+                ans=String.valueOf(unitOf.toPoundsPerSquareFoot());
+                break;
+            case "PoundsPerSquareInch":
+                ans=String.valueOf(unitOf.toPoundsPerSquareInch());
+                break;
+            case "ShortTonsPerSquareFoot":
+                ans=String.valueOf(unitOf.toShortTonsPerSquareFoot());
+                break;
+            case "ShortTonsPerSquareInch":
+                ans=String.valueOf(unitOf.toShortTonsPerSquareInch());
+                break;
+            case "StandardAtmospheres":
+                ans=String.valueOf(unitOf.toStandardAtmospheres());
+                break;
+            case "SthenesPerSquareMeter":
+                ans=String.valueOf(unitOf.toSthenesPerSquareMeter());
+                break;
+            case "TechnicalAtmospheres":
+                ans=String.valueOf(unitOf.toTechnicalAtmospheres());
+                break;
+            case "Terapascals":
+                ans=String.valueOf(unitOf.toTerapascals());
+                break;
+            case "Torrs":
+                ans=String.valueOf(unitOf.toTorrs());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Pressure(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Pressure unitOf;
+        
+        switch (value_unit){
+
+            case "Bars":
+                unitOf=new UnitOf.Pressure().fromBars(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Baryes":
+                unitOf=new UnitOf.Pressure().fromBaryes(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "CentimetersOfMercury0C":
+                unitOf=new UnitOf.Pressure().fromCentimetersOfMercury0C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "CentimetersOfWater4C":
+                unitOf=new UnitOf.Pressure().fromCentimetersOfWater4C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Centipascals":
+                unitOf=new UnitOf.Pressure().fromCentipascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Decibars":
+                unitOf=new UnitOf.Pressure().fromDecibars(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Decipascals":
+                unitOf=new UnitOf.Pressure().fromDecipascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Dekapascals":
+                unitOf=new UnitOf.Pressure().fromDekapascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "DynesPerSquareCentimeter":
+                unitOf=new UnitOf.Pressure().fromDynesPerSquareCentimeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Exapascals":
+                unitOf=new UnitOf.Pressure().fromExapascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "FeetOfSeaWater":
+                unitOf=new UnitOf.Pressure().fromFeetOfSeaWater(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "FeetOfWater4C":
+                unitOf=new UnitOf.Pressure().fromFeetOfWater4C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "FeetOfWater60F":
+                unitOf=new UnitOf.Pressure().fromFeetOfWater60F(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Femtopascals":
+                unitOf=new UnitOf.Pressure().fromFemtopascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Gigapascals":
+                unitOf=new UnitOf.Pressure().fromGigapascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "GramsPerSquareCentimeter":
+                unitOf=new UnitOf.Pressure().fromGramsPerSquareCentimeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Hectopascals":
+                unitOf=new UnitOf.Pressure().fromHectopascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "InchesOfMercury32F":
+                unitOf=new UnitOf.Pressure().fromInchesOfMercury32F(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "InchesOfMercury60F":
+                unitOf=new UnitOf.Pressure().fromInchesOfMercury60F(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "InchesOfWater4C":
+                unitOf=new UnitOf.Pressure().fromInchesOfWater4C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "InchesOfWater60F":
+                unitOf=new UnitOf.Pressure().fromInchesOfWater60F(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "KSI":
+                unitOf=new UnitOf.Pressure().fromKSI(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "KilogramsPerSquareCentimeter":
+                unitOf=new UnitOf.Pressure().fromKilogramsPerSquareCentimeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "KilogramsPerSquareMeter":
+                unitOf=new UnitOf.Pressure().fromKilogramsPerSquareMeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "KilogramsPerSquareMillimeter":
+                unitOf=new UnitOf.Pressure().fromKilogramsPerSquareMillimeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "KilonewtonsPerSquareMeter":
+                unitOf=new UnitOf.Pressure().fromKilonewtonsPerSquareMeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Kilopascals":
+                unitOf=new UnitOf.Pressure().fromKilopascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "KipsPerSquareInch":
+                unitOf=new UnitOf.Pressure().fromKipsPerSquareInch(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "LongTonsPerSquareFoot":
+                unitOf=new UnitOf.Pressure().fromLongTonsPerSquareFoot(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "LongTonsPerSquareInch":
+                unitOf=new UnitOf.Pressure().fromLongTonsPerSquareInch(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Megapascals":
+                unitOf=new UnitOf.Pressure().fromMegapascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "MetersOfSeaWater":
+                unitOf=new UnitOf.Pressure().fromMetersOfSeaWater(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "MetersOfWater4C":
+                unitOf=new UnitOf.Pressure().fromMetersOfWater4C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Microbars":
+                unitOf=new UnitOf.Pressure().fromMicrobars(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Micropascals":
+                unitOf=new UnitOf.Pressure().fromMicropascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Millibars":
+                unitOf=new UnitOf.Pressure().fromMillibars(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "MillimetersOfMercury0C":
+                unitOf=new UnitOf.Pressure().fromMillimetersOfMercury0C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "MillimetersOfWater4C":
+                unitOf=new UnitOf.Pressure().fromMillimetersOfWater4C(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Millipascals":
+                unitOf=new UnitOf.Pressure().fromMillipascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Nanopascals":
+                unitOf=new UnitOf.Pressure().fromNanopascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "NewtonsPerSquareCentimeter":
+                unitOf=new UnitOf.Pressure().fromNewtonsPerSquareCentimeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "NewtonsPerSquareMeter":
+                unitOf=new UnitOf.Pressure().fromNewtonsPerSquareMeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "NewtonsPerSquareMillimeter":
+                unitOf=new UnitOf.Pressure().fromNewtonsPerSquareMillimeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "PSI":
+                unitOf=new UnitOf.Pressure().fromPSI(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Pascals":
+                unitOf=new UnitOf.Pressure().fromPascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Petapascals":
+                unitOf=new UnitOf.Pressure().fromPetapascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Picopascals":
+                unitOf=new UnitOf.Pressure().fromPicopascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Pieze":
+                unitOf=new UnitOf.Pressure().fromPieze(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "PoundalsPerSquareFoot":
+                unitOf=new UnitOf.Pressure().fromPoundalsPerSquareFoot(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "PoundsPerSquareFoot":
+                unitOf=new UnitOf.Pressure().fromPoundsPerSquareFoot(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "PoundsPerSquareInch":
+                unitOf=new UnitOf.Pressure().fromPoundsPerSquareInch(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "ShortTonsPerSquareFoot":
+                unitOf=new UnitOf.Pressure().fromShortTonsPerSquareFoot(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "ShortTonsPerSquareInch":
+                unitOf=new UnitOf.Pressure().fromShortTonsPerSquareInch(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "StandardAtmospheres":
+                unitOf=new UnitOf.Pressure().fromStandardAtmospheres(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "SthenesPerSquareMeter":
+                unitOf=new UnitOf.Pressure().fromSthenesPerSquareMeter(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "TechnicalAtmospheres":
+                unitOf=new UnitOf.Pressure().fromTechnicalAtmospheres(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Terapascals":
+                unitOf=new UnitOf.Pressure().fromTerapascals(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+            case "Torrs":
+                unitOf=new UnitOf.Pressure().fromTorrs(Double.valueOf(value));
+                ans=PressureHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
 
 }
