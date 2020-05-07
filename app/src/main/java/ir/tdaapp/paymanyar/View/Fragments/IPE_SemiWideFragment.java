@@ -243,17 +243,17 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
         new Thread(() -> {
 
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(FilterWideDialog.TAG);
+                Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(FilterWideDialog.TAG);
 
-            if (prev == null) {
-                ft.addToBackStack(null);
-                DialogFragment dialogFragment = new FilterWideDialog(columns.get(index - 1), String.valueOf(Current_eshtal_id), new FilterWideDialog.DialogListener() {
-                    @Override
-                    public void OnDialogClosed() {
-                        p_ipe_semiWideFragment.GetColumns();
-                    }
-                });
-                dialogFragment.show(ft, FilterWideDialog.TAG);
+                if (prev == null) {
+                    ft.addToBackStack(null);
+                    DialogFragment dialogFragment = new FilterWideDialog(columns.get(index - 1), String.valueOf(Current_eshtal_id), new FilterWideDialog.DialogListener() {
+                        @Override
+                        public void OnDialogClosed() {
+                            p_ipe_semiWideFragment.GetColumns();
+                        }
+                    });
+                    dialogFragment.show(ft, FilterWideDialog.TAG);
             }
 
         }).run();

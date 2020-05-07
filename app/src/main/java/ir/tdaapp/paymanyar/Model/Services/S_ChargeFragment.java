@@ -11,4 +11,7 @@ public interface S_ChargeFragment {
     void onShowRecycler(boolean show);
     void onError(ResaultCode result);
     void onItemCharge(VM_Charge charge);
+    void onSuccessInventory(int inventory);
+    void onErrorInventory();
+    void onLoadingInventory(boolean load);
 }

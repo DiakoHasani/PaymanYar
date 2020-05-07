@@ -12,13 +12,14 @@ import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Charge;
 import ir.tdaapp.paymanyar.Model.Services.S_ChargeFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
 public class P_ChargeFragment {
 
     Context context;
     S_ChargeFragment s_chargeFragment;
     Api_Charge api_charge;
-    Disposable dispose_getCharges, dispose_setCharges;
+    Disposable dispose_getCharges, dispose_setCharges,dispose_getInventoryUser;
 
     public P_ChargeFragment(Context context, S_ChargeFragment s_chargeFragment) {
         this.context = context;
@@ -31,6 +32,7 @@ public class P_ChargeFragment {
         s_chargeFragment.onLoading(true);
         s_chargeFragment.OnStart();
         getCharges();
+        getInventoryUser();
     }
 
     void getCharges() {
@@ -52,6 +54,27 @@ public class P_ChargeFragment {
             }
         });
 
+    }
+
+    //در اینجا موجودی کاربر گرفته می شود
+    void getInventoryUser(){
+
+        s_chargeFragment.onLoadingInventory(true);
+        Single<Integer> data=api_charge.getInventory(((MainActivity)context).getTbl_user().getUserId(context));
+
+        dispose_getInventoryUser=data.subscribeWith(new DisposableSingleObserver<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                s_chargeFragment.onLoadingInventory(false);
+                s_chargeFragment.onSuccessInventory(integer);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_chargeFragment.onLoadingInventory(false);
+                s_chargeFragment.onErrorInventory();
+            }
+        });
     }
 
     //در اینجا شارژها یکی یکی به رسایکلر اضافه می شوند
@@ -76,6 +99,10 @@ public class P_ChargeFragment {
 
         if (dispose_setCharges != null) {
             dispose_setCharges.dispose();
+        }
+
+        if (dispose_getInventoryUser != null) {
+            dispose_getInventoryUser.dispose();
         }
 
     }

@@ -105,4 +105,5 @@
     <string name="Day">روز</string>
     <string name="Hour">ساعت</string>
     <string name="LessThanAnHour">کمتر از یک ساعت</string>
+    <string name="BuyCharge">خرید شارژ</string>
 </resources>
