@@ -608,7 +608,7 @@ public class UnitConversion {
 
             // Speed
             case 13:
-
+                ans=Speed(value,value_unit,answer_unit);
                 break;
 
             // Time
@@ -3052,5 +3052,256 @@ public class UnitConversion {
         return ans;
     }
 
+    private String SpeedHelper(String answer_unit,UnitOf.Speed unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "CentimetersPerHour":
+                ans=String.valueOf(unitOf.toCentimetersPerHour());
+                break;
+            case "CentimetersPerMinute":
+                ans=String.valueOf(unitOf.toCentimetersPerMinute());
+                break;
+            case "CentimetersPerSecond":
+                ans=String.valueOf(unitOf.toCentimetersPerSecond());
+                break;
+            case "EarthsVelocity":
+                ans=String.valueOf(unitOf.toEarthsVelocity());
+                break;
+            case "FeetPerHour":
+                ans=String.valueOf(unitOf.toFeetPerHour());
+                break;
+            case "FeetPerMinute":
+                ans=String.valueOf(unitOf.toFeetPerMinute());
+                break;
+            case "FeetPerSecond":
+                ans=String.valueOf(unitOf.toFeetPerSecond());
+                break;
+            case "FirstCosmicVelocity":
+                ans=String.valueOf(unitOf.toFirstCosmicVelocity());
+                break;
+            case "InchesPerHour":
+                ans=String.valueOf(unitOf.toInchesPerHour());
+                break;
+            case "InchesPerMinute":
+                ans=String.valueOf(unitOf.toInchesPerMinute());
+                break;
+            case "InchesPerSecond":
+                ans=String.valueOf(unitOf.toInchesPerSecond());
+                break;
+            case "KilometersPerHour":
+                ans=String.valueOf(unitOf.toKilometersPerHour());
+                break;
+            case "KilometersPerMinute":
+                ans=String.valueOf(unitOf.toKilometersPerMinute());
+                break;
+            case "KilometersPerSecond":
+                ans=String.valueOf(unitOf.toKilometersPerSecond());
+                break;
+            case "Knots":
+                ans=String.valueOf(unitOf.toKnots());
+                break;
+            case "Light":
+                ans=String.valueOf(unitOf.toLight());
+                break;
+            case "Mach":
+                ans=String.valueOf(unitOf.toMach());
+                break;
+            case "MetersPerHour":
+                ans=String.valueOf(unitOf.toMetersPerHour());
+                break;
+            case "MetersPerMinute":
+                ans=String.valueOf(unitOf.toMetersPerMinute());
+                break;
+            case "MetersPerSecond":
+                ans=String.valueOf(unitOf.toMetersPerSecond());
+                break;
+            case "MilesPerHour":
+                ans=String.valueOf(unitOf.toMilesPerHour());
+                break;
+            case "MilesPerMinute":
+                ans=String.valueOf(unitOf.toMilesPerMinute());
+                break;
+            case "MilesPerSecond":
+                ans=String.valueOf(unitOf.toMilesPerSecond());
+                break;
+            case "MillimetersPerHour":
+                ans=String.valueOf(unitOf.toMillimetersPerHour());
+                break;
+            case "MillimetersPerMinute":
+                ans=String.valueOf(unitOf.toMillimetersPerMinute());
+                break;
+            case "MillimetersPerSecond":
+                ans=String.valueOf(unitOf.toMillimetersPerSecond());
+                break;
+            case "SecondCosmicVelocity":
+                ans=String.valueOf(unitOf.toSecondCosmicVelocity());
+                break;
+            case "SoundsInAir":
+                ans=String.valueOf(unitOf.toSoundsInAir());
+                break;
+            case "SoundsInWater":
+                ans=String.valueOf(unitOf.toSoundsInWater());
+                break;
+            case "ThirdCosmicVelocity":
+                ans=String.valueOf(unitOf.toThirdCosmicVelocity());
+                break;
+            case "YardsPerHour":
+                ans=String.valueOf(unitOf.toYardsPerHour());
+                break;
+            case "YardsPerMinute":
+                ans=String.valueOf(unitOf.toYardsPerMinute());
+                break;
+            case "YardsPerSecond":
+                ans=String.valueOf(unitOf.toYardsPerSecond());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Speed(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Speed unitOf;
+        
+        switch (value_unit){
+
+            case "CentimetersPerHour":
+                unitOf=new UnitOf.Speed().fromCentimetersPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "CentimetersPerMinute":
+                unitOf=new UnitOf.Speed().fromCentimetersPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "CentimetersPerSecond":
+                unitOf=new UnitOf.Speed().fromCentimetersPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "EarthsVelocity":
+                unitOf=new UnitOf.Speed().fromEarthsVelocity(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "FeetPerHour":
+                unitOf=new UnitOf.Speed().fromFeetPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "FeetPerMinute":
+                unitOf=new UnitOf.Speed().fromFeetPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "FeetPerSecond":
+                unitOf=new UnitOf.Speed().fromFeetPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "FirstCosmicVelocity":
+                unitOf=new UnitOf.Speed().fromFirstCosmicVelocity(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "InchesPerHour":
+                unitOf=new UnitOf.Speed().fromInchesPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "InchesPerMinute":
+                unitOf=new UnitOf.Speed().fromInchesPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "InchesPerSecond":
+                unitOf=new UnitOf.Speed().fromInchesPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "KilometersPerHour":
+                unitOf=new UnitOf.Speed().fromKilometersPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "KilometersPerMinute":
+                unitOf=new UnitOf.Speed().fromKilometersPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "KilometersPerSecond":
+                unitOf=new UnitOf.Speed().fromKilometersPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "Knots":
+                unitOf=new UnitOf.Speed().fromKnots(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "Light":
+                unitOf=new UnitOf.Speed().fromLight(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "Mach":
+                unitOf=new UnitOf.Speed().fromMach(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MetersPerHour":
+                unitOf=new UnitOf.Speed().fromMetersPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MetersPerMinute":
+                unitOf=new UnitOf.Speed().fromMetersPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MetersPerSecond":
+                unitOf=new UnitOf.Speed().fromMetersPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MilesPerHour":
+                unitOf=new UnitOf.Speed().fromMilesPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MilesPerMinute":
+                unitOf=new UnitOf.Speed().fromMilesPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MilesPerSecond":
+                unitOf=new UnitOf.Speed().fromMilesPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MillimetersPerHour":
+                unitOf=new UnitOf.Speed().fromMillimetersPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MillimetersPerMinute":
+                unitOf=new UnitOf.Speed().fromMillimetersPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "MillimetersPerSecond":
+                unitOf=new UnitOf.Speed().fromMillimetersPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "SecondCosmicVelocity":
+                unitOf=new UnitOf.Speed().fromSecondCosmicVelocity(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "SoundsInAir":
+                unitOf=new UnitOf.Speed().fromSoundsInAir(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "SoundsInWater":
+                unitOf=new UnitOf.Speed().fromSoundsInWater(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "ThirdCosmicVelocity":
+                unitOf=new UnitOf.Speed().fromThirdCosmicVelocity(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "YardsPerHour":
+                unitOf=new UnitOf.Speed().fromYardsPerHour(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "YardsPerMinute":
+                unitOf=new UnitOf.Speed().fromYardsPerMinute(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+            case "YardsPerSecond":
+                unitOf=new UnitOf.Speed().fromYardsPerSecond(Double.valueOf(value));
+                ans=SpeedHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
 
 }
