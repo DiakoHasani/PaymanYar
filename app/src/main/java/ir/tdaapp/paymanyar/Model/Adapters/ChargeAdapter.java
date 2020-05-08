@@ -17,6 +17,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.paymanyar.Model.Services.onClickChargeItem;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 import ir.tdaapp.paymanyar.R;
 
@@ -25,10 +26,15 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
 
     Context context;
     List<VM_Charge> charges;
+    private onClickChargeItem onClickChargeItem;
 
     public ChargeAdapter(Context context) {
         this.context = context;
         charges = new ArrayList<>();
+    }
+
+    public void setOnClickChargeItem(ir.tdaapp.paymanyar.Model.Services.onClickChargeItem onClickChargeItem) {
+        this.onClickChargeItem = onClickChargeItem;
     }
 
     public void add(VM_Charge charge) {
@@ -88,6 +94,12 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
 
             holder.specialLayout.setVisibility(View.GONE);
         }
+
+        holder.layout.setOnClickListener(view -> {
+            if (onClickChargeItem!=null){
+                onClickChargeItem.onClick(charges.get(position));
+            }
+        });
 
     }
 

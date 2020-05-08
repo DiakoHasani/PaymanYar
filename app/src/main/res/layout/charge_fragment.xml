@@ -15,12 +15,159 @@
         android:background="@color/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways"/>
 
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/InventoryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="2dp"
+        android:clipToPadding="false"
+        app:cardUseCompatPadding="false"
+        android:layout_below="@id/toolBar"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/vazir"
+                android:textSize="14dp"
+                android:textColor="@color/colorTitle"
+                android:text="@string/TheRemainingDaysOfYourCredit"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:id="@+id/specialLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/hourLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:cardUseCompatPadding="false"
+                        android:clipToPadding="false"
+                        app:cardBackgroundColor="@color/colorBackgroundHour">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/lbl_Hour"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/vazir"
+                                android:textSize="14dp"
+                                android:textColor="@color/colorWhite"
+                                android:padding="3dp"
+                                android:gravity="center"
+                                android:text="14"
+                                android:visibility="invisible"/>
+
+                            <ProgressBar
+                                android:id="@+id/progressHour"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_centerInParent="true"
+                                android:theme="@style/ProgressBarTheme"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/Hour"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dayLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:cardUseCompatPadding="false"
+                        android:clipToPadding="false"
+                        app:cardBackgroundColor="@color/colorBackgroundDay">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/lbl_Day"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/vazir"
+                                android:textSize="14dp"
+                                android:textColor="@color/colorWhite"
+                                android:padding="3dp"
+                                android:gravity="center"
+                                android:text="14"
+                                android:visibility="invisible"/>
+
+                            <ProgressBar
+                                android:id="@+id/progressDay"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_centerInParent="true"
+                                android:theme="@style/ProgressBarTheme"/>
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/Day"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:layout_below="@id/toolBar"
+        android:layout_below="@id/InventoryLayout"
         android:layout_above="@id/btn_Home"/>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -28,7 +175,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_below="@id/toolBar"
+        android:layout_below="@id/InventoryLayout"
         android:layout_marginTop="8dp">
 
         <LinearLayout

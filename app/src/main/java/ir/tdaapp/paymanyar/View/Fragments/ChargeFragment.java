@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -22,7 +28,9 @@ import ir.tdaapp.paymanyar.Presenter.P_ChargeFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.ByChargeDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.FilterWideDialog;
 
 //مربوط به فرگمنت شارژ
 public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
@@ -35,6 +43,8 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
     LinearLayoutManager layoutManager;
     ShimmerFrameLayout Loading;
     P_ChargeFragment p_chargeFragment;
+    ProgressBar progressDay, progressHour;
+    TextView lbl_Hour, lbl_Day;
 
     @Nullable
     @Override
@@ -54,6 +64,10 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
         toolBar = view.findViewById(R.id.toolBar);
         recycler = view.findViewById(R.id.recycler);
         Loading = view.findViewById(R.id.Loading);
+        progressHour = view.findViewById(R.id.progressHour);
+        progressDay = view.findViewById(R.id.progressDay);
+        lbl_Hour = view.findViewById(R.id.lbl_Hour);
+        lbl_Day = view.findViewById(R.id.lbl_Day);
     }
 
     void implement() {
@@ -84,6 +98,24 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
 
         recycler.setAdapter(chargeAdapter);
         recycler.setLayoutManager(layoutManager);
+
+        chargeAdapter.setOnClickChargeItem(charge -> {
+
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(FilterWideDialog.TAG);
+
+            if (prev == null) {
+                ft.addToBackStack(null);
+
+                ByChargeDialog byChargeDialog = new ByChargeDialog(charge, () -> {
+                    Toast.makeText(getContext(), "Ok", Toast.LENGTH_SHORT).show();
+                });
+
+                byChargeDialog.show(ft, ByChargeDialog.TAG);
+            }
+
+        });
+
     }
 
     @Override
@@ -145,6 +177,45 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
     @Override
     public void onItemCharge(VM_Charge charge) {
         chargeAdapter.add(charge);
+    }
+
+    //در اینجا موجودی گرفته می شود
+    @Override
+    public void onSuccessInventory(int inventory) {
+
+        int day = inventory / 24;
+        int hour = inventory % 24;
+
+        lbl_Hour.setText(String.valueOf(hour));
+        lbl_Day.setText(String.valueOf(day));
+    }
+
+    //در اینجا اگر در گرفتن موجودی خطای رخ دهد متد زیر رخ می دهد
+    @Override
+    public void onErrorInventory() {
+        lbl_Day.setVisibility(View.INVISIBLE);
+        lbl_Hour.setVisibility(View.INVISIBLE);
+
+        progressDay.setVisibility(View.INVISIBLE);
+        progressHour.setVisibility(View.INVISIBLE);
+    }
+
+    //مربوط به لودینگ موجودی
+    @Override
+    public void onLoadingInventory(boolean load) {
+        if (load) {
+            lbl_Day.setVisibility(View.INVISIBLE);
+            lbl_Hour.setVisibility(View.INVISIBLE);
+
+            progressDay.setVisibility(View.VISIBLE);
+            progressHour.setVisibility(View.VISIBLE);
+        } else {
+            lbl_Day.setVisibility(View.VISIBLE);
+            lbl_Hour.setVisibility(View.VISIBLE);
+
+            progressDay.setVisibility(View.INVISIBLE);
+            progressHour.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

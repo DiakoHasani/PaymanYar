@@ -12,6 +12,8 @@ import java.util.List;
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
+import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
+import ir.tdaapp.li_volley.Volleys.GetStringVolley;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 import ir.tdaapp.paymanyar.R;
@@ -19,6 +21,7 @@ import ir.tdaapp.paymanyar.R;
 public class Api_Charge extends Base_Api {
 
     GetJsonArrayVolley volley_getCharges;
+    GetStringVolley volley_getInventory;
 
     //در اینجا لیست شارژها از سرور گرفته می شوند
     public Single<List<VM_Charge>> getCharges() {
@@ -38,7 +41,7 @@ public class Api_Charge extends Base_Api {
 
                             for (int i = 0; i < array.length(); i++) {
 
-                                VM_Charge charge=new VM_Charge();
+                                VM_Charge charge = new VM_Charge();
 
                                 try {
 
@@ -74,9 +77,48 @@ public class Api_Charge extends Base_Api {
 
     }
 
+    //در اینجا موجودی کاربر گرفته می شود
+    public Single<Integer> getInventory(int userId) {
+
+        return Single.create(emitter -> {
+
+            new Thread(() -> {
+
+                try {
+
+                    volley_getInventory = new GetStringVolley(ApiUrl + "UserBase/GetChargeUser?UserId=" + userId, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            try {
+                                emitter.onSuccess(Integer.valueOf(resault.getRequest()));
+                            }catch (Exception e){
+                                emitter.onError(e);
+                            }
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
+
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+
+            }).start();
+
+        });
+
+    }
+
     public void Cancel(Context context, String TAG) {
         if (volley_getCharges != null) {
             volley_getCharges.Cancel(TAG, context);
+        }
+
+        if (volley_getInventory != null) {
+            volley_getInventory.Cancel(TAG, context);
         }
     }
 }
