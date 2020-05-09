@@ -613,7 +613,7 @@ public class UnitConversion {
 
             // Time
             case 14:
-
+                ans=Time(value,value_unit,answer_unit);
                 break;
 
             // Torque
@@ -3303,5 +3303,167 @@ public class UnitConversion {
         }
         return ans;
     }
+
+    private String TimeHelper(String answer_unit,UnitOf.Time unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "Attoseconds":
+                ans=String.valueOf(unitOf.toAttoseconds());
+                break;
+            case "Centuries":
+                ans=String.valueOf(unitOf.toCenturies());
+                break;
+            case "Days":
+                ans=String.valueOf(unitOf.toDays());
+                break;
+            case "Decades":
+                ans=String.valueOf(unitOf.toDecades());
+                break;
+            case "Femtoseconds":
+                ans=String.valueOf(unitOf.toFemtoseconds());
+                break;
+            case "Fortnights":
+                ans=String.valueOf(unitOf.toFortnights());
+                break;
+            case "GregorianYears":
+                ans=String.valueOf(unitOf.toGregorianYears());
+                break;
+            case "Hours":
+                ans=String.valueOf(unitOf.toHours());
+                break;
+            case "JulianYears":
+                ans=String.valueOf(unitOf.toJulianYears());
+                break;
+            case "LeapYears":
+                ans=String.valueOf(unitOf.toLeapYears());
+                break;
+            case "Microseconds":
+                ans=String.valueOf(unitOf.toMicroseconds());
+                break;
+            case "Millenniums":
+                ans=String.valueOf(unitOf.toMillenniums());
+                break;
+            case "Milliseconds":
+                ans=String.valueOf(unitOf.toMilliseconds());
+                break;
+            case "Minutes":
+                ans=String.valueOf(unitOf.toMinutes());
+                break;
+            case "Months":
+                ans=String.valueOf(unitOf.toMonths());
+                break;
+            case "Nanoseconds":
+                ans=String.valueOf(unitOf.toNanoseconds());
+                break;
+            case "Picoseconds":
+                ans=String.valueOf(unitOf.toPicoseconds());
+                break;
+            case "Seconds":
+                ans=String.valueOf(unitOf.toSeconds());
+                break;
+            case "Weeks":
+                ans=String.valueOf(unitOf.toWeeks());
+                break;
+            case "Years":
+                ans=String.valueOf(unitOf.toYears());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Time(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Time unitOf;
+
+        switch (value_unit){
+
+            case "Attoseconds":
+                unitOf=new UnitOf.Time().fromAttoseconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Centuries":
+                unitOf=new UnitOf.Time().fromCenturies(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Days":
+                unitOf=new UnitOf.Time().fromDays(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Decades":
+                unitOf=new UnitOf.Time().fromDecades(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Femtoseconds":
+                unitOf=new UnitOf.Time().fromFemtoseconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Fortnights":
+                unitOf=new UnitOf.Time().fromFortnights(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "GregorianYears":
+                unitOf=new UnitOf.Time().fromGregorianYears(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Hours":
+                unitOf=new UnitOf.Time().fromHours(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "JulianYears":
+                unitOf=new UnitOf.Time().fromJulianYears(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "LeapYears":
+                unitOf=new UnitOf.Time().fromLeapYears(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Microseconds":
+                unitOf=new UnitOf.Time().fromMicroseconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Millenniums":
+                unitOf=new UnitOf.Time().fromMillenniums(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Milliseconds":
+                unitOf=new UnitOf.Time().fromMilliseconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Minutes":
+                unitOf=new UnitOf.Time().fromMinutes(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Months":
+                unitOf=new UnitOf.Time().fromMonths(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Nanoseconds":
+                unitOf=new UnitOf.Time().fromNanoseconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Picoseconds":
+                unitOf=new UnitOf.Time().fromPicoseconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Seconds":
+                unitOf=new UnitOf.Time().fromSeconds(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Weeks":
+                unitOf=new UnitOf.Time().fromWeeks(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+            case "Years":
+                unitOf=new UnitOf.Time().fromYears(Double.valueOf(value));
+                ans=TimeHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
 
 }
