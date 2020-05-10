@@ -618,7 +618,7 @@ public class UnitConversion {
 
             // Torque
             case 15:
-
+                ans=Torque(value,value_unit,answer_unit);
                 break;
 
             // Volume
@@ -3465,5 +3465,143 @@ public class UnitConversion {
         return ans;
     }
 
+    private String TorqueHelper(String answer_unit,UnitOf.Torque unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
 
+            case"DyneCentimeters":
+                ans=String.valueOf(unitOf.toDyneCentimeters());
+                break;
+            case"DyneMeters":
+                ans=String.valueOf(unitOf.toDyneMeters());
+                break;
+            case"DyneMillimeters":
+                ans=String.valueOf(unitOf.toDyneMillimeters());
+                break;
+            case"GramCentimeters":
+                ans=String.valueOf(unitOf.toGramCentimeters());
+                break;
+            case"GramMeters":
+                ans=String.valueOf(unitOf.toGramMeters());
+                break;
+            case"GramMillimeters":
+                ans=String.valueOf(unitOf.toGramMillimeters());
+                break;
+            case"KilogramCentimeters":
+                ans=String.valueOf(unitOf.toKilogramCentimeters());
+                break;
+            case"KilogramMeters":
+                ans=String.valueOf(unitOf.toKilogramMeters());
+                break;
+            case"KilogramMillimeters":
+                ans=String.valueOf(unitOf.toKilogramMillimeters());
+                break;
+            case"KilonewtonMeters":
+                ans=String.valueOf(unitOf.toKilonewtonMeters());
+                break;
+            case"NewtonCentimeters":
+                ans=String.valueOf(unitOf.toNewtonCentimeters());
+                break;
+            case"NewtonMeters":
+                ans=String.valueOf(unitOf.toNewtonMeters());
+                break;
+            case"NewtonMillimeters":
+                ans=String.valueOf(unitOf.toNewtonMillimeters());
+                break;
+            case"OunceFeet":
+                ans=String.valueOf(unitOf.toOunceFeet());
+                break;
+            case"OunceInches":
+                ans=String.valueOf(unitOf.toOunceInches());
+                break;
+            case"PoundFeet":
+                ans=String.valueOf(unitOf.toPoundFeet());
+                break;
+            case"PoundInches":
+                ans=String.valueOf(unitOf.toPoundInches());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Torque(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Torque unitOf;
+        
+        switch (value_unit){
+
+            case "DyneCentimeters":
+                unitOf=new UnitOf.Torque().fromDyneCentimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "DyneMeters":
+                unitOf=new UnitOf.Torque().fromDyneMeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "DyneMillimeters":
+                unitOf=new UnitOf.Torque().fromDyneMillimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "GramCentimeters":
+                unitOf=new UnitOf.Torque().fromGramCentimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "GramMeters":
+                unitOf=new UnitOf.Torque().fromGramMeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "GramMillimeters":
+                unitOf=new UnitOf.Torque().fromGramMillimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "KilogramCentimeters":
+                unitOf=new UnitOf.Torque().fromKilogramCentimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "KilogramMeters":
+                unitOf=new UnitOf.Torque().fromKilogramMeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "KilogramMillimeters":
+                unitOf=new UnitOf.Torque().fromKilogramMillimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "KilonewtonMeters":
+                unitOf=new UnitOf.Torque().fromKilonewtonMeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "NewtonCentimeters":
+                unitOf=new UnitOf.Torque().fromNewtonCentimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "NewtonMeters":
+                unitOf=new UnitOf.Torque().fromNewtonMeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "NewtonMillimeters":
+                unitOf=new UnitOf.Torque().fromNewtonMillimeters(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "OunceFeet":
+                unitOf=new UnitOf.Torque().fromOunceFeet(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "OunceInches":
+                unitOf=new UnitOf.Torque().fromOunceInches(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "PoundFeet":
+                unitOf=new UnitOf.Torque().fromPoundFeet(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+            case "PoundInches":
+                unitOf=new UnitOf.Torque().fromPoundInches(Double.valueOf(value));
+                ans=TorqueHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
 }
