@@ -623,9 +623,7 @@ public class UnitConversion {
 
             // Volume
             case 16:
-
-
-
+                ans=Volume(value,value_unit,answer_unit);
                 break;
 
 
@@ -3604,4 +3602,481 @@ public class UnitConversion {
         }
         return ans;
     }
+
+    private String VolumeHelper(String answer_unit,UnitOf.Volume unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "AcreFeetUSSurvey":
+                ans=String.valueOf(unitOf.toAcreFeetUSSurvey());
+                break;
+            case "AcreInches":
+                ans=String.valueOf(unitOf.toAcreInches());
+                break;
+            case "ArceFeet":
+                ans=String.valueOf(unitOf.toArceFeet());
+                break;
+            case "Attoliters":
+                ans=String.valueOf(unitOf.toAttoliters());
+                break;
+            case "BarrelsOfOil":
+                ans=String.valueOf(unitOf.toBarrelsOfOil());
+                break;
+            case "BarrelsUK":
+                ans=String.valueOf(unitOf.toBarrelsUK());
+                break;
+            case "BarrelsUS":
+                ans=String.valueOf(unitOf.toBarrelsUS());
+                break;
+            case "BoardFeet":
+                ans=String.valueOf(unitOf.toBoardFeet());
+                break;
+            case "Centiliters":
+                ans=String.valueOf(unitOf.toCentiliters());
+                break;
+            case "Cords":
+                ans=String.valueOf(unitOf.toCords());
+                break;
+            case "CubicCentimeters":
+                ans=String.valueOf(unitOf.toCubicCentimeters());
+                break;
+            case "CubicDecimeters":
+                ans=String.valueOf(unitOf.toCubicDecimeters());
+                break;
+            case "CubicFeet":
+                ans=String.valueOf(unitOf.toCubicFeet());
+                break;
+            case "CubicInches":
+                ans=String.valueOf(unitOf.toCubicInches());
+                break;
+            case "CubicKilometers":
+                ans=String.valueOf(unitOf.toCubicKilometers());
+                break;
+            case "CubicMeters":
+                ans=String.valueOf(unitOf.toCubicMeters());
+                break;
+            case "CubicMiles":
+                ans=String.valueOf(unitOf.toCubicMiles());
+                break;
+            case "CubicMillimeters":
+                ans=String.valueOf(unitOf.toCubicMillimeters());
+                break;
+            case "CubicYards":
+                ans=String.valueOf(unitOf.toCubicYards());
+                break;
+            case "CupsMetric":
+                ans=String.valueOf(unitOf.toCupsMetric());
+                break;
+            case "CupsUK":
+                ans=String.valueOf(unitOf.toCupsUK());
+                break;
+            case "CupsUS":
+                ans=String.valueOf(unitOf.toCupsUS());
+                break;
+            case "Deciliters":
+                ans=String.valueOf(unitOf.toDeciliters());
+                break;
+            case "Decisteres":
+                ans=String.valueOf(unitOf.toDecisteres());
+                break;
+            case "Dekaliters":
+                ans=String.valueOf(unitOf.toDekaliters());
+                break;
+            case "Dekasteres":
+                ans=String.valueOf(unitOf.toDekasteres());
+                break;
+            case "DessertspoonsUK":
+                ans=String.valueOf(unitOf.toDessertspoonsUK());
+                break;
+            case "DessertspoonsUS":
+                ans=String.valueOf(unitOf.toDessertspoonsUS());
+                break;
+            case "Drops":
+                ans=String.valueOf(unitOf.toDrops());
+                break;
+            case "Exaliters":
+                ans=String.valueOf(unitOf.toExaliters());
+                break;
+            case "Femtoliters":
+                ans=String.valueOf(unitOf.toFemtoliters());
+                break;
+            case "FluidOuncesUK":
+                ans=String.valueOf(unitOf.toFluidOuncesUK());
+                break;
+            case "FluidOuncesUS":
+                ans=String.valueOf(unitOf.toFluidOuncesUS());
+                break;
+            case "GallonsUK":
+                ans=String.valueOf(unitOf.toGallonsUK());
+                break;
+            case "GallonsUS":
+                ans=String.valueOf(unitOf.toGallonsUS());
+                break;
+            case "Gigaliters":
+                ans=String.valueOf(unitOf.toGigaliters());
+                break;
+            case "GillsUK":
+                ans=String.valueOf(unitOf.toGillsUK());
+                break;
+            case "GillsUS":
+                ans=String.valueOf(unitOf.toGillsUS());
+                break;
+            case "Hectoliters":
+                ans=String.valueOf(unitOf.toHectoliters());
+                break;
+            case "Hogsheads":
+                ans=String.valueOf(unitOf.toHogsheads());
+                break;
+            case "HundredCubicFeet":
+                ans=String.valueOf(unitOf.toHundredCubicFeet());
+                break;
+            case "Kiloliters":
+                ans=String.valueOf(unitOf.toKiloliters());
+                break;
+            case "Liters":
+                ans=String.valueOf(unitOf.toLiters());
+                break;
+            case "Megaliters":
+                ans=String.valueOf(unitOf.toMegaliters());
+                break;
+            case "Microliters":
+                ans=String.valueOf(unitOf.toMicroliters());
+                break;
+            case "Milliliters":
+                ans=String.valueOf(unitOf.toMilliliters());
+                break;
+            case "MinimsUK":
+                ans=String.valueOf(unitOf.toMinimsUK());
+                break;
+            case "MinimsUS":
+                ans=String.valueOf(unitOf.toMinimsUS());
+                break;
+            case "Nanoliters":
+                ans=String.valueOf(unitOf.toNanoliters());
+                break;
+            case "Petaliters":
+                ans=String.valueOf(unitOf.toPetaliters());
+                break;
+            case "Picoliters":
+                ans=String.valueOf(unitOf.toPicoliters());
+                break;
+            case "PintsUK":
+                ans=String.valueOf(unitOf.toPintsUK());
+                break;
+            case "PintsUS":
+                ans=String.valueOf(unitOf.toPintsUS());
+                break;
+            case "QuartsUK":
+                ans=String.valueOf(unitOf.toQuartsUK());
+                break;
+            case "QuartsUS":
+                ans=String.valueOf(unitOf.toQuartsUS());
+                break;
+            case "RegisterTons":
+                ans=String.valueOf(unitOf.toRegisterTons());
+                break;
+            case "Steres":
+                ans=String.valueOf(unitOf.toSteres());
+                break;
+            case "TablespoonsMetric":
+                ans=String.valueOf(unitOf.toTablespoonsMetric());
+                break;
+            case "TablespoonsUK":
+                ans=String.valueOf(unitOf.toTablespoonsUK());
+                break;
+            case "TablespoonsUS":
+                ans=String.valueOf(unitOf.toTablespoonsUS());
+                break;
+            case "TeaspoonsMetric":
+                ans=String.valueOf(unitOf.toTeaspoonsMetric());
+                break;
+            case "TeaspoonsUK":
+                ans=String.valueOf(unitOf.toTeaspoonsUK());
+                break;
+            case "TeaspoonsUS":
+                ans=String.valueOf(unitOf.toTeaspoonsUS());
+                break;
+            case "Teraliters":
+                ans=String.valueOf(unitOf.toTeraliters());
+                break;
+            case "Tuns":
+                ans=String.valueOf(unitOf.toTuns());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Volume(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Volume unitOf;
+        
+        switch (value_unit){
+
+            case "AcreFeetUSSurvey":
+                unitOf=new UnitOf.Volume().fromAcreFeetUSSurvey(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "AcreInches":
+                unitOf=new UnitOf.Volume().fromAcreInches(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "ArceFeet":
+                unitOf=new UnitOf.Volume().fromArceFeet(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Attoliters":
+                unitOf=new UnitOf.Volume().fromAttoliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "BarrelsOfOil":
+                unitOf=new UnitOf.Volume().fromBarrelsOfOil(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "BarrelsUK":
+                unitOf=new UnitOf.Volume().fromBarrelsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "BarrelsUS":
+                unitOf=new UnitOf.Volume().fromBarrelsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "BoardFeet":
+                unitOf=new UnitOf.Volume().fromBoardFeet(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Centiliters":
+                unitOf=new UnitOf.Volume().fromCentiliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Cords":
+                unitOf=new UnitOf.Volume().fromCords(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicCentimeters":
+                unitOf=new UnitOf.Volume().fromCubicCentimeters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicDecimeters":
+                unitOf=new UnitOf.Volume().fromCubicDecimeters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicFeet":
+                unitOf=new UnitOf.Volume().fromCubicFeet(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicInches":
+                unitOf=new UnitOf.Volume().fromCubicInches(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicKilometers":
+                unitOf=new UnitOf.Volume().fromCubicKilometers(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicMeters":
+                unitOf=new UnitOf.Volume().fromCubicMeters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicMiles":
+                unitOf=new UnitOf.Volume().fromCubicMiles(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicMillimeters":
+                unitOf=new UnitOf.Volume().fromCubicMillimeters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CubicYards":
+                unitOf=new UnitOf.Volume().fromCubicYards(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CupsMetric":
+                unitOf=new UnitOf.Volume().fromCupsMetric(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CupsUK":
+                unitOf=new UnitOf.Volume().fromCupsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "CupsUS":
+                unitOf=new UnitOf.Volume().fromCupsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Deciliters":
+                unitOf=new UnitOf.Volume().fromDeciliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Decisteres":
+                unitOf=new UnitOf.Volume().fromDecisteres(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Dekaliters":
+                unitOf=new UnitOf.Volume().fromDekaliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Dekasteres":
+                unitOf=new UnitOf.Volume().fromDekasteres(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "DessertspoonsUK":
+                unitOf=new UnitOf.Volume().fromDessertspoonsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "DessertspoonsUS":
+                unitOf=new UnitOf.Volume().fromDessertspoonsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Drops":
+                unitOf=new UnitOf.Volume().fromDrops(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Exaliters":
+                unitOf=new UnitOf.Volume().fromExaliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Femtoliters":
+                unitOf=new UnitOf.Volume().fromFemtoliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "FluidOuncesUK":
+                unitOf=new UnitOf.Volume().fromFluidOuncesUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "FluidOuncesUS":
+                unitOf=new UnitOf.Volume().fromFluidOuncesUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "GallonsUK":
+                unitOf=new UnitOf.Volume().fromGallonsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "GallonsUS":
+                unitOf=new UnitOf.Volume().fromGallonsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Gigaliters":
+                unitOf=new UnitOf.Volume().fromGigaliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "GillsUK":
+                unitOf=new UnitOf.Volume().fromGillsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "GillsUS":
+                unitOf=new UnitOf.Volume().fromGillsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Hectoliters":
+                unitOf=new UnitOf.Volume().fromHectoliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Hogsheads":
+                unitOf=new UnitOf.Volume().fromHogsheads(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "HundredCubicFeet":
+                unitOf=new UnitOf.Volume().fromHundredCubicFeet(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Kiloliters":
+                unitOf=new UnitOf.Volume().fromKiloliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Liters":
+                unitOf=new UnitOf.Volume().fromLiters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Megaliters":
+                unitOf=new UnitOf.Volume().fromMegaliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Microliters":
+                unitOf=new UnitOf.Volume().fromMicroliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Milliliters":
+                unitOf=new UnitOf.Volume().fromMilliliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "MinimsUK":
+                unitOf=new UnitOf.Volume().fromMinimsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "MinimsUS":
+                unitOf=new UnitOf.Volume().fromMinimsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Nanoliters":
+                unitOf=new UnitOf.Volume().fromNanoliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Petaliters":
+                unitOf=new UnitOf.Volume().fromPetaliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Picoliters":
+                unitOf=new UnitOf.Volume().fromPicoliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "PintsUK":
+                unitOf=new UnitOf.Volume().fromPintsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "PintsUS":
+                unitOf=new UnitOf.Volume().fromPintsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "QuartsUK":
+                unitOf=new UnitOf.Volume().fromQuartsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "QuartsUS":
+                unitOf=new UnitOf.Volume().fromQuartsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "RegisterTons":
+                unitOf=new UnitOf.Volume().fromRegisterTons(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Steres":
+                unitOf=new UnitOf.Volume().fromSteres(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "TablespoonsMetric":
+                unitOf=new UnitOf.Volume().fromTablespoonsMetric(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "TablespoonsUK":
+                unitOf=new UnitOf.Volume().fromTablespoonsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "TablespoonsUS":
+                unitOf=new UnitOf.Volume().fromTablespoonsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "TeaspoonsMetric":
+                unitOf=new UnitOf.Volume().fromTeaspoonsMetric(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "TeaspoonsUK":
+                unitOf=new UnitOf.Volume().fromTeaspoonsUK(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "TeaspoonsUS":
+                unitOf=new UnitOf.Volume().fromTeaspoonsUS(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Teraliters":
+                unitOf=new UnitOf.Volume().fromTeraliters(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+            case "Tuns":
+                unitOf=new UnitOf.Volume().fromTuns(Double.valueOf(value));
+                ans=VolumeHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+    
 }
