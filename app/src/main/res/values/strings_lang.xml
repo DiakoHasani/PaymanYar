@@ -13,4 +13,5 @@
     <string name="SelectedOneMajor">یک رشته تحصیلی انتخاب کنید</string>
     <string name="DisplayableForSubscribers">قابل نمایش برای مشترکان</string>
     <string name="TheRemainingDaysOfYourCredit">روزهای باقی مانده از اعتبار شما</string>
+    <string name="TheAmount_of_the_Guarantee_in_the_Tender">مبلغ تضمین در مناقصه:</string>
 </resources>

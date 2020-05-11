@@ -45,6 +45,7 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
     P_ChargeFragment p_chargeFragment;
     ProgressBar progressDay, progressHour;
     TextView lbl_Hour, lbl_Day;
+    ErrorAplicationDialog errorAplicationDialog;
 
     @Nullable
     @Override
@@ -168,9 +169,12 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
                 break;
         }
 
-        new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
+        errorAplicationDialog =new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
             p_chargeFragment.start();
-        }).show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+            errorAplicationDialog.dismiss();
+        });
+
+        errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
 
     }
 
