@@ -37,4 +37,30 @@ public class P_PriceRangeFragment {
         s_priceRangeFragment.onGetDegreeOfImportance(adapter);
     }
 
+    private double GetPriority(int participant_count,int priority){
+
+        /*
+        *   این متد برای محاسبه ضریب اهمیت مقایسه یا همان t است
+         */
+
+        double t=0.0;
+
+        if(participant_count>=3 && participant_count<=6){
+            if(priority==1)t=1.1;
+            if(priority==2)t=1.0;
+            if(priority==3)t=0.9;
+        }else if(participant_count>=7 && participant_count<=10){
+            if(priority==1)t=1.3;
+            if(priority==2)t=1.2;
+            if(priority==3)t=1.1;
+        }else if(participant_count>10){
+            if(priority==1)t=1.5;
+            if(priority==2)t=1.4;
+            if(priority==3)t=1.3;
+        }
+
+        return t;
+    }
+
+
 }
