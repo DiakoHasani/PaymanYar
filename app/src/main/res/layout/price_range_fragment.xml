@@ -720,6 +720,7 @@
                         android:layout_marginLeft="8dp"
                         app:cardBackgroundColor="@color/colorPrimary"
                         android:clipToPadding="false"
+                        android:id="@+id/btn_PriceRange"
                         app:cardUseCompatPadding="false"
                         android:theme="@style/AppTheme.MyRipple"
                         android:clickable="true">

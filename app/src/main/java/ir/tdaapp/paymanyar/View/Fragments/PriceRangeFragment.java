@@ -20,7 +20,7 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
 //صفحه دامنه قیمت
-public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFragment {
+public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFragment,View.OnClickListener {
 
     P_PriceRangeFragment p_priceRangeFragment;
 
@@ -98,5 +98,18 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     @Override
     public void onGetDegreeOfImportance(ArrayAdapter adapter) {
         cmb_Degree_of_Importance.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_PriceRange:
+                Calculate();
+                break;
+        }
+    }
+
+    private void Calculate(){
+
     }
 }

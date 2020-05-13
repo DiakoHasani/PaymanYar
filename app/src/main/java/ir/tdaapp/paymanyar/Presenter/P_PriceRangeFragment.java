@@ -3,11 +3,13 @@ package ir.tdaapp.paymanyar.Presenter;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.tdaapp.paymanyar.Model.Services.S_PriceRangeFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DegreeOfImportance;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_PriceRange;
 import ir.tdaapp.paymanyar.R;
 
 public class P_PriceRangeFragment {
@@ -37,6 +39,7 @@ public class P_PriceRangeFragment {
         s_priceRangeFragment.onGetDegreeOfImportance(adapter);
     }
 
+    //Display as : T
     private double GetPriority(int participant_count,int priority){
 
         /*
@@ -62,5 +65,46 @@ public class P_PriceRangeFragment {
         return t;
     }
 
+    public void StartCalculate(String price, ArrayList<VM_PriceRange> participates,String Guarantee,int priority){
+
+        //مبلغ مناقصه
+        long A=(Long.valueOf(price));
+
+        //میزان اهمیت
+        double T=GetPriority(participates.size(),priority);
+
+        //مبلغ تضمین
+        long D=A*5/100; // Default
+        if(Guarantee.length()>0){
+            // If User Entered Guarantee Value
+            D=Long.valueOf(Guarantee);
+        }
+
+        //تعداد پیمانکاران
+        int N=participates.size()+1;
+
+        //میانگین درصدهای پیشنهادی
+        long M=GetAverage(participates,A);
+
+
+
+
+    }
+
+    private long GetAverage(ArrayList<VM_PriceRange> arr,long price){
+        long average=price;
+
+        try {
+            //جمع کردن مبالغ
+            for (int i=0;i<arr.size();i++){
+                average+=Long.valueOf(arr.get(i).price);
+            }
+
+            //تقسیم بر تعداد نفرات
+            if(arr.size()>0)average=average/(arr.size()+1);
+        }catch (Exception e){}
+
+        return average;
+    }
 
 }
