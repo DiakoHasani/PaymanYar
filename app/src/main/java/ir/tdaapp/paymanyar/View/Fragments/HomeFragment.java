@@ -40,7 +40,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     P_HomeFragment p_homeFragment;
     SliderHomeAdapter sliderHomeAdapter;
     ShimmerFrameLayout Loading;
-    CardView btn_Tools, btn_NewsPaper, btn_TenderNotification,btn_PriceRange;
+    CardView btn_Tools, btn_NewsPaper, btn_TenderNotification,btn_PriceRange,btn_Libraries;
     Toolbar toolbar;
     NavigationView nav_View;
     DrawerLayout drawer;
@@ -70,6 +70,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         nav_View = view.findViewById(R.id.nav_View);
         drawer = view.findViewById(R.id.drawer);
         btn_PriceRange = view.findViewById(R.id.btn_PriceRange);
+        btn_Libraries = view.findViewById(R.id.btn_Libraries);
     }
 
     void implement() {
@@ -79,6 +80,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_NewsPaper.setOnClickListener(this);
         btn_TenderNotification.setOnClickListener(this);
         btn_PriceRange.setOnClickListener(this);
+        btn_Libraries.setOnClickListener(this);
 
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -186,6 +188,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_PriceRange:
                 ((MainActivity) getActivity()).onAddFragment(new PriceRangeFragment(), R.anim.fadein, R.anim.fadeout, true, PriceRangeFragment.TAG);
+                break;
+            case R.id.btn_Libraries:
+                ((MainActivity) getActivity()).onAddFragment(new LibraryFragment(), R.anim.fadein, R.anim.fadeout, true, LibraryFragment.TAG);
                 break;
         }
     }

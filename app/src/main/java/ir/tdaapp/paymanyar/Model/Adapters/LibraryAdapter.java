@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        holder.lbl_Title.setText(libraries.get(position).getTitle());
     }
 
     @Override
@@ -46,10 +47,15 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         return libraries.size();
     }
 
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public MyViewHolder(@NonNull View itemView) {
+        TextView lbl_Title;
+
+        public MyViewHolder(@NonNull View itemView)
+        {
             super(itemView);
+            lbl_Title=itemView.findViewById(R.id.lbl_Title);
         }
     }
 
