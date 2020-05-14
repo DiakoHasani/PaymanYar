@@ -67,44 +67,125 @@ public class P_PriceRangeFragment {
 
     public void StartCalculate(String price, ArrayList<VM_PriceRange> participates,String Guarantee,int priority){
 
-        //مبلغ مناقصه
-        long A=(Long.valueOf(price));
-
-        //میزان اهمیت
-        double T=GetPriority(participates.size(),priority);
-
-        //مبلغ تضمین
-        long D=A*5/100; // Default
-        if(Guarantee.length()>0){
-            // If User Entered Guarantee Value
-            D=Long.valueOf(Guarantee);
-        }
-
-        //تعداد پیمانکاران
-        int N=participates.size()+1;
-
-        //میانگین درصدهای پیشنهادی
-        long M=GetAverage(participates,A);
-
-
-
-
-    }
-
-    private long GetAverage(ArrayList<VM_PriceRange> arr,long price){
-        long average=price;
-
         try {
-            //جمع کردن مبالغ
-            for (int i=0;i<arr.size();i++){
-                average+=Long.valueOf(arr.get(i).price);
+            //مبلغ مناقصه
+            long A = (Long.valueOf(price));
+
+            //میزان اهمیت
+            double T = GetPriority(participates.size(), priority);
+
+            //مبلغ تضمین
+            long D = A * 5 / 100; // Default
+            if (Guarantee.length() > 0) {
+                // If User Entered Guarantee Value
+                D = Long.valueOf(Guarantee);
             }
 
-            //تقسیم بر تعداد نفرات
-            if(arr.size()>0)average=average/(arr.size()+1);
+            //تعداد پیمانکاران
+            int N = participates.size() + 1;
+
+            //میانگین درصدهای پیشنهادی
+            double M = GetAverage(participates, true);
+
+            double B = 1;
+            if (M > 115) {
+                B = 1.1 * M;
+            } else if (M <= 115) {
+                B = 1.25 * M;
+            }
+
+            //حذف درخواست های نامتعارف
+            for (int i = 0; i < participates.size(); i++) {
+                if (Double.valueOf(participates.get(i).percent) > B) {
+                    participates.get(i).isDeleted = true;
+                }
+            }
+
+            //میانگین درصدهای پیشنهادی بعد از حذف درخواست های نامتعارف
+            double M_prime = GetAverage(participates, false);
+
+            //انحراف معیار درخواست های حذف نشده
+            double S_prime = devitation(M_prime, participates, M_prime);
+
+            //نصاب معاملات سالانه
+            long L = 0;
+
+            long K = 1000 * L;
+
+            //بدست آوردن حد پایین
+            double C1 = 0;
+            if (A > K || N <= 6) {
+                C1 = 0.97 * (M_prime - (T * S_prime));
+            } else {
+                C1 = M_prime - (T * S_prime) - (0.5 * D / A * 100);
+            }
+
+            //بدست آوردن حد بالا
+            double C2 = M_prime + (T * S_prime);
+
         }catch (Exception e){}
+    }
+
+    private double GetAverage(ArrayList<VM_PriceRange> arr,boolean withDeleted){
+        double average=100;
+
+        if(withDeleted) {
+
+            //جمع کردن کل درصد درخواست ها
+
+            try {
+                //جمع کردن درصدها
+                for (int i = 0; i < arr.size(); i++) {
+                    average += Double.valueOf(arr.get(i).percent);
+                }
+
+                //تقسیم بر تعداد نفرات
+                if (arr.size() > 0) average = average / (arr.size() + 1);
+            } catch (Exception e) {
+            }
+        }else{
+
+            //جمع کردن درصد درخواست های حذف نشده
+
+            try {
+                int numbers=1;
+                //جمع کردن درصدها
+                for (int i = 0; i < arr.size(); i++) {
+                    if(!arr.get(i).isDeleted) {
+                        average += Double.valueOf(arr.get(i).percent);
+                        numbers++;
+                    }
+                }
+
+                //تقسیم بر تعداد نفرات
+                average = average / numbers;
+            } catch (Exception e) {
+            }
+        }
 
         return average;
     }
+
+    //انحراف معیار درخواست های حذف نشده
+    private double devitation(double M,ArrayList<VM_PriceRange> arr,double m){
+        double ans=0;
+
+        try{
+            int numbers=0;
+            for(int i=0;i<arr.size();i++){
+
+                if(!arr.get(i).isDeleted){
+                    ans+=Math.pow(Double.valueOf(arr.get(i).percent)-m,2);// (Xi - X)^2  , X is Average
+                    numbers++;
+                }
+
+            }
+            ans=ans/numbers;
+
+        }catch (Exception e){}
+
+        return ans;
+    }
+
 
 }
