@@ -41,6 +41,8 @@ public class P_LibraryFragment {
 
         if (page == 0) {
             s_libraryFragment.onLoading(true);
+        } else {
+            s_libraryFragment.onLoadingPaging(true);
         }
 
         Single<List<VM_Library>> data = api_library.getLibraries(queryText, page);
@@ -52,6 +54,13 @@ public class P_LibraryFragment {
                 if (page == 0) {
                     s_libraryFragment.onHideAll();
                     s_libraryFragment.onSuccess();
+
+                    if (vm_libraries.size() == 0) {
+                        s_libraryFragment.onEmptyItem();
+                    }
+
+                } else {
+                    s_libraryFragment.onLoadingPaging(false);
                 }
 
                 setLibraries(vm_libraries);
@@ -77,7 +86,9 @@ public class P_LibraryFragment {
         }, throwable -> {
 
         }, () -> {
-            s_libraryFragment.onFinish();
+            if (libraries.size() == 40) {
+                s_libraryFragment.onFinish();
+            }
         });
 
     }

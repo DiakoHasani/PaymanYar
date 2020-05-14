@@ -22,4 +22,5 @@
     <color name="colorBackgroundDay">#fd1058</color>
     <color name="colorBackgroundHour">#24d1fc</color>
     <color name="colorYellow">#da954b</color>
+    <color name="colorMySMS">#e9e9e9</color>
 </resources>

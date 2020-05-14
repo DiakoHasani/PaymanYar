@@ -117,4 +117,5 @@
     <string name="VolunteerCode">کد داوطلب:</string>
     <string name="WinnerTender">برنده مناقصه</string>
     <string name="Title">عنوان</string>
+    <string name="SMS">پیام</string>
 </resources>

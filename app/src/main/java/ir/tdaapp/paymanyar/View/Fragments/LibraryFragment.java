@@ -1,11 +1,16 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -17,16 +22,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.LibraryAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_LibraryFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickLibrary;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
 import ir.tdaapp.paymanyar.Presenter.P_LibraryFragment;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
-//مربوط به صفحه کتابخانه
-public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 
-    public static final String TAG="LibraryFragment";
+//مربوط به صفحه کتابخانه
+public class LibraryFragment extends BaseFragment implements S_LibraryFragment, View.OnClickListener {
+
+    public static final String TAG = "LibraryFragment";
 
     P_LibraryFragment p_libraryFragment;
     LibraryAdapter libraryAdapter;
@@ -38,6 +47,9 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
     Button btn_Search;
     int page = 0;
     ErrorAplicationDialog errorAplicationDialog;
+    boolean isLoading = false;
+    ProgressBar progress_paging;
+    LinearLayout empty;
 
     @Nullable
     @Override
@@ -46,6 +58,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
 
         findItem(view);
         implement();
+        setToolbar();
 
         p_libraryFragment.start(txt_Search.getText().toString(), page);
 
@@ -58,10 +71,81 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
         loading = view.findViewById(R.id.loading);
         btn_Search = view.findViewById(R.id.btn_Search);
         txt_Search = view.findViewById(R.id.txt_Search);
+        progress_paging = view.findViewById(R.id.progress_paging);
+        empty = view.findViewById(R.id.empty);
     }
 
     void implement() {
         p_libraryFragment = new P_LibraryFragment(getContext(), this);
+        btn_Search.setOnClickListener(this);
+
+        recycler.setOnScrollListener(pOnScrollListener);
+    }
+
+    //در اینجا تنظیمات تولبار ست می شود
+    void setToolbar() {
+
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setTitle(getContext().getResources().getString(R.string.Library));
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
+        toolbar.setNavigationOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
+        setHasOptionsMenu(true);
+    }
+
+
+    //در اینجا چک می کند که زمان پیجینگ رسیده است اگر رسیده باشد عملیات را شروع می کند
+    RecyclerView.OnScrollListener pOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            //در اینجا چک می کند آداپتر رسایکلر نال نباشد که در برنامه خطای رخ دهد
+            if (recycler.getAdapter() != null) {
+
+                //اگر متغیر زیر ترو باشد یعنی مشغول عملیات پیجینگ است تا عملیات به پایان نرسد اجازه پیجینگ نمی دهد
+                if (!isLoading) {
+
+                    //اگر اسکرول رسایکلر ما به آخر برسد یعنی زمان پیجینگ است و شرط زیر اجرا می شود
+                    if (isLastItemDisplaying()) {
+
+                        isLoading = true;
+
+                        ++page;
+                        p_libraryFragment.start(txt_Search.getText().toString(), page);
+                    }
+                }
+            }
+
+        }
+    };
+
+    //در اینجا اگر مقدار ترو برگشت داده شود یعنی زمان پیجینگ رسیده است و نیاز به خواندن داده از سرور می باشد
+    boolean isLastItemDisplaying() {
+
+        if (!isLoading) {
+
+            int visibleItemCount = layoutManager.getChildCount() + 5;
+            int totalItemCount = layoutManager.getItemCount();
+            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= PAGE_SIZE) {
+                isLoading = true;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -73,6 +157,18 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
 
         recycler.setAdapter(libraryAdapter);
         recycler.setLayoutManager(layoutManager);
+
+        libraryAdapter.setOnClickLibrary(new onClickLibrary() {
+            @Override
+            public void clickDownload(String url) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+
+            @Override
+            public void clickItem(int id) {
+
+            }
+        });
     }
 
     @Override
@@ -108,11 +204,13 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
     public void onHideAll() {
         loading.setVisibility(View.GONE);
         recycler.setVisibility(View.GONE);
+        empty.setVisibility(View.GONE);
     }
 
     @Override
     public void onFinish() {
         loading.stopShimmerAnimation();
+        isLoading = false;
     }
 
     @Override
@@ -133,5 +231,31 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment {
     @Override
     public void onLibraryItem(VM_Library library) {
         libraryAdapter.add(library);
+    }
+
+    //مربوط به لودینگ رسایکلر
+    @Override
+    public void onLoadingPaging(boolean load) {
+        if (load) {
+            progress_paging.setVisibility(View.VISIBLE);
+        } else {
+            progress_paging.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    //در صورت نبود کتاب این متد فراخوانی می شود
+    @Override
+    public void onEmptyItem() {
+        empty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_Search:
+                page = 0;
+                p_libraryFragment.start(txt_Search.getText().toString(), page);
+                break;
+        }
     }
 }
