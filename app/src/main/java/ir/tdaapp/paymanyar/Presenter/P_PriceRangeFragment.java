@@ -40,7 +40,7 @@ public class P_PriceRangeFragment {
     }
 
     //Display as : T
-    private double GetPriority(int participant_count,int priority){
+    private double GetPriority(int participant_count,long priority){
 
         /*
         *   این متد برای محاسبه ضریب اهمیت مقایسه یا همان t است
@@ -65,7 +65,7 @@ public class P_PriceRangeFragment {
         return t;
     }
 
-    public void StartCalculate(String price, ArrayList<VM_PriceRange> participates,String Guarantee,int priority){
+    public void StartCalculate(String price, ArrayList<VM_PriceRange> participates,String Guarantee,long priority){
 
         try {
             //مبلغ مناقصه
@@ -187,5 +187,14 @@ public class P_PriceRangeFragment {
         return ans;
     }
 
+    //محاسبه درصد مبلغ پیشنهادی به نسبت مبلغ مناقصه
+    public String CalculatePercent(String tender_offer,String price){
 
+        String ans="";
+
+        long prc=Long.valueOf(price)*100/Long.valueOf(tender_offer);
+        ans=String.valueOf(prc);
+
+        return ans;
+    }
 }

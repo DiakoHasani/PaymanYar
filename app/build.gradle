@@ -72,4 +72,7 @@ dependencies {
 
     //برای نمایش گیف
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+
+    //برای بررسی دسترسی مجوزها
+    implementation 'com.karumi:dexter:5.0.0'
 }
