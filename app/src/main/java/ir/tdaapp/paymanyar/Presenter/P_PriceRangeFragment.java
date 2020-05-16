@@ -123,6 +123,8 @@ public class P_PriceRangeFragment {
             //بدست آوردن حد بالا
             double C2 = M_prime + (T * S_prime);
 
+            ChooseWinner(C1,participates);
+
         }catch (Exception e){}
     }
 
@@ -196,5 +198,32 @@ public class P_PriceRangeFragment {
         ans=String.valueOf(prc);
 
         return ans;
+    }
+
+    //پیدا کردن برنده مناقصه
+    private void ChooseWinner(double C,ArrayList<VM_PriceRange> arr){
+        long max_price=0;
+        double max_percent=0;
+        String index="---";
+
+        /*
+        انتخاب برنده به شکل زیر است:
+        وقتی حد پایین رو به دست اوردی اولین بزرگترین موردی که کمترین اختلاف رو داره میشه برنده
+        درخواست های حذف شده ملاک قرار نمی گیرند
+         */
+
+        for(int i=0;i<arr.size();i++){
+            VM_PriceRange item=arr.get(i);
+
+            if(!item.isDeleted){
+                if(Long.valueOf(item.price)>max_price && (Double.valueOf(item.percent)-C)<max_percent){
+                    max_price=Long.valueOf(item.price);
+                    max_percent=Double.valueOf(item.percent)-C;
+                    index=item.id;
+                }
+            }
+        }
+
+        if(s_priceRangeFragment!=null)s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price),index);
     }
 }

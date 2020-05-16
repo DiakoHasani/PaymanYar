@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     EditText txt_AmountToToman1, txt_AmountToToman2, txt_AmountToToman3, txt_AmountToToman4, txt_AmountToToman5, txt_AmountToToman6;
     EditText txt_AmountToToman7,txt_AmountToToman8,percent1,percent2,percent3,percent4,percent5,percent6,percent7,percent8,txt_Percentage;
     Spinner cmb_Degree_of_Importance;
+    TextView winnerPrice,winnerNumber;
     Toolbar toolbar;
 
     public static final String TAG = "PriceRangeFragment";
@@ -70,6 +72,9 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         percent6=view.findViewById(R.id.pricerange_percent6);
         percent7=view.findViewById(R.id.pricerange_percent7);
         percent8=view.findViewById(R.id.pricerange_percent8);
+
+        winnerNumber=view.findViewById(R.id.pricerange_winnerNumber);
+        winnerPrice=view.findViewById(R.id.pricerange_winnerprice);
 
         txt_Percentage = view.findViewById(R.id.txt_percentage);
     }
@@ -158,5 +163,9 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         }
     }
 
-
+    @Override
+    public void onWinnerChoosed(String number, String position) {
+        winnerPrice.setText(number);
+        winnerNumber.setText(position);
+    }
 }

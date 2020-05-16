@@ -734,10 +734,12 @@
                         android:clickable="true">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/vazir"
                             android:textSize="14dp"
+                            android:clickable="false"
+                            android:layout_gravity="center"
                             android:textColor="@color/colorWhite"
                             android:text="@string/Computing"
                             android:gravity="center"/>
@@ -785,7 +787,8 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/vazir"
                                         android:textSize="14dp"
-                                        android:text="124000000"
+                                        android:text="---"
+                                        android:id="@+id/pricerange_winnerprice"
                                         android:layout_centerVertical="true"
                                         android:layout_alignParentLeft="true"
                                         android:layout_marginLeft="8dp"
@@ -815,7 +818,8 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/vazir"
                                         android:textSize="14dp"
-                                        android:text="89514"
+                                        android:text="---"
+                                        android:id="@+id/pricerange_winnerNumber"
                                         android:layout_centerVertical="true"
                                         android:layout_alignParentLeft="true"
                                         android:layout_marginLeft="8dp"
