@@ -14,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.karumi.dexter.Dexter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,6 +42,7 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
     public P_MagnifierFragment(Context context, S_MagnifierFragment s_magnifierFragment) {
         this.context = context;
         this.s_magnifierFragment = s_magnifierFragment;
+
     }
 
 

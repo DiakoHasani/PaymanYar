@@ -1,6 +1,8 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.hardware.Camera;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import ir.tdaapp.paymanyar.Model.Services.S_MagnifierFragment;
 import ir.tdaapp.paymanyar.Presenter.P_GPSFragment;
@@ -30,10 +33,19 @@ import android.widget.TextView;
 import com.digidemic.unitof.P;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 
 public class Magnifier_Fragment extends Fragment implements View.OnClickListener, S_MagnifierFragment  {
@@ -43,6 +55,7 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     CardView save,ZoomIn,ZoomOut;
     SurfaceView surfaceView;
     private P_MagnifierFragment p_magnifierFragment;
+    private String[] Permissions={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
 
 
     @Nullable
@@ -75,10 +88,35 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         ZoomOut.setOnClickListener(this);
 
         p_magnifierFragment.Initial(surfaceView);
-        p_magnifierFragment.start_camera();
+
+        //بررسی دسترسی و سپس نمایش دوربین
+        Dexter.withActivity(getActivity()).withPermissions(Permissions).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if(report.areAllPermissionsGranted()){
+                    p_magnifierFragment.start_camera();
+                }else{
+                    ActivityCompat.requestPermissions(getActivity(),Permissions,23);
+                }
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            }
+        }).check();
+
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode==23){
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED  && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED){
+                p_magnifierFragment.start_camera();
+            }
+        }
+    }
 
     @Override
     public void onResume() {

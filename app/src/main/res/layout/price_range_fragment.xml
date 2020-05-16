@@ -192,6 +192,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -253,6 +254,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -314,6 +316,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -375,6 +378,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -436,6 +440,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -497,6 +502,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent6"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -558,6 +564,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent7"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
@@ -619,6 +626,7 @@
                                 android:layout_weight="3">
 
                                 <EditText
+                                    android:id="@+id/pricerange_percent8"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
