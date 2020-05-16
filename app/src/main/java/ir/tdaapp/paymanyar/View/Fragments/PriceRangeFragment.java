@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.paymanyar.Model.Services.S_PriceRangeFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
@@ -34,6 +35,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     Spinner cmb_Degree_of_Importance;
     TextView winnerPrice,winnerNumber;
     Toolbar toolbar;
+    CardView btn_PriceRange;
 
     public static final String TAG = "PriceRangeFragment";
 
@@ -77,6 +79,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         winnerPrice=view.findViewById(R.id.pricerange_winnerprice);
 
         txt_Percentage = view.findViewById(R.id.txt_percentage);
+        btn_PriceRange = view.findViewById(R.id.btn_PriceRange);
     }
 
     void implement() {
@@ -91,6 +94,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman6.addTextChangedListener(new ShowPrice(txt_AmountToToman6));
         txt_AmountToToman7.addTextChangedListener(new ShowPrice(txt_AmountToToman7));
         txt_AmountToToman8.addTextChangedListener(new ShowPrice(txt_AmountToToman8));
+
+        btn_PriceRange.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
