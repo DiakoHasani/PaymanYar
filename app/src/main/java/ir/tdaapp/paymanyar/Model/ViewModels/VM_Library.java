@@ -5,6 +5,7 @@ public class VM_Library {
 
     private int Id;
     private String Title;
+    private String Url;
 
     public int getId() {
         return Id;
@@ -20,5 +21,13 @@ public class VM_Library {
 
     public void setTitle(String title) {
         Title = title;
+    }
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
     }
 }

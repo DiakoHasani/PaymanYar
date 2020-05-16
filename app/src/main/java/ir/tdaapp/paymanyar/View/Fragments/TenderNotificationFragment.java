@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -63,6 +64,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     CardView btn_Let_me_know, btn_search;
     TextView text_btn_Let_me_know;
     ProgressBar progress_btn_Let_me_know;
+    NestedScrollView nestedScroll;
 
     @Nullable
     @Override
@@ -75,6 +77,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         p_tenderNotificationFragment.getSpinnerDatas();
         p_tenderNotificationFragment.start(getFilter());
+
 
         return view;
     }
@@ -94,12 +97,37 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         btn_search = view.findViewById(R.id.btn_search);
         text_btn_Let_me_know = view.findViewById(R.id.text_btn_Let_me_know);
         progress_btn_Let_me_know = view.findViewById(R.id.progress_btn_Let_me_know);
+        nestedScroll = view.findViewById(R.id.nestedScroll);
     }
 
     void implement() {
         p_tenderNotificationFragment = new P_TenderNotificationFragment(getContext(), this);
 
-        recycler.setOnScrollListener(pOnScrollListener);
+        nestedScroll.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+
+            //در اینجا چک می کند آداپتر رسایکلر نال نباشد که در برنامه خطای رخ دهد
+            if (recycler.getAdapter() != null) {
+
+                //اگر متغیر زیر ترو باشد یعنی مشغول عملیات پیجینگ است تا عملیات به پایان نرسد اجازه پیجینگ نمی دهد
+                if (!isLoading) {
+
+                    //اگر اسکرول رسایکلر ما به آخر برسد یعنی زمان پیجینگ است و شرط زیر اجرا می شود
+                    if (isLastItemDisplaying()) {
+
+                        //در اینجا اگر تعداد کل مناقصه ها در سرور با تعداد مناقصه ها در رسایکلر برابر باشد یعنی تمام مناقصه ها گرفته شده و اجازه عملیات پیجینگ نمی دهد
+                        if (recycler.getAdapter().getItemCount() < countTenders) {
+                            isLoading = true;
+
+                            onLoadingPaging(true);
+
+                            ++page;
+                            p_tenderNotificationFragment.start(getFilter());
+                        }
+                    }
+                }
+            }
+
+        });
 
         btn_search.setOnClickListener(this);
         btn_Let_me_know.setOnClickListener(this);
@@ -125,59 +153,16 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         setHasOptionsMenu(true);
     }
 
-    //در اینجا چک می کند که زمان پیجینگ رسیده است اگر رسیده باشد عملیات را شروع می کند
-    RecyclerView.OnScrollListener pOnScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-        }
-
-        @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-
-            //در اینجا چک می کند آداپتر رسایکلر نال نباشد که در برنامه خطای رخ دهد
-            if (recycler.getAdapter() != null) {
-
-                //اگر متغیر زیر ترو باشد یعنی مشغول عملیات پیجینگ است تا عملیات به پایان نرسد اجازه پیجینگ نمی دهد
-                if (!isLoading) {
-
-                    //اگر اسکرول رسایکلر ما به آخر برسد یعنی زمان پیجینگ است و شرط زیر اجرا می شود
-                    if (isLastItemDisplaying()) {
-
-                        //در اینجا اگر تعداد کل مناقصه ها در سرور با تعداد مناقصه ها در رسایکلر برابر باشد یعنی تمام مناقصه ها گرفته شده و اجازه عملیات پیجینگ نمی دهد
-                        if (recycler.getAdapter().getItemCount() < countTenders) {
-                            isLoading = true;
-
-                            onLoadingPaging(true);
-
-                            ++page;
-                            p_tenderNotificationFragment.start(getFilter());
-                        }
-                    }
-                }
-            }
-
-        }
-    };
-
     //در اینجا اگر مقدار ترو برگشت داده شود یعنی زمان پیجینگ رسیده است و نیاز به خواندن داده از سرور می باشد
     boolean isLastItemDisplaying() {
 
-        if (!isLoading) {
+        View view = nestedScroll.getChildAt(nestedScroll.getChildCount() - 1);
 
-            int visibleItemCount = layoutManager.getChildCount() + 5;
-            int totalItemCount = layoutManager.getItemCount();
-            int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+        int diff = (view.getBottom() - (nestedScroll.getHeight() + nestedScroll
+                .getScrollY()));
 
-            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                    && firstVisibleItemPosition >= 0
-                    && totalItemCount >= PAGE_SIZE) {
-                isLoading = true;
-                return true;
-            }
-        }
-
+        if (diff <= 350)
+            return true;
         return false;
     }
 
@@ -231,25 +216,25 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         VM_Let_me_know vm = new VM_Let_me_know();
 
-        vm.setCityId(((VM_City)cmb_City.getSelectedItem()).getId());
-        vm.setMajorId(((VM_Major)cmb_Major.getSelectedItem()).getId());
-        vm.setFromEstimateId(((VM_Estimate)cmb_FromEstimate.getSelectedItem()).getId());
-        vm.setUntilEstimateId(((VM_Estimate)cmb_UntilEstimate.getSelectedItem()).getId());
-        vm.setToken(((MainActivity)getActivity()).getTbl_notification().getToken(getContext()));
+        vm.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+        vm.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
+        vm.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
+        vm.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
+        vm.setToken(((MainActivity) getActivity()).getTbl_notification().getToken(getContext()));
 
         return vm;
     }
 
     //در اینجا لودینگ دکمه باخبرم کن ست می شود
-    void loadingLet_me_know(boolean load){
+    void loadingLet_me_know(boolean load) {
 
-        if (load){
+        if (load) {
 
             btn_Let_me_know.setEnabled(false);
             text_btn_Let_me_know.setVisibility(View.INVISIBLE);
             progress_btn_Let_me_know.setVisibility(View.VISIBLE);
 
-        }else{
+        } else {
             btn_Let_me_know.setEnabled(true);
             text_btn_Let_me_know.setVisibility(View.VISIBLE);
             progress_btn_Let_me_know.setVisibility(View.INVISIBLE);

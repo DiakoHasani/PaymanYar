@@ -7,13 +7,22 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.R;
 
 //مربوط به جدول برآورد
 public class Tbl_Estimate {
 
+    DBExcute db;
+    Context context;
+
+    public Tbl_Estimate(Context context) {
+        this.context = context;
+        db=DBExcute.getInstance(context);
+    }
+
     //در اینجا داده های برآورد از پاس داده می شوند
-    public Single<List<VM_Estimate>> getFromEstimates(Context context) {
+    public Single<List<VM_Estimate>> getFromEstimates() {
 
         return Single.create(emitter -> {
 
@@ -23,13 +32,18 @@ public class Tbl_Estimate {
 
                     List<VM_Estimate> estimates = new ArrayList<>();
                     estimates.add(new VM_Estimate(0, context.getString(R.string.FromEstimate)));
-                    estimates.add(new VM_Estimate(1, context.getString(R.string.from) + " " + "120 میلیارد"));
-                    estimates.add(new VM_Estimate(2, context.getString(R.string.from) + " " + "150 میلیارد"));
-                    estimates.add(new VM_Estimate(3, context.getString(R.string.from) + " " + "190 میلیارد"));
-                    estimates.add(new VM_Estimate(4, context.getString(R.string.from) + " " + "170 میلیارد"));
-                    estimates.add(new VM_Estimate(5, context.getString(R.string.from) + " " + "200 میلیارد"));
 
-                    emitter.onSuccess(estimates);
+                    db.Read("select * from TblPrices",new RecordHolder()).RecordFound(record -> {
+
+                        VM_Estimate estimate=new VM_Estimate();
+                        estimate.setId(Integer.valueOf(record.get(0).value));
+                        estimate.setTitle(context.getString(R.string.from)+" "+record.get(1).value);
+                        estimates.add(estimate);
+
+                    },()->{
+                    },() -> {
+                        emitter.onSuccess(estimates);
+                    },2);
 
                 } catch (Exception e) {
                     emitter.onError(e);
@@ -51,14 +65,20 @@ public class Tbl_Estimate {
                 try {
 
                     List<VM_Estimate> estimates = new ArrayList<>();
-                    estimates.add(new VM_Estimate(0, context.getString(R.string.UntilEstimate)));
-                    estimates.add(new VM_Estimate(1, context.getString(R.string.until) + " " + "120 میلیارد"));
-                    estimates.add(new VM_Estimate(2, context.getString(R.string.until) + " " + "150 میلیارد"));
-                    estimates.add(new VM_Estimate(3, context.getString(R.string.until) + " " + "190 میلیارد"));
-                    estimates.add(new VM_Estimate(4, context.getString(R.string.until) + " " + "170 میلیارد"));
-                    estimates.add(new VM_Estimate(5, context.getString(R.string.until) + " " + "200 میلیارد"));
+                    estimates.add(new VM_Estimate(0, context.getString(R.string.FromEstimate)));
 
-                    emitter.onSuccess(estimates);
+                    db.Read("select * from TblPrices",new RecordHolder()).RecordFound(record -> {
+
+                        VM_Estimate estimate=new VM_Estimate();
+                        estimate.setId(Integer.valueOf(record.get(0).value));
+                        estimate.setTitle(context.getString(R.string.from)+" "+record.get(1).value);
+                        estimates.add(estimate);
+
+                    },()->{
+
+                    },() -> {
+                        emitter.onSuccess(estimates);
+                    },2);
 
                 } catch (Exception e) {
                     emitter.onError(e);

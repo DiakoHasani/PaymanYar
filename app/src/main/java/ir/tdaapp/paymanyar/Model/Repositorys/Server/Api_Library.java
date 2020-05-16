@@ -45,6 +45,7 @@ public class Api_Library extends Base_Api {
 
                                     library.setId(object.getInt("Id"));
                                     library.setTitle(object.getString("Title"));
+                                    library.setUrl("https://files.tarikhema.org/pdf/ejtemaee/Bishoori.pdf");
 
                                     libraries.add(library);
 

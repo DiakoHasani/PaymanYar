@@ -47,6 +47,7 @@
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
+
     //در اینجا انیمیشن جابجایی بین اکتیویتی ست می شود
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fadein</item>

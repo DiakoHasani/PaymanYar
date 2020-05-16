@@ -11,4 +11,6 @@ public interface S_LibraryFragment {
     void onLoading(boolean load);
     void onSuccess();
     void onLibraryItem(VM_Library library);
+    void onLoadingPaging(boolean load);
+    void onEmptyItem();
 }

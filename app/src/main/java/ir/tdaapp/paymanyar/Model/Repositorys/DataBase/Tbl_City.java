@@ -7,12 +7,21 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.R;
 
 public class Tbl_City {
 
+    Context context;
+    DBExcute db;
+
+    public Tbl_City(Context context) {
+        this.context = context;
+        db=DBExcute.getInstance(context);
+    }
+
     //در اینجا لیست شهرها برگشت داده می شوند
-    public Single<List<VM_City>> getCitys(Context context) {
+    public Single<List<VM_City>> getCitys() {
         return Single.create(emitter -> {
 
             new Thread(() -> {
@@ -21,13 +30,14 @@ public class Tbl_City {
 
                     List<VM_City> cities = new ArrayList<>();
                     cities.add(new VM_City(0, context.getResources().getString(R.string.SelectedOneCity)));
-                    cities.add(new VM_City(1, "کردستان"));
-                    cities.add(new VM_City(2, "مازندران"));
-                    cities.add(new VM_City(3, "تهران"));
-                    cities.add(new VM_City(4, "فارس"));
-                    cities.add(new VM_City(5, "بندر عباس"));
 
-                    emitter.onSuccess(cities);
+                    db.Read("select * from TblStates",new RecordHolder()).RecordFound(record -> {
+
+                        cities.add(new VM_City(Integer.valueOf(record.get(0).value),record.get(1).value));
+
+                    },null,() -> {
+                        emitter.onSuccess(cities);
+                    },2);
 
                 } catch (Exception e) {
                     emitter.onError(e);

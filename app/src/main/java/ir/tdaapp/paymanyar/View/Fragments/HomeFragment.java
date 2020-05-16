@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -45,6 +46,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     NavigationView nav_View;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
+    LinearLayout btn_SMS;
 
     @Nullable
     @Override
@@ -71,6 +73,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         drawer = view.findViewById(R.id.drawer);
         btn_PriceRange = view.findViewById(R.id.btn_PriceRange);
         btn_Libraries = view.findViewById(R.id.btn_Libraries);
+        btn_SMS = view.findViewById(R.id.btn_SMS);
     }
 
     void implement() {
@@ -81,6 +84,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_TenderNotification.setOnClickListener(this);
         btn_PriceRange.setOnClickListener(this);
         btn_Libraries.setOnClickListener(this);
+        btn_SMS.setOnClickListener(this);
 
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -191,6 +195,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_Libraries:
                 ((MainActivity) getActivity()).onAddFragment(new LibraryFragment(), R.anim.fadein, R.anim.fadeout, true, LibraryFragment.TAG);
+                break;
+            case R.id.btn_SMS:
+                ((MainActivity) getActivity()).onAddFragment(new SmsFragment(), R.anim.fadein, R.anim.fadeout, true, SmsFragment.TAG);
                 break;
         }
     }
