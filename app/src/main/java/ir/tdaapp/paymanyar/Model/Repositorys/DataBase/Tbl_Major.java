@@ -11,8 +11,16 @@ import ir.tdaapp.paymanyar.R;
 
 public class Tbl_Major {
 
+    DBExcute db;
+    Context context;
+
+    public Tbl_Major(Context context) {
+        this.context=context;
+        db=DBExcute.getInstance(context);
+    }
+
     //در اینجا لیست رشته های تحصیلی برگشت داده می شوند
-    public Single<List<VM_Major>> getMojors(Context context) {
+    public Single<List<VM_Major>> getMojors() {
 
         return Single.create(emitter -> {
 
@@ -23,13 +31,14 @@ public class Tbl_Major {
                     List<VM_Major> majors = new ArrayList<>();
 
                     majors.add(new VM_Major(0, context.getResources().getString(R.string.SelectedOneMajor)));
-                    majors.add(new VM_Major(1, "کامپیوتر"));
-                    majors.add(new VM_Major(2, "برق"));
-                    majors.add(new VM_Major(3, "عمران"));
-                    majors.add(new VM_Major(4, "معماری"));
-                    majors.add(new VM_Major(5, "تجربی"));
 
-                    emitter.onSuccess(majors);
+                    //db.Execute("",new RecordHolder());
+
+                    db.Read("select * from TblFields",new RecordHolder()).RecordFound(record -> {
+                        majors.add(new VM_Major(Integer.valueOf(record.get(0).value),record.get(1).value));
+                    },null,() -> {
+                        emitter.onSuccess(majors);
+                    },2);
 
                 } catch (Exception e) {
                     emitter.onError(e);

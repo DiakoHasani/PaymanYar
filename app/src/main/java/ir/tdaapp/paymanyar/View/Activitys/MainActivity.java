@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Notification;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_User;
 import ir.tdaapp.paymanyar.Model.Services.S_MainActivity;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     P_MainActivity p_mainActivity;
     private Tbl_Notification tbl_notification;
     private Tbl_User tbl_user;
+    private DBExcute dbExcute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,5 +106,18 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     public Tbl_User getTbl_user() {
         return tbl_user;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dbExcute= DBExcute.getInstance(this);
+        dbExcute.Open();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbExcute.Close();
     }
 }

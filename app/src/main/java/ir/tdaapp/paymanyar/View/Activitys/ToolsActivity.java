@@ -43,6 +43,12 @@ public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity 
         dbExcute.Open();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbExcute.Close();
+    }
+
     //در این متد یک فرگمنت می گیرد و آن را نمایش می دهد
     //animEnter زمانی که فرگمنت بالا می آید با این انیمیشن نمایش داده می شود
     //animExit فرگمنت با این انیمیشن بسته می شود

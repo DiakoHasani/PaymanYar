@@ -8,306 +8,294 @@
     android:layoutDirection="rtl"
     android:textDirection="rtl">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"/>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/AppBar"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolBar">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+            <LinearLayout
+                android:id="@+id/filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:contentScrim="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:titleEnabled="false">
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/cmb_City"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textDirection="rtl"
+                        android:layoutDirection="rtl"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/border_spinner"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_toggle_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="8dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/cmb_Major"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textDirection="rtl"
+                        android:layoutDirection="rtl"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/border_spinner"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_toggle_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="8dp"/>
+
+                </RelativeLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/IncludesTheWord"
+                    style="@style/LoginTextInputLayoutStyle"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_IncludesTheWord"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorEditText"
+                        android:maxLines="1"
+                        android:textAlignment="center"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/FromDate"
+                    style="@style/LoginTextInputLayoutStyle"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_Date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorEditText"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:inputType="date"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/cmb_FromEstimate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textDirection="rtl"
+                        android:layoutDirection="rtl"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/border_spinner"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_toggle_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="8dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:id="@+id/cmb_UntilEstimate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textDirection="rtl"
+                        android:layoutDirection="rtl"
+                        android:spinnerMode="dialog"
+                        android:background="@drawable/border_spinner"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_toggle_spinner"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="8dp"/>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/colorWhite">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        app:cardBackgroundColor="@color/colorPrimary"
                         android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+                        app:cardCornerRadius="4dp"
+                        android:clipToPadding="false"
+                        app:cardUseCompatPadding="false"
+                        android:clickable="true"
+                        android:theme="@style/AppTheme.MyRipple">
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/cmb_City"
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
-
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/cmb_Major"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
-
-                    </RelativeLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/IncludesTheWord"
-                        style="@style/LoginTextInputLayoutStyle"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_IncludesTheWord"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:fontFamily="@font/vazir"
-                            android:textSize="16dp"
-                            android:textColor="@color/colorEditText"
-                            android:maxLines="1"
-                            android:textAlignment="center"/>
+                            android:gravity="center"
+                            android:text="@string/Search"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14dp"
+                            android:paddingLeft="16dp"
+                            android:paddingRight="16dp"/>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </androidx.cardview.widget.CardView>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/FromDate"
-                        style="@style/LoginTextInputLayoutStyle"
-                        android:layout_marginTop="10dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_Let_me_know"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        app:cardBackgroundColor="@color/colorPrimary"
                         android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+                        app:cardCornerRadius="4dp"
+                        android:clipToPadding="false"
+                        app:cardUseCompatPadding="false"
+                        android:clickable="true"
+                        android:theme="@style/AppTheme.MyRipple">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_Date"
+                        <TextView
+                            android:id="@+id/text_btn_Let_me_know"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:fontFamily="@font/vazir"
-                            android:textSize="16dp"
-                            android:textColor="@color/colorEditText"
-                            android:maxLines="1"
-                            android:textAlignment="center"
-                            android:inputType="date"/>
+                            android:gravity="center"
+                            android:text="@string/Let_me_know"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14dp"
+                            android:paddingLeft="16dp"
+                            android:paddingRight="16dp"/>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <ProgressBar
+                            android:id="@+id/progress_btn_Let_me_know"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:theme="@style/ProgressBarTheme"
+                            android:visibility="invisible"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+                    </androidx.cardview.widget.CardView>
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/cmb_FromEstimate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
+                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorUnderline"/>
 
-                    </RelativeLayout>
+            </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/filter">
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/cmb_UntilEstimate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
+                <ProgressBar
+                    android:id="@+id/loading_paging"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/recycler"/>
 
-                    </RelativeLayout>
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/Loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/btn_search"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            app:cardBackgroundColor="@color/colorPrimary"
-                            android:layout_marginRight="10dp"
-                            app:cardCornerRadius="4dp"
-                            android:clipToPadding="false"
-                            app:cardUseCompatPadding="false"
-                            android:clickable="true"
-                            android:theme="@style/AppTheme.MyRipple">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/vazir"
-                                android:gravity="center"
-                                android:text="@string/Search"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="14dp"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"/>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/btn_Let_me_know"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            app:cardBackgroundColor="@color/colorPrimary"
-                            android:layout_marginRight="10dp"
-                            app:cardCornerRadius="4dp"
-                            android:clipToPadding="false"
-                            app:cardUseCompatPadding="false"
-                            android:clickable="true"
-                            android:theme="@style/AppTheme.MyRipple">
-
-                            <TextView
-                                android:id="@+id/text_btn_Let_me_know"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:fontFamily="@font/vazir"
-                                android:gravity="center"
-                                android:text="@string/Let_me_know"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="14dp"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"/>
-
-                            <ProgressBar
-                                android:id="@+id/progress_btn_Let_me_know"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center"
-                                android:theme="@style/ProgressBarTheme"
-                                android:visibility="invisible"/>
-
-                        </androidx.cardview.widget.CardView>
+                        <include layout="@layout/recycler_loading"/>
+                        <include layout="@layout/recycler_loading"/>
+                        <include layout="@layout/recycler_loading"/>
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/colorUnderline"/>
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
-                </LinearLayout>
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <RelativeLayout
-            android:id="@+id/nestedScroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-
-            <ProgressBar
-                android:id="@+id/loading_paging"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"/>
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/Loading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <include layout="@layout/recycler_loading"/>
-                    <include layout="@layout/recycler_loading"/>
-                    <include layout="@layout/recycler_loading"/>
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

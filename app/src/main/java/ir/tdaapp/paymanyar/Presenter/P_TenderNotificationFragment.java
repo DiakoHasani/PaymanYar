@@ -47,9 +47,9 @@ public class P_TenderNotificationFragment {
         this.context = context;
         this.s_tenderNotificationFragment = s_tenderNotificationFragment;
         api_tender = new Api_Tender();
-        tbl_city = new Tbl_City();
-        tbl_major = new Tbl_Major();
-        tbl_estimate = new Tbl_Estimate();
+        tbl_city = new Tbl_City(context);
+        tbl_major = new Tbl_Major(context);
+        tbl_estimate = new Tbl_Estimate(context);
         initDate = new PersianCalendar();
         initDate.setPersianDate(1398, 3, 10);
     }
@@ -131,7 +131,7 @@ public class P_TenderNotificationFragment {
     //در اینجا داده اسپینر استان ست می شود
     void getCitiesSpinner() {
 
-        Single<List<VM_City>> cities = tbl_city.getCitys(context);
+        Single<List<VM_City>> cities = tbl_city.getCitys();
 
         dispose_getSpinnerDatas = cities.subscribeWith(new DisposableSingleObserver<List<VM_City>>() {
             @Override
@@ -154,7 +154,7 @@ public class P_TenderNotificationFragment {
     //در اینجا داده های اسپینر رشته تحصیلی گرفته می شوند
     void getMajorsSpinner() {
 
-        Single<List<VM_Major>> majors = tbl_major.getMojors(context);
+        Single<List<VM_Major>> majors = tbl_major.getMojors();
 
         dispose_getMajors = majors.subscribeWith(new DisposableSingleObserver<List<VM_Major>>() {
             @Override
@@ -178,7 +178,7 @@ public class P_TenderNotificationFragment {
 
     //در اینجا داده های اسپینر برآورد از گرفته می شود
     void getFromEstimate() {
-        Single<List<VM_Estimate>> estimates = tbl_estimate.getFromEstimates(context);
+        Single<List<VM_Estimate>> estimates = tbl_estimate.getFromEstimates();
 
         dispose_getFromEstimate = estimates.subscribeWith(new DisposableSingleObserver<List<VM_Estimate>>() {
             @Override
