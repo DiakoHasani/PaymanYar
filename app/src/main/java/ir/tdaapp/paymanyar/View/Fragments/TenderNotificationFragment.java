@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,9 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.TenderNotificationAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
+import ir.tdaapp.paymanyar.Model.Services.addTender;
+import ir.tdaapp.paymanyar.Model.Services.onClickTenderNotification;
+import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
@@ -77,7 +81,6 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         p_tenderNotificationFragment.getSpinnerDatas();
         p_tenderNotificationFragment.start(getFilter());
-
 
         return view;
     }
@@ -253,14 +256,50 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         recycler.setLayoutManager(layoutManager);
 
         //زمانی که کاربر یک روی یکی از مناقصات کلیک کند متد زیر فراخوانی شده و آی دی آن را به ما می دهد
-        tenderNotificationAdapter.setOnClickTenderNotification(id -> {
+        tenderNotificationAdapter.setOnClickTenderNotification(new onClickTenderNotification() {
+            @Override
+            public void onClick(String id) {
+                VM_FilterTenderNotification filter = getFilter();
+                filter.setTenderId(id);
+                filter.setUserId(1);
 
-            VM_FilterTenderNotification filter = getFilter();
-            filter.setTenderId(id);
-            filter.setUserId(1);
+                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter,(tenderId, fevorit) -> {
+                    tenderNotificationAdapter.changeFevoritTender(tenderId,fevorit);
+                });
 
-            ((MainActivity) getActivity()).onAddFragment(new DetailsTenderFragment(filter), R.anim.fadein
-                    , R.anim.fadeout, true, DetailsTenderFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(detailsTenderFragment, R.anim.fadein
+                        , R.anim.fadeout, true, DetailsTenderFragment.TAG);
+            }
+
+            @Override
+            public void onClickFavorit_Add(String id, ImageView icon) {
+                p_tenderNotificationFragment.AddFavorit(id, new addTender() {
+                    @Override
+                    public void onSuccess() {
+                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
+                    }
+                });
+            }
+
+            @Override
+            public void onClickFavorit_remove(String id, ImageView icon) {
+                p_tenderNotificationFragment.RemoveFevorit(id, new removeTender() {
+                    @Override
+                    public void onSuccess() {
+                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
+                    }
+                });
+            }
         });
 
     }

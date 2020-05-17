@@ -13,6 +13,7 @@ import java.util.List;
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
@@ -26,7 +27,7 @@ public class Api_Tender extends Base_Api {
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
-    public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter) {
+    public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter, Tbl_Tender tbl_tender) {
 
         return Single.create(emitter -> {
 
@@ -76,14 +77,13 @@ public class Api_Tender extends Base_Api {
                                     n.setId(object.getString("TenderId"));
                                     n.setTitle(object.getString("Title"));
                                     n.setFree(object.getBoolean("Free"));
-                                    n.setStar(false);
+                                    n.setStar(tbl_tender.isFavoritTender(object.getString("TenderId")));
 
                                     notifications.add(n);
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                             }
 
                             notification.setTenderNotifications(notifications);
@@ -107,7 +107,7 @@ public class Api_Tender extends Base_Api {
     }
 
     //در اینجا جزئیات مناقصات برگشت داده می شود
-    public Single<VM_DetailsTender> getDetailsTender(VM_FilterTenderNotification filter) {
+    public Single<VM_DetailsTender> getDetailsTender(VM_FilterTenderNotification filter,Tbl_Tender tbl_tender) {
 
         return Single.create(emitter -> {
 
@@ -153,6 +153,7 @@ public class Api_Tender extends Base_Api {
                                 detailsTender.setWebsite(object.getString("WebSite"));
                                 detailsTender.setNextTenderId(object.getString("NextTenderId"));
                                 detailsTender.setBeforeTenderId(object.getString("BeforeTenderId"));
+                                detailsTender.setFevorit(tbl_tender.isFavoritTender(filter.getTenderId()));
 
                             } catch (Exception e) {
                             }

@@ -66,17 +66,6 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman6 = view.findViewById(R.id.txt_AmountToToman6);
         txt_AmountToToman7 = view.findViewById(R.id.txt_AmountToToman7);
         txt_AmountToToman8 = view.findViewById(R.id.txt_AmountToToman8);
-        percent1=view.findViewById(R.id.pricerange_percent1);
-        percent2=view.findViewById(R.id.pricerange_percent2);
-        percent3=view.findViewById(R.id.pricerange_percent3);
-        percent4=view.findViewById(R.id.pricerange_percent4);
-        percent5=view.findViewById(R.id.pricerange_percent5);
-        percent6=view.findViewById(R.id.pricerange_percent6);
-        percent7=view.findViewById(R.id.pricerange_percent7);
-        percent8=view.findViewById(R.id.pricerange_percent8);
-
-        winnerNumber=view.findViewById(R.id.pricerange_winnerNumber);
-        winnerPrice=view.findViewById(R.id.pricerange_winnerprice);
 
         txt_Percentage = view.findViewById(R.id.txt_percentage);
         btn_PriceRange = view.findViewById(R.id.btn_PriceRange);

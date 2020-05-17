@@ -20,6 +20,9 @@ import androidx.fragment.app.Fragment;
 import ir.tdaapp.li_utility.Codes.ShowPriceTextView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
+import ir.tdaapp.paymanyar.Model.Services.addTender;
+import ir.tdaapp.paymanyar.Model.Services.onClickFevoritTender;
+import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
@@ -40,8 +43,13 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     //در اینجا آیدی آیتم قبلی ست می شود
     String PrevTenderId = "";
 
-    public DetailsTenderFragment(VM_FilterTenderNotification filter) {
+    boolean isLike = false;
+
+    onClickFevoritTender clickFevoritTender;
+
+    public DetailsTenderFragment(VM_FilterTenderNotification filter, onClickFevoritTender clickFevoritTender) {
         this.filter = filter;
+        this.clickFevoritTender = clickFevoritTender;
     }
 
     public final static String TAG = "DetailsTenderFragment";
@@ -56,6 +64,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     TextView lbl_Place_of_Receipt_of_Documents, lbl_TenderDevice, lbl_website, lbl_Description;
     RelativeLayout background;
     LinearLayout subscribers;
+    ImageView img_star;
 
     @Nullable
     @Override
@@ -90,6 +99,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         lbl_Description = view.findViewById(R.id.lbl_Description);
         background = view.findViewById(R.id.background);
         subscribers = view.findViewById(R.id.subscribers);
+        img_star = view.findViewById(R.id.img_star);
     }
 
     void implement() {
@@ -97,6 +107,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         background.setOnClickListener(this);
         btn_Right.setOnClickListener(this);
         btn_Left.setOnClickListener(this);
+        img_star.setOnClickListener(this);
     }
 
     //در اینجا دکمه ها فعال یا غیرفعال می شوند
@@ -226,6 +237,18 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         }
     }
 
+    //در اینجا آیکون مربوط به علاقه مندی مناقصه ست می شود
+    @Override
+    public void isFevorit(boolean f) {
+        isLike = f;
+
+        if (f) {
+            img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
+        } else {
+            img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -248,6 +271,45 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
                 filter.setTenderId(PrevTenderId);
                 p_detailsTenderFragment.start(filter);
+
+                break;
+
+            case R.id.img_star:
+
+                if (isLike) {
+                    p_detailsTenderFragment.RemoveFevorit(filter.getTenderId(), new removeTender() {
+                        @Override
+                        public void onSuccess() {
+                            isLike = false;
+                            img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
+                            clickFevoritTender.onClick(filter.getTenderId(),false);
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            isLike = true;
+                            img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
+                            clickFevoritTender.onClick(filter.getTenderId(),true);
+                        }
+                    });
+                } else {
+
+                    p_detailsTenderFragment.AddFavorit(filter.getTenderId(), new addTender() {
+                        @Override
+                        public void onSuccess() {
+                            isLike = true;
+                            img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
+                            clickFevoritTender.onClick(filter.getTenderId(),true);
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            isLike = false;
+                            img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
+                            clickFevoritTender.onClick(filter.getTenderId(),false);
+                        }
+                    });
+                }
 
                 break;
         }

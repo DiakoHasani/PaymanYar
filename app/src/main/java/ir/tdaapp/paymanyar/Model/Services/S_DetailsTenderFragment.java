@@ -13,4 +13,5 @@ public interface S_DetailsTenderFragment {
     void onShowSubscribers();
     void onGetNextTender(String tenderId);
     void onGetPrevTender(String tenderId);
+    void isFevorit(boolean f);
 }

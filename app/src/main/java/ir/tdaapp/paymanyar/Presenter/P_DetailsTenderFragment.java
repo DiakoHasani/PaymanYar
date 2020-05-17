@@ -5,8 +5,11 @@ import android.content.Context;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
+import ir.tdaapp.paymanyar.Model.Services.addTender;
+import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
@@ -17,11 +20,13 @@ public class P_DetailsTenderFragment {
     S_DetailsTenderFragment s_detailsTenderDialog;
     Api_Tender api_tender;
     Disposable dispose_getDetails;
+    Tbl_Tender tbl_tender;
 
     public P_DetailsTenderFragment(Context context, S_DetailsTenderFragment s_detailsTenderDialog) {
         this.context = context;
         this.s_detailsTenderDialog = s_detailsTenderDialog;
         api_tender = new Api_Tender();
+        tbl_tender=new Tbl_Tender(context);
     }
 
     public void start(VM_FilterTenderNotification filter) {
@@ -35,7 +40,7 @@ public class P_DetailsTenderFragment {
     //در اینجا جزئیات مناقصه از سرور گرفته می شود
     void getDetails(VM_FilterTenderNotification filter) {
 
-        Single<VM_DetailsTender> data = api_tender.getDetailsTender(filter);
+        Single<VM_DetailsTender> data = api_tender.getDetailsTender(filter,tbl_tender);
 
         dispose_getDetails = data.subscribeWith(new DisposableSingleObserver<VM_DetailsTender>() {
             @Override
@@ -63,6 +68,8 @@ public class P_DetailsTenderFragment {
                 //در اینجا دکمه آیتم قبلی ست می شود
                 s_detailsTenderDialog.onGetPrevTender(detailsTender.getBeforeTenderId());
 
+                s_detailsTenderDialog.isFevorit(detailsTender.isFevorit());
+
             }
 
             @Override
@@ -71,6 +78,15 @@ public class P_DetailsTenderFragment {
                 s_detailsTenderDialog.onError(Error.GetErrorVolley(e.toString()));
             }
         });
+    }
+
+    //در اینجا یک مناقصه به لیست علاقه مندی ها اضافه می شود
+    public void AddFavorit(String id, addTender tender){
+        tbl_tender.Add(id,tender);
+    }
+
+    public void RemoveFevorit(String id, removeTender t){
+        tbl_tender.remove(id,t);
     }
 
     public void Cancel(String Tag) {

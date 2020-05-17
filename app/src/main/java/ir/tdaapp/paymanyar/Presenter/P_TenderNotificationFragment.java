@@ -16,8 +16,11 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_City;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Estimate;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Major;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
+import ir.tdaapp.paymanyar.Model.Services.addTender;
+import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
@@ -41,6 +44,7 @@ public class P_TenderNotificationFragment {
     Tbl_City tbl_city;
     Tbl_Major tbl_major;
     Tbl_Estimate tbl_estimate;
+    Tbl_Tender tbl_tender;
     PersianCalendar initDate;
 
     public P_TenderNotificationFragment(Context context, S_TenderNotificationFragment s_tenderNotificationFragment) {
@@ -50,6 +54,7 @@ public class P_TenderNotificationFragment {
         tbl_city = new Tbl_City(context);
         tbl_major = new Tbl_Major(context);
         tbl_estimate = new Tbl_Estimate(context);
+        tbl_tender = new Tbl_Tender(context);
         initDate = new PersianCalendar();
         initDate.setPersianDate(1398, 3, 10);
     }
@@ -72,7 +77,11 @@ public class P_TenderNotificationFragment {
     //در اینجا مناقصه ها برگشت داده میشوند
     void getTenderNotification(VM_FilterTenderNotification filter) {
 
-        Single<VM_TenderNotification> data = api_tender.getTenderNotification(filter);
+        if (dispose_getTenderNotification != null) {
+            dispose_getTenderNotification.dispose();
+        }
+
+        Single<VM_TenderNotification> data = api_tender.getTenderNotification(filter, tbl_tender);
         dispose_getTenderNotification = data.subscribeWith(new DisposableSingleObserver<VM_TenderNotification>() {
 
             @Override
@@ -216,6 +225,15 @@ public class P_TenderNotificationFragment {
                 s_tenderNotificationFragment.onItemUntilEstimateSpinner(adapter);
             }
         });
+    }
+
+    //در اینجا یک مناقصه به لیست علاقه مندی ها اضافه می شود
+    public void AddFavorit(String id, addTender tender) {
+        tbl_tender.Add(id, tender);
+    }
+
+    public void RemoveFevorit(String id, removeTender t) {
+        tbl_tender.remove(id, t);
     }
 
     //در اینجا تنظیمات اولیه دیالوگ تاریخ فارسی انجام می شود و سپس به ویو ارسال می شود

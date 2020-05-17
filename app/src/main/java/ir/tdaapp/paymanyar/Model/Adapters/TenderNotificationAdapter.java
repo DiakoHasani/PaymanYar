@@ -41,6 +41,17 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
         notifyItemInserted(tenders.size());
     }
 
+    public void changeFevoritTender(String tenderId, boolean fevorit) {
+
+        for (int i = 0; i < tenders.size(); i++) {
+            if (tenders.get(i).getId().equalsIgnoreCase(tenderId)) {
+                tenders.get(i).setStar(fevorit);
+                notifyItemChanged(i);
+            }
+        }
+
+    }
+
     //در اینجا آیتم ها به صورت انیمیشن نمایش داده می شوند
     private void setFadeAnimation(View view) {
         anim.setDuration(100);
@@ -76,6 +87,18 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
         holder.layout.setOnClickListener(view -> {
             if (onClickTenderNotification != null) {
                 onClickTenderNotification.onClick(tenders.get(position).getId());
+            }
+        });
+
+        holder.ic_star.setOnClickListener(view -> {
+            if (onClickTenderNotification != null) {
+
+                if (!tenders.get(position).isStar()) {
+                    onClickTenderNotification.onClickFavorit_Add(tenders.get(position).getId(), holder.ic_star);
+                } else {
+                    onClickTenderNotification.onClickFavorit_remove(tenders.get(position).getId(), holder.ic_star);
+                }
+
             }
         });
 
