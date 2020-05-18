@@ -108,7 +108,7 @@ public class P_PriceRangeFragment {
             double S_prime = devitation(M_prime, participates, M_prime);
 
             //نصاب معاملات سالانه
-            long L = 0;
+            long L = 450000000;
 
             long K = 1000 * L;
 
@@ -192,10 +192,14 @@ public class P_PriceRangeFragment {
     //محاسبه درصد مبلغ پیشنهادی به نسبت مبلغ مناقصه
     public String CalculatePercent(String tender_offer,String price){
 
-        String ans="";
+        String ans="0";
 
-        long prc=Long.valueOf(price)*100/Long.valueOf(tender_offer);
-        ans=String.valueOf(prc);
+        if(tender_offer==null)return ans;
+
+        if(tender_offer.length()>0) {
+            long prc = (Long.valueOf(tender_offer) * 100) / Long.valueOf(price);
+            ans = String.valueOf(prc);
+        }
 
         return ans;
     }

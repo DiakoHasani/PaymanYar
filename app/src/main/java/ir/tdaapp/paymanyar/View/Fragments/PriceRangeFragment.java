@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.paymanyar.Model.Services.S_PriceRangeFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
@@ -30,9 +32,10 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     EditText txt_Price, txt_Number_of_People;
     EditText txt_AmountToToman1, txt_AmountToToman2, txt_AmountToToman3, txt_AmountToToman4, txt_AmountToToman5, txt_AmountToToman6;
-    EditText txt_AmountToToman7,txt_AmountToToman8,percent1,percent2,percent3,percent4,percent5,percent6,percent7,percent8,txt_Percentage;
+    EditText txt_AmountToToman7,txt_AmountToToman8,percent1,percent2,percent3,percent4,percent5,percent6,percent7,percent8,txt_Percentage,txt_guarantee;
     Spinner cmb_Degree_of_Importance;
     TextView winnerPrice,winnerNumber;
+    CardView btnCalc;
     Toolbar toolbar;
 
     public static final String TAG = "PriceRangeFragment";
@@ -72,6 +75,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         percent6=view.findViewById(R.id.pricerange_percent6);
         percent7=view.findViewById(R.id.pricerange_percent7);
         percent8=view.findViewById(R.id.pricerange_percent8);
+        btnCalc=view.findViewById(R.id.btn_PriceRange);
+        txt_guarantee=view.findViewById(R.id.txt_percentage);
 
         winnerNumber=view.findViewById(R.id.pricerange_winnerNumber);
         winnerPrice=view.findViewById(R.id.pricerange_winnerprice);
@@ -91,6 +96,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman6.addTextChangedListener(new ShowPrice(txt_AmountToToman6));
         txt_AmountToToman7.addTextChangedListener(new ShowPrice(txt_AmountToToman7));
         txt_AmountToToman8.addTextChangedListener(new ShowPrice(txt_AmountToToman8));
+        txt_guarantee.addTextChangedListener(new ShowPrice(txt_Percentage));
+        btnCalc.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -145,17 +152,17 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
             //ساخت یک آرایه از مقادیر پیشنهادی
             ArrayList<VM_PriceRange> arrayList=new ArrayList<>();
-            arrayList.add(new VM_PriceRange("1",txt_AmountToToman1.getText().toString().replaceAll(",",""),percent1.getText().toString()));
-            arrayList.add(new VM_PriceRange("2",txt_AmountToToman2.getText().toString().replaceAll(",",""),percent2.getText().toString()));
-            arrayList.add(new VM_PriceRange("3",txt_AmountToToman3.getText().toString().replaceAll(",",""),percent3.getText().toString()));
-            arrayList.add(new VM_PriceRange("4",txt_AmountToToman4.getText().toString().replaceAll(",",""),percent4.getText().toString()));
-            arrayList.add(new VM_PriceRange("5",txt_AmountToToman5.getText().toString().replaceAll(",",""),percent5.getText().toString()));
-            arrayList.add(new VM_PriceRange("6",txt_AmountToToman6.getText().toString().replaceAll(",",""),percent6.getText().toString()));
-            arrayList.add(new VM_PriceRange("7",txt_AmountToToman7.getText().toString().replaceAll(",",""),percent7.getText().toString()));
-            arrayList.add(new VM_PriceRange("8",txt_AmountToToman8.getText().toString().replaceAll(",",""),percent8.getText().toString()));
+            if(txt_AmountToToman1.getText().toString().length()>0)arrayList.add(new VM_PriceRange("1",txt_AmountToToman1.getText().toString().replaceAll(",",""),percent1.getText().toString()));
+            if(txt_AmountToToman2.getText().toString().length()>0)arrayList.add(new VM_PriceRange("2",txt_AmountToToman2.getText().toString().replaceAll(",",""),percent2.getText().toString()));
+            if(txt_AmountToToman3.getText().toString().length()>0)arrayList.add(new VM_PriceRange("3",txt_AmountToToman3.getText().toString().replaceAll(",",""),percent3.getText().toString()));
+            if(txt_AmountToToman4.getText().toString().length()>0)arrayList.add(new VM_PriceRange("4",txt_AmountToToman4.getText().toString().replaceAll(",",""),percent4.getText().toString()));
+            if(txt_AmountToToman5.getText().toString().length()>0)arrayList.add(new VM_PriceRange("5",txt_AmountToToman5.getText().toString().replaceAll(",",""),percent5.getText().toString()));
+            if(txt_AmountToToman6.getText().toString().length()>0)arrayList.add(new VM_PriceRange("6",txt_AmountToToman6.getText().toString().replaceAll(",",""),percent6.getText().toString()));
+            if(txt_AmountToToman7.getText().toString().length()>0)arrayList.add(new VM_PriceRange("7",txt_AmountToToman7.getText().toString().replaceAll(",",""),percent7.getText().toString()));
+            if(txt_AmountToToman8.getText().toString().length()>0)arrayList.add(new VM_PriceRange("8",txt_AmountToToman8.getText().toString().replaceAll(",",""),percent8.getText().toString()));
 
             //شروع محاسبه
-            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replaceAll(",",""),arrayList,"",cmb_Degree_of_Importance.getSelectedItemId());
+            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replaceAll(",",""),arrayList,txt_guarantee.getText().toString().replaceAll(",",""),cmb_Degree_of_Importance.getSelectedItemId());
 
         }else{
             //نمایش خطا
