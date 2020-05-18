@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.LibraryAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_LibraryFragment;
+import ir.tdaapp.paymanyar.Model.Services.addLibrary;
 import ir.tdaapp.paymanyar.Model.Services.onClickLibrary;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
@@ -160,13 +161,25 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
 
         libraryAdapter.setOnClickLibrary(new onClickLibrary() {
             @Override
-            public void clickDownload(String url) {
+            public void clickDownload(int Id,String url) {
+
+                p_libraryFragment.addLibraryDownloaded(Id, new addLibrary() {
+                    @Override
+                    public void onSuccess() {
+                        libraryAdapter.addLibraryDownloaded(Id);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                    }
+                });
+
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
             }
 
             @Override
             public void clickItem(int id) {
-
             }
         });
     }
@@ -198,7 +211,6 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         });
         errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
     }
-
 
     @Override
     public void onHideAll() {

@@ -18,7 +18,7 @@ public class Tbl_Estimate {
 
     public Tbl_Estimate(Context context) {
         this.context = context;
-        db=DBExcute.getInstance(context);
+        db = DBExcute.getInstance(context);
     }
 
     //در اینجا داده های برآورد از پاس داده می شوند
@@ -33,17 +33,17 @@ public class Tbl_Estimate {
                     List<VM_Estimate> estimates = new ArrayList<>();
                     estimates.add(new VM_Estimate(0, context.getString(R.string.FromEstimate)));
 
-                    db.Read("select * from TblPrices",new RecordHolder()).RecordFound(record -> {
+                    db.Read("select * from TblPrices", new RecordHolder()).RecordFound(record -> {
 
-                        VM_Estimate estimate=new VM_Estimate();
+                        VM_Estimate estimate = new VM_Estimate();
                         estimate.setId(Integer.valueOf(record.get(0).value));
-                        estimate.setTitle(context.getString(R.string.from)+" "+record.get(1).value);
+                        estimate.setTitle(context.getString(R.string.from) + " " + record.get(1).value);
                         estimates.add(estimate);
 
-                    },()->{
-                    },() -> {
+                    }, () -> {
+                    }, () -> {
                         emitter.onSuccess(estimates);
-                    },2);
+                    }, 2);
 
                 } catch (Exception e) {
                     emitter.onError(e);
@@ -65,20 +65,22 @@ public class Tbl_Estimate {
                 try {
 
                     List<VM_Estimate> estimates = new ArrayList<>();
-                    estimates.add(new VM_Estimate(0, context.getString(R.string.FromEstimate)));
+                    estimates.add(new VM_Estimate(0, context.getString(R.string.UntilEstimate)));
 
-                    db.Read("select * from TblPrices",new RecordHolder()).RecordFound(record -> {
+                    db.Read("select * from TblPrices", new RecordHolder()).RecordFound(record -> {
 
-                        VM_Estimate estimate=new VM_Estimate();
-                        estimate.setId(Integer.valueOf(record.get(0).value));
-                        estimate.setTitle(context.getString(R.string.from)+" "+record.get(1).value);
-                        estimates.add(estimate);
+                        if (Integer.valueOf(record.get(0).value) != 17) {
+                            VM_Estimate estimate = new VM_Estimate();
+                            estimate.setId(Integer.valueOf(record.get(0).value));
+                            estimate.setTitle(context.getString(R.string.until) + " " + record.get(1).value);
+                            estimates.add(estimate);
+                        }
 
-                    },()->{
+                    }, () -> {
 
-                    },() -> {
+                    }, () -> {
                         emitter.onSuccess(estimates);
-                    },2);
+                    }, 2);
 
                 } catch (Exception e) {
                     emitter.onError(e);

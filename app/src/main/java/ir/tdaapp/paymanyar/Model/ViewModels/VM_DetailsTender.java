@@ -39,6 +39,9 @@ public class VM_DetailsTender {
     //آیدی آیتم بعد
     private String NextTenderId;
 
+    //در اینجا چک می شود که مناقصه جز مورد علاقه ها می باشد
+    private boolean fevorit;
+
     public int getId() {
         return Id;
     }
@@ -133,5 +136,13 @@ public class VM_DetailsTender {
 
     public void setNextTenderId(String nextTenderId) {
         NextTenderId = nextTenderId;
+    }
+
+    public boolean isFevorit() {
+        return fevorit;
+    }
+
+    public void setFevorit(boolean fevorit) {
+        this.fevorit = fevorit;
     }
 }

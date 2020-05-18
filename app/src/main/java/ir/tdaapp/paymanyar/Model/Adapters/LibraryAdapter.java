@@ -37,6 +37,18 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         notifyItemInserted(libraries.size());
     }
 
+    //در اینجا زمانی که کاربر یک کتاب دانلود می کند بک گروند آن را سلکت می کند
+    public void addLibraryDownloaded(int libraryId){
+
+        for (int i=0;i<libraries.size();i++){
+            if (libraries.get(i).getId()==libraryId){
+                libraries.get(i).setDownloaded(true);
+                notifyItemChanged(i);
+            }
+        }
+
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,8 +60,14 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.lbl_Title.setText(libraries.get(position).getTitle());
 
+        if (libraries.get(position).isDownloaded()){
+            holder.layout.setBackgroundColor(context.getResources().getColor(R.color.colorMySMS));
+        }else{
+            holder.layout.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+        }
+
         holder.download.setOnClickListener(view -> {
-            onClickLibrary.clickDownload(libraries.get(position).getUrl());
+            onClickLibrary.clickDownload(libraries.get(position).getId(),libraries.get(position).getUrl());
         });
 
         holder.layout.setOnClickListener(view -> {
