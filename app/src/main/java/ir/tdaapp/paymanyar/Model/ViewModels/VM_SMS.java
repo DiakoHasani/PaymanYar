@@ -5,6 +5,7 @@ public class VM_SMS {
     private String Id;
     private String text;
     private boolean Kird;
+    private boolean fevorit;
 
     public String getId() {
         return Id;
@@ -28,5 +29,13 @@ public class VM_SMS {
 
     public void setKird(boolean kird) {
         Kird = kird;
+    }
+
+    public boolean isFevorit() {
+        return fevorit;
+    }
+
+    public void setFevorit(boolean fevorit) {
+        this.fevorit = fevorit;
     }
 }
