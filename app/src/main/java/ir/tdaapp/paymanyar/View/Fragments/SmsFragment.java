@@ -88,7 +88,7 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment {
         recycler.setLayoutManager(layoutManager);
     }
 
-    //اگر خای رخ دهد متد زیر فراخوانی می شود
+    //اگر خطای رخ دهد متد زیر فراخوانی می شود
     @Override
     public void onError(ResaultCode resault) {
         String text = "";
