@@ -2,6 +2,8 @@ package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
 import android.content.Context;
 
+import com.google.android.gms.common.api.Api;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,9 +15,11 @@ import java.util.List;
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
+import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_SMS;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailSMS;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_SMS;
 
@@ -23,6 +27,7 @@ public class Api_SMS extends Base_Api {
 
     GetJsonArrayVolley volley_getSMS;
     PostJsonObjectVolley volley_setArchiveSMS;
+    GetJsonObjectVolley volley_getDetailSMS;
 
     //در اینجا لیست پیام ها گرفته می شوند
     public Single<List<VM_SMS>> getSMS(int userId, Tbl_SMS tbl_sms, boolean showAllSMS) {
@@ -124,6 +129,44 @@ public class Api_SMS extends Base_Api {
         });
     }
 
+    //در اینجا جزئیات پیامک گرفته می شود
+    public Single<VM_DetailSMS> getDetailSMS(String smsId) {
+
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                volley_getDetailSMS = new GetJsonObjectVolley(ApiUrl + "Message/GetMessagesUserInfo?MsgId=" + smsId, resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        JSONObject object = resault.getObject();
+                        VM_DetailSMS detailSMS = new VM_DetailSMS();
+
+                        try {
+
+                            detailSMS.setMsgId(smsId);
+                            detailSMS.setDescription(object.getString("Body"));
+                            detailSMS.setDate(object.getString("DateSend"));
+
+                        } catch (Exception e) {
+                            detailSMS.setMsgId(smsId);
+                            detailSMS.setDescription("");
+                            detailSMS.setDate("");
+                        }
+
+                        emitter.onSuccess(detailSMS);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+
+            }).start();
+        });
+
+    }
+
     public void Cancel(String tag, Context context) {
 
         if (volley_getSMS != null) {
@@ -132,6 +175,10 @@ public class Api_SMS extends Base_Api {
 
         if (volley_setArchiveSMS != null) {
             volley_setArchiveSMS.Cancel(tag, context);
+        }
+
+        if (volley_getDetailSMS != null) {
+            volley_getDetailSMS.Cancel(tag, context);
         }
 
     }

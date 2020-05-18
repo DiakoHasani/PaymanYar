@@ -16,6 +16,8 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -30,7 +32,9 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_SMS;
 import ir.tdaapp.paymanyar.Presenter.P_SmsFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.Detail_SMS_Dialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.FilterWideDialog;
 
 public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnClickListener {
 
@@ -102,7 +106,15 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
         smsAdapter.setClickSMS(new onClickSMS() {
             @Override
             public void onClickLayout(String id) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(Detail_SMS_Dialog.TAG);
 
+                if (prev == null) {
+                    ft.addToBackStack(null);
+
+                    Detail_SMS_Dialog detail_sms_dialog = new Detail_SMS_Dialog(id);
+                    detail_sms_dialog.show(ft, Detail_SMS_Dialog.TAG);
+                }
             }
 
             @Override

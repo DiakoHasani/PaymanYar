@@ -73,6 +73,10 @@ public class SmsAdapter extends RecyclerView.Adapter<SmsAdapter.MyViewHolder> {
             holder.star.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_star_border_yellow));
         }
 
+        holder.layout2.setOnClickListener(view -> {
+            clickSMS.onClickLayout(messages.get(position).getId());
+        });
+
         holder.star.setOnClickListener(view -> {
             if (messages.get(position).isFevorit()) {
                 clickSMS.onClickRemoveFevorit(messages.get(position).getId(), holder.star);
@@ -95,7 +99,7 @@ public class SmsAdapter extends RecyclerView.Adapter<SmsAdapter.MyViewHolder> {
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView lbl_Title;
-        RelativeLayout layout;
+        RelativeLayout layout,layout2;
         ImageView star, archive;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -103,6 +107,7 @@ public class SmsAdapter extends RecyclerView.Adapter<SmsAdapter.MyViewHolder> {
 
             lbl_Title = itemView.findViewById(R.id.lbl_Title);
             layout = itemView.findViewById(R.id.layout);
+            layout2 = itemView.findViewById(R.id.layout2);
             star = itemView.findViewById(R.id.star);
             archive = itemView.findViewById(R.id.archive);
         }
