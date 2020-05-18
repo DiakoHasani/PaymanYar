@@ -5,29 +5,40 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SmsAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_SmsFragment;
+import ir.tdaapp.paymanyar.Model.Services.addSMS;
+import ir.tdaapp.paymanyar.Model.Services.onClickSMS;
+import ir.tdaapp.paymanyar.Model.Services.removeSMS;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_SMS;
 import ir.tdaapp.paymanyar.Presenter.P_SmsFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.Detail_SMS_Dialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.FilterWideDialog;
 
-public class SmsFragment extends BaseFragment implements S_SmsFragment {
+public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnClickListener {
 
-    public static final String TAG="SmsFragment";
+    public static final String TAG = "SmsFragment";
 
     Toolbar toolBar;
     RecyclerView recycler;
@@ -37,6 +48,8 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment {
     SmsAdapter smsAdapter;
     LinearLayoutManager layoutManager;
     ErrorAplicationDialog errorAplicationDialog;
+    RelativeLayout loading_Archive, btn_Fevorites;
+    boolean showAllSMS = true;
 
     @Nullable
     @Override
@@ -56,10 +69,13 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment {
         recycler = view.findViewById(R.id.recycler);
         loading = view.findViewById(R.id.loading);
         empty = view.findViewById(R.id.empty);
+        loading_Archive = view.findViewById(R.id.loading_Archive);
+        btn_Fevorites = view.findViewById(R.id.btn_Fevorites);
     }
 
     void implement() {
         p_smsFragment = new P_SmsFragment(getContext(), this);
+        btn_Fevorites.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -86,9 +102,59 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment {
 
         recycler.setAdapter(smsAdapter);
         recycler.setLayoutManager(layoutManager);
+
+        smsAdapter.setClickSMS(new onClickSMS() {
+            @Override
+            public void onClickLayout(String id) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(Detail_SMS_Dialog.TAG);
+
+                if (prev == null) {
+                    ft.addToBackStack(null);
+
+                    Detail_SMS_Dialog detail_sms_dialog = new Detail_SMS_Dialog(id);
+                    detail_sms_dialog.show(ft, Detail_SMS_Dialog.TAG);
+                }
+            }
+
+            @Override
+            public void onClickAddFevorit(String id, ImageView star) {
+                p_smsFragment.addFevorit(id, new addSMS() {
+                    @Override
+                    public void onSuccess() {
+                        star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_yellow));
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_yellow));
+                    }
+                });
+            }
+
+            @Override
+            public void onClickRemoveFevorit(String id, ImageView star) {
+                p_smsFragment.removeFevorit(id, new removeSMS() {
+                    @Override
+                    public void onSuccess() {
+                        star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_yellow));
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_yellow));
+                    }
+                });
+            }
+
+            @Override
+            public void onClickArchive(String msgId) {
+                p_smsFragment.ArchiveMessage(msgId);
+            }
+        });
     }
 
-    //اگر خای رخ دهد متد زیر فراخوانی می شود
+    //اگر خطای رخ دهد متد زیر فراخوانی می شود
     @Override
     public void onError(ResaultCode resault) {
         String text = "";
@@ -136,9 +202,9 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment {
 
     @Override
     public void onLoading(boolean load) {
-        if (load){
+        if (load) {
             loading.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             loading.setVisibility(View.GONE);
         }
     }
@@ -151,5 +217,62 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment {
     @Override
     public void onEmpty() {
         empty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onArchiveMessage(VM_Message message, String messageId) {
+        if (message.isResult()) {
+            smsAdapter.archiveSMS(messageId);
+        } else {
+            Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onErrorArchiveMessage(ResaultCode result) {
+        String text = "";
+
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onLoadingArchive(boolean archive) {
+        if (archive) {
+            loading_Archive.setVisibility(View.VISIBLE);
+        } else {
+            loading_Archive.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public boolean onShowAllSMS() {
+        return showAllSMS;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_Fevorites:
+                showAllSMS = !showAllSMS;
+                p_smsFragment.start();
+                break;
+        }
     }
 }
