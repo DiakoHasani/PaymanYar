@@ -16,4 +16,5 @@
     <string name="TheAmount_of_the_Guarantee_in_the_Tender">مبلغ تضمین در مناقصه:</string>
     <string name="ThereAreNoResults">موردی یافت نشد</string>
     <string name="YouHaveNotSMS">شما هیچ پیامی ندارید</string>
+    <string name="ThisValueMust_be_Filled">این مقدار باید پر شود</string>
 </resources>
