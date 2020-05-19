@@ -79,7 +79,7 @@ public class Compass_Fragment extends Fragment implements S_CompassFragment {
     void setToolbar() {
 
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setTitle(getContext().getResources().getString(R.string.GPS));
+        toolbar.setTitle(getContext().getResources().getString(R.string.compass));
         ((ToolsActivity) getActivity()).setSupportActionBar(toolbar);
         ((ToolsActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);

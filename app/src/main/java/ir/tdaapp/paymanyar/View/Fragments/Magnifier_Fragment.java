@@ -118,17 +118,6 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        p_magnifierFragment.stop_camera();
-    }
-
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
 
@@ -161,8 +150,9 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         }
     }
 
-
-
-
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        p_magnifierFragment.stop_camera();
+    }
 }
