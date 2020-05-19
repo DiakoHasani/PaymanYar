@@ -251,7 +251,6 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
         Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
     public void onLoadingArchive(boolean archive) {
         if (archive) {

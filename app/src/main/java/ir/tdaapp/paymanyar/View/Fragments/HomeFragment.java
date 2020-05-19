@@ -46,7 +46,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     NavigationView nav_View;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout btn_SMS;
+    LinearLayout btn_SMS,btn_Support;
 
     @Nullable
     @Override
@@ -74,6 +74,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_PriceRange = view.findViewById(R.id.btn_PriceRange);
         btn_Libraries = view.findViewById(R.id.btn_Libraries);
         btn_SMS = view.findViewById(R.id.btn_SMS);
+        btn_Support = view.findViewById(R.id.btn_Support);
     }
 
     void implement() {
@@ -85,6 +86,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_PriceRange.setOnClickListener(this);
         btn_Libraries.setOnClickListener(this);
         btn_SMS.setOnClickListener(this);
+        btn_Support.setOnClickListener(this);
 
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -198,6 +200,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_SMS:
                 ((MainActivity) getActivity()).onAddFragment(new SmsFragment(), R.anim.fadein, R.anim.fadeout, true, SmsFragment.TAG);
+                break;
+            case R.id.btn_Support:
+                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.fadeout, true, SupportFragment.TAG);
                 break;
         }
     }

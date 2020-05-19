@@ -118,4 +118,6 @@
     <string name="WinnerTender">برنده مناقصه</string>
     <string name="Title">عنوان</string>
     <string name="SMS">پیام</string>
+    <string name="Send">ارسال</string>
+    <string name="MessageText">متن پیام</string>
 </resources>

@@ -44,7 +44,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="220dp"
         android:layout_below="@id/head">
 
         <ScrollView
@@ -64,7 +64,8 @@
                     android:textSize="16dp"
                     android:textColor="@color/colorTitle"
                     android:paddingRight="8dp"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="8dp"
+                    android:lineSpacingExtra="15dp"/>
 
             </RelativeLayout>
 

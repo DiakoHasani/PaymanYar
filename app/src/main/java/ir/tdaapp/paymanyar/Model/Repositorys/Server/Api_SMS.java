@@ -26,7 +26,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_SMS;
 public class Api_SMS extends Base_Api {
 
     GetJsonArrayVolley volley_getSMS;
-    PostJsonObjectVolley volley_setArchiveSMS;
+    PostJsonObjectVolley volley_setArchiveSMS, volley_postSMS;
     GetJsonObjectVolley volley_getDetailSMS;
 
     //در اینجا لیست پیام ها گرفته می شوند
@@ -167,6 +167,50 @@ public class Api_SMS extends Base_Api {
 
     }
 
+    //در اینجا پیامک ارسال می شود
+    public Single<VM_Message> postSMS(String message, int userId) {
+
+        return Single.create(emitter -> {
+
+            new Thread(() -> {
+
+                JSONObject input = new JSONObject();
+
+                try {
+                    input.put("UserId", userId);
+                    input.put("TextMessage", message);
+                } catch (Exception e) {
+                }
+
+                volley_postSMS = new PostJsonObjectVolley(ApiUrl + "Message/PostSendMessage", input, resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_Message msg=new VM_Message();
+                        JSONObject obj=resault.getObject();
+
+                        try{
+
+                            msg.setMessage(obj.getString("MessageText"));
+                            msg.setResult(obj.getBoolean("Result"));
+                            msg.setCode(obj.getInt("Code"));
+
+                        }catch (Exception e){}
+
+                        emitter.onSuccess(msg);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+
+            }).start();
+
+        });
+
+    }
+
     public void Cancel(String tag, Context context) {
 
         if (volley_getSMS != null) {
@@ -179,6 +223,10 @@ public class Api_SMS extends Base_Api {
 
         if (volley_getDetailSMS != null) {
             volley_getDetailSMS.Cancel(tag, context);
+        }
+
+        if (volley_postSMS != null) {
+            volley_postSMS.Cancel(tag, context);
         }
 
     }
