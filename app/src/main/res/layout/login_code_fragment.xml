@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
-        android:weightSum="12">
+        android:weightSum="12"
+        android:layout_above="@id/bottom">
 
         <ImageView
             android:layout_width="match_parent"
@@ -58,6 +58,7 @@
                 android:layout_marginLeft="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_Code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/vazir"
@@ -82,6 +83,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Resend"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="5"
@@ -94,6 +96,7 @@
                     app:cardElevation="1dp">
 
                     <TextView
+                        android:id="@+id/lbl_resend"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="14dp"
@@ -101,6 +104,14 @@
                         android:gravity="center"
                         android:fontFamily="@font/vazir"
                         android:text="@string/Resend" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_btn_Resend"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:theme="@style/ProgressBarTheme"
+                        android:visibility="gone"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -110,6 +121,7 @@
                     android:layout_weight="1"/>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Login"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="5"
@@ -122,6 +134,7 @@
                     app:cardElevation="1dp">
 
                     <TextView
+                        android:id="@+id/lbl_btn_Login"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="14dp"
@@ -129,6 +142,14 @@
                         android:gravity="center"
                         android:fontFamily="@font/vazir"
                         android:text="@string/Login" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_btn_Login"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:theme="@style/ProgressBarTheme"
+                        android:visibility="gone"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -138,20 +159,24 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/ic_bottom_login"/>
+        android:background="@drawable/ic_bottom_login"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/Url_Site"
-        android:textColor="@color/colorWhite"
-        android:layout_marginBottom="15dp"
-        android:textSize="12dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Url_Site"
+            android:textColor="@color/colorWhite"
+            android:textSize="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

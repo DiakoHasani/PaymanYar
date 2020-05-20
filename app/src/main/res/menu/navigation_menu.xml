@@ -6,4 +6,9 @@
         android:title="@string/TenderCharge"
         android:icon="@drawable/ic_charge"/>
 
+    <item
+        android:id="@+id/menu_Login"
+        android:title="@string/Login"
+        android:icon="@drawable/ic_login"/>
+
 </menu>
