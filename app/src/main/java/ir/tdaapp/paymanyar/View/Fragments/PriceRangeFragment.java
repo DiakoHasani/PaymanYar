@@ -2,13 +2,17 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,6 +39,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     EditText txt_AmountToToman7,txt_AmountToToman8,percent1,percent2,percent3,percent4,percent5,percent6,percent7,percent8,txt_Percentage,txt_guarantee;
     Spinner cmb_Degree_of_Importance;
     TextView winnerPrice,winnerNumber;
+    RelativeLayout chPoint1,chPoint2,chPoint3,chPoint4,chPoint5,chPoint6,chPoint7,chPoint8;
+    RelativeLayout ChartUpLine,ChartDownLine;
     CardView btnCalc;
     Toolbar toolbar;
 
@@ -77,6 +83,18 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         percent8=view.findViewById(R.id.pricerange_percent8);
         btnCalc=view.findViewById(R.id.btn_PriceRange);
         txt_guarantee=view.findViewById(R.id.txt_percentage);
+
+        chPoint1=view.findViewById(R.id.pricerange_chartpoint1);
+        chPoint2=view.findViewById(R.id.pricerange_chartpoint2);
+        chPoint3=view.findViewById(R.id.pricerange_chartpoint3);
+        chPoint4=view.findViewById(R.id.pricerange_chartpoint4);
+        chPoint5=view.findViewById(R.id.pricerange_chartpoint5);
+        chPoint6=view.findViewById(R.id.pricerange_chartpoint6);
+        chPoint7=view.findViewById(R.id.pricerange_chartpoint7);
+        chPoint8=view.findViewById(R.id.pricerange_chartpoint8);
+
+        ChartDownLine=(RelativeLayout) view.findViewById(R.id.pricerange_chartDownLine);
+        ChartUpLine=(RelativeLayout) view.findViewById(R.id.pricerange_chartUpLine);
 
         winnerNumber=view.findViewById(R.id.pricerange_winnerNumber);
         winnerPrice=view.findViewById(R.id.pricerange_winnerprice);
@@ -152,17 +170,17 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
             //ساخت یک آرایه از مقادیر پیشنهادی
             ArrayList<VM_PriceRange> arrayList=new ArrayList<>();
-            if(txt_AmountToToman1.getText().toString().length()>0)arrayList.add(new VM_PriceRange("1",txt_AmountToToman1.getText().toString().replaceAll(",",""),percent1.getText().toString()));
-            if(txt_AmountToToman2.getText().toString().length()>0)arrayList.add(new VM_PriceRange("2",txt_AmountToToman2.getText().toString().replaceAll(",",""),percent2.getText().toString()));
-            if(txt_AmountToToman3.getText().toString().length()>0)arrayList.add(new VM_PriceRange("3",txt_AmountToToman3.getText().toString().replaceAll(",",""),percent3.getText().toString()));
-            if(txt_AmountToToman4.getText().toString().length()>0)arrayList.add(new VM_PriceRange("4",txt_AmountToToman4.getText().toString().replaceAll(",",""),percent4.getText().toString()));
-            if(txt_AmountToToman5.getText().toString().length()>0)arrayList.add(new VM_PriceRange("5",txt_AmountToToman5.getText().toString().replaceAll(",",""),percent5.getText().toString()));
-            if(txt_AmountToToman6.getText().toString().length()>0)arrayList.add(new VM_PriceRange("6",txt_AmountToToman6.getText().toString().replaceAll(",",""),percent6.getText().toString()));
-            if(txt_AmountToToman7.getText().toString().length()>0)arrayList.add(new VM_PriceRange("7",txt_AmountToToman7.getText().toString().replaceAll(",",""),percent7.getText().toString()));
-            if(txt_AmountToToman8.getText().toString().length()>0)arrayList.add(new VM_PriceRange("8",txt_AmountToToman8.getText().toString().replaceAll(",",""),percent8.getText().toString()));
+            if(txt_AmountToToman1.getText().toString().length()>0){arrayList.add(new VM_PriceRange("1",txt_AmountToToman1.getText().toString().replaceAll(",",""),percent1.getText().toString()));ChartPoint(percent1.getText().toString(),chPoint1,1);}
+            if(txt_AmountToToman2.getText().toString().length()>0){arrayList.add(new VM_PriceRange("2",txt_AmountToToman2.getText().toString().replaceAll(",",""),percent2.getText().toString()));ChartPoint(percent2.getText().toString(),chPoint2,2);}
+            if(txt_AmountToToman3.getText().toString().length()>0){arrayList.add(new VM_PriceRange("3",txt_AmountToToman3.getText().toString().replaceAll(",",""),percent3.getText().toString()));ChartPoint(percent3.getText().toString(),chPoint3,3);}
+            if(txt_AmountToToman4.getText().toString().length()>0){arrayList.add(new VM_PriceRange("4",txt_AmountToToman4.getText().toString().replaceAll(",",""),percent4.getText().toString()));ChartPoint(percent4.getText().toString(),chPoint4,4);}
+            if(txt_AmountToToman5.getText().toString().length()>0){arrayList.add(new VM_PriceRange("5",txt_AmountToToman5.getText().toString().replaceAll(",",""),percent5.getText().toString()));ChartPoint(percent5.getText().toString(),chPoint5,5);}
+            if(txt_AmountToToman6.getText().toString().length()>0){arrayList.add(new VM_PriceRange("6",txt_AmountToToman6.getText().toString().replaceAll(",",""),percent6.getText().toString()));ChartPoint(percent6.getText().toString(),chPoint6,6);}
+            if(txt_AmountToToman7.getText().toString().length()>0){arrayList.add(new VM_PriceRange("7",txt_AmountToToman7.getText().toString().replaceAll(",",""),percent7.getText().toString()));ChartPoint(percent7.getText().toString(),chPoint7,7);}
+            if(txt_AmountToToman8.getText().toString().length()>0){arrayList.add(new VM_PriceRange("8",txt_AmountToToman8.getText().toString().replaceAll(",",""),percent8.getText().toString()));ChartPoint(percent8.getText().toString(),chPoint8,8);}
 
             //شروع محاسبه
-            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replaceAll(",",""),arrayList,txt_guarantee.getText().toString().replaceAll(",",""),cmb_Degree_of_Importance.getSelectedItemId());
+            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replaceAll(",",""),arrayList,txt_guarantee.getText().toString().replaceAll(",",""),cmb_Degree_of_Importance.getSelectedItemPosition()+1);
 
         }else{
             //نمایش خطا
@@ -170,9 +188,49 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         }
     }
 
+    //تنظیم ارتفاع هر کدام از نقاط چارت براساس درصد پیشنهادی
+    private void ChartPoint(String Percenet,RelativeLayout obj,int number){
+        RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(obj.getLayoutParams());
+        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(number*20+20),IntToDP(Integer.valueOf(Percenet)+8));
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+        //فق براساس درصد پیشنهادی از پایین فاصله میدهیم
+        obj.setLayoutParams(params);
+    }
+
     @Override
-    public void onWinnerChoosed(String number, String position) {
+    public void onWinnerChoosed(String number, String position,String CUp,String CDown) {
         winnerPrice.setText(number);
         winnerNumber.setText(position);
+
+        //نمایش خط حد بالا و پایین
+
+        //حد بالا
+        RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(ChartUpLine.getLayoutParams());
+        int m=Integer.valueOf(CUp.substring(0,CUp.indexOf(".")));
+        Toast.makeText(this.getContext(),"Up:"+m,Toast.LENGTH_LONG).show();
+        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(50),IntToDP(m+8));
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        ChartUpLine.setLayoutParams(params);
+
+
+        //حد پایین
+        params=new RelativeLayout.LayoutParams(ChartDownLine.getLayoutParams());
+        m=Integer.valueOf(CDown.substring(0,CDown.indexOf(".")));
+        Toast.makeText(this.getContext(),"Down:"+m,Toast.LENGTH_LONG).show();
+        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(50),IntToDP(m+8));
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        ChartDownLine.setLayoutParams(params);
     }
+
+    private int IntToDP(int value){
+
+        //تبدیل عدد صحیح به dp
+        int marginInDp = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, value, getResources()
+                        .getDisplayMetrics());
+        return marginInDp;
+    }
+
+
 }

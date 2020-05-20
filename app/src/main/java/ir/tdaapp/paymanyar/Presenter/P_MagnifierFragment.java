@@ -113,12 +113,14 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
             //modify parameter
             param.setPreviewFrameRate(20);
             param.setPreviewSize(176, 144);
+
             ChangeZoom();
             camera.setParameters(param);
             try {
                 camera.setDisplayOrientation(90);
                 camera.setPreviewDisplay(surfaceHolder);
                 camera.startPreview();
+
                 //camera.takePicture(shutter, raw, jpeg)
             } catch (Exception e) {
                 Log.e("tag", "init_camera: " + e);

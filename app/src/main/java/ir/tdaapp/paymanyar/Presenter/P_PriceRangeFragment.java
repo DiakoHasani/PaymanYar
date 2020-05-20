@@ -115,15 +115,15 @@ public class P_PriceRangeFragment {
             //بدست آوردن حد پایین
             double C1 = 0;
             if (A > K || N <= 6) {
-                C1 = 0.97 * (M_prime - (T * S_prime));
+                C1 =Math.abs(0.97 * (M_prime - (T * S_prime)));
             } else {
-                C1 = M_prime - (T * S_prime) - (0.5 * D / A * 100);
+                C1 =Math.abs( M_prime - (T * S_prime) - (0.5 * D / A * 100));
             }
 
             //بدست آوردن حد بالا
-            double C2 = M_prime + (T * S_prime);
+            double C2 =Math.abs(M_prime + (T * S_prime));
 
-            ChooseWinner(C1,participates);
+            ChooseWinner(C1,participates,C2);
 
         }catch (Exception e){}
     }
@@ -205,9 +205,9 @@ public class P_PriceRangeFragment {
     }
 
     //پیدا کردن برنده مناقصه
-    private void ChooseWinner(double C,ArrayList<VM_PriceRange> arr){
+    private void ChooseWinner(double C,ArrayList<VM_PriceRange> arr,double c2){
         long max_price=0;
-        double max_percent=0;
+        double max_percent=1000;
         String index="---";
 
         /*
@@ -228,6 +228,6 @@ public class P_PriceRangeFragment {
             }
         }
 
-        if(s_priceRangeFragment!=null)s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price),index);
+        if(s_priceRangeFragment!=null)s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price),index,String.valueOf(c2),String.valueOf(C));
     }
 }
