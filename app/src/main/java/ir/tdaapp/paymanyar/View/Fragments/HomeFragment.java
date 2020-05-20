@@ -3,6 +3,7 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,10 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         });
 
         nav_View.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+        if (((MainActivity)getActivity()).getTbl_user().hasAccount(getContext())){
+            hideMenuLoginNavigation();
+        }
     }
 
     void setToolBar() {
@@ -109,6 +114,11 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorWhite));
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    public void hideMenuLoginNavigation(){
+        Menu nav_Menu = nav_View.getMenu();
+        nav_Menu.findItem(R.id.menu_Login).setVisible(false);
     }
 
     @Override
@@ -213,6 +223,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         switch (menuItem.getItemId()) {
             case R.id.menu_Tender:
                 ((MainActivity) getActivity()).onAddFragment(new ChargeFragment(), R.anim.fadein, R.anim.fadeout, true, ChargeFragment.TAG);
+                break;
+            case R.id.menu_Login:
+                ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.fadeout, true, LoginFragment.TAG);
                 break;
         }
 
