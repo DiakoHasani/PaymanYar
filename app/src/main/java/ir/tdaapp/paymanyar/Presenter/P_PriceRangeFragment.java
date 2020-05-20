@@ -75,7 +75,7 @@ public class P_PriceRangeFragment {
             double T = GetPriority(participates.size(), priority);
 
             //مبلغ تضمین
-            long D = A * 5 / 100; // Default
+            double D = A * 5 / 100; // Default
             if (Guarantee.length() > 0) {
                 // If User Entered Guarantee Value
                 D = Long.valueOf(Guarantee);
@@ -197,7 +197,7 @@ public class P_PriceRangeFragment {
         if(tender_offer==null)return ans;
 
         if(tender_offer.length()>0) {
-            long prc = (Long.valueOf(tender_offer) * 100) / Long.valueOf(price);
+            double prc = (Long.valueOf(tender_offer) * 100) / Long.valueOf(price);
             ans = String.valueOf(prc);
         }
 
