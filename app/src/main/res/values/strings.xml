@@ -120,4 +120,7 @@
     <string name="SMS">پیام</string>
     <string name="Send">ارسال</string>
     <string name="MessageText">متن پیام</string>
+    <string name="Update">بروزرسانی</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
 </resources>

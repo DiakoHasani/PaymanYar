@@ -2,14 +2,17 @@ package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
 
+import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Setting;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Home;
 import ir.tdaapp.paymanyar.Model.Services.S_HomeFragment;
+import ir.tdaapp.paymanyar.Model.Services.resultVersionApp_Sql;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Home;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
@@ -19,13 +22,15 @@ public class P_HomeFragment {
 
     S_HomeFragment s_homeFragment;
     Context context;
-    Disposable dispose_getVals, dispose_setSliderItem, dispose_setUpdates;
+    Disposable dispose_getVals, dispose_setSliderItem;
     Api_Home api_home;
+    Tbl_Setting tbl_setting;
 
     public P_HomeFragment(S_HomeFragment s_homeFragment, Context context) {
         this.s_homeFragment = s_homeFragment;
         this.context = context;
         api_home = new Api_Home();
+        tbl_setting = new Tbl_Setting(context);
     }
 
     //با فراخوانی این متد عملیات گرفتن داده ها شروع می شود
@@ -74,15 +79,24 @@ public class P_HomeFragment {
 
     //در اینجا آپدیت ها یکی یکی گرفته می شوند و عملیات خود را انجام می دهیم
     void setUpdates(List<VM_UpdateApp> updates) {
-        Observable<VM_UpdateApp> list = Observable.fromIterable(updates);
-        dispose_setUpdates = list.subscribe(vm_updateApp -> {
 
+        tbl_setting.setUpdates(updates, new resultVersionApp_Sql() {
+            @Override
+            public void updateApp(boolean update, boolean hadUpdate) {
+                //اگر برنامه نیاز به آپدیت داشته باشد شرط زیر اجرا می شود
+                if (update) {
+                    s_homeFragment.onUpdateApp(hadUpdate);
                 }
-                , throwable -> {
+            }
+
+            @Override
+            public void clearData(boolean clear) {
+                //اگر شرط زیر درست باشد اپلیکیشن باید کلیر دیتا شود
+                if (clear){
+                    clearApplicationData();
                 }
-                , () -> {
-                    s_homeFragment.onFinish();
-                });
+            }
+        });
     }
 
     //با فراخوانی این متد تمامی عملیات این پرزنتر لغو می شود این متد زمانی که فرگمنت ما بسته شود فراخوانی می شود
@@ -98,9 +112,35 @@ public class P_HomeFragment {
         if (dispose_setSliderItem != null) {
             dispose_setSliderItem.dispose();
         }
-        if (dispose_setUpdates != null) {
-            dispose_setUpdates.dispose();
+    }
+
+    //برای پاک کردن حافظه دیتابیس
+    public void clearApplicationData() {
+        File cacheDirectory = context.getCacheDir();
+        File applicationDirectory = new File(cacheDirectory.getParent());
+        if (applicationDirectory.exists()) {
+            String[] fileNames = applicationDirectory.list();
+            for (String fileName : fileNames) {
+                if (!fileName.equals("lib")) {
+                    deleteFile(new File(applicationDirectory, fileName));
+                }
+            }
+        }
+    }
+
+    public static boolean deleteFile(File file) {
+        boolean deletedAll = true;
+        if (file != null) {
+            if (file.isDirectory()) {
+                String[] children = file.list();
+                for (int i = 0; i < children.length; i++) {
+                    deletedAll = deleteFile(new File(file, children[i])) && deletedAll;
+                }
+            } else {
+                deletedAll = file.delete();
+            }
         }
 
+        return deletedAll;
     }
 }

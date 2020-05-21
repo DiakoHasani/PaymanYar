@@ -46,7 +46,7 @@ public class P_SmsFragment {
 
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
 
-        Single<List<VM_SMS>> data = api_sms.getSMS(1, tbl_sms, s_smsFragment.onShowAllSMS());
+        Single<List<VM_SMS>> data = api_sms.getSMS(userId, tbl_sms, s_smsFragment.onShowAllSMS());
 
         dispose_getSMS = data.subscribeWith(new DisposableSingleObserver<List<VM_SMS>>() {
             @Override
@@ -89,7 +89,7 @@ public class P_SmsFragment {
         s_smsFragment.onLoadingArchive(true);
 
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
-        Single<VM_Message> data = api_sms.setArchiveSMS(smsId, 1);
+        Single<VM_Message> data = api_sms.setArchiveSMS(smsId, userId);
         dispose_ArchiveMessage = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
             @Override
             public void onSuccess(VM_Message message) {

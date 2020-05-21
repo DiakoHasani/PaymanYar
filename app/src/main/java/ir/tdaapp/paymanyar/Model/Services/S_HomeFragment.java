@@ -18,4 +18,6 @@ public interface S_HomeFragment {
     void onFinish();
 
     void onShowSlider(boolean show);
+
+    void onUpdateApp(boolean hadUpdate);
 }

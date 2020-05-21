@@ -9,28 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activitys.ToolsActivity">
+        <activity android:name=".View.Activitys.PaymentActivity"></activity>
+        <activity android:name=".View.Activitys.ToolsActivity"></activity>
+        <activity
+            android:name=".View.Activitys.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="home"
                     android:scheme="paymanyar" />
-
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".View.Activitys.MainActivity"
-            android:screenOrientation="portrait">
-
         </activity>
 
         <meta-data
@@ -47,29 +42,28 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".Model.Utilitys.GetNotificationToCloseApp">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-
     </application>
+    <permission
+        android:name="com.android.pharmacy.myapplication.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-<!--    <uses-permission-->
-<!--        android:name="com.android.pharmacy.myapplication.permission.MAPS_RECEIVE"-->
-<!--         />-->
-
     <uses-permission android:name="com.android.pharmacy.myapplication.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" />
 
 </manifest>
