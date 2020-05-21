@@ -22,6 +22,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     public final static String TAG = "MainActivity";
+    public static boolean isActive=false;
+
     P_MainActivity p_mainActivity;
     private Tbl_Notification tbl_notification;
     private Tbl_User tbl_user;
@@ -121,10 +123,23 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbExcute.Close();
+        isActive=false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive=false;
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive=true;
     }
 }

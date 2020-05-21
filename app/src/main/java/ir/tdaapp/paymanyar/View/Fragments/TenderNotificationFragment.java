@@ -192,10 +192,16 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         VM_FilterTenderNotification filter = new VM_FilterTenderNotification();
 
         //در اینجا آیدی استان گرفته می شود
-        filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+        if (cmb_City.getSelectedItem()!=null){
+            filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+        }
+
 
         //در اینجا آیدی رشته تحصیلی گرفته می شود
-        filter.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
+        if (cmb_Major.getSelectedItem()!=null){
+            filter.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
+        }
+
 
         //در اینجا شامل کلمه ست می شود
         filter.setIncludesTheWord(txt_IncludesTheWord.getText().toString());
@@ -204,10 +210,15 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         filter.setDate(txt_Date.getText().toString());
 
         //در اینجا برآورد از ست می شود
-        filter.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
+        if (cmb_FromEstimate.getSelectedItem()!=null){
+            filter.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
+        }
+
 
         //در اینجا تا برآورد ست می شود
-        filter.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
+        if (cmb_UntilEstimate.getSelectedItem()!=null){
+            filter.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
+        }
 
         filter.setPage(page);
 
