@@ -261,7 +261,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
             public void onClick(String id) {
                 VM_FilterTenderNotification filter = getFilter();
                 filter.setTenderId(id);
-                filter.setUserId(1);
+                filter.setUserId(((MainActivity)getActivity()).getTbl_user().getUserId(getContext()));
 
                 DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter,(tenderId, fevorit) -> {
                     tenderNotificationAdapter.changeFevoritTender(tenderId,fevorit);

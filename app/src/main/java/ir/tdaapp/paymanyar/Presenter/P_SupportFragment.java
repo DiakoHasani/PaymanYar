@@ -12,6 +12,7 @@ import ir.tdaapp.paymanyar.Model.Services.S_SupportFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
 public class P_SupportFragment {
 
@@ -32,7 +33,10 @@ public class P_SupportFragment {
         if (Validation.Required(txt, context.getResources().getString(R.string.ThisValueMust_be_Filled))) {
 
             s_supportFragment.onLoading(true);
-            Single<VM_Message> data = api_sms.postSMS(txt.getText().toString(), 1);
+
+            int userId=((MainActivity)context).getTbl_user().getUserId(context);
+
+            Single<VM_Message> data = api_sms.postSMS(txt.getText().toString(), userId);
 
             dispose_sendMessage = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
                 @Override

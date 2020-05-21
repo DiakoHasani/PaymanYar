@@ -12,6 +12,8 @@ import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_User;
 import ir.tdaapp.paymanyar.Model.Services.S_MainActivity;
 import ir.tdaapp.paymanyar.Presenter.P_MainActivity;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Dialogs.UpdateAppDialog;
+import ir.tdaapp.paymanyar.View.Fragments.HomeFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -119,5 +121,10 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbExcute.Close();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

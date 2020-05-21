@@ -17,4 +17,5 @@
     <string name="ThereAreNoResults">موردی یافت نشد</string>
     <string name="YouHaveNotSMS">شما هیچ پیامی ندارید</string>
     <string name="ThisValueMust_be_Filled">این مقدار باید پر شود</string>
+    <string name="A_new_version_of_the_app_is_availableDo_you_want_to_update">نسخه جدید برنامه در دسترس است. آیا مایل به بروز رسانی هستید؟</string>
 </resources>

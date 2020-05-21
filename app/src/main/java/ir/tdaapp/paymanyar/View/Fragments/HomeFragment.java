@@ -21,6 +21,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
@@ -32,6 +34,7 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.UpdateAppDialog;
 
 public class HomeFragment extends BaseFragment implements S_HomeFragment, View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
@@ -42,12 +45,12 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     P_HomeFragment p_homeFragment;
     SliderHomeAdapter sliderHomeAdapter;
     ShimmerFrameLayout Loading;
-    CardView btn_Tools, btn_NewsPaper, btn_TenderNotification,btn_PriceRange,btn_Libraries;
+    CardView btn_Tools, btn_NewsPaper, btn_TenderNotification, btn_PriceRange, btn_Libraries;
     Toolbar toolbar;
     NavigationView nav_View;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    LinearLayout btn_SMS,btn_Support;
+    LinearLayout btn_SMS, btn_Support;
 
     @Nullable
     @Override
@@ -98,7 +101,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
 
         nav_View.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
-        if (((MainActivity)getActivity()).getTbl_user().hasAccount(getContext())){
+        if (((MainActivity) getActivity()).getTbl_user().hasAccount(getContext())) {
             hideMenuLoginNavigation();
         }
     }
@@ -116,7 +119,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         toggle.syncState();
     }
 
-    public void hideMenuLoginNavigation(){
+    public void hideMenuLoginNavigation() {
         Menu nav_Menu = nav_View.getMenu();
         nav_Menu.findItem(R.id.menu_Login).setVisible(false);
     }
@@ -183,6 +186,25 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         }
     }
 
+    //اگر برنامه نیاز به آپدیت داشته باشد متد زیر فراخوانی می شود
+    @Override
+    public void onUpdateApp(boolean hadUpdate) {
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(UpdateAppDialog.TAG);
+
+        if (prev == null) {
+            ft.addToBackStack(null);
+
+            UpdateAppDialog updateAppDialog = new UpdateAppDialog(hadUpdate);
+
+            //اگر آپدیت اجباری باشد در اینجا می گوییم که دیالوگ بسته نشود تا کاربر برنامه را آپدیت نکند اپلیکیشن قابل استفاده نیست
+            updateAppDialog.setCancelable(!hadUpdate);
+            updateAppDialog.show(ft, UpdateAppDialog.TAG);
+        }
+
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -233,4 +255,5 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
 
         return true;
     }
+
 }
