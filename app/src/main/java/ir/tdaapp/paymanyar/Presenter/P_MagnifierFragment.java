@@ -19,6 +19,7 @@ import com.karumi.dexter.Dexter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.FieldItem;
@@ -49,6 +50,8 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
     public void Initial(SurfaceView surfaceView){
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
+        surfaceView.setFocusable(true);
+        surfaceView.requestFocus();
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         rawCallback = new android.hardware.Camera.PictureCallback() {
             public void onPictureTaken(byte[] data, Camera camera) {
@@ -112,8 +115,16 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
             param = camera.getParameters();
             //modify parameter
             param.setPreviewFrameRate(20);
-            param.setPreviewSize(176, 144);
-
+            List<Camera.Size> sizes = param.getSupportedPictureSizes();
+            Camera.Size size = sizes.get(0);
+            for(int i=0;i<sizes.size();i++)
+            {
+                if(sizes.get(i).width > size.width)
+                    size = sizes.get(i);
+            }
+            param.setPictureSize(size.width, size.height);
+//            param.setPreviewSize(176, 220);
+            param.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             ChangeZoom();
             camera.setParameters(param);
             try {

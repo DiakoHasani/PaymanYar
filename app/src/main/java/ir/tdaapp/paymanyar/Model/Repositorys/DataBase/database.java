@@ -47,6 +47,7 @@ public class database extends SQLiteOpenHelper {
         super(context,"DBpaymanyar.db",null,2);
         mycontext=context;
         try {
+            this.close();
             this.databse();
             this.isDBOpen=false;
         }catch (Exception e){
@@ -58,6 +59,7 @@ public class database extends SQLiteOpenHelper {
         mycontext=context;
         try {
             this.needPermission=permission;
+            this.close();
             this.databse();
             this.isDBOpen=false;
         }catch (Exception e){
