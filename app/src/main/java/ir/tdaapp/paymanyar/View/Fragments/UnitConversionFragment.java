@@ -78,6 +78,10 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
 
         p_unitConversionFragment=new P_UnitConversionFragment(this.getContext(),this);
 
+        //نمایش اولیه مقادیر گزینه فاصله
+        p_unitConversionFragment.ShowItemsFor(1);
+        mode=1;
+
         btnVolume.setOnClickListener(this);
         btnTorque.setOnClickListener(this);
         btnTime.setOnClickListener(this);
@@ -243,6 +247,7 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
 
     @Override
     public void ShowUnits(ArrayList<String> arr) {
+        //نمایش گزینه ها در اسپینر برای انتخاب
         ArrayAdapter aa = new ArrayAdapter(this.getContext(),android.R.layout.simple_spinner_item,arr);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_value.setAdapter(aa);

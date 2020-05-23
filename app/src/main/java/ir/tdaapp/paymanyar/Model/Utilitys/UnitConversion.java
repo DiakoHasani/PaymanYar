@@ -94,10 +94,28 @@ public class UnitConversion {
                 answer.add("SquareYards");
                 break;
 
-            // Denisty
+            // Electric Charge
             case 4:
-                answer.add("");
-
+                answer.add("Abcoulombs");
+                answer.add("AmpereHours");
+                answer.add("AmpereMinutes");
+                answer.add("AmpereSeconds");
+                answer.add("Coulombs");
+                answer.add("EMUsOfCharge");
+                answer.add("ESUsOfCharge");
+                answer.add("ElectronCharge");
+                answer.add("FaradVolts");
+                answer.add("FaradayCarbon12");
+                answer.add("FaradayChemistry");
+                answer.add("FaradayPhysics");
+                answer.add("Franklins");
+                answer.add("Kilocoulombs");
+                answer.add("Megacoulombs");
+                answer.add("Microcoulombs");
+                answer.add("Millicoulombs");
+                answer.add("Nanocoulombs");
+                answer.add("Picocoulombs");
+                answer.add("Statcoulombs");
                 break;
 
             // Distance
@@ -275,9 +293,13 @@ public class UnitConversion {
                 answer.add("Teranewtons");
                 break;
 
-            // Light
+            // Temperature
             case 9:
-
+                answer.add("Celsius");
+                answer.add("Fahrenheit");
+                answer.add("Kelvin");
+                answer.add("Rankine");
+                answer.add("Reaumur");
                 break;
 
             // Mass
@@ -315,9 +337,12 @@ public class UnitConversion {
                 answer.add("TonsUS");
                 break;
 
-            // Power
+            // Numeric
             case 11:
-
+                answer.add("Binary");
+                answer.add("Decimal");
+                answer.add("Hexadecimal");
+                answer.add("Octal");
                 break;
 
             // Pressure
@@ -561,9 +586,9 @@ public class UnitConversion {
                 ans=Area(value,value_unit,answer_unit);
                 break;
 
-            // Denisty
+            // Electric Type
             case 4:
-
+                ans=Electric(value,value_unit,answer_unit);
                 break;
 
             // Distance
@@ -586,9 +611,9 @@ public class UnitConversion {
                 ans=Force(value,value_unit,answer_unit);
                 break;
 
-            // Light
+            // Tempareture
             case 9:
-
+                ans=Temperature(value,value_unit,answer_unit);
                 break;
 
             // Mass
@@ -596,9 +621,9 @@ public class UnitConversion {
                 ans=Mass(value,value_unit,answer_unit);
                 break;
 
-            // Power
+            // Numeric
             case 11:
-
+                ans=Numeric(value,value_unit,answer_unit);
                 break;
 
             // Pressure
@@ -4075,6 +4100,271 @@ public class UnitConversion {
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
 
+        }
+        return ans;
+    }
+
+    private String ElectircHelper(String answer_unit,UnitOf.ElectricCharge unitOf){
+        String ans="0";
+        
+        switch (answer_unit){
+
+            case "Abcoulombs":
+                ans=String.valueOf(unitOf.toAbcoulombs());
+                break;
+            case "AmpereHours":
+                ans=String.valueOf(unitOf.toAmpereHours());
+                break;
+            case "AmpereMinutes":
+                ans=String.valueOf(unitOf.toAmpereMinutes());
+                break;
+            case "AmpereSeconds":
+                ans=String.valueOf(unitOf.toAmpereSeconds());
+                break;
+            case "Coulombs":
+                ans=String.valueOf(unitOf.toCoulombs());
+                break;
+            case "EMUsOfCharge":
+                ans=String.valueOf(unitOf.toEMUsOfCharge());
+                break;
+            case "ESUsOfCharge":
+                ans=String.valueOf(unitOf.toESUsOfCharge());
+                break;
+            case "ElectronCharge":
+                ans=String.valueOf(unitOf.toElectronCharge());
+                break;
+            case "FaradVolts":
+                ans=String.valueOf(unitOf.toFaradVolts());
+                break;
+            case "FaradayCarbon12":
+                ans=String.valueOf(unitOf.toFaradayCarbon12());
+                break;
+            case "FaradayChemistry":
+                ans=String.valueOf(unitOf.toFaradayChemistry());
+                break;
+            case "FaradayPhysics":
+                ans=String.valueOf(unitOf.toFaradayPhysics());
+                break;
+            case "Franklins":
+                ans=String.valueOf(unitOf.toFranklins());
+                break;
+            case "Kilocoulombs":
+                ans=String.valueOf(unitOf.toKilocoulombs());
+                break;
+            case "Megacoulombs":
+                ans=String.valueOf(unitOf.toMegacoulombs());
+                break;
+            case "Microcoulombs":
+                ans=String.valueOf(unitOf.toMicrocoulombs());
+                break;
+            case "Millicoulombs":
+                ans=String.valueOf(unitOf.toMillicoulombs());
+                break;
+            case "Nanocoulombs":
+                ans=String.valueOf(unitOf.toNanocoulombs());
+                break;
+            case "Picocoulombs":
+                ans=String.valueOf(unitOf.toPicocoulombs());
+                break;
+            case "Statcoulombs":
+                ans=String.valueOf(unitOf.toStatcoulombs());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Electric(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.ElectricCharge unitOf;
+        
+        switch (value_unit){
+
+            case "Abcoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromAbcoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "AmpereHours":
+                unitOf=new UnitOf.ElectricCharge().fromAmpereHours(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "AmpereMinutes":
+                unitOf=new UnitOf.ElectricCharge().fromAmpereMinutes(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "AmpereSeconds":
+                unitOf=new UnitOf.ElectricCharge().fromAmpereSeconds(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Coulombs":
+                unitOf=new UnitOf.ElectricCharge().fromCoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "EMUsOfCharge":
+                unitOf=new UnitOf.ElectricCharge().fromEMUsOfCharge(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "ESUsOfCharge":
+                unitOf=new UnitOf.ElectricCharge().fromESUsOfCharge(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "ElectronCharge":
+                unitOf=new UnitOf.ElectricCharge().fromElectronCharge(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "FaradVolts":
+                unitOf=new UnitOf.ElectricCharge().fromFaradVolts(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "FaradayCarbon12":
+                unitOf=new UnitOf.ElectricCharge().fromFaradayCarbon12(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "FaradayChemistry":
+                unitOf=new UnitOf.ElectricCharge().fromFaradayChemistry(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "FaradayPhysics":
+                unitOf=new UnitOf.ElectricCharge().fromFaradayPhysics(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Franklins":
+                unitOf=new UnitOf.ElectricCharge().fromFranklins(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Kilocoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromKilocoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Megacoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromMegacoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Microcoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromMicrocoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Millicoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromMillicoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Nanocoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromNanocoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Picocoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromPicocoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+            case "Statcoulombs":
+                unitOf=new UnitOf.ElectricCharge().fromStatcoulombs(Double.valueOf(value));
+                ans=ElectircHelper(answer_unit,unitOf);
+                break;
+
+        }
+        return ans;
+    }
+
+    private String TemparetureHelper(String answer_unit,UnitOf.Temperature unitOf){
+        String ans="0";
+        switch (answer_unit){
+
+            case "Celsius":
+                ans=String.valueOf(unitOf.toCelsius());
+                break;
+            case "Fahrenheit":
+                ans=String.valueOf(unitOf.toFahrenheit());
+                break;
+            case "Kelvin":
+                ans=String.valueOf(unitOf.toKelvin());
+                break;
+            case "Rankine":
+                ans=String.valueOf(unitOf.toRankine());
+                break;
+            case "Reaumur":
+                ans=String.valueOf(unitOf.toReaumur());
+                break;
+
+        }
+        return ans;
+    }
+
+    private String Temperature(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.Temperature unitOf;
+
+        switch (value_unit){
+
+            case "Celsius":
+                unitOf=new UnitOf.Temperature().fromCelsius(Double.valueOf(value));
+                ans=TemparetureHelper(answer_unit,unitOf);
+                break;
+            case "Fahrenheit":
+                unitOf=new UnitOf.Temperature().fromFahrenheit(Double.valueOf(value));
+                ans=TemparetureHelper(answer_unit,unitOf);
+                break;
+            case "Kelvin":
+                unitOf=new UnitOf.Temperature().fromKelvin(Double.valueOf(value));
+                ans=TemparetureHelper(answer_unit,unitOf);
+                break;
+            case "Rankine":
+                unitOf=new UnitOf.Temperature().fromRankine(Double.valueOf(value));
+                ans=TemparetureHelper(answer_unit,unitOf);
+                break;
+            case "Reaumur":
+                unitOf=new UnitOf.Temperature().fromReaumur(Double.valueOf(value));
+                ans=TemparetureHelper(answer_unit,unitOf);
+                break;
+        }
+        return ans;
+    }
+
+    private String NumericHelper(String answer_unit,UnitOf.NumericBase unitOf){
+        String ans="0";
+
+        try {
+            switch (answer_unit) {
+
+                case "Binary":
+                    ans = String.valueOf(unitOf.toBinary());
+                    break;
+                case "Decimal":
+                    ans = String.valueOf(unitOf.toDecimal());
+                    break;
+                case "Hexadecimal":
+                    ans = String.valueOf(unitOf.toHexadecimal());
+                    break;
+                case "Octal":
+                    ans = String.valueOf(unitOf.toOctal());
+                    break;
+
+            }
+        }catch (Exception e){}
+        return ans;
+    }
+
+    private String Numeric(String value,String value_unit,String answer_unit){
+        String ans="0";
+        UnitOf.NumericBase unitOf;
+        
+        switch (value_unit){
+
+            case "Binary":
+                unitOf=new UnitOf.NumericBase().fromBinary(Double.valueOf(value));
+                ans=NumericHelper(answer_unit,unitOf);
+                break;
+            case "Decimal":
+                unitOf=new UnitOf.NumericBase().fromDecimal(Double.valueOf(value));
+                ans=NumericHelper(answer_unit,unitOf);
+                break;
+            case "Hexadecimal":
+                unitOf=new UnitOf.NumericBase().fromHexadecimal(Double.valueOf(value));
+                ans=NumericHelper(answer_unit,unitOf);
+                break;
+            case "Octal":
+                unitOf=new UnitOf.NumericBase().fromOctal(Double.valueOf(value));
+                ans=NumericHelper(answer_unit,unitOf);
+                break;
         }
         return ans;
     }

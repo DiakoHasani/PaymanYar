@@ -191,7 +191,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     //تنظیم ارتفاع هر کدام از نقاط چارت براساس درصد پیشنهادی
     private void ChartPoint(String Percenet,RelativeLayout obj,int number){
         RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(obj.getLayoutParams());
-        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(number*20+20),IntToDP(Integer.valueOf(Percenet)+8));
+        String val=Percenet.substring(0,Percenet.indexOf("."));
+        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(number*20+20),IntToDP(Integer.valueOf(val)+12));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         //فق براساس درصد پیشنهادی از پایین فاصله میدهیم
@@ -209,7 +210,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(ChartUpLine.getLayoutParams());
         int m=Integer.valueOf(CUp.substring(0,CUp.indexOf(".")));
         Toast.makeText(this.getContext(),"Up:"+m,Toast.LENGTH_LONG).show();
-        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(50),IntToDP(m+8));
+        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(50),IntToDP(m+18));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         ChartUpLine.setLayoutParams(params);
 
@@ -218,7 +219,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         params=new RelativeLayout.LayoutParams(ChartDownLine.getLayoutParams());
         m=Integer.valueOf(CDown.substring(0,CDown.indexOf(".")));
         Toast.makeText(this.getContext(),"Down:"+m,Toast.LENGTH_LONG).show();
-        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(50),IntToDP(m+8));
+        params.setMargins(IntToDP(params.leftMargin),IntToDP(params.topMargin),IntToDP(50),IntToDP(m+18));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         ChartDownLine.setLayoutParams(params);
     }

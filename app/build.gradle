@@ -75,4 +75,6 @@ dependencies {
 
     //برای بررسی دسترسی مجوزها
     implementation 'com.karumi:dexter:5.0.0'
+
+    implementation 'com.github.arbelkilani:Compass-View:v1.1.1'
 }

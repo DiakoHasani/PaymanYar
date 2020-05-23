@@ -58,8 +58,8 @@
     <string name="Volume">حجم</string>
     <string name="Pressure">فشار</string>
     <string name="mass">جرم</string>
-    <string name="Density">چگالی</string>
-    <string name="power">قدرت</string>
+    <string name="Density">جریان الکتریکی</string>
+    <string name="power">اعداد پایه</string>
     <string name="Energy">انرژی</string>
     <string name="time">زمان</string>
     <string name="Acceleration">شتاب</string>
@@ -68,7 +68,7 @@
     <string name="Angle">زاویه</string>
     <string name="Force">نیرو</string>
     <string name="Torque">گشتاور</string>
-    <string name="Lighting">روشنایی</string>
+    <string name="Lighting">دما</string>
     <string name="Error">خطا</string>
     <string name="TenderNotification">اطلاع رسانی مناقصات</string>
     <string name="IncludesTheWord">شامل کلمه</string>

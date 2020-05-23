@@ -28,6 +28,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.digidemic.unitof.P;
@@ -54,6 +55,8 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     Toolbar toolbar;
     CardView save,ZoomIn,ZoomOut;
     SurfaceView surfaceView;
+    SeekBar zoomBar;
+    int preZoom=0;
     private P_MagnifierFragment p_magnifierFragment;
     private String[] Permissions={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -73,6 +76,7 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     void findItem(View view){
         toolbar=view.findViewById(R.id.toolbar);
         save=view.findViewById(R.id.magnifier_btnSave);
+        zoomBar=view.findViewById(R.id.seekBar_zoom);
 
         ZoomIn=view.findViewById(R.id.magnifier_zoombtn);
         ZoomOut=view.findViewById(R.id.magnifier_zoomoutbtn);
@@ -86,6 +90,34 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         save.setOnClickListener(this);
         ZoomIn.setOnClickListener(this);
         ZoomOut.setOnClickListener(this);
+
+        zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(i>preZoom){
+                    p_magnifierFragment.ZoomIn(i);
+                }else{
+                    p_magnifierFragment.ZoomOut(i);
+                }
+                preZoom=i;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         p_magnifierFragment.Initial(surfaceView);
 
@@ -141,10 +173,10 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
                 p_magnifierFragment.captureImage();
                 break;
             case R.id.magnifier_zoombtn:
-                p_magnifierFragment.ZoomIn();
+                p_magnifierFragment.ZoomIn(preZoom);
                 break;
             case R.id.magnifier_zoomoutbtn:
-                p_magnifierFragment.ZoomOut();
+                p_magnifierFragment.ZoomOut(preZoom);
                 break;
 
         }

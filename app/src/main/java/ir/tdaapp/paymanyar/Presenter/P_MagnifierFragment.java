@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.SeekBar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -52,8 +53,8 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
         surfaceHolder = surfaceView.getHolder();
         surfaceView.setFocusable(true);
         surfaceView.setFocusableInTouchMode(true);
-        s_height=surfaceView.getHeight();
-        S_width=surfaceView.getWidth();
+        s_height=surfaceView.getRootView().getWidth()/2;
+        S_width=surfaceView.getRootView().getWidth()/2;
 
         Handler myHandler = new Handler();
         myHandler.postDelayed(runnable,1000);
@@ -63,7 +64,7 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
         @Override
         public void run() {
             surfaceHolder.addCallback(P_MagnifierFragment.this);
-            surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+            surfaceHolder.setFixedSize(S_width,s_height);
             rawCallback = new android.hardware.Camera.PictureCallback() {
                 public void onPictureTaken(byte[] data, Camera camera) {
                     Log.d("Log", "onPictureTaken - raw");
@@ -122,23 +123,14 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
                 Log.e("tag", "init_camera: " + e);
                 return;
             }
-            Camera.Parameters param;
-            param = camera.getParameters();
-            //modify parameter
-            param.setPreviewFrameRate(20);
-            List<Camera.Size> sizes = param.getSupportedPreviewSizes();
-            Camera.Size optimalSize = getOptimalPreviewSize(sizes,S_width,s_height);
-            param.setPreviewSize(optimalSize.width,optimalSize.height);
+            SetCameraParameters(S_width,s_height);
 
-            param.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            ChangeZoom();
-            camera.setParameters(param);
+            ChangeZoom(0);
             try {
                 camera.setDisplayOrientation(90);
                 camera.setPreviewDisplay(surfaceHolder);
                 camera.startPreview();
-
-                //camera.takePicture(shutter, raw, jpeg)
+                camera.setDisplayOrientation(1);
             } catch (Exception e) {
                 Log.e("tag", "init_camera: " + e);
                 return;
@@ -154,15 +146,16 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
 
     private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
 
-        final double ASPECT_TOLERANCE = 0.1;
-        double targetRatio=(double)h / w;
+        final double ASPECT_TOLERANCE = 0.5;
+//        double targetRatio=(double)s_height / S_width;
+        double targetRatio=1.3f;
 
         if (sizes == null) return null;
 
         Camera.Size optimalSize = null;
         double minDiff = Double.MAX_VALUE;
 
-        int targetHeight = h;
+        int targetHeight = 800;
 
         for (Camera.Size size : sizes) {
             double ratio = (double) size.width / size.height;
@@ -207,24 +200,28 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
 
         //now, recreate the camera preview
         try{
-            //set the focusable true
-            //this.setFocusable(true);
-            //set the touch able true
-            //this.setFocusableInTouchMode(true);
-            //set the camera display orientation lock
-            camera.setDisplayOrientation(90);
-
-            Camera.Parameters params = camera.getParameters();
-            List<Camera.Size> sizes = params.getSupportedPreviewSizes();
-            Camera.Size optimalSize = getOptimalPreviewSize(sizes,w,h);
-            params.setPreviewSize(optimalSize.width,optimalSize.height);
-            camera.setParameters(params);
+           SetCameraParameters(w,h);
 
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
+            camera.setDisplayOrientation(1);
         } catch(Exception exp){
             Log.i("Camera","FROM surfaceChanged: "+exp.toString());
         }
+    }
+
+    private void SetCameraParameters(int w,int h){
+        try{
+            camera.setDisplayOrientation(90);
+//            surfaceHolder.setFixedSize(S_width,s_height);
+            Camera.Parameters params = camera.getParameters();
+
+            List<Camera.Size> sizes = params.getSupportedPreviewSizes();
+            Camera.Size optimalSize = getOptimalPreviewSize(sizes,w,h);
+            params.setPreviewSize(optimalSize.width,optimalSize.height);
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            camera.setParameters(params);
+        }catch (Exception e){}
     }
 
     @Override
@@ -232,13 +229,13 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
 
     }
 
-    private void ChangeZoom(){
+    private void ChangeZoom(int val){
         try{
             Camera.Parameters parameters = camera.getParameters();
             int maxZoom = parameters.getMaxZoom();
             if (parameters.isZoomSupported()) {
-                if (zoom>0 && zoom < maxZoom) {
-                    parameters.setZoom(zoom);
+                if (val>=0 && val < maxZoom) {
+                    parameters.setZoom(val);
                     camera.setParameters(parameters);
                 } else {
                     // zoom parameter is incorrect
@@ -247,14 +244,14 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
         }catch (Exception e){}
     }
 
-    public void ZoomIn(){
+    public void ZoomIn(int val){
         zoom++;
-        ChangeZoom();
+        ChangeZoom(val);
     }
 
-    public void ZoomOut(){
+    public void ZoomOut(int val){
         zoom--;
-        ChangeZoom();
+        ChangeZoom(val);
     }
 
 

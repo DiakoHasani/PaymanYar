@@ -1,7 +1,10 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +121,13 @@ public class P_SavesGpsDialog {
     }
 
     public void ShareItem(VM_SavesGps item){
+        try{
+            String uri = "google.streetview:cbll=" + item.getLength() + "," + item.getWide();
 
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            mapIntent.setPackage("com.google.android.apps.maps");
+            this.context.startActivity(mapIntent);
+        }catch (Exception e){}
     }
 
 

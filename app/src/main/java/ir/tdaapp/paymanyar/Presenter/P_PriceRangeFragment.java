@@ -72,7 +72,7 @@ public class P_PriceRangeFragment {
             long A = (Long.valueOf(price));
 
             //میزان اهمیت
-            double T = GetPriority(participates.size(), priority);
+            double T = GetPriority(participates.size()-1, priority);
 
             //مبلغ تضمین
             double D = A * 5 / 100; // Default
@@ -82,10 +82,13 @@ public class P_PriceRangeFragment {
             }
 
             //تعداد پیمانکاران
-            int N = participates.size() + 1;
+            int N = participates.size();
 
             //میانگین درصدهای پیشنهادی
             double M = GetAverage(participates, true);
+
+            //انحراف معیار اولیه
+            double S= devitation(M, participates, 0);
 
             double B = 1;
             if (M > 115) {
@@ -94,18 +97,22 @@ public class P_PriceRangeFragment {
                 B = 1.25 * M;
             }
 
+            boolean hasRequestDeleted=false;
             //حذف درخواست های نامتعارف
             for (int i = 0; i < participates.size(); i++) {
                 if (Double.valueOf(participates.get(i).percent) > B) {
                     participates.get(i).isDeleted = true;
+                    hasRequestDeleted=true;
                 }
             }
 
-            //میانگین درصدهای پیشنهادی بعد از حذف درخواست های نامتعارف
-            double M_prime = GetAverage(participates, false);
+            if(hasRequestDeleted) {
+                //میانگین درصدهای پیشنهادی بعد از حذف درخواست های نامتعارف
+                M = GetAverage(participates, false);
 
-            //انحراف معیار درخواست های حذف نشده
-            double S_prime = devitation(M_prime, participates, M_prime);
+                //انحراف معیار درخواست های حذف نشده
+                S = devitation(M, participates, M);
+            }
 
             //نصاب معاملات سالانه
             long L = 450000000;
@@ -115,13 +122,13 @@ public class P_PriceRangeFragment {
             //بدست آوردن حد پایین
             double C1 = 0;
             if (A > K || N <= 6) {
-                C1 =Math.abs(0.97 * (M_prime - (T * S_prime)));
+                C1 =Math.abs(0.97 * (M - (T * S)));
             } else {
-                C1 =Math.abs( M_prime - (T * S_prime) - (0.5 * D / A * 100));
+                C1 =Math.abs( M - (T * S) - (0.5 * D / A * 100));
             }
 
             //بدست آوردن حد بالا
-            double C2 =Math.abs(M_prime + (T * S_prime));
+            double C2 =Math.abs(M + (T * S));
 
             ChooseWinner(C1,participates,C2);
 
@@ -129,7 +136,7 @@ public class P_PriceRangeFragment {
     }
 
     private double GetAverage(ArrayList<VM_PriceRange> arr,boolean withDeleted){
-        double average=100;
+        double average=100.0f;
 
         if(withDeleted) {
 
@@ -142,7 +149,7 @@ public class P_PriceRangeFragment {
                 }
 
                 //تقسیم بر تعداد نفرات
-                if (arr.size() > 0) average = average / (arr.size() + 1);
+                if (arr.size() > 0) average = average / (arr.size()+1);
             } catch (Exception e) {
             }
         }else{
@@ -160,7 +167,7 @@ public class P_PriceRangeFragment {
                 }
 
                 //تقسیم بر تعداد نفرات
-                average = average / numbers;
+                if(numbers>0)average = average / numbers;
             } catch (Exception e) {
             }
         }
@@ -170,20 +177,25 @@ public class P_PriceRangeFragment {
 
     //انحراف معیار درخواست های حذف نشده
     private double devitation(double M,ArrayList<VM_PriceRange> arr,double m){
-        double ans=0;
+        double ans=100.0f;
 
         try{
-            int numbers=0;
-            for(int i=0;i<arr.size();i++){
 
-                if(!arr.get(i).isDeleted){
-                    ans+=Math.pow(Double.valueOf(arr.get(i).percent)-m,2);// (Xi - X)^2  , X is Average
-                    numbers++;
+                int numbers = 1;
+                for (int i = 0; i < arr.size(); i++) {
+
+                    if(m>0) {
+                        if (!arr.get(i).isDeleted) {
+                            ans += Math.pow(Double.valueOf(arr.get(i).percent) - m, 2);// (Xi - X)^2  , X is Average
+                            numbers++;
+                        }
+                    }else{
+                        ans += Math.pow(Double.valueOf(arr.get(i).percent) - M, 2);// (Xi - X)^2  , X is Average
+                        numbers++;
+                    }
+
                 }
-
-            }
-            ans=ans/numbers;
-
+                ans = Math.sqrt(ans / (numbers - 1));
         }catch (Exception e){}
 
         return ans;
@@ -197,7 +209,7 @@ public class P_PriceRangeFragment {
         if(tender_offer==null)return ans;
 
         if(tender_offer.length()>0) {
-            double prc = (Long.valueOf(tender_offer) * 100) / Long.valueOf(price);
+            double prc = (Double.valueOf(tender_offer) * 100) / Double.valueOf(price);
             ans = String.valueOf(prc);
         }
 
@@ -206,6 +218,9 @@ public class P_PriceRangeFragment {
 
     //پیدا کردن برنده مناقصه
     private void ChooseWinner(double C,ArrayList<VM_PriceRange> arr,double c2){
+
+        //C : حد پایین
+        //c2: حد بالا
         long max_price=0;
         double max_percent=1000;
         String index="---";
@@ -220,9 +235,9 @@ public class P_PriceRangeFragment {
             VM_PriceRange item=arr.get(i);
 
             if(!item.isDeleted){
-                if(Long.valueOf(item.price)>max_price && (Double.valueOf(item.percent)-C)<max_percent){
+                if(Long.valueOf(item.price)>max_price && Math.abs(C-Double.valueOf(item.percent))<max_percent && Double.valueOf(item.percent)>C && Double.valueOf(item.percent)<c2){
                     max_price=Long.valueOf(item.price);
-                    max_percent=Double.valueOf(item.percent)-C;
+                    max_percent=Math.abs(C-Double.valueOf(item.percent));
                     index=item.id;
                 }
             }
