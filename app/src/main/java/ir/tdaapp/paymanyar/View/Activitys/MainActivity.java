@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import io.reactivex.plugins.RxJavaPlugins;
+import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Notification;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_User;
 import ir.tdaapp.paymanyar.Model.Services.S_MainActivity;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Presenter.P_MainActivity;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Dialogs.UpdateAppDialog;
@@ -34,8 +37,12 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getNotification();
+        //اگر در آرایکس جاوا خطای رخ دهد کد زیر فراخوانی می شود
+        RxJavaPlugins.setErrorHandler(throwable -> {
+            sendErrorToServer("خطای آرایکس جاوا",throwable.toString());
+        });
 
+        getNotification();
         findItem();
         implement();
         p_mainActivity.start();
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         p_mainActivity = new P_MainActivity(getApplicationContext(), this);
         tbl_notification=new Tbl_Notification();
         tbl_user=new Tbl_User();
+
     }
 
     //زمانی که کاربر روی نوتیفیکشن کلیک کند متد زیر فراخوانی می شود
@@ -64,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
         }
 
+    }
+
+    //در اینجا خطاهای برنامه به سمت سرور ارسال می شوند
+    public void sendErrorToServer(String name,String text){
+        p_mainActivity.sendError(name,text);
     }
 
     //زمانی که اکتیویتی عملیات اولیه خود را انجام دهد متد زیر فراخوانی می شود
@@ -102,6 +115,18 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
         //در اینجا فرگمنت نمایش داده می شود
         transaction.commit();
+    }
+
+    //اگر ارسال خطا به سمت سرور با موفقیت انجام شود متد زیر فراخوانی می شود
+    @Override
+    public void onSuccessSendError(VM_Message message) {
+
+    }
+
+    //اگر خطای در ارسال خطاهای پیش آمده به سمت سرور رخ دهد متد زیر فراخوانی می شود
+    @Override
+    public void onErrorSendError(ResaultCode result) {
+
     }
 
     public Tbl_Notification getTbl_notification() {
