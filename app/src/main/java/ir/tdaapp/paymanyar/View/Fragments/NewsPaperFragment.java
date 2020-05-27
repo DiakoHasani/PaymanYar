@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,8 +48,6 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         implement();
         setToolbar();
 
-        p_newsPaperFragment.start();
-
         return view;
     }
 
@@ -74,6 +73,15 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new Handler().postDelayed(() -> {
+            p_newsPaperFragment.start();
+        },300);
     }
 
     @Override

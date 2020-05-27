@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,8 +63,6 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         findItem(view);
         implement();
         setToolbar();
-
-        p_libraryFragment.start(txt_Search.getText().toString(), page);
 
         return view;
     }
@@ -149,6 +148,15 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         }
 
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new Handler().postDelayed(() -> {
+            p_libraryFragment.start(txt_Search.getText().toString(), page);
+        },300);
     }
 
     @Override

@@ -49,8 +49,11 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
     onClickFevoritTender clickFevoritTender;
 
-    public DetailsTenderFragment(VM_FilterTenderNotification filter, onClickFevoritTender clickFevoritTender) {
+    boolean hasNextPrevTender = true;
+
+    public DetailsTenderFragment(VM_FilterTenderNotification filter, boolean hasNextPrevTender, onClickFevoritTender clickFevoritTender) {
         this.filter = filter;
+        this.hasNextPrevTender = hasNextPrevTender;
         this.clickFevoritTender = clickFevoritTender;
     }
 
@@ -102,6 +105,14 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         background = view.findViewById(R.id.background);
         subscribers = view.findViewById(R.id.subscribers);
         img_star = view.findViewById(R.id.img_star);
+
+        if (hasNextPrevTender) {
+            btn_Right.setVisibility(View.VISIBLE);
+            btn_Left.setVisibility(View.VISIBLE);
+        } else {
+            btn_Right.setVisibility(View.GONE);
+            btn_Left.setVisibility(View.GONE);
+        }
     }
 
     void implement() {
@@ -110,6 +121,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         btn_Right.setOnClickListener(this);
         btn_Left.setOnClickListener(this);
         img_star.setOnClickListener(this);
+        btn_reload.setOnClickListener(this);
     }
 
     //در اینجا دکمه ها فعال یا غیرفعال می شوند
@@ -282,6 +294,10 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
                 break;
 
+            case R.id.btn_reload:
+                p_detailsTenderFragment.start(filter);
+                break;
+
             case R.id.img_star:
 
                 if (isLike) {
@@ -290,14 +306,14 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                         public void onSuccess() {
                             isLike = false;
                             img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
-                            clickFevoritTender.onClick(filter.getTenderId(),false);
+                            clickFevoritTender.onClick(filter.getTenderId(), false);
                         }
 
                         @Override
                         public void onError(String error) {
                             isLike = true;
                             img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
-                            clickFevoritTender.onClick(filter.getTenderId(),true);
+                            clickFevoritTender.onClick(filter.getTenderId(), true);
                         }
                     });
                 } else {
@@ -307,14 +323,14 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                         public void onSuccess() {
                             isLike = true;
                             img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
-                            clickFevoritTender.onClick(filter.getTenderId(),true);
+                            clickFevoritTender.onClick(filter.getTenderId(), true);
                         }
 
                         @Override
                         public void onError(String error) {
                             isLike = false;
                             img_star.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
-                            clickFevoritTender.onClick(filter.getTenderId(),false);
+                            clickFevoritTender.onClick(filter.getTenderId(), false);
                         }
                     });
                 }

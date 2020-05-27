@@ -2,9 +2,11 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -84,7 +86,6 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         setToolbar();
 
         p_tenderNotificationFragment.getSpinnerDatas();
-        p_tenderNotificationFragment.start(getFilter());
 
         return view;
     }
@@ -144,6 +145,16 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 showDatePersian();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new Handler().postDelayed(() -> {
+            p_tenderNotificationFragment.start(getFilter());
+        },300);
+
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -277,8 +288,10 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 VM_FilterTenderNotification filter = getFilter();
                 filter.setTenderId(id);
                 filter.setUserId(((MainActivity) getActivity()).getTbl_user().getUserId(getContext()));
+                filter.setDate("");
+                filter.setIncludesTheWord("");
 
-                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter, (tenderId, fevorit) -> {
+                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter,true, (tenderId, fevorit) -> {
                     tenderNotificationAdapter.changeFevoritTender(tenderId, fevorit);
                 });
 
@@ -482,5 +495,22 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         menu.clear();
         inflater.inflate(R.menu.tender_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.frame:
+                FilterFramesFragment filterFramesFragment=new FilterFramesFragment();
+                ((MainActivity)getActivity()).onAddFragment(filterFramesFragment,R.anim.short_fadein,R.anim.short_fadeout,true,FilterFramesFragment.TAG);
+
+                filterFramesFragment.setClickFevoritTender((id, fevorit) -> {
+                    tenderNotificationAdapter.setStart(id);
+                });
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

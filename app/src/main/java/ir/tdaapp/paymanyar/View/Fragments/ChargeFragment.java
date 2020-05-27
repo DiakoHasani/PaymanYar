@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,8 +59,6 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
         implement();
         setToolbar();
 
-        p_chargeFragment.start();
-
         return view;
     }
 
@@ -89,6 +88,15 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new Handler().postDelayed(() -> {
+            p_chargeFragment.start();
+        },300);
     }
 
     @Override
