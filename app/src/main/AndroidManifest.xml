@@ -27,7 +27,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".View.Activitys.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

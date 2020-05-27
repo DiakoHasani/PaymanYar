@@ -9,6 +9,4 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 public interface S_MainActivity {
     void OnStart();
     void onAddFragment(Fragment fragment, @AnimatorRes @AnimRes int animEnter,@AnimatorRes @AnimRes int animExit, boolean backStack, String fragmentTAG);
-    void onSuccessSendError(VM_Message message);
-    void onErrorSendError(ResaultCode result);
 }

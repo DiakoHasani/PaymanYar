@@ -3,6 +3,8 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -220,6 +222,12 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
             progressDay.setVisibility(View.INVISIBLE);
             progressHour.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

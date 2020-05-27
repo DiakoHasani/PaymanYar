@@ -2,6 +2,8 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -130,6 +132,12 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         lbl_TenderDevice.setText("-");
         lbl_website.setText("-");
         lbl_Description.setText("-");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

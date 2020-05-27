@@ -51,6 +51,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     LinearLayout btn_SMS, btn_Support;
+    ErrorAplicationDialog errorAplicationDialog;
 
     @Nullable
     @Override
@@ -146,6 +147,30 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     //زمانی که در گرفتن اطلاعات از سرور خطای رخ دهد متد زیر فراخوانی می شود
     @Override
     public void onError(ResaultCode resault) {
+
+        String text = "";
+
+        switch (resault) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+
+        errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
+            p_homeFragment.start();
+            errorAplicationDialog.dismiss();
+        });
+        errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
 
     }
 

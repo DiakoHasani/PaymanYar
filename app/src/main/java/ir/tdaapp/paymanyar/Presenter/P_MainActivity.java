@@ -19,7 +19,6 @@ public class P_MainActivity {
     Context context;
     S_MainActivity s_mainActivity;
     Api_Central api_central;
-    Disposable dispose_sendError;
 
     public P_MainActivity(Context context, S_MainActivity s_mainActivity) {
         this.context = context;
@@ -34,26 +33,10 @@ public class P_MainActivity {
 
     //اگر در برنامه خطای رخ دهد در اینجا آن خطا را به سمت سرور ارسال می کنیم
     public void sendError(String name, String text) {
-        Single<VM_Message> data = api_central.postError(name, text);
-
-        dispose_sendError = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
-            @Override
-            public void onSuccess(VM_Message message) {
-                s_mainActivity.onSuccessSendError(message);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                s_mainActivity.onErrorSendError(Error.GetErrorVolley(e.toString()));
-            }
-        });
+        api_central.postError(name, text);
     }
 
     public void cancel(String tag) {
         api_central.cancel(tag, context);
-
-        if (dispose_sendError != null) {
-            dispose_sendError.dispose();
-        }
     }
 }

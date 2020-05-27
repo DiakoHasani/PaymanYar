@@ -52,6 +52,9 @@ public class Api_Login extends Base_Api {
                         emitter.onSuccess(message);
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_Login->login",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -96,12 +99,17 @@ public class Api_Login extends Base_Api {
                             emitter.onSuccess(message);
 
                         } else {
+                            if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                                postError("Api_Login->checkCode",resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Login->checkCode",e.toString());
+                    emitter.onError(e);
                 }
 
             }).start();
@@ -142,6 +150,9 @@ public class Api_Login extends Base_Api {
                        emitter.onSuccess(message);
 
                    }else{
+                       if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                           postError("Api_Login->resendMessage",resault.getMessage());
+                       }
                        emitter.onError(new IOException(resault.getResault().toString()));
                    }
 
@@ -152,6 +163,9 @@ public class Api_Login extends Base_Api {
     }
 
     public void cancel(String tag, Context context) {
+
+        cancelBase(tag,context);
+
         if (volley_login != null) {
             volley_login.Cancel(tag, context);
         }

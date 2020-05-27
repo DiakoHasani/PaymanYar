@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
+import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Home;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_UpdateApp;
 
 //در اینجا اطلاعات صفحه اصلی از سرور گرفته می شوند
@@ -84,6 +86,9 @@ public class Api_Home extends Base_Api {
                         }
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_Home->HomeData",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -95,9 +100,11 @@ public class Api_Home extends Base_Api {
 
     //در اینجا عملیات وولی لغو می شود
     public void Cancel(String TAG, Context context) {
+
+        cancelBase(TAG,context);
+
         if (get_HomeData != null) {
             get_HomeData.Cancel(TAG, context);
         }
     }
-
 }

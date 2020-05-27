@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
             sendErrorToServer("خطای آرایکس جاوا",throwable.toString());
         });
 
-        getNotification();
         findItem();
         implement();
         p_mainActivity.start();
@@ -55,14 +54,14 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         p_mainActivity = new P_MainActivity(getApplicationContext(), this);
         tbl_notification=new Tbl_Notification();
         tbl_user=new Tbl_User();
-
     }
 
-    //زمانی که کاربر روی نوتیفیکشن کلیک کند متد زیر فراخوانی می شود
-    void getNotification() {
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
 
-        Intent i = getIntent();
-        Bundle extras = i.getExtras();
+        //زمانی که کاربر روی نوتیفیکیشن کلیک کند کد زیر فراخوانی می شود
+        Bundle extras = intent.getExtras();
         if (extras != null) {
             for (String key : extras.keySet()) {
                 Object value = extras.get(key);
@@ -71,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
             }
 
         }
-
     }
 
     //در اینجا خطاهای برنامه به سمت سرور ارسال می شوند
@@ -115,18 +113,6 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
         //در اینجا فرگمنت نمایش داده می شود
         transaction.commit();
-    }
-
-    //اگر ارسال خطا به سمت سرور با موفقیت انجام شود متد زیر فراخوانی می شود
-    @Override
-    public void onSuccessSendError(VM_Message message) {
-
-    }
-
-    //اگر خطای در ارسال خطاهای پیش آمده به سمت سرور رخ دهد متد زیر فراخوانی می شود
-    @Override
-    public void onErrorSendError(ResaultCode result) {
-
     }
 
     public Tbl_Notification getTbl_notification() {

@@ -124,4 +124,5 @@
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="Back_to_the_app">بازگشت به برنامه</string>
+    <string name="filter_frames">فیلتر شده ها</string>
 </resources>

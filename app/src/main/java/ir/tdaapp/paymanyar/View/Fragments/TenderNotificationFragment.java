@@ -3,11 +3,14 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +64,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     ProgressBar loading_paging;
     TenderNotificationAdapter tenderNotificationAdapter;
     LinearLayoutManager layoutManager;
-    SearchableSpinner cmb_City, cmb_Major, cmb_FromEstimate, cmb_UntilEstimate;
+    SearchableSpinner cmb_City;
     TextInputEditText txt_Date, txt_IncludesTheWord;
     int countTenders = 0;
     ErrorAplicationDialog errorAplicationDialog;
@@ -69,6 +72,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     TextView text_btn_Let_me_know;
     ProgressBar progress_btn_Let_me_know;
     NestedScrollView nestedScroll;
+    Spinner cmb_Major, cmb_FromEstimate, cmb_UntilEstimate;
 
     @Nullable
     @Override
@@ -192,13 +196,13 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         VM_FilterTenderNotification filter = new VM_FilterTenderNotification();
 
         //در اینجا آیدی استان گرفته می شود
-        if (cmb_City.getSelectedItem()!=null){
+        if (cmb_City.getSelectedItem() != null) {
             filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
         }
 
 
         //در اینجا آیدی رشته تحصیلی گرفته می شود
-        if (cmb_Major.getSelectedItem()!=null){
+        if (cmb_Major.getSelectedItem() != null) {
             filter.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
         }
 
@@ -210,13 +214,13 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         filter.setDate(txt_Date.getText().toString());
 
         //در اینجا برآورد از ست می شود
-        if (cmb_FromEstimate.getSelectedItem()!=null){
+        if (cmb_FromEstimate.getSelectedItem() != null) {
             filter.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
         }
 
 
         //در اینجا تا برآورد ست می شود
-        if (cmb_UntilEstimate.getSelectedItem()!=null){
+        if (cmb_UntilEstimate.getSelectedItem() != null) {
             filter.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
         }
 
@@ -272,10 +276,10 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
             public void onClick(String id) {
                 VM_FilterTenderNotification filter = getFilter();
                 filter.setTenderId(id);
-                filter.setUserId(((MainActivity)getActivity()).getTbl_user().getUserId(getContext()));
+                filter.setUserId(((MainActivity) getActivity()).getTbl_user().getUserId(getContext()));
 
-                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter,(tenderId, fevorit) -> {
-                    tenderNotificationAdapter.changeFevoritTender(tenderId,fevorit);
+                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter, (tenderId, fevorit) -> {
+                    tenderNotificationAdapter.changeFevoritTender(tenderId, fevorit);
                 });
 
                 ((MainActivity) getActivity()).onAddFragment(detailsTenderFragment, R.anim.fadein
@@ -287,12 +291,11 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 p_tenderNotificationFragment.AddFavorit(id, new addTender() {
                     @Override
                     public void onSuccess() {
-                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
+                        tenderNotificationAdapter.setStart(id);
                     }
 
                     @Override
                     public void onError(String error) {
-                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
                     }
                 });
             }
@@ -302,12 +305,11 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 p_tenderNotificationFragment.RemoveFevorit(id, new removeTender() {
                     @Override
                     public void onSuccess() {
-                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_border_black));
+                        tenderNotificationAdapter.setStart(id);
                     }
 
                     @Override
                     public void onError(String error) {
-                        icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_star_black));
                     }
                 });
             }
@@ -473,5 +475,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 p_tenderNotificationFragment.start(getFilter());
                 break;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.tender_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

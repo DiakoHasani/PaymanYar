@@ -23,6 +23,8 @@ import ir.tdaapp.paymanyar.View.Dialogs.SavesGpsDialog;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -116,6 +118,12 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
                 p_magnifierFragment.start_camera();
             }
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     //در اینجا تنظیمات تولبار ست می شود

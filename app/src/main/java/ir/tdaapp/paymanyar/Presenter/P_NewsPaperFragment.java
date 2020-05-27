@@ -79,6 +79,9 @@ public class P_NewsPaperFragment {
     }
 
     public void Cancel(String Tag) {
+
+        api_newsPaper.cancel(Tag,context);
+
         if (dispose_getNewsPapers != null) {
             dispose_getNewsPapers.dispose();
         }

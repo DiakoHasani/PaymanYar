@@ -63,7 +63,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp">
 
-                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    <Spinner
                         android:id="@+id/cmb_Major"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp">
 
-                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    <Spinner
                         android:id="@+id/cmb_FromEstimate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp">
 
-                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    <Spinner
                         android:id="@+id/cmb_UntilEstimate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

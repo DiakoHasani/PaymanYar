@@ -39,7 +39,7 @@ public class Api_Tender extends Base_Api {
 
                     try {
 
-                        input.put("StateId ", filter.getCityId());
+                        input.put("StateId", filter.getCityId());
                         input.put("FieldId", filter.getMajorId());
                         input.put("Word", filter.getIncludesTheWord());
                         input.put("FromDate", filter.getDate());
@@ -91,12 +91,16 @@ public class Api_Tender extends Base_Api {
                             emitter.onSuccess(notification);
 
                         } else {
+                            if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                                postError("Api_Tender->getTenderNotification",resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Tender->getTenderNotification",e.toString());
                     emitter.onError(e);
                 }
 
@@ -161,12 +165,16 @@ public class Api_Tender extends Base_Api {
                             emitter.onSuccess(detailsTender);
 
                         } else {
+                            if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                                postError("Api_Tender->getDetailsTender",resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Tender->getDetailsTender",e.toString());
                     emitter.onError(e);
                 }
 
@@ -217,6 +225,9 @@ public class Api_Tender extends Base_Api {
                         emitter.onSuccess(message);
 
                     }else{
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_Tender->postLetMeKnow",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -229,6 +240,8 @@ public class Api_Tender extends Base_Api {
     }
 
     public void Cancel(String Tag, Context context) {
+
+        cancelBase(Tag,context);
 
         if (volley_getTenderNotification != null) {
             volley_getTenderNotification.Cancel(Tag, context);
@@ -243,5 +256,4 @@ public class Api_Tender extends Base_Api {
         }
 
     }
-
 }

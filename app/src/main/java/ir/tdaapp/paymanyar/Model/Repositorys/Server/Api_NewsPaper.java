@@ -1,14 +1,17 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
+import android.content.Context;
+
 import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.paymanyar.Model.Services.S_HandleXML;
+import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.HandleXML;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
 
 //مربوط به روزنامه
-public class Api_NewsPaper {
+public class Api_NewsPaper extends Base_Api {
 
     //در اینجا لیست روزنامه ها پاس داده می شود
     public Single<List<VM_NewsPaper>> getNews() {
@@ -33,10 +36,15 @@ public class Api_NewsPaper {
                     obj.fetchXML();
 
                 } catch (Exception e) {
+                    postError("Api_NewsPaper->getNews",e.toString());
                     emitter.onError(e);
                 }
 
             }).start();
         });
+    }
+
+    public void cancel(String tag, Context context){
+        cancelBase(tag,context);
     }
 }
