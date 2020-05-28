@@ -13,4 +13,5 @@ public interface S_FilterFramesFragment {
     void onEmpty();
     void onCountTenders(int count);
     void onItemTenders(VM_TenderNotifications item);
+    void onLoadingPaging(boolean load);
 }

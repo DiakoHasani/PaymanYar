@@ -34,9 +34,14 @@ public class P_FilterFramesFragment {
     }
 
     public void start(int page) {
-        s_filterFramesFragment.OnStart();
-        s_filterFramesFragment.onHideAll();
-        s_filterFramesFragment.onLoading(true);
+
+        if (page == 0) {
+            s_filterFramesFragment.OnStart();
+            s_filterFramesFragment.onHideAll();
+            s_filterFramesFragment.onLoading(true);
+        } else {
+            s_filterFramesFragment.onLoadingPaging(true);
+        }
         getTenders(page);
     }
 
@@ -48,21 +53,32 @@ public class P_FilterFramesFragment {
         dispose_getTenders = data.subscribeWith(new DisposableSingleObserver<VM_TenderNotification>() {
             @Override
             public void onSuccess(VM_TenderNotification notification) {
-                s_filterFramesFragment.onHideAll();
+
                 s_filterFramesFragment.onCountTenders(notification.getCountTenders());
 
-                if (notification.getTenderNotifications().size() > 0) {
-                    s_filterFramesFragment.onSuccess();
-                    setTenders(notification.getTenderNotifications());
+                if (page == 0) {
+                    s_filterFramesFragment.onHideAll();
+
+                    if (notification.getTenderNotifications().size() > 0) {
+                        s_filterFramesFragment.onSuccess();
+                        setTenders(notification.getTenderNotifications());
+                    } else {
+                        s_filterFramesFragment.onEmpty();
+                        s_filterFramesFragment.onFinish();
+                    }
                 } else {
-                    s_filterFramesFragment.onEmpty();
-                    s_filterFramesFragment.onFinish();
+                    s_filterFramesFragment.onLoadingPaging(false);
+                    setTenders(notification.getTenderNotifications());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                s_filterFramesFragment.onHideAll();
+                if (page == 0) {
+                    s_filterFramesFragment.onHideAll();
+                }else{
+                    s_filterFramesFragment.onLoadingPaging(false);
+                }
                 s_filterFramesFragment.onError(Error.GetErrorVolley(e.toString()));
             }
         });

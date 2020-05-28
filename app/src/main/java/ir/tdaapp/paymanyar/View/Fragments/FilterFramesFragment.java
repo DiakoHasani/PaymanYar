@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -34,6 +35,8 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+
 //در این صفحه مناقصه های که کاربر آن ها را در باخبرم کن صفحه مناقصات فیلتر کرده است نمایش داده می شود
 public class FilterFramesFragment extends BaseFragment implements S_FilterFramesFragment {
 
@@ -50,6 +53,8 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
     int countTenders = 0;
     LinearLayout empty;
     onClickFevoritTender clickFevoritTender;
+    boolean isLoading = false;
+    ProgressBar loading_paging;
 
     @Nullable
     @Override
@@ -68,10 +73,12 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
         recycler = view.findViewById(R.id.recycler);
         toolbar = view.findViewById(R.id.toolbar);
         empty = view.findViewById(R.id.empty);
+        loading_paging = view.findViewById(R.id.loading_paging);
     }
 
     void implement() {
         p_filterFramesFragment = new P_FilterFramesFragment(getContext(), this);
+        recycler.setOnScrollListener(pOnScrollListener);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -90,6 +97,61 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
 
     public void setClickFevoritTender(onClickFevoritTender clickFevoritTender) {
         this.clickFevoritTender = clickFevoritTender;
+    }
+
+    //در اینجا چک می کند که زمان پیجینگ رسیده است اگر رسیده باشد عملیات را شروع می کند
+    RecyclerView.OnScrollListener pOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            //در اینجا چک می کند آداپتر رسایکلر نال نباشد که در برنامه خطای رخ دهد
+            if (recycler.getAdapter() != null) {
+
+                //اگر متغیر زیر ترو باشد یعنی مشغول عملیات پیجینگ است تا عملیات به پایان نرسد اجازه پیجینگ نمی دهد
+                if (!isLoading) {
+
+                    //اگر اسکرول رسایکلر ما به آخر برسد یعنی زمان پیجینگ است و شرط زیر اجرا می شود
+                    if (isLastItemDisplaying()) {
+
+                        isLoading = true;
+
+                        ++page;
+                        p_filterFramesFragment.start(page);
+                    }
+                }
+            }
+
+        }
+    };
+
+    //در اینجا اگر مقدار ترو برگشت داده شود یعنی زمان پیجینگ رسیده است و نیاز به خواندن داده از سرور می باشد
+    boolean isLastItemDisplaying() {
+
+        if (!isLoading) {
+
+            if (tenderNotificationAdapter.getItemCount() < countTenders) {
+
+                int visibleItemCount = layoutManager.getChildCount() + 5;
+                int totalItemCount = layoutManager.getItemCount();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= PAGE_SIZE) {
+                    isLoading = true;
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -196,6 +258,7 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
     @Override
     public void onFinish() {
         loading.stopShimmerAnimation();
+        isLoading = false;
     }
 
     @Override
@@ -232,6 +295,15 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
     @Override
     public void onItemTenders(VM_TenderNotifications item) {
         tenderNotificationAdapter.add(item);
+    }
+
+    @Override
+    public void onLoadingPaging(boolean load) {
+        if (load){
+            loading_paging.setVisibility(View.VISIBLE);
+        }else{
+            loading_paging.setVisibility(View.GONE);
+        }
     }
 
     @Override
