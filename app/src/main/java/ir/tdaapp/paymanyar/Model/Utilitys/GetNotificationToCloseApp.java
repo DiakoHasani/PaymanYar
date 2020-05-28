@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -38,30 +39,42 @@ public class GetNotificationToCloseApp extends FirebaseMessagingService {
     @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 
-    public void show_Notification(RemoteMessage remoteMessage){
+    public void show_Notification(RemoteMessage remoteMessage) {
 
-        String key1=  remoteMessage.getData().get("key1");
+        String key1 = remoteMessage.getData().get("key1");
 
         int notificationID = (int) System.currentTimeMillis();
 
-
-
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("key1",key1);
+        intent.putExtra("key1", key1);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        String CHANNEL_ID="MYCHANNEL";
+        String CHANNEL_ID = "MYCHANNEL";
 
-      //  NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name", NotificationManager.IMPORTANCE_LOW);
+        //  NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name", NotificationManager.IMPORTANCE_LOW);
 
+        String Content;
+        String Title;
 
-        pendingIntent=PendingIntent.getActivity(this,notificationID,intent, PendingIntent.FLAG_ONE_SHOT);
+        if (remoteMessage.getData().get("Content") != null) {
+            Content = remoteMessage.getData().get("Content");
+        } else {
+            Content = "یک مناقصه جدید برای شما ثبت شد";
+        }
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        if (remoteMessage.getData().get("Title") != null) {
+            Title = remoteMessage.getData().get("Title");
+        } else {
+            Title = "ثبت مناقصه جدید";
+        }
 
-        Notification notification=new NotificationCompat.Builder(this,CHANNEL_ID)
-                .setContentText(remoteMessage.getData().get("Content"))
-                .setContentTitle(remoteMessage.getData().get("Title"))
+        pendingIntent = PendingIntent.getActivity(this, notificationID, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentText(Content)
+                .setContentTitle(Title)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
@@ -69,10 +82,10 @@ public class GetNotificationToCloseApp extends FirebaseMessagingService {
                 .setSound(defaultSoundUri)
                 .build();
 
-        NotificationManager notificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-      //  notificationManager.createNotificationChannel(notificationChannel);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //  notificationManager.createNotificationChannel(notificationChannel);
 
-        notificationManager.notify(notificationID,notification);
+        notificationManager.notify(notificationID, notification);
 
     }
 

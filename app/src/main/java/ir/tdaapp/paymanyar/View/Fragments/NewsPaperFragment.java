@@ -48,6 +48,10 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         implement();
         setToolbar();
 
+        new Handler().postDelayed(() -> {
+            p_newsPaperFragment.start();
+        },300);
+
         return view;
     }
 
@@ -75,14 +79,6 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        new Handler().postDelayed(() -> {
-            p_newsPaperFragment.start();
-        },300);
-    }
 
     @Override
     public void OnStart() {

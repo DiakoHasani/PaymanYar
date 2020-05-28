@@ -16,6 +16,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Presenter.P_MainActivity;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Dialogs.UpdateAppDialog;
+import ir.tdaapp.paymanyar.View.Fragments.FilterFramesFragment;
 import ir.tdaapp.paymanyar.View.Fragments.HomeFragment;
 
 import android.content.Intent;
@@ -25,7 +26,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     public final static String TAG = "MainActivity";
-    public static boolean isActive=false;
+    public static boolean isActive = false;
 
     P_MainActivity p_mainActivity;
     private Tbl_Notification tbl_notification;
@@ -39,12 +40,27 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
         //اگر در آرایکس جاوا خطای رخ دهد کد زیر فراخوانی می شود
         RxJavaPlugins.setErrorHandler(throwable -> {
-            sendErrorToServer("خطای آرایکس جاوا",throwable.toString());
+            sendErrorToServer("خطای آرایکس جاوا", throwable.toString());
         });
 
         findItem();
         implement();
+
         p_mainActivity.start();
+
+        //زمانی که برنامه بسته باشد و کاربر روی نوتیفیکشن کلیک کند کد زیر را فراخوانی می کند
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
+        if (extras != null) {
+            for (String key : extras.keySet()) {
+                if (key.equalsIgnoreCase("key1")){
+                    onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
+                    onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
+                }
+            }
+        }else{
+            onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
+        }
     }
 
     void findItem() {
@@ -52,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     void implement() {
         p_mainActivity = new P_MainActivity(getApplicationContext(), this);
-        tbl_notification=new Tbl_Notification();
-        tbl_user=new Tbl_User();
+        tbl_notification = new Tbl_Notification();
+        tbl_user = new Tbl_User();
     }
 
     @Override
@@ -64,17 +80,24 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         Bundle extras = intent.getExtras();
         if (extras != null) {
             for (String key : extras.keySet()) {
-                Object value = extras.get(key);
-                if (key.equalsIgnoreCase("key1"))
-                    Toast.makeText(MainActivity.this, value.toString(), Toast.LENGTH_LONG).show();
+                if (key.equalsIgnoreCase("key1")) {
+                    //در اینجا چک می کند که صفحه مناقصات کاربر باز است اگر باز باشد آن را ریست می کند
+                    Fragment hasFragmentFilterFrames = getSupportFragmentManager().findFragmentByTag(FilterFramesFragment.TAG);
+                    if (hasFragmentFilterFrames != null) {
+                        ((FilterFramesFragment) hasFragmentFilterFrames).reset();
+                    } else {
+                        onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
+                    }
+
+                }
             }
 
         }
     }
 
     //در اینجا خطاهای برنامه به سمت سرور ارسال می شوند
-    public void sendErrorToServer(String name,String text){
-        p_mainActivity.sendError(name,text);
+    public void sendErrorToServer(String name, String text) {
+        p_mainActivity.sendError(name, text);
     }
 
     //زمانی که اکتیویتی عملیات اولیه خود را انجام دهد متد زیر فراخوانی می شود
@@ -126,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        dbExcute= DBExcute.getInstance(this);
+        dbExcute = DBExcute.getInstance(this);
         dbExcute.Open();
     }
 
@@ -134,13 +157,13 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbExcute.Close();
-        isActive=false;
+        isActive = false;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        isActive=false;
+        isActive = false;
     }
 
     @Override
@@ -151,6 +174,6 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        isActive=true;
+        isActive = true;
     }
 }

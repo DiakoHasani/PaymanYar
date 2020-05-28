@@ -65,6 +65,11 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
         implement();
         setToolbar();
 
+        page=0;
+        new Handler().postDelayed(() -> {
+            p_filterFramesFragment.start(page);
+        }, 200);
+
         return view;
     }
 
@@ -154,15 +159,11 @@ public class FilterFramesFragment extends BaseFragment implements S_FilterFrames
         return false;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        new Handler().postDelayed(() -> {
-            p_filterFramesFragment.start(page);
-        }, 200);
-
+    public void reset(){
+        page=0;
+        p_filterFramesFragment.start(page);
     }
+
 
     @Override
     public void OnStart() {

@@ -59,6 +59,10 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
         implement();
         setToolbar();
 
+        new Handler().postDelayed(() -> {
+            p_chargeFragment.start();
+        },300);
+
         return view;
     }
 
@@ -88,15 +92,6 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        new Handler().postDelayed(() -> {
-            p_chargeFragment.start();
-        },300);
     }
 
     @Override

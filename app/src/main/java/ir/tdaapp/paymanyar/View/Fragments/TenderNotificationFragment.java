@@ -87,6 +87,11 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         p_tenderNotificationFragment.getSpinnerDatas();
 
+        page = 0;
+        new Handler().postDelayed(() -> {
+            p_tenderNotificationFragment.start(getFilter());
+        }, 300);
+
         return view;
     }
 
@@ -145,16 +150,6 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 showDatePersian();
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        new Handler().postDelayed(() -> {
-            p_tenderNotificationFragment.start(getFilter());
-        },300);
-
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -291,7 +286,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 filter.setDate("");
                 filter.setIncludesTheWord("");
 
-                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter,true, (tenderId, fevorit) -> {
+                DetailsTenderFragment detailsTenderFragment = new DetailsTenderFragment(filter, true, (tenderId, fevorit) -> {
                     tenderNotificationAdapter.changeFevoritTender(tenderId, fevorit);
                 });
 
@@ -500,10 +495,10 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.frame:
-                FilterFramesFragment filterFramesFragment=new FilterFramesFragment();
-                ((MainActivity)getActivity()).onAddFragment(filterFramesFragment,R.anim.short_fadein,R.anim.short_fadeout,true,FilterFramesFragment.TAG);
+                FilterFramesFragment filterFramesFragment = new FilterFramesFragment();
+                ((MainActivity) getActivity()).onAddFragment(filterFramesFragment, R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
 
                 filterFramesFragment.setClickFevoritTender((id, fevorit) -> {
                     tenderNotificationAdapter.setStart(id);

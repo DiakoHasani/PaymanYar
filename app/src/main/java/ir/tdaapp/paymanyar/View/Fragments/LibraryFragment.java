@@ -64,6 +64,10 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         implement();
         setToolbar();
 
+        new Handler().postDelayed(() -> {
+            p_libraryFragment.start(txt_Search.getText().toString(), page);
+        },300);
+
         return view;
     }
 
@@ -150,14 +154,6 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         return false;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        new Handler().postDelayed(() -> {
-            p_libraryFragment.start(txt_Search.getText().toString(), page);
-        },300);
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
