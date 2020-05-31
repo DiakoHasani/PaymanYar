@@ -20,4 +20,12 @@ public interface S_HomeFragment {
     void onShowSlider(boolean show);
 
     void onUpdateApp(boolean hadUpdate);
+
+    int onGetCountSlider();
+
+    int onGetItem(int i);
+
+    int onGetCurrentSlider();
+
+    void onSetCurrentSlider(int i, boolean b);
 }

@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -27,6 +27,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_HomeFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickSliderItem;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Presenter.P_HomeFragment;
@@ -52,6 +53,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     ActionBarDrawerToggle toggle;
     LinearLayout btn_SMS, btn_Support;
     ErrorAplicationDialog errorAplicationDialog;
+    RelativeLayout point1, point2, point3, point4, point5, point6, point7, point8;
 
     @Nullable
     @Override
@@ -80,6 +82,14 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_Libraries = view.findViewById(R.id.btn_Libraries);
         btn_SMS = view.findViewById(R.id.btn_SMS);
         btn_Support = view.findViewById(R.id.btn_Support);
+        point1 = view.findViewById(R.id.point1);
+        point2 = view.findViewById(R.id.point2);
+        point3 = view.findViewById(R.id.point3);
+        point4 = view.findViewById(R.id.point4);
+        point5 = view.findViewById(R.id.point5);
+        point6 = view.findViewById(R.id.point6);
+        point7 = view.findViewById(R.id.point7);
+        point8 = view.findViewById(R.id.point8);
     }
 
     void implement() {
@@ -93,10 +103,49 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_SMS.setOnClickListener(this);
         btn_Support.setOnClickListener(this);
 
+        //در اینجا زمانی که یکی از صفحه های اسلایدر تغییر پیجینگ مربوط به آن را تغییر می دهد
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+
+                point1.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point4.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point5.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point6.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point7.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                point8.setBackground(getResources().getDrawable(R.drawable.page_slider));
+
+                //در اینجا پیجینگ مربوط به آن عکس اسلایدر اکتیو می شود
+                switch (onGetCurrentSlider() + 1) {
+                    case 1:
+                        point1.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 2:
+                        point2.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 3:
+                        point3.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 4:
+                        point4.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 5:
+                        point5.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 6:
+                        point6.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 7:
+                        point7.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                    case 8:
+                        point8.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                        break;
+                }
+
             }
         });
 
@@ -105,6 +154,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         if (((MainActivity) getActivity()).getTbl_user().hasAccount(getContext())) {
             hideMenuLoginNavigation();
         }
+
     }
 
     void setToolBar() {
@@ -140,6 +190,18 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         sliderHomeAdapter = new SliderHomeAdapter(getContext());
         Slider.setAdapter(sliderHomeAdapter);
         Slider.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+
+        sliderHomeAdapter.setClickSliderItem(new onClickSliderItem() {
+            @Override
+            public void onClick(int id) {
+                p_homeFragment.resetSlider();
+            }
+
+            @Override
+            public void onToach(int id) {
+                p_homeFragment.resetSlider();
+            }
+        });
 
         Loading.startShimmerAnimation();
     }
@@ -200,6 +262,39 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     @Override
     public void onFinish() {
         Loading.stopShimmerAnimation();
+        p_homeFragment.startSlider();
+
+        //در اینجا پیجینگ اسلایدر ایجاد می شود
+        for (int i = 1; i <= onGetCountSlider(); i++) {
+
+            if (i == 1) {
+                point1.setVisibility(View.VISIBLE);
+            }
+            if (i == 2) {
+                point2.setVisibility(View.VISIBLE);
+            }
+            if (i == 3) {
+                point3.setVisibility(View.VISIBLE);
+            }
+            if (i == 4) {
+                point4.setVisibility(View.VISIBLE);
+            }
+            if (i == 5) {
+                point5.setVisibility(View.VISIBLE);
+            }
+            if (i == 6) {
+                point6.setVisibility(View.VISIBLE);
+            }
+            if (i == 7) {
+                point7.setVisibility(View.VISIBLE);
+            }
+            if (i == 8) {
+                point8.setVisibility(View.VISIBLE);
+            }
+
+        }
+        point1.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+
     }
 
     @Override
@@ -228,6 +323,29 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             updateAppDialog.show(ft, UpdateAppDialog.TAG);
         }
 
+    }
+
+    //در اینجا تعداد اسلایدرها برگشت داده می شود
+    @Override
+    public int onGetCountSlider() {
+        return Slider.getAdapter().getItemCount();
+    }
+
+    //برای به دست آوردن صفحه بعد اسلایدر می باشد
+    @Override
+    public int onGetItem(int i) {
+        return Slider.getCurrentItem() + i;
+    }
+
+    //در اینجا صفحه جاری اسلایدر گرفته می شود
+    @Override
+    public int onGetCurrentSlider() {
+        return Slider.getCurrentItem();
+    }
+
+    @Override
+    public void onSetCurrentSlider(int i, boolean b) {
+        Slider.setCurrentItem(i, b);
     }
 
     @Override

@@ -38,12 +38,15 @@ public class Tbl_Estimate {
                         VM_Estimate estimate = new VM_Estimate();
                         estimate.setId(Integer.valueOf(record.get(0).value));
                         estimate.setTitle(context.getString(R.string.from) + " " + record.get(1).value);
-                        estimates.add(estimate);
+
+                        if (Integer.valueOf(record.get(4).value)==0){
+                            estimates.add(estimate);
+                        }
 
                     }, () -> {
                     }, () -> {
                         emitter.onSuccess(estimates);
-                    }, 2);
+                    }, 5);
 
                 } catch (Exception e) {
                     emitter.onError(e);
@@ -73,14 +76,16 @@ public class Tbl_Estimate {
                             VM_Estimate estimate = new VM_Estimate();
                             estimate.setId(Integer.valueOf(record.get(0).value));
                             estimate.setTitle(context.getString(R.string.until) + " " + record.get(1).value);
-                            estimates.add(estimate);
+                            if (Integer.valueOf(record.get(4).value)==1){
+                                estimates.add(estimate);
+                            }
                         }
 
                     }, () -> {
 
                     }, () -> {
                         emitter.onSuccess(estimates);
-                    }, 2);
+                    }, 5);
 
                 } catch (Exception e) {
                     emitter.onError(e);
