@@ -3,6 +3,8 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,9 +23,9 @@ import ir.tdaapp.paymanyar.Presenter.P_SupportFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
-public class SupportFragment extends BaseFragment implements S_SupportFragment,View.OnClickListener {
+public class SupportFragment extends BaseFragment implements S_SupportFragment, View.OnClickListener {
 
-    public static final String TAG="SupportFragment";
+    public static final String TAG = "SupportFragment";
 
     CardView btn_Send;
     EditText txt_message;
@@ -34,7 +36,7 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment,V
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.support_fragment,container,false);
+        View view = inflater.inflate(R.layout.support_fragment, container, false);
 
         findItem(view);
         implement();
@@ -43,15 +45,15 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment,V
         return view;
     }
 
-    void findItem(View view){
-        btn_Send=view.findViewById(R.id.btn_Send);
-        txt_message=view.findViewById(R.id.txt_message);
-        loading=view.findViewById(R.id.loading);
-        toolbar=view.findViewById(R.id.toolbar);
+    void findItem(View view) {
+        btn_Send = view.findViewById(R.id.btn_Send);
+        txt_message = view.findViewById(R.id.txt_message);
+        loading = view.findViewById(R.id.loading);
+        toolbar = view.findViewById(R.id.toolbar);
     }
 
-    void implement(){
-        p_supportFragment=new P_SupportFragment(getContext(),this);
+    void implement() {
+        p_supportFragment = new P_SupportFragment(getContext(), this);
 
         btn_Send.setOnClickListener(this);
     }
@@ -71,6 +73,12 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment,V
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onFinish(VM_Message message) {
         Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
         btn_Send.setEnabled(true);
@@ -78,9 +86,9 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment,V
 
     @Override
     public void onLoading(boolean load) {
-        if (load){
+        if (load) {
             loading.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             loading.setVisibility(View.GONE);
         }
     }
@@ -117,10 +125,16 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment,V
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_Send:
-                btn_Send.setEnabled(false);
-                p_supportFragment.sendMessage(txt_message);
+
+                if (((MainActivity) getActivity()).getTbl_user().hasAccount(getContext())) {
+                    btn_Send.setEnabled(false);
+                    p_supportFragment.sendMessage(txt_message);
+                } else {
+                    Toast.makeText(getContext(), getContext().getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+                    ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
+                }
                 break;
         }
     }

@@ -2,6 +2,8 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -58,6 +60,12 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
     @Override
     public void OnStart() {
         animationLogo.startShimmerAnimation();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

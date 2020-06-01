@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.os.Handler;
 
 import java.io.File;
 import java.util.List;
@@ -25,6 +26,9 @@ public class P_HomeFragment {
     Disposable dispose_getVals, dispose_setSliderItem;
     Api_Home api_home;
     Tbl_Setting tbl_setting;
+    boolean SliderNext;
+    boolean started;
+    Handler handler;
 
     public P_HomeFragment(S_HomeFragment s_homeFragment, Context context) {
         this.s_homeFragment = s_homeFragment;
@@ -37,6 +41,7 @@ public class P_HomeFragment {
     public void start() {
         s_homeFragment.OnStart();
         getVals();
+        handler = new Handler();
     }
 
     //در اینجا داده ها را از سرور می خواند
@@ -73,6 +78,7 @@ public class P_HomeFragment {
                 }, () -> {
                     s_homeFragment.onLoading(false);
                     s_homeFragment.onShowSlider(true);
+                    s_homeFragment.onFinish();
                     setUpdates(vm_home.getUpdates());
                 });
     }
@@ -92,7 +98,7 @@ public class P_HomeFragment {
             @Override
             public void clearData(boolean clear) {
                 //اگر شرط زیر درست باشد اپلیکیشن باید کلیر دیتا شود
-                if (clear){
+                if (clear) {
                     clearApplicationData();
                 }
             }
@@ -143,4 +149,46 @@ public class P_HomeFragment {
 
         return deletedAll;
     }
+
+    public void startSlider(){
+        started = true;
+        handler.postDelayed(runnable, 4000);
+    }
+
+    public void resetSlider(){
+        handler.removeCallbacks(runnable);
+        startSlider();
+    }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+            //در اینجا معلوم می شود که اسلایدر در کدام پیج است
+            int PagingSliderPosition = s_homeFragment.onGetCurrentSlider();
+
+            //در اینجا چک می شود که اسلایدر در صفحه اول است اگر شرط درست باشد به صفحه بعد می رود
+            if (PagingSliderPosition == 0) {
+                s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(+1), true);
+                SliderNext = true;
+            }
+            //در اینجا چک می شود که اگر اسلایدر در صفحه آخر است به صفحه قبل بر می گردد
+            else if (PagingSliderPosition == s_homeFragment.onGetCountSlider() - 1) {
+                s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(-1), true);
+                SliderNext = false;
+            } else {
+                //در اینجا اسلایدر به صفحه بعد می رود
+                if (SliderNext == true) {
+                    s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(+1), true);
+                }
+                //در اینجا اسلایدر به صفحه قبل می رود
+                else {
+                    s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(-1), true);
+                }
+            }
+            if (started) {
+                startSlider();
+            }
+        }
+    };
 }

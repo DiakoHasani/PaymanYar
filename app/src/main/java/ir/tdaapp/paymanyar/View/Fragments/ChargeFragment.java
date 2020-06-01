@@ -2,19 +2,19 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.facebook.shimmer.ShimmerFrameLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,13 +27,12 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 import ir.tdaapp.paymanyar.Presenter.P_ChargeFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
-import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
-import ir.tdaapp.paymanyar.View.Dialogs.ByChargeDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.BuyChargeDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.FilterWideDialog;
 
 //مربوط به فرگمنت شارژ
-public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
+public class ChargeFragment extends BaseFragment implements S_ChargeFragment,View.OnClickListener {
 
     public final static String TAG = "ChargeFragment";
 
@@ -46,6 +45,7 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
     ProgressBar progressDay, progressHour;
     TextView lbl_Hour, lbl_Day;
     ErrorAplicationDialog errorAplicationDialog;
+    CardView btn_Home;
 
     @Nullable
     @Override
@@ -55,8 +55,6 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
         findItem(view);
         implement();
         setToolbar();
-
-        p_chargeFragment.start();
 
         return view;
     }
@@ -69,10 +67,12 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
         progressDay = view.findViewById(R.id.progressDay);
         lbl_Hour = view.findViewById(R.id.lbl_Hour);
         lbl_Day = view.findViewById(R.id.lbl_Day);
+        btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
         p_chargeFragment = new P_ChargeFragment(getContext(), this);
+        btn_Home.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -87,6 +87,15 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new Handler().postDelayed(() -> {
+            p_chargeFragment.start();
+        },300);
     }
 
     @Override
@@ -108,11 +117,9 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
             if (prev == null) {
                 ft.addToBackStack(null);
 
-                ByChargeDialog byChargeDialog = new ByChargeDialog(charge, () -> {
-                    Toast.makeText(getContext(), "Ok", Toast.LENGTH_SHORT).show();
-                });
+                BuyChargeDialog byChargeDialog = new BuyChargeDialog(charge);
 
-                byChargeDialog.show(ft, ByChargeDialog.TAG);
+                byChargeDialog.show(ft, BuyChargeDialog.TAG);
             }
 
         });
@@ -223,8 +230,23 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         p_chargeFragment.Cancel(TAG);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_Home:
+                ((MainActivity)getActivity()).backToHome();
+                break;
+        }
     }
 }

@@ -4,6 +4,8 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -41,7 +43,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     TextView winnerPrice,winnerNumber;
     RelativeLayout chPoint1,chPoint2,chPoint3,chPoint4,chPoint5,chPoint6,chPoint7,chPoint8;
     RelativeLayout ChartUpLine,ChartDownLine;
-    CardView btnCalc;
+    CardView btnCalc,btn_Home;
     Toolbar toolbar;
 
     public static final String TAG = "PriceRangeFragment";
@@ -100,6 +102,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         winnerPrice=view.findViewById(R.id.pricerange_winnerprice);
 
         txt_Percentage = view.findViewById(R.id.txt_percentage);
+        btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
@@ -116,6 +119,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman8.addTextChangedListener(new ShowPrice(txt_AmountToToman8));
         txt_guarantee.addTextChangedListener(new ShowPrice(txt_Percentage));
         btnCalc.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -136,6 +140,12 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     //در اینجا آداپتر میزان اهمیت گرفته می شود
     @Override
     public void onGetDegreeOfImportance(ArrayAdapter adapter) {
@@ -147,6 +157,9 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         switch (view.getId()){
             case R.id.btn_PriceRange:
                 Calculate();
+                break;
+            case R.id.btn_Home:
+                ((MainActivity)getActivity()).backToHome();
                 break;
         }
     }

@@ -9,22 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activitys.PaymentActivity"></activity>
-        <activity android:name=".View.Activitys.ToolsActivity"></activity>
-        <activity
-            android:name=".View.Activitys.MainActivity"
+        <activity android:name=".View.Activitys.PaymentActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="home"
                     android:scheme="paymanyar" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".View.Activitys.ToolsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".View.Activitys.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 

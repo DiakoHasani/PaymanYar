@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.Model.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.paymanyar.Model.Services.onClickSliderItem;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.R;
 
@@ -22,6 +24,7 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
 
     Context context;
     List<VM_HomeSlider> vals;
+    onClickSliderItem clickSliderItem;
 
     public SliderHomeAdapter(Context context) {
         this.context = context;
@@ -32,6 +35,10 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
     public void add(VM_HomeSlider slider) {
         vals.add(slider);
         notifyItemInserted(vals.size() + 1);
+    }
+
+    public void setClickSliderItem(onClickSliderItem clickSliderItem) {
+        this.clickSliderItem = clickSliderItem;
     }
 
     @NonNull
@@ -45,12 +52,30 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolde holder, int position) {
 
         Glide.with(context)
+                .asBitmap()
                 .load(vals.get(position).getUrl())
-                .error(R.drawable.ic_loading)
+                .error(R.drawable.ic_error_slider)
                 .into(holder.img);
 
         holder.lbl_Title.setText(vals.get(position).getTitle());
 
+        holder.img.setOnClickListener(view -> {
+            clickSliderItem.onClick(vals.get(position).getId());
+        });
+
+        holder.img.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_HOVER_ENTER:
+                case MotionEvent.ACTION_HOVER_EXIT:
+                case MotionEvent.ACTION_HOVER_MOVE:
+                case MotionEvent.ACTION_MOVE:
+                    clickSliderItem.onToach(vals.get(position).getId());
+                    break;
+            }
+            return false;
+        });
     }
 
     @Override

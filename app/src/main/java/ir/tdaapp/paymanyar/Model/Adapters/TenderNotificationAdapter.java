@@ -41,6 +41,15 @@ public class TenderNotificationAdapter extends RecyclerView.Adapter<TenderNotifi
         notifyItemInserted(tenders.size());
     }
 
+    public void setStart(String id) {
+        for (int i = 0; i < tenders.size(); i++) {
+            if (tenders.get(i).getId().equalsIgnoreCase(id)) {
+                tenders.get(i).setStar(!tenders.get(i).isStar());
+                notifyItemChanged(i);
+            }
+        }
+    }
+
     public void changeFevoritTender(String tenderId, boolean fevorit) {
 
         for (int i = 0; i < tenders.size(); i++) {

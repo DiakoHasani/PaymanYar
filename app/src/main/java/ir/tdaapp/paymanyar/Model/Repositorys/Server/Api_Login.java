@@ -16,7 +16,7 @@ public class Api_Login extends Base_Api {
 
     PostJsonObjectVolley volley_login, volley_checkCode,volley_resendMessage;
 
-    public Single<VM_Message> login(String phoneNumber, String androidId) {
+    public Single<VM_Message> login(String phoneNumber, String androidId,String apiKey) {
 
         return Single.create(emitter -> {
             new Thread(() -> {
@@ -28,7 +28,7 @@ public class Api_Login extends Base_Api {
                     input.put("CellPhone", phoneNumber);
                     input.put("AndroidId", androidId);
                     input.put("Code", 0);
-                    input.put("ApiKey", "");
+                    input.put("ApiKey", apiKey);
 
                 } catch (Exception e) {
                 }
@@ -52,6 +52,9 @@ public class Api_Login extends Base_Api {
                         emitter.onSuccess(message);
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_Login->login",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -63,7 +66,7 @@ public class Api_Login extends Base_Api {
     }
 
     //برای ارسال کد دریافت شده ازطریق پیامک
-    public Single<VM_Message> checkCode(String phoneNumber, String androidId, int code) {
+    public Single<VM_Message> checkCode(String phoneNumber, String androidId, int code,String api_Key) {
 
         return Single.create(emitter -> {
 
@@ -76,7 +79,7 @@ public class Api_Login extends Base_Api {
                     input.put("cellPhone", phoneNumber);
                     input.put("androidId", androidId);
                     input.put("code", code);
-                    input.put("apiKey", "");
+                    input.put("apiKey", api_Key);
 
                     volley_checkCode = new PostJsonObjectVolley(ApiUrl + "User/CheckCode", input, resault -> {
 
@@ -96,12 +99,17 @@ public class Api_Login extends Base_Api {
                             emitter.onSuccess(message);
 
                         } else {
+                            if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                                postError("Api_Login->checkCode",resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Login->checkCode",e.toString());
+                    emitter.onError(e);
                 }
 
             }).start();
@@ -142,6 +150,9 @@ public class Api_Login extends Base_Api {
                        emitter.onSuccess(message);
 
                    }else{
+                       if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                           postError("Api_Login->resendMessage",resault.getMessage());
+                       }
                        emitter.onError(new IOException(resault.getResault().toString()));
                    }
 
@@ -152,6 +163,9 @@ public class Api_Login extends Base_Api {
     }
 
     public void cancel(String tag, Context context) {
+
+        cancelBase(tag,context);
+
         if (volley_login != null) {
             volley_login.Cancel(tag, context);
         }

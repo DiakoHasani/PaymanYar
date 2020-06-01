@@ -59,12 +59,16 @@ public class Api_Library extends Base_Api {
                             emitter.onSuccess(libraries);
 
                         } else {
+                            if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                                postError("Api_Library->getLibraries",resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Library->getLibraries",e.toString());
                     emitter.onError(e);
                 }
 
@@ -75,6 +79,8 @@ public class Api_Library extends Base_Api {
     }
 
     public void Cancel(String tag, Context context) {
+
+        cancelBase(tag,context);
 
         if (volley_getLibraries != null) {
             volley_getLibraries.Cancel(tag, context);

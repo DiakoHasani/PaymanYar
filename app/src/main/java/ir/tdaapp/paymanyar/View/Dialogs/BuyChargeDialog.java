@@ -1,33 +1,36 @@
 package ir.tdaapp.paymanyar.View.Dialogs;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import ir.tdaapp.paymanyar.Model.Services.onResumeChargeDialog;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Fragments.HomeFragment;
+import ir.tdaapp.paymanyar.View.Fragments.LoginFragment;
 
 //دیالوگ مربوط به خرید شارژ
-public class ByChargeDialog extends BaseDialogFragment implements View.OnClickListener {
+public class BuyChargeDialog extends BaseDialogFragment implements View.OnClickListener {
 
     public final static String TAG = "ByChargeDialog";
 
-    private onResumeChargeDialog resumeChargeDialog;
     private VM_Charge charge;
     TextView lbl_Title, lbl_Description, btn_Cancel, btn_Buy;
     ImageView img;
-    boolean clickedButtonBuy = false;
 
-    public ByChargeDialog(VM_Charge charge, onResumeChargeDialog resumeChargeDialog) {
-        this.resumeChargeDialog = resumeChargeDialog;
+    public BuyChargeDialog(VM_Charge charge) {
         this.charge = charge;
     }
 
@@ -53,7 +56,7 @@ public class ByChargeDialog extends BaseDialogFragment implements View.OnClickLi
         btn_Buy = view.findViewById(R.id.btn_Buy);
     }
 
-    void implement(){
+    void implement() {
         btn_Buy.setOnClickListener(this);
         btn_Cancel.setOnClickListener(this);
     }
@@ -70,26 +73,30 @@ public class ByChargeDialog extends BaseDialogFragment implements View.OnClickLi
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        if (resumeChargeDialog != null) {
-            if (clickedButtonBuy) {
-                resumeChargeDialog.onResume();
-            }
-        }
-
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Cancel:
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_Buy:
-                clickedButtonBuy = true;
+
+                if (((MainActivity) getActivity()).getTbl_user().hasAccount(getContext())) {
+                    getDialog().dismiss();
+                    gotoBuy();
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
+    }
+
+    void gotoBuy() {
+
+        String api_key = ((MainActivity) getActivity()).getTbl_notification().getToken(getContext());
+
+        String url = "http://tiptop.tdaapp.ir/Payment/Index?ChargeId=" + charge.getId() + "&ApiKey=" + api_key;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }

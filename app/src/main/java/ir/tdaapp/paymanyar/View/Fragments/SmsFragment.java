@@ -3,6 +3,8 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,7 +50,7 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
     SmsAdapter smsAdapter;
     LinearLayoutManager layoutManager;
     ErrorAplicationDialog errorAplicationDialog;
-    RelativeLayout loading_Archive, btn_Fevorites;
+    RelativeLayout loading_Archive, btn_Fevorites,btn_Home;
     boolean showAllSMS = true;
 
     @Nullable
@@ -71,11 +73,13 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
         empty = view.findViewById(R.id.empty);
         loading_Archive = view.findViewById(R.id.loading_Archive);
         btn_Fevorites = view.findViewById(R.id.btn_Fevorites);
+        btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
         p_smsFragment = new P_SmsFragment(getContext(), this);
         btn_Fevorites.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -182,6 +186,12 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
         errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     //اگر عملیات ما به په پایان رسید متد زیر فراخوانی می شود
     @Override
     public void onFinish() {
@@ -271,6 +281,9 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
             case R.id.btn_Fevorites:
                 showAllSMS = !showAllSMS;
                 p_smsFragment.start();
+                break;
+            case R.id.btn_Home:
+                ((MainActivity)getActivity()).backToHome();
                 break;
         }
     }

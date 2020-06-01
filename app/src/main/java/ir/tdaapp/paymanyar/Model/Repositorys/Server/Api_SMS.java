@@ -77,6 +77,9 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(smsList);
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_SMS->getSMS",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -119,6 +122,9 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(message);
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_SMS->setArchiveSMS",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -157,6 +163,9 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(detailSMS);
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_SMS->getDetailSMS",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -200,6 +209,9 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(msg);
 
                     } else {
+                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
+                            postError("Api_SMS->postSMS",resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -212,6 +224,8 @@ public class Api_SMS extends Base_Api {
     }
 
     public void Cancel(String tag, Context context) {
+
+        cancelBase(tag,context);
 
         if (volley_getSMS != null) {
             volley_getSMS.Cancel(tag, context);

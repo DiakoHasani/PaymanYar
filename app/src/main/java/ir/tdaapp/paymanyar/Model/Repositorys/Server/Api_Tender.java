@@ -24,7 +24,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
 public class Api_Tender extends Base_Api {
 
-    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow;
+    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
     public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter, Tbl_Tender tbl_tender) {
@@ -39,7 +39,7 @@ public class Api_Tender extends Base_Api {
 
                     try {
 
-                        input.put("StateId ", filter.getCityId());
+                        input.put("StateId", filter.getCityId());
                         input.put("FieldId", filter.getMajorId());
                         input.put("Word", filter.getIncludesTheWord());
                         input.put("FromDate", filter.getDate());
@@ -91,12 +91,16 @@ public class Api_Tender extends Base_Api {
                             emitter.onSuccess(notification);
 
                         } else {
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_Tender->getTenderNotification", resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Tender->getTenderNotification", e.toString());
                     emitter.onError(e);
                 }
 
@@ -107,7 +111,7 @@ public class Api_Tender extends Base_Api {
     }
 
     //در اینجا جزئیات مناقصات برگشت داده می شود
-    public Single<VM_DetailsTender> getDetailsTender(VM_FilterTenderNotification filter,Tbl_Tender tbl_tender) {
+    public Single<VM_DetailsTender> getDetailsTender(VM_FilterTenderNotification filter, Tbl_Tender tbl_tender) {
 
         return Single.create(emitter -> {
 
@@ -121,12 +125,22 @@ public class Api_Tender extends Base_Api {
 
                         obg.put("StateId", filter.getCityId());
                         obg.put("FieldId", filter.getMajorId());
-                        obg.put("Word", filter.getIncludesTheWord());
-                        obg.put("FromDate", filter.getDate());
                         obg.put("FromFeeId", filter.getFromEstimateId());
                         obg.put("UpFeeId", filter.getUntilEstimateId());
                         obg.put("UserId", filter.getUserId());
                         obg.put("TenderId", filter.getTenderId());
+
+                        if (filter.getDate()!=null){
+                            obg.put("FromDate", filter.getDate());
+                        }else{
+                            obg.put("FromDate", "");
+                        }
+
+                        if (filter.getIncludesTheWord()!=null){
+                            obg.put("Word", filter.getIncludesTheWord());
+                        }else{
+                            obg.put("Word", "");
+                        }
 
                     } catch (Exception e) {
                     }
@@ -161,12 +175,16 @@ public class Api_Tender extends Base_Api {
                             emitter.onSuccess(detailsTender);
 
                         } else {
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_Tender->getDetailsTender", resault.getMessage());
+                            }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
 
                     });
 
                 } catch (Exception e) {
+                    postError("Api_Tender->getDetailsTender", e.toString());
                     emitter.onError(e);
                 }
 
@@ -197,12 +215,12 @@ public class Api_Tender extends Base_Api {
 
                 }
 
-                volley_postLetMeKnow = new PostJsonObjectVolley(ApiUrl+"Tender/PostLetMeKnow", object, resault -> {
+                volley_postLetMeKnow = new PostJsonObjectVolley(ApiUrl + "Tender/PostLetMeKnow", object, resault -> {
 
-                    if (resault.getResault()==ResaultCode.Success){
+                    if (resault.getResault() == ResaultCode.Success) {
 
-                        VM_Message message=new VM_Message();
-                        JSONObject obj=resault.getObject();
+                        VM_Message message = new VM_Message();
+                        JSONObject obj = resault.getObject();
 
                         try {
 
@@ -216,7 +234,10 @@ public class Api_Tender extends Base_Api {
 
                         emitter.onSuccess(message);
 
-                    }else{
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_Tender->postLetMeKnow", resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
@@ -228,7 +249,73 @@ public class Api_Tender extends Base_Api {
 
     }
 
+    //در اینجا مناقصاتی که کاربر فیلتر کرده است از سرورگرفته می شود
+    public Single<VM_TenderNotification> getTendersFilter(int page, String apiKey, Tbl_Tender tbl_tender) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                JSONObject input = new JSONObject();
+
+                try {
+                    input.put("Paging", page);
+                    input.put("ApiKey", apiKey);
+                } catch (Exception e) {
+                }
+
+                volley_getTendersFilter = new PostJsonObjectVolley(ApiUrl + "Tender/PostTenderUser", input, resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_TenderNotifications> notifications = new ArrayList<>();
+                        VM_TenderNotification notification = new VM_TenderNotification();
+                        JSONArray array = new JSONArray();
+
+                        try {
+                            array = resault.getObject().getJSONArray("Tenders");
+                            notification.setCountTenders(resault.getObject().getInt("CountTender"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        for (int i = 0; i < array.length(); i++) {
+
+                            try {
+
+                                VM_TenderNotifications n = new VM_TenderNotifications();
+                                JSONObject object = array.getJSONObject(i);
+
+                                n.setId(object.getString("TenderId"));
+                                n.setTitle(object.getString("Title"));
+                                n.setFree(object.getBoolean("Free"));
+                                n.setStar(tbl_tender.isFavoritTender(object.getString("TenderId")));
+
+                                notifications.add(n);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        notification.setTenderNotifications(notifications);
+
+                        emitter.onSuccess(notification);
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_Tender->getTendersFilter", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+
+            }).start();
+        });
+    }
+
     public void Cancel(String Tag, Context context) {
+
+        cancelBase(Tag, context);
 
         if (volley_getTenderNotification != null) {
             volley_getTenderNotification.Cancel(Tag, context);
@@ -242,6 +329,9 @@ public class Api_Tender extends Base_Api {
             volley_postLetMeKnow.Cancel(Tag, context);
         }
 
-    }
+        if (volley_getTendersFilter != null) {
+            volley_getTendersFilter.Cancel(Tag, context);
+        }
 
+    }
 }

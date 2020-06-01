@@ -3,6 +3,8 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,6 +35,7 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
     Spinner sp_value,sp_answer;
     CardView btnConvert,btnDistance,btnArea,btnVolume,btnPressure,btnMass,btnDenisty,btnPower,btnEnergy,btnTime,btnAcceleration,btnSpeed,btnFerequence,btnAngel,btnForce,btnTorque,btnLight;
     int mode=5;
+    CardView btn_Home;
 
     @Nullable
     @Override
@@ -71,6 +74,7 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
 
         value=view.findViewById(R.id.unit_value);
         answer=view.findViewById(R.id.unit_answer);
+        btn_Home=view.findViewById(R.id.btn_Home);
 
     }
 
@@ -99,7 +103,7 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
         btnArea.setOnClickListener(this);
         btnAngel.setOnClickListener(this);
         btnAcceleration.setOnClickListener(this);
-
+        btn_Home.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -113,6 +117,12 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -216,6 +226,9 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
                 btnVolume.setBackgroundResource(R.color.colorSelected);
                 p_unitConversionFragment.ShowItemsFor(16);
                 mode=16;
+                break;
+            case R.id.btn_Home:
+                getActivity().finish();
                 break;
 
         }
