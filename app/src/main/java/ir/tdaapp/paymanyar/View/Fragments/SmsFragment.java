@@ -50,7 +50,7 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
     SmsAdapter smsAdapter;
     LinearLayoutManager layoutManager;
     ErrorAplicationDialog errorAplicationDialog;
-    RelativeLayout loading_Archive, btn_Fevorites;
+    RelativeLayout loading_Archive, btn_Fevorites,btn_Home;
     boolean showAllSMS = true;
 
     @Nullable
@@ -73,11 +73,13 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
         empty = view.findViewById(R.id.empty);
         loading_Archive = view.findViewById(R.id.loading_Archive);
         btn_Fevorites = view.findViewById(R.id.btn_Fevorites);
+        btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
         p_smsFragment = new P_SmsFragment(getContext(), this);
         btn_Fevorites.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -279,6 +281,9 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
             case R.id.btn_Fevorites:
                 showAllSMS = !showAllSMS;
                 p_smsFragment.start();
+                break;
+            case R.id.btn_Home:
+                ((MainActivity)getActivity()).backToHome();
                 break;
         }
     }

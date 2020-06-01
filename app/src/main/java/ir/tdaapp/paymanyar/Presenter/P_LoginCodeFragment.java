@@ -16,6 +16,7 @@ import ir.tdaapp.paymanyar.Model.Services.S_LoginCodeFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
 public class P_LoginCodeFragment {
 
@@ -39,8 +40,9 @@ public class P_LoginCodeFragment {
 
             try {
 
+                String api_key=((MainActivity)context).getTbl_notification().getToken(context);
                 String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-                Single<VM_Message> data = api_login.checkCode(phoneNumber, android_id, Integer.valueOf(txt.getText().toString()));
+                Single<VM_Message> data = api_login.checkCode(phoneNumber, android_id, Integer.valueOf(txt.getText().toString()),api_key);
 
                 dispose_sendCode = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
                     @Override

@@ -15,17 +15,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class PaymentActivity extends AppCompatActivity implements S_PaymentActivity,View.OnClickListener {
+public class PaymentActivity extends AppCompatActivity implements S_PaymentActivity, View.OnClickListener {
 
-    public final static String TAG="PaymentActivity";
+    public final static String TAG = "PaymentActivity";
 
     P_PaymentActivity p_paymentActivity;
-    ProgressBar progressDay,progressHour;
-    TextView lbl_Day,lbl_Hour;
+    ProgressBar progressDay, progressHour;
+    TextView lbl_Day, lbl_Hour;
     CardView btn_back;
     ErrorAplicationDialog errorAplicationDialog;
 
-    Tbl_User tbl_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +37,16 @@ public class PaymentActivity extends AppCompatActivity implements S_PaymentActiv
         p_paymentActivity.start();
     }
 
-    void findItem(){
-        progressDay=findViewById(R.id.progressDay);
-        progressHour=findViewById(R.id.progressHour);
-        lbl_Day=findViewById(R.id.lbl_Day);
-        lbl_Hour=findViewById(R.id.lbl_Hour);
-        btn_back=findViewById(R.id.btn_back);
+    void findItem() {
+        progressDay = findViewById(R.id.progressDay);
+        progressHour = findViewById(R.id.progressHour);
+        lbl_Day = findViewById(R.id.lbl_Day);
+        lbl_Hour = findViewById(R.id.lbl_Hour);
+        btn_back = findViewById(R.id.btn_back);
     }
 
-    void implement(){
-        p_paymentActivity=new P_PaymentActivity(getApplicationContext(),this);
-        tbl_user=new Tbl_User();
+    void implement() {
+        p_paymentActivity = new P_PaymentActivity(getApplicationContext(), this);
         btn_back.setOnClickListener(this);
     }
 
@@ -87,13 +85,13 @@ public class PaymentActivity extends AppCompatActivity implements S_PaymentActiv
 
     @Override
     public void onLoading(boolean load) {
-        if (load){
+        if (load) {
             lbl_Day.setVisibility(View.GONE);
             lbl_Hour.setVisibility(View.GONE);
 
             progressDay.setVisibility(View.VISIBLE);
             progressHour.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             lbl_Day.setVisibility(View.VISIBLE);
             lbl_Hour.setVisibility(View.VISIBLE);
 
@@ -104,12 +102,8 @@ public class PaymentActivity extends AppCompatActivity implements S_PaymentActiv
 
     @Override
     public void onFinish(int day, int hour) {
-        lbl_Day.setText(day);
-        lbl_Hour.setText(hour);
-    }
-
-    public Tbl_User getTbl_user() {
-        return tbl_user;
+        lbl_Day.setText(day + "");
+        lbl_Hour.setText(hour + "");
     }
 
     @Override
@@ -120,12 +114,12 @@ public class PaymentActivity extends AppCompatActivity implements S_PaymentActiv
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_back:
-                if (MainActivity.isActive){
+                if (MainActivity.isActive) {
                     finish();
-                }else{
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                } else {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
                 break;
         }

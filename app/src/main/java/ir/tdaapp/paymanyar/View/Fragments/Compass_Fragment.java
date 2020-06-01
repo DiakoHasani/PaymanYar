@@ -32,13 +32,14 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 
 
-public class Compass_Fragment extends Fragment implements S_CompassFragment {
+public class Compass_Fragment extends Fragment implements S_CompassFragment,View.OnClickListener {
 
     public final static String TAG = "CompassFragment";
     Toolbar toolbar;
     ImageView hands;
     TextView degree_txt;
     private P_CompassFragment p_compassFragment;
+    CardView btn_Home;
 
 
     @Nullable
@@ -58,11 +59,13 @@ public class Compass_Fragment extends Fragment implements S_CompassFragment {
 
         hands=view.findViewById(R.id.compass_hands);
         degree_txt=view.findViewById(R.id.compass_txt);
+        btn_Home=view.findViewById(R.id.btn_Home);
     }
 
     void implement(){
         p_compassFragment=new P_CompassFragment(this.getContext(),this);
         p_compassFragment.StartCompass();
+        btn_Home.setOnClickListener(this);
     }
 
     @Override
@@ -110,5 +113,14 @@ public class Compass_Fragment extends Fragment implements S_CompassFragment {
     public void onDestroy() {
         super.onDestroy();
         p_compassFragment.StopCompass();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_Home:
+                getActivity().finish();
+                break;
+        }
     }
 }

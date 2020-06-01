@@ -55,7 +55,7 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
     CardView btnSave,btnDefault,btnSatelite,btnGround;
     TextView lat,lon;
     private String[] Permisions={Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
-
+    LinearLayout btn_Home;
 
     @Nullable
     @Override
@@ -78,6 +78,7 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
         btnSatelite=view.findViewById(R.id.gps_satelitebtn);
         btnGround=view.findViewById(R.id.gps_groundbtn);
         btnSave=view.findViewById(R.id.gps_savebtn);
+        btn_Home=view.findViewById(R.id.btn_Home);
 
         lat=view.findViewById(R.id.gps_lat);
         lon=view.findViewById(R.id.gps_lon);
@@ -112,6 +113,7 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
         btnGround.setOnClickListener(this);
         btnSatelite.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
     }
 
     @Override
@@ -197,7 +199,9 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
                     p_gpsFragment.SaveLocation(lat.getText().toString(),lon.getText().toString());
                 }
                 break;
-
+            case R.id.btn_Home:
+                getActivity().finish();
+                break;
         }
     }
 

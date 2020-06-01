@@ -23,6 +23,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.bumptech.glide.manager.SupportRequestManagerFragment;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     public final static String TAG = "MainActivity";
@@ -53,12 +57,12 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         Bundle extras = i.getExtras();
         if (extras != null) {
             for (String key : extras.keySet()) {
-                if (key.equalsIgnoreCase("key1")){
+                if (key.equalsIgnoreCase("key1")) {
                     onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
                     onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
                 }
             }
-        }else{
+        } else {
             onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
         }
     }
@@ -70,6 +74,17 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         p_mainActivity = new P_MainActivity(getApplicationContext(), this);
         tbl_notification = new Tbl_Notification();
         tbl_user = new Tbl_User();
+    }
+
+    //در اینجا برنامه به صفحه اول بر می گردد
+    public void backToHome() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+        for (Fragment i : fragments) {
+            if (!(i instanceof HomeFragment || i instanceof SupportRequestManagerFragment)) {
+                getSupportFragmentManager().beginTransaction().remove(i).commit();
+            }
+        }
     }
 
     @Override
@@ -164,11 +179,6 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     protected void onStop() {
         super.onStop();
         isActive = false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 
     @Override
