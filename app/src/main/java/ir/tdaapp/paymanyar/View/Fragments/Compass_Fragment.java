@@ -71,26 +71,12 @@ public class Compass_Fragment extends Fragment implements S_CompassFragment {
 
             }
         });
-//        hands=view.findViewById(R.id.compass_hands);
-//        degree_txt=view.findViewById(R.id.compass_txt);
     }
 
     void implement(){
         p_compassFragment=new P_CompassFragment(this.getContext(),this);
-//        p_compassFragment.StartCompass();
     }
 
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
@@ -120,6 +106,5 @@ public class Compass_Fragment extends Fragment implements S_CompassFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        p_compassFragment.StopCompass();
     }
 }

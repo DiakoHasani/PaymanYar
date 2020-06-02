@@ -10,12 +10,14 @@ import ir.tdaapp.paymanyar.Presenter.P_ToolsActivity;
 import ir.tdaapp.paymanyar.R;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity {
 
     public final static String TAG="ToolsActivity";
     P_ToolsActivity p_toolsActivity;
     private DBExcute dbExcute;
+    DisplayMetrics displayMetrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity 
 
     void implement(){
         p_toolsActivity=new P_ToolsActivity(getApplicationContext(),this);
+        displayMetrics=new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
     }
 
     //زمانی که اکتیویتی عملیات اولیه خود را انجام دهد متد زیر فراخوانی می شود
@@ -75,5 +79,15 @@ public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity 
 
         //در اینجا فرگمنت نمایش داده می شود
         transaction.commit();
+    }
+
+    //در اینجا اندازه عرض صفحه نمایش برگشت داده می شود
+    public int getWidthDisplay(){
+        return displayMetrics.heightPixels;
+    }
+
+    //در اینجا اندازه طول صفحه نمایش برگشت داده می شود
+    public int getHeightDisplay(){
+        return displayMetrics.widthPixels;
     }
 }

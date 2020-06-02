@@ -22,13 +22,13 @@ import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 
 //مربوط به صفحه تراز
-public class LevelFragment extends BaseFragment implements S_LevelFragment{
+public class LevelFragment extends BaseFragment implements S_LevelFragment {
 
     public final static String TAG = "LevelFragment";
 
     P_LevelFragment p_levelFragment;
     Toolbar toolBar;
-    ImageView imgZ,imgY,imgX;
+    ImageView imgZ, imgY, imgX;
 
     @Nullable
     @Override
@@ -42,14 +42,14 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment{
         return view;
     }
 
-    void findItem(View view){
-        imgX=view.findViewById(R.id.iv);
-        imgY=view.findViewById(R.id.ix);
-        imgZ=view.findViewById(R.id.icircle);
-        toolBar=view.findViewById(R.id.toolBar);
+    void findItem(View view) {
+        imgX = view.findViewById(R.id.iv);
+        imgY = view.findViewById(R.id.ix);
+        imgZ = view.findViewById(R.id.icircle);
+        toolBar = view.findViewById(R.id.toolBar);
     }
 
-    void implement(){
+    void implement() {
         p_levelFragment = new P_LevelFragment(getContext(), this);
     }
 
@@ -80,7 +80,7 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment{
 
     @Override
     public void OnImageFinished(Bitmap bitmap, int type) {
-        switch (type){
+        switch (type) {
             case 0:
                 //Vertical
                 imgX.setImageBitmap(bitmap);

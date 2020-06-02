@@ -29,6 +29,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -51,22 +52,21 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class Magnifier_Fragment extends Fragment implements View.OnClickListener, S_MagnifierFragment  {
+public class Magnifier_Fragment extends Fragment implements View.OnClickListener, S_MagnifierFragment {
 
     public final static String TAG = "MagnifierFragment";
     Toolbar toolbar;
-    CardView save,ZoomIn,ZoomOut;
     SurfaceView surfaceView;
     SeekBar zoomBar;
-    int preZoom=0;
+    int preZoom = 0;
     private P_MagnifierFragment p_magnifierFragment;
-    private String[] Permissions={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
-
+    private String[] Permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    ImageView save;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.magnifier_fragment,container,false);
+        View view = inflater.inflate(R.layout.magnifier_fragment, container, false);
 
         findItem(view);
         implement();
@@ -75,33 +75,26 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         return view;
     }
 
-    void findItem(View view){
-        toolbar=view.findViewById(R.id.toolbar);
-        save=view.findViewById(R.id.magnifier_btnSave);
-        zoomBar=view.findViewById(R.id.seekBar_zoom);
+    void findItem(View view) {
+        toolbar = view.findViewById(R.id.toolbar);
+        save = view.findViewById(R.id.btn_save);
+        zoomBar = view.findViewById(R.id.seekBar_zoom);
 
-        ZoomIn=view.findViewById(R.id.magnifier_zoombtn);
-        ZoomOut=view.findViewById(R.id.magnifier_zoomoutbtn);
-
-        surfaceView=view.findViewById(R.id.magnifier_surface);
+        surfaceView = view.findViewById(R.id.magnifier_surface);
     }
 
-    void implement(){
-        p_magnifierFragment=new P_MagnifierFragment(this.getContext(),this);
-
+    void implement() {
+        p_magnifierFragment = new P_MagnifierFragment(this.getContext(), this);
         save.setOnClickListener(this);
-        ZoomIn.setOnClickListener(this);
-        ZoomOut.setOnClickListener(this);
-
         zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(i>preZoom){
+                if (i > preZoom) {
                     p_magnifierFragment.ZoomIn(i);
-                }else{
+                } else {
                     p_magnifierFragment.ZoomOut(i);
                 }
-                preZoom=i;
+                preZoom = i;
             }
 
             @Override
@@ -114,7 +107,6 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
 
             }
         });
-
     }
 
     @Override
@@ -127,10 +119,10 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
         Dexter.withActivity(getActivity()).withPermissions(Permissions).withListener(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
-                if(report.areAllPermissionsGranted()){
+                if (report.areAllPermissionsGranted()) {
                     p_magnifierFragment.start_camera();
-                }else{
-                    ActivityCompat.requestPermissions(getActivity(),Permissions,23);
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(), Permissions, 23);
                 }
             }
 
@@ -145,8 +137,8 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==23){
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED  && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 23) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                 p_magnifierFragment.start_camera();
             }
         }
@@ -162,7 +154,7 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     void setToolbar() {
 
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setTitle(getContext().getResources().getString(R.string.GPS));
+        toolbar.setTitle(getContext().getResources().getString(R.string.magnifier));
         ((ToolsActivity) getActivity()).setSupportActionBar(toolbar);
         ((ToolsActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
@@ -175,18 +167,10 @@ public class Magnifier_Fragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
 
-
-        switch (view.getId()){
-            case R.id.magnifier_btnSave:
+        switch (view.getId()) {
+            case R.id.btn_save:
                 p_magnifierFragment.captureImage();
                 break;
-            case R.id.magnifier_zoombtn:
-                p_magnifierFragment.ZoomIn(preZoom);
-                break;
-            case R.id.magnifier_zoomoutbtn:
-                p_magnifierFragment.ZoomOut(preZoom);
-                break;
-
         }
     }
 
