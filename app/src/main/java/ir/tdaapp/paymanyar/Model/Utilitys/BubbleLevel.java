@@ -1,6 +1,5 @@
 package ir.tdaapp.paymanyar.Model.Utilitys;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,9 +13,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import ir.tdaapp.paymanyar.Model.Services.S_LevelFragment;
 import ir.tdaapp.paymanyar.R;
@@ -108,30 +104,30 @@ public class BubbleLevel implements SensorEventListener{
         paintRectangle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
         paintRectangle.setAntiAlias(true);
 
-        paintCrcle = new Paint();
-        paintCrcle.setStyle(Paint.Style.FILL);
-        paintCrcle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
-        paintCrcle.setAntiAlias(true);
-        paintCrcle.setAlpha(50);
-
-        paintEmptyCircle = new Paint();
-        paintEmptyCircle.setStyle(Paint.Style.STROKE);
-        paintEmptyCircle.setStrokeWidth(2f);
-        paintEmptyCircle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
-        paintEmptyCircle.setAntiAlias(true);
-        paintEmptyCircle.setAlpha(50);
-
-        paintLine = new Paint();
-        paintLine.setStyle(Paint.Style.FILL);
-        paintLine.setColor(ctx.getResources().getColor(R.color.colorPrimary));
-        paintLine.setAntiAlias(true);
-        paintLine.setStrokeWidth(8f);
-
-        paintLineGray = new Paint();
-        paintLineGray.setStyle(Paint.Style.FILL);
-        paintLineGray.setColor(ctx.getResources().getColor(R.color.colorPrimary));
-        paintLineGray.setAntiAlias(true);
-        paintLineGray.setStrokeWidth(2f);
+//        paintCrcle = new Paint();
+//        paintCrcle.setStyle(Paint.Style.FILL);
+//        paintCrcle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
+//        paintCrcle.setAntiAlias(true);
+//        paintCrcle.setAlpha(50);
+//
+//        paintEmptyCircle = new Paint();
+//        paintEmptyCircle.setStyle(Paint.Style.STROKE);
+//        paintEmptyCircle.setStrokeWidth(2f);
+//        paintEmptyCircle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
+//        paintEmptyCircle.setAntiAlias(true);
+//        paintEmptyCircle.setAlpha(50);
+//
+//        paintLine = new Paint();
+//        paintLine.setStyle(Paint.Style.FILL);
+//        paintLine.setColor(ctx.getResources().getColor(R.color.colorPrimary));
+//        paintLine.setAntiAlias(true);
+//        paintLine.setStrokeWidth(8f);
+//
+//        paintLineGray = new Paint();
+//        paintLineGray.setStyle(Paint.Style.FILL);
+//        paintLineGray.setColor(ctx.getResources().getColor(R.color.colorPrimary));
+//        paintLineGray.setAntiAlias(true);
+//        paintLineGray.setStrokeWidth(2f);
 
         enablePhoto = false;
         tonePlayed = false;

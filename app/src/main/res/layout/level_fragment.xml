@@ -68,15 +68,14 @@
 
         <RelativeLayout
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="160px"
-            android:layout_width="400px"
-            android:layout_height="400px"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_centerInParent="true">
 
             <ImageView
                 android:src="@drawable/border_level"
-                android:layout_width="400px"
-                android:layout_height="400px"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true" />
 
             <ImageView
