@@ -109,42 +109,47 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
-                point1.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point4.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point5.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point6.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point7.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                point8.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                try {
 
-                //در اینجا پیجینگ مربوط به آن عکس اسلایدر اکتیو می شود
-                switch (onGetCurrentSlider() + 1) {
-                    case 1:
-                        point1.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 2:
-                        point2.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 3:
-                        point3.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 4:
-                        point4.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 5:
-                        point5.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 6:
-                        point6.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 7:
-                        point7.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                    case 8:
-                        point8.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                        break;
-                }
+                    if (null !=getContext()){
+                        point1.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point4.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point5.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point6.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point7.setBackground(getResources().getDrawable(R.drawable.page_slider));
+                        point8.setBackground(getResources().getDrawable(R.drawable.page_slider));
+
+                        //در اینجا پیجینگ مربوط به آن عکس اسلایدر اکتیو می شود
+                        switch (onGetCurrentSlider() + 1) {
+                            case 1:
+                                point1.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 2:
+                                point2.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 3:
+                                point3.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 4:
+                                point4.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 5:
+                                point5.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 6:
+                                point6.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 7:
+                                point7.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                            case 8:
+                                point8.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+                                break;
+                        }
+                    }
+                }catch (Exception e){}
 
             }
         });
