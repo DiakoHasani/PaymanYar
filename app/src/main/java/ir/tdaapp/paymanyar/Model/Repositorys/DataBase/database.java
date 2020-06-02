@@ -44,7 +44,7 @@ public class database extends SQLiteOpenHelper {
     }
 
     public database(Context context){
-        super(context,"DBpaymanyar.db",null,2);
+        super(context,"DBpaymanyar.db",null,1);
         mycontext=context;
         try {
             this.close();
@@ -55,7 +55,7 @@ public class database extends SQLiteOpenHelper {
     }
 
     public database(DbNeedPermission permission,Context context){
-        super(context,"DBpaymanyar.db",null,2);
+        super(context,"DBpaymanyar.db",null,1);
         mycontext=context;
         try {
             this.needPermission=permission;
