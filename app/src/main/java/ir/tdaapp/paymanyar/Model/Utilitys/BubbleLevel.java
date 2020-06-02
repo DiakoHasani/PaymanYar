@@ -69,6 +69,7 @@ public class BubbleLevel implements SensorEventListener{
         this.sensorManager = sensorManager;
         this.sensor = sensor;
 
+
         toneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
 
         bitmapY = Bitmap.createBitmap(
@@ -104,31 +105,31 @@ public class BubbleLevel implements SensorEventListener{
 
         paintRectangle = new Paint();
         paintRectangle.setStyle(Paint.Style.FILL);
-        paintRectangle.setColor(Color.YELLOW);
+        paintRectangle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
         paintRectangle.setAntiAlias(true);
 
         paintCrcle = new Paint();
         paintCrcle.setStyle(Paint.Style.FILL);
-        paintCrcle.setColor(Color.BLUE);
+        paintCrcle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
         paintCrcle.setAntiAlias(true);
         paintCrcle.setAlpha(50);
 
         paintEmptyCircle = new Paint();
         paintEmptyCircle.setStyle(Paint.Style.STROKE);
         paintEmptyCircle.setStrokeWidth(2f);
-        paintEmptyCircle.setColor(Color.GRAY);
+        paintEmptyCircle.setColor(ctx.getResources().getColor(R.color.colorPrimary));
         paintEmptyCircle.setAntiAlias(true);
         paintEmptyCircle.setAlpha(50);
 
         paintLine = new Paint();
         paintLine.setStyle(Paint.Style.FILL);
-        paintLine.setColor(Color.BLACK);
+        paintLine.setColor(ctx.getResources().getColor(R.color.colorPrimary));
         paintLine.setAntiAlias(true);
         paintLine.setStrokeWidth(8f);
 
         paintLineGray = new Paint();
         paintLineGray.setStyle(Paint.Style.FILL);
-        paintLineGray.setColor(Color.GRAY);
+        paintLineGray.setColor(ctx.getResources().getColor(R.color.colorPrimary));
         paintLineGray.setAntiAlias(true);
         paintLineGray.setStrokeWidth(2f);
 

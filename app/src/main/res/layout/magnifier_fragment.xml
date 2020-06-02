@@ -15,188 +15,67 @@
         android:background="@color/colorPrimary"/>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="10"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical">
+        android:layout_below="@id/toolbar">
+
+        <SurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/magnifier_surface"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9.2">
-
-
-            <SurfaceView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/magnifier_surface"/>
+            android:layout_height="68dp"
+            android:layout_alignParentBottom="true"
+            android:background="#55ffffff">
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:weightSum="10">
 
-
-                <SeekBar
-                    android:id="@+id/seekBar_zoom"
-                    android:max="100"
-                    android:progress="0"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="0.5"/>
-
-                <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                android:layout_height="48dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="4dp"
-                android:id="@+id/magnifier_btnSave"
-                android:clickable="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:theme="@style/AppTheme.MyRipple"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_weight="8">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <SeekBar
+                        android:id="@+id/seekBar_zoom"
+                        android:max="100"
+                        android:progress="0"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/Save"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="14dp"
-                        android:fontFamily="@font/vazir"/>
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_below="@+id/magnifier_surface"
-            android:layout_width="match_parent"
-            android:layout_weight="0"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.6"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/colorPrimary"
-                    app:cardCornerRadius="4dp"
-                    android:id="@+id/magnifier_zoombtn"
-                    android:clickable="true"
-                    android:layout_centerVertical="true"
-                    android:theme="@style/AppTheme.MyRipple">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_plus"/>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/colorPrimary"
-                    app:cardCornerRadius="4dp"
-                    android:id="@+id/magnifier_zoomoutbtn"
-                    android:clickable="true"
-                    android:layout_centerVertical="true"
-                    android:theme="@style/AppTheme.MyRipple"
-                    android:layout_marginTop="5dp">
-
-                    <!-- //TODO : Please Fix this button -->
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_minues"/>
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            android:layout_weight="0.2"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8"
-            android:background="@drawable/border_bottombar_navigation">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:background="@drawable/background_item_left_bottombar">
-
+                    android:layout_weight="2">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_home"/>
+                        android:id="@+id/btn_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_camera"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
 
         </RelativeLayout>
 
-    </LinearLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>

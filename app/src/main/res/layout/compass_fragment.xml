@@ -3,12 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#abe7f1"
+    android:background="@drawable/bg_compass"
     android:clickable="true"
     android:layoutDirection="rtl"
     android:textDirection="rtl">
-
-    <!-- //TODO : Diako . for change background set it to RelativeLayout background -->
 
 
     <androidx.appcompat.widget.Toolbar
@@ -23,15 +21,13 @@
         android:layout_height="match_parent"
         android:weightSum="10"
         android:layout_below="@+id/toolbar"
-        android:orientation="vertical"
-        android:layout_above="@id/btn_Home">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:visibility="visible"
             android:layout_weight="10">
-
 
             <edu.arbelkilani.compass.Compass
                 android:id="@+id/compass_1"
@@ -41,59 +37,16 @@
                 android:layout_centerVertical="true"
                 app:degrees_step="10"
                 app:needle="@drawable/ic_compassneedle"
-                app:orientation_labels_color="#DF1818"
                 app:show_degree_value="true"
                 app:show_orientation_labels="true"
                 app:show_border="false"
-                app:degree_value_color="@color/colorAccent"
-                app:border_color="#DF1818"/>
+                android:layout_margin="40dp"
+                app:degree_color="@android:color/white"
+                app:orientation_labels_color="@android:color/white"
+                app:degree_value_color="@android:color/white"/>
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_below="@+id/magnifier_surface"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-
-                </LinearLayout>
-
-        </RelativeLayout>
-
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_Home"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:cardUseCompatPadding="false"
-        android:clipToPadding="false"
-        app:cardBackgroundColor="@color/colorPrimary"
-        android:clickable="true"
-        android:theme="@style/AppTheme.MyRipple"
-        android:layout_alignParentBottom="true">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_home"
-                android:padding="7dp"/>
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
 </RelativeLayout>
