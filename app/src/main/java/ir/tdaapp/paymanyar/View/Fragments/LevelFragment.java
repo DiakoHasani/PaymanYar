@@ -51,7 +51,7 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
         imgY = view.findViewById(R.id.ix);
         imgZ = view.findViewById(R.id.icircle);
         toolBar = view.findViewById(R.id.toolBar);
-        imgbuble=view.findViewById(R.id.buble_center);
+//        imgbuble=view.findViewById(R.id.buble_center);
 
         ActivityHeight=((ToolsActivity)getActivity()).getHeightDisplay();
         ActivityWidth=((ToolsActivity)getActivity()).getWidthDisplay();

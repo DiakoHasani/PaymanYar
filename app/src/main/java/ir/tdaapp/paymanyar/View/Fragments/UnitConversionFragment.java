@@ -147,7 +147,12 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
                 mode=3;
                 break;
             case R.id.unit_btnChange:
-                p_unitConversionFragment.ConvertValue(value.getText().toString(),sp_value.getSelectedItem().toString(),sp_answer.getSelectedItem().toString(),mode);
+                value.setError(null);
+                if(value.getText().toString().length()>0) {
+                    p_unitConversionFragment.ConvertValue(value.getText().toString(), sp_value.getSelectedItem().toString(), sp_answer.getSelectedItem().toString(), mode);
+                }else{
+                    value.setError("لطفا مقدار را وارد کنید");
+                }
                 break;
             case R.id.unit_btnDensity:
                 ResetButtons();
