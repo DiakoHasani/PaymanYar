@@ -13,6 +13,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.util.Log;
+import android.widget.ImageView;
 
 import ir.tdaapp.paymanyar.Model.Services.S_LevelFragment;
 import ir.tdaapp.paymanyar.R;

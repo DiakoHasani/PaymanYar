@@ -66,7 +66,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_ipb_wide"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -124,7 +124,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_ipe_semi_wide"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -201,7 +201,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_unp_gutters"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -259,7 +259,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_inp_narrow"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -336,7 +336,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_the_can"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -394,7 +394,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_l_dont_look"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -471,7 +471,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_p_pipe"
                             android:padding="5dp"/>
 
                         <RelativeLayout
@@ -529,7 +529,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2.3"
-                            android:src="@drawable/ic_stall_table"
+                            android:src="@drawable/ic_rebar"
                             android:padding="5dp"/>
 
                         <RelativeLayout
