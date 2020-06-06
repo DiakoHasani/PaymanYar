@@ -1,6 +1,8 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.NewsPaperAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_NewsPaperFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickNewsPaper;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
 import ir.tdaapp.paymanyar.Presenter.P_NewsPaperFragment;
@@ -86,6 +89,24 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         newsPaperAdapter = new NewsPaperAdapter(getContext());
         recycler.setAdapter(newsPaperAdapter);
         recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+
+        newsPaperAdapter.setClickNewsPaper(new onClickNewsPaper() {
+            @Override
+            public void onClickSeen(String url) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+
+            @Override
+            public void onClickShare(String title, String url) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, url);
+                startActivity(Intent.createChooser(intent, getString(R.string.share)));
+            }
+        });
     }
 
     @Override

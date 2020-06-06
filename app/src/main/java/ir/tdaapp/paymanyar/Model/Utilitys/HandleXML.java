@@ -108,6 +108,8 @@ public class HandleXML {
                                 }
 
                                 newsPaper.setImage(array[index_src + 1]);
+                            } else if (name.equals("link")) {
+                                newsPaper.setLink(text);
                             }
                             break;
                     }

@@ -15,6 +15,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.paymanyar.Model.Services.onClickNewsPaper;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
 import ir.tdaapp.paymanyar.R;
 
@@ -23,13 +24,18 @@ public class NewsPaperAdapter extends RecyclerView.Adapter<NewsPaperAdapter.MyVi
 
     Context context;
     List<VM_NewsPaper> newsPapers;
+    onClickNewsPaper clickNewsPaper;
 
     public NewsPaperAdapter(Context context) {
         this.context = context;
         newsPapers = new ArrayList<>();
     }
 
-    public void add(VM_NewsPaper newsPaper){
+    public void setClickNewsPaper(onClickNewsPaper clickNewsPaper) {
+        this.clickNewsPaper = clickNewsPaper;
+    }
+
+    public void add(VM_NewsPaper newsPaper) {
         newsPapers.add(newsPaper);
         notifyItemInserted(newsPapers.size());
     }
@@ -45,6 +51,18 @@ public class NewsPaperAdapter extends RecyclerView.Adapter<NewsPaperAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.lbl_title.setText(newsPapers.get(position).getTitle());
+
+        holder.btn_Seen.setOnClickListener(view -> {
+            if (clickNewsPaper != null) {
+                clickNewsPaper.onClickSeen(newsPapers.get(position).getLink());
+            }
+        });
+
+        holder.btn_Share.setOnClickListener(view -> {
+            if (clickNewsPaper != null) {
+                clickNewsPaper.onClickShare(newsPapers.get(position).getTitle(),newsPapers.get(position).getLink());
+            }
+        });
 
         Glide.with(context)
                 .load(newsPapers.get(position).getImage())
