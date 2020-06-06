@@ -54,6 +54,7 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
         findItem(view);
         implement();
         setToolbar();
+        SetImage();
 
         p_ipe_semiWideFragment.start();
 
@@ -187,6 +188,35 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
             arrTitles.get(i).setText(list.get(i).getTitle());
         }
 
+    }
+
+    private void SetImage(){
+        switch (Current_eshtal_id){
+            case 1:
+                imageView.setImageResource(R.drawable.ic_eshtal_teta);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.ic_eshtal_roundtube);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.ic_eshtal_squaretube);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.ic_eshtal_l);
+                break;
+            case 5:
+                imageView.setImageResource(R.drawable.ic_eshtal_unp);
+                break;
+            case 6:
+                imageView.setImageResource(R.drawable.ic_eshtal_ipb);
+                break;
+            case 7:
+                imageView.setImageResource(R.drawable.ic_eshtal_inp);
+                break;
+            case 8:
+                imageView.setImageResource(R.drawable.ic_eshtal_ipe);
+                break;
+        }
     }
 
     @Override

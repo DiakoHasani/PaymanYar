@@ -3,12 +3,15 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +31,8 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
 
     P_LevelFragment p_levelFragment;
     Toolbar toolBar;
-    ImageView imgZ, imgY, imgX;
+    ImageView imgZ, imgY, imgX,imgbuble;
+    int ActivityWidth=1,ActivityHeight=1;
 
     @Nullable
     @Override
@@ -47,12 +51,23 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
         imgY = view.findViewById(R.id.ix);
         imgZ = view.findViewById(R.id.icircle);
         toolBar = view.findViewById(R.id.toolBar);
+        imgbuble=view.findViewById(R.id.buble_center);
 
-
+        ActivityHeight=((ToolsActivity)getActivity()).getHeightDisplay();
+        ActivityWidth=((ToolsActivity)getActivity()).getWidthDisplay();
     }
 
     void implement() {
-        p_levelFragment = new P_LevelFragment(getContext(), this);
+
+        //Circlar Imageview
+//        RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(imgZ.getLayoutParams());
+//        params.width=(ActivityWidth*40/100);
+//        params.height=(ActivityWidth*40/100);
+//        imgZ.setLayoutParams(params);
+
+
+
+        p_levelFragment = new P_LevelFragment(getContext(), this,ActivityWidth,ActivityHeight, imgbuble);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -84,19 +99,23 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
     public void OnImageFinished(Bitmap bitmap, int type) {
         switch (type) {
             case 0:
-                //Vertical
+                //Vertical (width = 10% of screen Width , Height = 25% of screen Height)
+
                 imgX.setImageBitmap(bitmap);
                 break;
             case 1:
-                //Horizontal
+                //Horizontal (width = 25% of screen Width , Height = 10% of screen Height)
+
                 imgY.setImageBitmap(bitmap);
                 break;
             case 2:
-                //Circle
+                //Circle (width = 65% of screen Width , Height = 65% of screen Height)
+
                 imgZ.setImageBitmap(bitmap);
                 break;
         }
     }
+
 
 
 }

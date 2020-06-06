@@ -60,33 +60,49 @@ public class BubbleLevel implements SensorEventListener{
     private double thetaX;
     private double thetaY;
     private Context ctx;
+    private ImageView img;
     private S_LevelFragment s_levelFragment;
+    int screenWidth=1,screenHeight=1;
 
-    public BubbleLevel(SensorManager sensorManager, Sensor sensor, Context ctx, S_LevelFragment s_levelFragment) {
+    private int getDPofSize(int val,int percent){
+        int ans=0;
+
+        try{
+            ans=val*percent/100;
+            ans=DPParser.IntToDP(this.ctx,ans);
+        }catch (Exception e){}
+
+        return ans;
+    }
+
+    public BubbleLevel(SensorManager sensorManager, Sensor sensor, Context ctx, S_LevelFragment s_levelFragment,int width,int height, ImageView img) {
 
         this.s_levelFragment=s_levelFragment;
         this.ctx=ctx;
+        this.img=img;
         this.sensorManager = sensorManager;
         this.sensor = sensor;
+        this.screenWidth=width;
+        this.screenHeight=height;
 
 
         toneGenerator = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
 
         bitmapY = Bitmap.createBitmap(
-                150, // Width
-                400, // Height
+                ((int)this.screenWidth*15/100), // Width
+                ((int)this.screenWidth*30/100), // Height
                 Bitmap.Config.ARGB_8888 // Config
         );
 
         bitmapX = Bitmap.createBitmap(
-                400, // Width
-                150, // Height
+                ((int)this.screenWidth*30/100), // Width
+                ((int)this.screenWidth*15/100), // Height
                 Bitmap.Config.ARGB_8888 // Config
         );
 
         bitmapZ = Bitmap.createBitmap(
-                600, // Width
-                600, // Height
+                ((int)this.screenHeight*80/100), // Width
+                ((int)this.screenHeight*80/100), // Height
                 Bitmap.Config.ARGB_8888 // Config
         );
 
@@ -143,20 +159,27 @@ public class BubbleLevel implements SensorEventListener{
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
+        Log.i("Values","X: "+sensorEvent.values[0]+" ,Y: "+sensorEvent.values[1]);
+
         //This Actions are Physics Formulas
         double gx = sensorEvent.values[0] > GRAVITY ? GRAVITY : sensorEvent.values[0];
         double gy = sensorEvent.values[1] > GRAVITY ? GRAVITY : sensorEvent.values[1];
 
+
         gx = gx < -GRAVITY ? -GRAVITY : gx;
         gy = gy < -GRAVITY ? -GRAVITY : gy;
+
+        Log.i("GSSS","X: "+gx+" ,Y: "+gy);
 
         thetaX = Math.toDegrees(Math.asin(gy/GRAVITY));
         thetaY = Math.toDegrees(Math.asin(gx/GRAVITY));
 
+        Log.i("Theta","X: "+thetaX+" ,Y: "+thetaY);
+
         //Create Backgrounds
         canvasY.drawRect(rectangleY, paintRectangle);
         canvasX.drawRect(rectangleX, paintRectangle);
-        canvasZ.drawCircle(300,300,300,paintRectangle);//We Draw Circle for the Circular Shape in Center of Screen.
+        canvasZ.drawCircle( (this.screenHeight*40/100), (this.screenHeight*40/100), (this.screenHeight*40/100),paintRectangle);//We Draw Circle for the Circular Shape in Center of Screen.
 
 
         //Draw Bubbles in X and Y Axises
@@ -167,9 +190,12 @@ public class BubbleLevel implements SensorEventListener{
         canvasX.drawBitmap(bmp,y, 55, paintRectangle);
 
         //Draw Bubble in Circular Shape is Different with others.
-        x=getLineLocationC(thetaX);
-        y=getLineLocationC(thetaY);
-        canvasZ.drawBitmap(bmp,y, x, paintRectangle);
+        x=(((this.screenHeight*40/100)-24)-((int)sensorEvent.values[0]*20));
+        y=(((this.screenHeight*40/100)-24)-((int)sensorEvent.values[1]*20));
+
+        Log.i("XY","X: "+x+" ,Y: "+y);
+
+        canvasZ.drawBitmap(bmp,x, y, paintRectangle);
 
         if(this.s_levelFragment!=null){s_levelFragment.OnImageFinished(bitmapY,1);}
         if(this.s_levelFragment!=null){s_levelFragment.OnImageFinished(bitmapX,0);}
@@ -183,7 +209,8 @@ public class BubbleLevel implements SensorEventListener{
     }
 
     private int getLineLocationC(double angle){
-        Double value =  ( - angle + 90d) * 3.112d;
+//        Double value =  ( - angle + 90d) * 3.612d;
+        Double value =  ( - angle + 90d) * 1.111d;
         return value.intValue();
     }
 
@@ -194,10 +221,10 @@ public class BubbleLevel implements SensorEventListener{
 
 
 //
-//    public double[] getPhoneAngles() {
-//        double [] angles = {thetaX, thetaY};
-//
-//        return angles;
-//    }
+    public double[] getPhoneAngles() {
+        double [] angles = {thetaX, thetaY};
+
+        return angles;
+    }
 
 }

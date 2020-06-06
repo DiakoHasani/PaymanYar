@@ -69,14 +69,14 @@
         <RelativeLayout
             android:layout_centerHorizontal="true"
             android:layout_marginTop="160px"
-            android:layout_width="400px"
-            android:layout_height="400px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
             <ImageView
                 android:src="@drawable/border_level"
-                android:layout_width="400px"
-                android:layout_height="400px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
 
             <ImageView
@@ -87,8 +87,9 @@
                 android:padding="5dp" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:id="@+id/buble_center"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/border_center_level"
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
