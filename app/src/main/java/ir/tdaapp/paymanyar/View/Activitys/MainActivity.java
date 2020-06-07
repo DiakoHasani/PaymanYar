@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
+import com.flurry.android.FlurryAgent;
 
 import java.util.List;
 
@@ -56,15 +57,22 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         Intent i = getIntent();
         Bundle extras = i.getExtras();
         if (extras != null) {
-            for (String key : extras.keySet()) {
-                if (key.equalsIgnoreCase("key1")) {
-                    onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
-                    onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
+            if (extras.getString("key1") != null) {
+                for (String key : extras.keySet()) {
+                    if (key.equalsIgnoreCase("key1")) {
+                        onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
+                        onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
+                    }
                 }
+            } else {
+                onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
             }
         } else {
             onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
         }
+
+        //اینجا تنظیمات فلورای انجام می شود
+        settingFlurry();
     }
 
     void findItem() {
@@ -159,6 +167,13 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
     public Tbl_User getTbl_user() {
         return tbl_user;
+    }
+
+    //ر اینجا تنظیمات فلورای انجام می شود
+    void settingFlurry(){
+        new FlurryAgent.Builder()
+                .withLogEnabled(true)
+                .build(this, "G3CSR3SH55SXQ36NXBR3");
     }
 
     @Override

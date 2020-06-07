@@ -27,118 +27,125 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <RelativeLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/reload"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/queryLayout"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="false"
-                android:clipToPadding="false">
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/queryLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp">
+                    app:cardUseCompatPadding="false"
+                    android:clipToPadding="false">
 
-                    <EditText
-                        android:id="@+id/txt_Search"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="8"
-                        android:textSize="16dp"
-                        android:fontFamily="@font/vazir"
-                        android:maxLines="1"
-                        android:hint="@string/Title"
-                        android:textColor="@color/colorTitle"/>
+                        android:orientation="horizontal"
+                        android:weightSum="10"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp">
 
-                    <Button
-                        android:id="@+id/btn_Search"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:background="@drawable/btn_search_library"
-                        android:layout_marginBottom="7dp"
-                        android:text="@string/Search"
-                        android:textColor="@color/colorWhite"/>
+                        <EditText
+                            android:id="@+id/txt_Search"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="8"
+                            android:textSize="16dp"
+                            android:fontFamily="@font/vazir"
+                            android:maxLines="1"
+                            android:hint="@string/Title"
+                            android:textColor="@color/colorTitle"/>
+
+                        <Button
+                            android:id="@+id/btn_Search"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:background="@drawable/btn_search_library"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/Search"
+                            android:textColor="@color/colorWhite"/>
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-            <ProgressBar
-                android:id="@+id/progress_paging"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:visibility="invisible"
-                android:layout_below="@id/queryLayout"
-                android:layout_marginTop="10dp"/>
+                <ProgressBar
+                    android:id="@+id/progress_paging"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible"
+                    android:layout_below="@id/queryLayout"
+                    android:layout_marginTop="10dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                android:layout_marginTop="8dp"
-                android:layout_below="@id/queryLayout"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/queryLayout"/>
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/loading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:layout_below="@id/queryLayout">
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:layout_below="@id/queryLayout">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/recycler_loading"/>
+                        <include layout="@layout/recycler_loading"/>
+                        <include layout="@layout/recycler_loading"/>
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/empty"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <include layout="@layout/recycler_loading"/>
-                    <include layout="@layout/recycler_loading"/>
-                    <include layout="@layout/recycler_loading"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_empty"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="14dp"
+                        android:textColor="@color/colorTitle"
+                        android:gravity="center"
+                        android:text="@string/ThereAreNoResults"/>
 
                 </LinearLayout>
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/empty"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_empty"
-                    android:layout_gravity="center_horizontal"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/vazir"
-                    android:textSize="14dp"
-                    android:textColor="@color/colorTitle"
-                    android:gravity="center"
-                    android:text="@string/ThereAreNoResults"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

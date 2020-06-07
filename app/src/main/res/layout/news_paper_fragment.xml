@@ -27,38 +27,45 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <RelativeLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/reload"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
+                android:layout_height="match_parent">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/loading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
 
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/loading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone">
 
-                    <include layout="@layout/recycler_loading"/>
-                    <include layout="@layout/recycler_loading"/>
-                    <include layout="@layout/recycler_loading"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <include layout="@layout/recycler_loading"/>
+                        <include layout="@layout/recycler_loading"/>
+                        <include layout="@layout/recycler_loading"/>
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                    </LinearLayout>
 
-        </RelativeLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </RelativeLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

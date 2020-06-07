@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.LibraryAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_LibraryFragment;
@@ -54,6 +55,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
     boolean isLoading = false;
     ProgressBar progress_paging;
     LinearLayout empty;
+    SwipeRefreshLayout reload;
 
     @Nullable
     @Override
@@ -79,6 +81,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         txt_Search = view.findViewById(R.id.txt_Search);
         progress_paging = view.findViewById(R.id.progress_paging);
         empty = view.findViewById(R.id.empty);
+        reload = view.findViewById(R.id.reload);
     }
 
     void implement() {
@@ -86,6 +89,11 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         btn_Search.setOnClickListener(this);
 
         recycler.setOnScrollListener(pOnScrollListener);
+
+        reload.setOnRefreshListener(() -> {
+            page=0;
+            p_libraryFragment.start(txt_Search.getText().toString(),page);
+        });
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -199,6 +207,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
     @Override
     public void onError(ResaultCode resalt) {
 
+        reload.setRefreshing(false);
         String text = "";
 
         switch (resalt) {
@@ -249,6 +258,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
     @Override
     public void onSuccess() {
         recycler.setVisibility(View.VISIBLE);
+        reload.setRefreshing(false);
     }
 
     //در اینجا کتاب ها در رسایکلر ست می شوند

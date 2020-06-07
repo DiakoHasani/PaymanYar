@@ -76,5 +76,9 @@ dependencies {
     //برای بررسی دسترسی مجوزها
     implementation 'com.karumi:dexter:5.0.0'
 
+    //مربوط به کتابخانه قطب نما
     implementation 'com.github.arbelkilani:Compass-View:v1.1.1'
+
+    //مربوط به فلورای
+    implementation 'com.flurry.android:analytics:11.6.0@aar'
 }

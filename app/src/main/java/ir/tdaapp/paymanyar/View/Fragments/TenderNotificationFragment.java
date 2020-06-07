@@ -27,6 +27,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
@@ -75,6 +76,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     ProgressBar progress_btn_Let_me_know;
     NestedScrollView nestedScroll;
     Spinner cmb_Major, cmb_FromEstimate, cmb_UntilEstimate;
+    SwipeRefreshLayout reload;
 
     @Nullable
     @Override
@@ -111,6 +113,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         text_btn_Let_me_know = view.findViewById(R.id.text_btn_Let_me_know);
         progress_btn_Let_me_know = view.findViewById(R.id.progress_btn_Let_me_know);
         nestedScroll = view.findViewById(R.id.nestedScroll);
+        reload = view.findViewById(R.id.reload);
     }
 
     void implement() {
@@ -149,6 +152,11 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
             if (b) {
                 showDatePersian();
             }
+        });
+
+        reload.setOnRefreshListener(() -> {
+            page=0;
+            p_tenderNotificationFragment.start(getFilter());
         });
     }
 
@@ -327,6 +335,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
     @Override
     public void onSuccess() {
+        reload.setRefreshing(false);
     }
 
     @Override
@@ -364,6 +373,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onError(ResaultCode result) {
 
+        reload.setRefreshing(false);
         String text = "";
 
         switch (result) {

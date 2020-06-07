@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.NewsPaperAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_NewsPaperFragment;
@@ -41,6 +42,7 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
     Toolbar toolbar;
     NewsPaperAdapter newsPaperAdapter;
     ErrorAplicationDialog errorAplicationDialog;
+    SwipeRefreshLayout reload;
 
     @Nullable
     @Override
@@ -62,10 +64,15 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         loading = view.findViewById(R.id.loading);
         recycler = view.findViewById(R.id.recycler);
         toolbar = view.findViewById(R.id.toolbar);
+        reload = view.findViewById(R.id.reload);
     }
 
     void implement() {
         p_newsPaperFragment = new P_NewsPaperFragment(getContext(), this);
+
+        reload.setOnRefreshListener(() -> {
+            p_newsPaperFragment.start();
+        });
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -127,6 +134,7 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
     @Override
     public void onError(ResaultCode result) {
 
+        reload.setRefreshing(false);
         String text = getString(R.string.please_Checked_Your_Internet_Connection);
 
         errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
@@ -152,6 +160,7 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
     @Override
     public void onSuccess() {
         recycler.setVisibility(View.VISIBLE);
+        reload.setRefreshing(false);
     }
 
     @Override
