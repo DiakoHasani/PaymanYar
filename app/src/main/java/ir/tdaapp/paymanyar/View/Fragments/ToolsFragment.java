@@ -1,11 +1,13 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -16,6 +18,7 @@ import ir.tdaapp.paymanyar.Model.Services.S_ToolsFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Presenter.P_ToolsFragment;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.RullerActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 
 public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View.OnClickListener {
@@ -23,7 +26,8 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
     public final static String TAG = "ToolsFragment";
     ShimmerFrameLayout animationLogo;
     P_ToolsFragment p_toolsFragment;
-    CardView btn_StallTable, btn_GPS, btn_UnitConversionFragment, btn_Level,btn_Magnifier,btnCompass;
+    CardView btn_StallTable, btn_GPS, btn_UnitConversionFragment, btn_Level, btn_Magnifier, btnCompass;
+    ImageView logo;
 
     @Nullable
     @Override
@@ -43,8 +47,9 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
         btn_GPS = view.findViewById(R.id.btn_GPS);
         btn_UnitConversionFragment = view.findViewById(R.id.btn_UnitConversionFragment);
         btn_Level = view.findViewById(R.id.btn_Level);
-        btn_Magnifier=view.findViewById(R.id.tools_btnMagnifier);
-        btnCompass=view.findViewById(R.id.tools_btnCompass);
+        btn_Magnifier = view.findViewById(R.id.tools_btnMagnifier);
+        btnCompass = view.findViewById(R.id.tools_btnCompass);
+        logo = view.findViewById(R.id.logo);
     }
 
     void implement() {
@@ -55,6 +60,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
         btn_Level.setOnClickListener(this);
         btn_Magnifier.setOnClickListener(this);
         btnCompass.setOnClickListener(this);
+        logo.setOnClickListener(this);
     }
 
     @Override
@@ -87,6 +93,9 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
                 ((ToolsActivity) getActivity()).onAddFragment(new Magnifier_Fragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, Magnifier_Fragment.TAG);
                 break;
             case R.id.tools_btnCompass:
+                startActivity(new Intent(getActivity(), RullerActivity.class));
+                break;
+            case R.id.logo:
                 ((ToolsActivity) getActivity()).onAddFragment(new Compass_Fragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, Compass_Fragment.TAG);
                 break;
         }

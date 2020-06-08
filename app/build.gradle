@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -81,4 +83,14 @@ dependencies {
 
     //مربوط به فلورای
     implementation 'com.flurry.android:analytics:11.6.0@aar'
+
+    //مربوط به تنظیمات کاتلین
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //مربوط به خط کش
+    implementation 'com.github.anastr:rulerview:1.1.0'
+}
+repositories {
+    mavenCentral()
 }
