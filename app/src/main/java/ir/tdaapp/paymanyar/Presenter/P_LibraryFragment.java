@@ -14,13 +14,14 @@ import ir.tdaapp.paymanyar.Model.Services.S_LibraryFragment;
 import ir.tdaapp.paymanyar.Model.Services.addLibrary;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 
 public class P_LibraryFragment {
 
     private Context context;
     private S_LibraryFragment s_libraryFragment;
     Api_Library api_library;
-    Disposable dispose_getLibraries, dispose_setLibraries;
+    Disposable dispose_getLibraries, dispose_setLibraries, dispose_downloadLibrary;
     Tbl_Library tbl_library;
 
     public P_LibraryFragment(Context context, S_LibraryFragment s_libraryFragment) {
@@ -97,6 +98,23 @@ public class P_LibraryFragment {
 
     }
 
+    //زمانی که کاربر یک کتاب دانلود کند آی دی آن به سرور ارسال می شود
+    public void downloadLibrary(int id) {
+        Single<VM_Message> data=api_library.addCountDownloadLibrary(id);
+
+        dispose_downloadLibrary=data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
+            @Override
+            public void onSuccess(VM_Message message) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
     //زمانی که کاربر یک کتابخانه دانلود کند آن را به لیست دانلود شده ها اضافه می کند
     public void addLibraryDownloaded(int libraryId, addLibrary a) {
         tbl_library.add(libraryId, a);
@@ -114,6 +132,10 @@ public class P_LibraryFragment {
 
         if (dispose_setLibraries != null) {
             dispose_setLibraries.dispose();
+        }
+
+        if (dispose_downloadLibrary != null) {
+            dispose_downloadLibrary.dispose();
         }
     }
 }

@@ -16,6 +16,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 public class Base_Api {
     public String ApiUrl = "http://tiptop.tdaapp.ir/api/";
     public String SliderImageUrl = "http://tiptop.tdaapp.ir/Content/data/Sliders/";
+    public String PDFurl="http://tiptop.tdaapp.ir/Content/data/Books/";
 
     PostJsonObjectVolley volley_PostError;
     Disposable dispose_postError;

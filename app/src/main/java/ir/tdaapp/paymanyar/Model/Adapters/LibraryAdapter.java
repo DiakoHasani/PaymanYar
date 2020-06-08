@@ -38,10 +38,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
     }
 
     //در اینجا زمانی که کاربر یک کتاب دانلود می کند بک گروند آن را سلکت می کند
-    public void addLibraryDownloaded(int libraryId){
+    public void addLibraryDownloaded(int libraryId) {
 
-        for (int i=0;i<libraries.size();i++){
-            if (libraries.get(i).getId()==libraryId){
+        for (int i = 0; i < libraries.size(); i++) {
+            if (libraries.get(i).getId() == libraryId) {
                 libraries.get(i).setDownloaded(true);
                 notifyItemChanged(i);
             }
@@ -60,14 +60,14 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.lbl_Title.setText(libraries.get(position).getTitle());
 
-        if (libraries.get(position).isDownloaded()){
+        if (libraries.get(position).isDownloaded()) {
             holder.layout.setBackgroundColor(context.getResources().getColor(R.color.colorMySMS));
-        }else{
+        } else {
             holder.layout.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
         }
 
         holder.download.setOnClickListener(view -> {
-            onClickLibrary.clickDownload(libraries.get(position).getId(),libraries.get(position).getUrl());
+            onClickLibrary.clickDownload(libraries.get(position).getId(), libraries.get(position).getUrl());
         });
 
         holder.layout.setOnClickListener(view -> {
@@ -84,14 +84,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView lbl_Title;
-        RelativeLayout download,layout;
+        RelativeLayout download, layout;
 
-        public MyViewHolder(@NonNull View itemView)
-        {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            lbl_Title=itemView.findViewById(R.id.lbl_Title);
-            download=itemView.findViewById(R.id.download);
-            layout=itemView.findViewById(R.id.layout);
+            lbl_Title = itemView.findViewById(R.id.lbl_Title);
+            download = itemView.findViewById(R.id.download);
+            layout = itemView.findViewById(R.id.layout);
         }
     }
 

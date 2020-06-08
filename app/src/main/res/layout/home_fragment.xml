@@ -29,7 +29,8 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/Loading"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="80dp"
@@ -117,6 +118,16 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
+
+            <ImageView
+                android:id="@+id/btn_reload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_refresh"
+                android:visibility="gone"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"/>
 
         </RelativeLayout>
 

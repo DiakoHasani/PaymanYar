@@ -183,6 +183,10 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
             @Override
             public void clickDownload(int Id,String url) {
 
+                //در اینجا آیدی کتاب به سمت سرور ارسال می شود برای بالا بردن تعداد دانلود این کتاب
+                p_libraryFragment.downloadLibrary(Id);
+
+                //در اینجا آی دی کتاب دانلود شده در دیتابیس ذخیره می شود
                 p_libraryFragment.addLibraryDownloaded(Id, new addLibrary() {
                     @Override
                     public void onSuccess() {

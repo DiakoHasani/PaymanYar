@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
@@ -54,6 +56,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     LinearLayout btn_SMS, btn_Support;
     ErrorAplicationDialog errorAplicationDialog;
     RelativeLayout point1, point2, point3, point4, point5, point6, point7, point8;
+    ImageView btn_reload;
 
     @Nullable
     @Override
@@ -90,6 +93,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         point6 = view.findViewById(R.id.point6);
         point7 = view.findViewById(R.id.point7);
         point8 = view.findViewById(R.id.point8);
+        btn_reload = view.findViewById(R.id.btn_reload);
     }
 
     void implement() {
@@ -102,6 +106,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_Libraries.setOnClickListener(this);
         btn_SMS.setOnClickListener(this);
         btn_Support.setOnClickListener(this);
+        btn_reload.setOnClickListener(this);
 
         //در اینجا زمانی که یکی از صفحه های اسلایدر تغییر پیجینگ مربوط به آن را تغییر می دهد
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -215,6 +220,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     @Override
     public void onError(ResaultCode resault) {
 
+        btn_reload.setVisibility(View.VISIBLE);
         String text = "";
 
         switch (resault) {
@@ -244,7 +250,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     //در اینجا تمام آیتم ها مخفی می شوند
     @Override
     public void onHideAll() {
-
+        btn_reload.setVisibility(View.GONE);
     }
 
     //در اینجا حالت لودینگ برنامه ست می شود
@@ -266,6 +272,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     //زمانی عملیات گرفتن داده ها از اینترنت و خواندن داده ها و تمامی عملیات به پیان برسد متد زیر فراخوانی می شود
     @Override
     public void onFinish() {
+
         Loading.stopShimmerAnimation();
         p_homeFragment.startSlider();
 
@@ -277,24 +284,31 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             }
             if (i == 2) {
                 point2.setVisibility(View.VISIBLE);
+                point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
             if (i == 3) {
                 point3.setVisibility(View.VISIBLE);
+                point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
             if (i == 4) {
                 point4.setVisibility(View.VISIBLE);
+                point4.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
             if (i == 5) {
                 point5.setVisibility(View.VISIBLE);
+                point5.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
             if (i == 6) {
                 point6.setVisibility(View.VISIBLE);
+                point6.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
             if (i == 7) {
                 point7.setVisibility(View.VISIBLE);
+                point7.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
             if (i == 8) {
                 point8.setVisibility(View.VISIBLE);
+                point8.setBackground(getResources().getDrawable(R.drawable.page_slider));
             }
 
         }
@@ -383,6 +397,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_Support:
                 ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.fadeout, true, SupportFragment.TAG);
+                break;
+            case R.id.btn_reload:
+                p_homeFragment.start();
                 break;
         }
     }

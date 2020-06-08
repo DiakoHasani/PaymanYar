@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -33,6 +36,9 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
     Toolbar toolBar;
     ImageView imgZ, imgY, imgX,imgbuble;
     int ActivityWidth=1,ActivityHeight=1;
+    RelativeLayout background;
+
+    Animation fadeIn;
 
     @Nullable
     @Override
@@ -51,6 +57,7 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
         imgY = view.findViewById(R.id.ix);
         imgZ = view.findViewById(R.id.icircle);
         toolBar = view.findViewById(R.id.toolBar);
+        background = view.findViewById(R.id.background);
 //        imgbuble=view.findViewById(R.id.buble_center);
 
         ActivityHeight=((ToolsActivity)getActivity()).getHeightDisplay();
@@ -67,7 +74,11 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
 
 
 
-        p_levelFragment = new P_LevelFragment(getContext(), this,ActivityWidth,ActivityHeight, imgbuble);
+        p_levelFragment = new P_LevelFragment(getContext(), this,ActivityWidth,ActivityHeight, imgZ);
+
+        fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setDuration(100);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -111,6 +122,7 @@ public class LevelFragment extends BaseFragment implements S_LevelFragment {
             case 2:
                 //Circle (width = 65% of screen Width , Height = 65% of screen Height)
 
+                imgZ.setAnimation(fadeIn);
                 imgZ.setImageBitmap(bitmap);
                 break;
         }

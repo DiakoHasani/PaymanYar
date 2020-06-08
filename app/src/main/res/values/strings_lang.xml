@@ -20,4 +20,8 @@
     <string name="A_new_version_of_the_app_is_availableDo_you_want_to_update">نسخه جدید برنامه در دسترس است. آیا مایل به بروز رسانی هستید؟</string>
     <string name="Create_an_account_first">ابتدا یک حساب کاربری ایجاد کنید</string>
     <string name="There_are_no_tenders_for_you">هیچ مناقصه ای برای شما وجود ندارد</string>
+    <string name="PleaseSelectedOneCity">لطفا یک شهر انتخاب کنید</string>
+    <string name="PleaseSelectedOneMajor">لطفا یک رشته تحصیلی انتخاب کنید</string>
+    <string name="PleaseSelectedOneEstimate">لطفا یک برآورد انتخاب کنید</string>
+    <string name="PleaseCompleteTheAboveValues">لطفا مقادیر بالا را کامل پر کنید</string>
 </resources>

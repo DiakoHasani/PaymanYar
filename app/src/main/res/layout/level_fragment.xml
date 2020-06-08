@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_compass"
@@ -69,29 +70,29 @@
         <RelativeLayout
             android:layout_centerHorizontal="true"
             android:layout_marginTop="160px"
-            android:layout_width="400px"
-            android:layout_height="400px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
             <ImageView
                 android:src="@drawable/border_level"
-                android:layout_width="400px"
-                android:layout_height="400px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
 
             <ImageView
                 android:id="@+id/icircle"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/buble_center"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/border_center_level"
                 android:layout_centerInParent="true"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

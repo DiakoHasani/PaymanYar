@@ -39,6 +39,7 @@ import ir.tdaapp.paymanyar.Model.Services.onClickTenderNotification;
 import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_EshtalItem;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
@@ -155,7 +156,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         });
 
         reload.setOnRefreshListener(() -> {
-            page=0;
+            page = 0;
             p_tenderNotificationFragment.start(getFilter());
         });
     }
@@ -486,8 +487,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Let_me_know:
-                loadingLet_me_know(true);
-                p_tenderNotificationFragment.LetMeKnow(getLet_Me_KnowFilter());
+                if (validationLetMeKnow()) {
+                    loadingLet_me_know(true);
+                    p_tenderNotificationFragment.LetMeKnow(getLet_Me_KnowFilter());
+                }else{
+                    Toast.makeText(getContext(), getString(R.string.PleaseCompleteTheAboveValues), Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btn_search:
                 p_tenderNotificationFragment.start(getFilter());
@@ -517,5 +522,32 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //در اینجا ولیدیشن با خبرم کن چک می شود
+    boolean validationLetMeKnow() {
+        boolean isValid = true;
+
+        if (((VM_City) cmb_City.getSelectedItem()).getId() == 0) {
+            isValid = false;
+            ((TextView)cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
+        }
+
+        if (((VM_Major) cmb_Major.getSelectedItem()).getId() == 0) {
+            isValid = false;
+            ((TextView)cmb_Major.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMajor));
+        }
+
+        if (((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId() == 0) {
+            isValid = false;
+            ((TextView)cmb_FromEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+        }
+
+        if (((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId() == 0) {
+            isValid = false;
+            ((TextView)cmb_UntilEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+        }
+
+        return isValid;
     }
 }

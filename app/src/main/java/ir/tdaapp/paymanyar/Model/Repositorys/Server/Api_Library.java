@@ -12,14 +12,17 @@ import java.util.List;
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
+import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Library;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 
 //مربوط به کتابخانه
 public class Api_Library extends Base_Api {
 
     private GetJsonArrayVolley volley_getLibraries;
+    PostJsonObjectVolley volley_addCountDownloadLibrary;
 
     //در اینجا لیست کتاب ها گرفته می شود
     public Single<List<VM_Library>> getLibraries(String query, int page, Tbl_Library tbl_library) {
@@ -46,7 +49,7 @@ public class Api_Library extends Base_Api {
 
                                     library.setId(object.getInt("Id"));
                                     library.setTitle(object.getString("Title"));
-                                    library.setUrl("https://files.tarikhema.org/pdf/ejtemaee/Bishoori.pdf");
+                                    library.setUrl(PDFurl + object.getString("Url"));
                                     library.setDownloaded(tbl_library.hasLibray(object.getInt("Id")));
 
                                     libraries.add(library);
@@ -59,8 +62,8 @@ public class Api_Library extends Base_Api {
                             emitter.onSuccess(libraries);
 
                         } else {
-                            if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
-                                postError("Api_Library->getLibraries",resault.getMessage());
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_Library->getLibraries", resault.getMessage());
                             }
                             emitter.onError(new IOException(resault.getResault().toString()));
                         }
@@ -68,7 +71,7 @@ public class Api_Library extends Base_Api {
                     });
 
                 } catch (Exception e) {
-                    postError("Api_Library->getLibraries",e.toString());
+                    postError("Api_Library->getLibraries", e.toString());
                     emitter.onError(e);
                 }
 
@@ -78,12 +81,49 @@ public class Api_Library extends Base_Api {
 
     }
 
+    //در اینجا هر کتابی که دانلود می شود آیدی آن به برای افزایش تعداد دانلود شده کتاب به سرور ارسال می شود
+    public Single<VM_Message> addCountDownloadLibrary(int id) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                JSONObject input = new JSONObject();
+                try {
+                    input.put("Id", id);
+                } catch (Exception e) {
+                }
+
+                volley_addCountDownloadLibrary = new PostJsonObjectVolley(ApiUrl+"Libraries/PostAddCountDownloadBook?Id="+id,input,resault -> {
+                    if (resault.getResault()==ResaultCode.Success){
+                        VM_Message message=new VM_Message();
+                        JSONObject object=resault.getObject();
+
+                        try{
+                            message.setResult(object.getBoolean("Result"));
+                            message.setCode(object.getInt("Code"));
+                            message.setMessage(object.getString("MessageText"));
+                        }catch (Exception e){}
+
+                        emitter.onSuccess(message);
+
+                    }else{
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+
+            }).start();
+        });
+    }
+
     public void Cancel(String tag, Context context) {
 
-        cancelBase(tag,context);
+        cancelBase(tag, context);
 
         if (volley_getLibraries != null) {
             volley_getLibraries.Cancel(tag, context);
+        }
+
+        if (volley_addCountDownloadLibrary != null) {
+            volley_addCountDownloadLibrary.Cancel(tag, context);
         }
 
     }

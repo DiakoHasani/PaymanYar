@@ -40,7 +40,13 @@ public class P_HomeFragment {
     //با فراخوانی این متد عملیات گرفتن داده ها شروع می شود
     public void start() {
         s_homeFragment.OnStart();
+        s_homeFragment.onHideAll();
         getVals();
+
+        if (handler!=null){
+            handler.removeCallbacksAndMessages(null);
+        }
+        started=false;
         handler = new Handler();
     }
 
@@ -76,7 +82,6 @@ public class P_HomeFragment {
                 },
                 throwable -> {
                 }, () -> {
-                    s_homeFragment.onLoading(false);
                     s_homeFragment.onShowSlider(true);
                     s_homeFragment.onFinish();
                     setUpdates(vm_home.getUpdates());
