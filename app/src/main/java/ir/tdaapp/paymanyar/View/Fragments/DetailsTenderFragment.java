@@ -1,5 +1,6 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -122,6 +123,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         btn_Left.setOnClickListener(this);
         img_star.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
+
+        btn_Share.setOnClickListener(this);
     }
 
     //در اینجا دکمه ها فعال یا غیرفعال می شوند
@@ -296,6 +299,21 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             case R.id.btn_reload:
                 p_detailsTenderFragment.start(filter);
+                break;
+
+            case R.id.btn_Share:
+
+
+                String url = "http://tiptop.tdaapp.ir/Home/Index?TenderId=";
+                if (filter.getTenderId() != null) {
+                    url += filter.getTenderId();
+                }
+
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                intent.setType("text/plain");
+//                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.See_the_Following_Tender_in_the_Contractor));
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, url);
+                startActivity(Intent.createChooser(intent, getString(R.string.share)));
                 break;
 
             case R.id.img_star:

@@ -262,7 +262,6 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
 
     }
 
-
     @Override
     public void ShowUnits(ArrayList<String> arr) {
         //نمایش گزینه ها در اسپینر برای انتخاب

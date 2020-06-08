@@ -1133,10 +1133,9 @@
                                     android:id="@+id/pricerange_chartpoint1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="50dp">
+                                    android:layout_marginRight="60dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1167,10 +1166,9 @@
                                     android:id="@+id/pricerange_chartpoint2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="60dp">
+                                    android:layout_marginRight="90dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1201,10 +1199,9 @@
                                     android:id="@+id/pricerange_chartpoint3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="70dp">
+                                    android:layout_marginRight="120dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1235,10 +1232,9 @@
                                     android:id="@+id/pricerange_chartpoint4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="80dp">
+                                    android:layout_marginRight="150dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1269,10 +1265,9 @@
                                     android:id="@+id/pricerange_chartpoint5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="90dp">
+                                    android:layout_marginRight="180dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1303,10 +1298,9 @@
                                     android:id="@+id/pricerange_chartpoint6"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="100dp">
+                                    android:layout_marginRight="210dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1337,10 +1331,9 @@
                                     android:id="@+id/pricerange_chartpoint7"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="110dp">
+                                    android:layout_marginRight="240dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
@@ -1371,10 +1364,9 @@
                                     android:id="@+id/pricerange_chartpoint8"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="40dp"
                                     android:layout_alignParentBottom="true"
                                     android:layout_marginBottom="0dp"
-                                    android:layout_marginRight="120dp">
+                                    android:layout_marginRight="270dp">
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"

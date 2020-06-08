@@ -24,4 +24,6 @@
     <string name="PleaseSelectedOneMajor">لطفا یک رشته تحصیلی انتخاب کنید</string>
     <string name="PleaseSelectedOneEstimate">لطفا یک برآورد انتخاب کنید</string>
     <string name="PleaseCompleteTheAboveValues">لطفا مقادیر بالا را کامل پر کنید</string>
+    <string name="Please_Input_The_Price">لطفا مبلغ را وارد کنید</string>
+    <string name="See_the_Following_Tender_in_the_Contractor">مناقصه زیر را در پیمانیار ببینید</string>
 </resources>
