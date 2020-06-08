@@ -57,6 +57,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     ErrorAplicationDialog errorAplicationDialog;
     RelativeLayout point1, point2, point3, point4, point5, point6, point7, point8;
     ImageView btn_reload;
+    CardView btn_TenderAnalise, btn_Scheduling, btn_Audit, btn_Difference, btn_CostEstimation;
+    CardView btn_WorkForce, btn_Machinery, btn_Materials;
+    ErrorAplicationDialog soonAdded;
 
     @Nullable
     @Override
@@ -94,6 +97,14 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         point7 = view.findViewById(R.id.point7);
         point8 = view.findViewById(R.id.point8);
         btn_reload = view.findViewById(R.id.btn_reload);
+        btn_TenderAnalise = view.findViewById(R.id.btn_TenderAnalise);
+        btn_Scheduling = view.findViewById(R.id.btn_Scheduling);
+        btn_Audit = view.findViewById(R.id.btn_Audit);
+        btn_Difference = view.findViewById(R.id.btn_Difference);
+        btn_CostEstimation = view.findViewById(R.id.btn_CostEstimation);
+        btn_WorkForce = view.findViewById(R.id.btn_WorkForce);
+        btn_Machinery = view.findViewById(R.id.btn_Machinery);
+        btn_Materials = view.findViewById(R.id.btn_Materials);
     }
 
     void implement() {
@@ -107,6 +118,14 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_SMS.setOnClickListener(this);
         btn_Support.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
+        btn_TenderAnalise.setOnClickListener(this);
+        btn_Scheduling.setOnClickListener(this);
+        btn_Audit.setOnClickListener(this);
+        btn_Difference.setOnClickListener(this);
+        btn_CostEstimation.setOnClickListener(this);
+        btn_WorkForce.setOnClickListener(this);
+        btn_Machinery.setOnClickListener(this);
+        btn_Materials.setOnClickListener(this);
 
         //در اینجا زمانی که یکی از صفحه های اسلایدر تغییر پیجینگ مربوط به آن را تغییر می دهد
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -116,7 +135,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
 
                 try {
 
-                    if (null !=getContext()){
+                    if (null != getContext()) {
                         point1.setBackground(getResources().getDrawable(R.drawable.page_slider));
                         point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
                         point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
@@ -154,7 +173,8 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                                 break;
                         }
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
 
             }
         });
@@ -400,6 +420,21 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_reload:
                 p_homeFragment.start();
+                break;
+            case R.id.btn_TenderAnalise:
+            case R.id.btn_Scheduling:
+            case R.id.btn_Audit:
+            case R.id.btn_Difference:
+            case R.id.btn_CostEstimation:
+            case R.id.btn_WorkForce:
+            case R.id.btn_Machinery:
+            case R.id.btn_Materials:
+
+                soonAdded = new ErrorAplicationDialog(getString(R.string.Soon), getString(R.string.It_will_be_presented_in_the_next_version), getString(R.string.ok), R.drawable.ic_error, R.color.colorError, () -> {
+                    soonAdded.dismiss();
+                });
+                soonAdded.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+
                 break;
         }
     }

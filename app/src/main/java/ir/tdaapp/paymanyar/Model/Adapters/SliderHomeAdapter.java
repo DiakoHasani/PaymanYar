@@ -51,11 +51,16 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolde holder, int position) {
 
-        Glide.with(context)
-                .asBitmap()
-                .load(vals.get(position).getUrl())
-                .error(R.drawable.ic_error_slider)
-                .into(holder.img);
+        try {
+
+            Glide.with(context)
+                    .asBitmap()
+                    .load(vals.get(position).getUrl())
+                    .error(R.drawable.ic_error_slider)
+                    .into(holder.img);
+
+        } catch (Exception e) {
+        }
 
         holder.lbl_Title.setText(vals.get(position).getTitle());
 

@@ -32,6 +32,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import pl.droidsonroids.gif.GifImageView;
 
 //صفحه جزئیات مناقصه
@@ -71,6 +72,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     RelativeLayout background;
     LinearLayout subscribers;
     ImageView img_star;
+    ErrorAplicationDialog soonAdded;
 
     @Nullable
     @Override
@@ -123,6 +125,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         btn_Left.setOnClickListener(this);
         img_star.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
+        btn_Analize.setOnClickListener(this);
 
         btn_Share.setOnClickListener(this);
     }
@@ -299,6 +302,15 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             case R.id.btn_reload:
                 p_detailsTenderFragment.start(filter);
+                break;
+
+            case R.id.btn_Analize:
+
+                soonAdded = new ErrorAplicationDialog(getString(R.string.Soon), getString(R.string.It_will_be_presented_in_the_next_version), getString(R.string.ok), R.drawable.ic_error, R.color.colorError, () -> {
+                    soonAdded.dismiss();
+                });
+                soonAdded.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+
                 break;
 
             case R.id.btn_Share:
