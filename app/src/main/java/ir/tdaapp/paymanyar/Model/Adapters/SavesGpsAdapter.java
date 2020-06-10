@@ -96,7 +96,7 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
     }
 
     public interface ItemListener{
-        public void RemoveITem(VM_SavesGps item);
-        public void ShareItem(VM_SavesGps item);
+        void RemoveITem(VM_SavesGps item);
+        void ShareItem(VM_SavesGps item);
     }
 }

@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.DataBase;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,12 @@ import ir.tdaapp.paymanyar.R;
 
 public class Tbl_Major {
 
-    DBExcute db;
+    DBAdapter db;
     Context context;
 
     public Tbl_Major(Context context) {
-        this.context=context;
-        db=DBExcute.getInstance(context);
+        this.context = context;
+        db = DBAdapter.getInstance(context);
     }
 
     //در اینجا لیست رشته های تحصیلی برگشت داده می شوند
@@ -32,13 +33,25 @@ public class Tbl_Major {
 
                     majors.add(new VM_Major(0, context.getResources().getString(R.string.SelectedOneMajor)));
 
-                    //db.Execute("",new RecordHolder());
+                    Cursor q = db.ExecuteQ("select * from TblFields");
 
-                    db.Read("select * from TblFields",new RecordHolder()).RecordFound(record -> {
-                        majors.add(new VM_Major(Integer.valueOf(record.get(0).value),record.get(1).value));
-                    },null,() -> {
-                        emitter.onSuccess(majors);
-                    },2);
+                    for (int i = 0; i < q.getCount(); i++) {
+
+                        try {
+
+                            VM_Major major=new VM_Major();
+                            major.setId(q.getInt(q.getColumnIndex("Id")));
+                            major.setTitle(q.getString(q.getColumnIndex("Title")));
+
+                            majors.add(major);
+
+                        }catch (Exception e){}
+
+                        q.moveToNext();
+                    }
+
+                    q.close();
+                    emitter.onSuccess(majors);
 
                 } catch (Exception e) {
                     emitter.onError(e);

@@ -10,35 +10,21 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableSingleObserver;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBCursor;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.FieldItem;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.RecordHolder;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.database;
-import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Charge;
-import ir.tdaapp.paymanyar.Model.Services.S_ChargeFragment;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_SavesGps;
 import ir.tdaapp.paymanyar.Model.Services.S_GPSFragment;
-import ir.tdaapp.paymanyar.Model.Utilitys.Error;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 
 public class P_GPSFragment {
 
     Context context;
     S_GPSFragment s_gpsFragment;
     private GoogleMap googleMap;
-    private DBExcute dbExcute;
+    Tbl_SavesGps tbl_savesGps;
 
     public P_GPSFragment(Context context, S_GPSFragment s_gpsFragment) {
         this.context = context;
         this.s_gpsFragment = s_gpsFragment;
-        this.dbExcute=DBExcute.getInstance(this.context);
+
+        tbl_savesGps=new Tbl_SavesGps(context);
     }
 
 
@@ -97,23 +83,6 @@ public class P_GPSFragment {
     }
 
     public void SaveLocation(String lat,String lon){
-
-        //Save Lat and Lon in database
-
-        dbExcute.Open();
-
-        //Check for any Exist location like these
-        if(!dbExcute.Read(database.QRY_GPS_CHECK_EXIST,new RecordHolder(new FieldItem("#1#",lat),new FieldItem("#2#",lon))).HasRecord()){
-
-            //if There is NO location like these so we Save it in database
-            dbExcute.Execute(database.QRY_ADD_NEW_LOCATION,new RecordHolder(new FieldItem("#1#",lat),new FieldItem("#2#",lon)));
-
-        }
+        tbl_savesGps.saveLocation(lat,lon);
     }
-
-    public void Requestermission(){
-
-    }
-
-
 }

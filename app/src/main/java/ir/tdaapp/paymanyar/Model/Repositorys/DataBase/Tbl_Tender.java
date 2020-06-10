@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.DataBase;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,12 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 //مربوط به جدول مناقصات
 public class Tbl_Tender {
 
-    DBExcute db;
+    DBAdapter db;
     Context context;
 
     public Tbl_Tender(Context context) {
         this.context = context;
-        db = DBExcute.getInstance(context);
+        db = DBAdapter.getInstance(context);
     }
 
     //در اینجا یک مناقصه به لیست علاقه مندی ها اضافه می شود
@@ -30,7 +31,7 @@ public class Tbl_Tender {
             ETC.getId(db, "Tbl_Tender", id -> {
                 try {
 
-                    db.Execute("insert into Tbl_Tender (Id,TenderId) values (" + id + ",'" + tenderId + "')", new RecordHolder());
+                    db.ExecuteQ("insert into Tbl_Tender (Id,TenderId) values (" + id + ",'" + tenderId + "')");
                     t.onSuccess();
 
                 } catch (Exception e) {
@@ -48,7 +49,7 @@ public class Tbl_Tender {
 
         try{
 
-            db.Execute("delete from Tbl_Tender where TenderId='"+id+"'",new RecordHolder());
+            db.ExecuteQ("delete from Tbl_Tender where TenderId='"+id+"'");
             t.onSuccess();
 
         }catch (Exception e){
@@ -57,28 +58,15 @@ public class Tbl_Tender {
 
     }
 
-    //در اینجا لیست علاقه مندی ها گرفته می شود
-    public void getFevorites(onGetFevorites t) {
-
-        List<String> vals = new ArrayList<>();
-
-        db.Read("select TenderId from Tbl_Tender", new RecordHolder()).RecordFound(record -> {
-
-            try {
-                vals.add(record.get(0).value);
-            } catch (Exception e) {
-
-            }
-        }, () -> {
-            t.getTenders(vals);
-        }, () -> {
-            t.getTenders(vals);
-        }, 1);
-    }
-
     public boolean isFavoritTender(String id){
 
-        return db.Read("select * from Tbl_Tender where TenderId='"+id+"'",new RecordHolder()).HasRecord();
+        Cursor q = db.ExecuteQ("select COUNT(Id) from Tbl_Tender where TenderId='" + id+"'");
+
+        if (q.getString(0) != null) {
+            return q.getInt(0) > 0;
+        } else {
+            return false;
+        }
 
     }
 }

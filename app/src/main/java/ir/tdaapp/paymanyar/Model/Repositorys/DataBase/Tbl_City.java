@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.DataBase;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,11 @@ import ir.tdaapp.paymanyar.R;
 public class Tbl_City {
 
     Context context;
-    DBExcute db;
+    DBAdapter db;
 
     public Tbl_City(Context context) {
         this.context = context;
-        db=DBExcute.getInstance(context);
+        db=DBAdapter.getInstance(context);
     }
 
     //در اینجا لیست شهرها برگشت داده می شوند
@@ -31,13 +32,18 @@ public class Tbl_City {
                     List<VM_City> cities = new ArrayList<>();
                     cities.add(new VM_City(0, context.getResources().getString(R.string.SelectedOneCity)));
 
-                    db.Read("select * from TblStates",new RecordHolder()).RecordFound(record -> {
+                    Cursor q = db.ExecuteQ("select * from TblStates");
 
-                        cities.add(new VM_City(Integer.valueOf(record.get(0).value),record.get(1).value));
+                    for (int i = 0; i < q.getCount(); i++) {
+                        VM_City city=new VM_City();
+                        city.setId(q.getInt(q.getColumnIndex("Id")));
+                        city.setTitle(q.getString(q.getColumnIndex("Title")));
+                        cities.add(city);
+                        q.moveToNext();
+                    }
 
-                    },null,() -> {
-                        emitter.onSuccess(cities);
-                    },2);
+                    q.close();
+                    emitter.onSuccess(cities);
 
                 } catch (Exception e) {
                     emitter.onError(e);

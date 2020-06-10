@@ -528,24 +528,32 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     boolean validationLetMeKnow() {
         boolean isValid = true;
 
-        if (((VM_City) cmb_City.getSelectedItem()).getId() == 0) {
-            isValid = false;
-            ((TextView)cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
+        if (cmb_City.getAdapter()!=null){
+            if (((VM_City) cmb_City.getSelectedItem()).getId() == 0) {
+                isValid = false;
+                ((TextView)cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
+            }
         }
 
-        if (((VM_Major) cmb_Major.getSelectedItem()).getId() == 0) {
-            isValid = false;
-            ((TextView)cmb_Major.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMajor));
+        if (cmb_Major.getAdapter()!=null){
+            if (((VM_Major) cmb_Major.getSelectedItem()).getId() == 0) {
+                isValid = false;
+                ((TextView)cmb_Major.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMajor));
+            }
         }
 
-        if (((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId() == 0) {
-            isValid = false;
-            ((TextView)cmb_FromEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+        if (cmb_FromEstimate.getAdapter()!=null){
+            if (((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId() == 0) {
+                isValid = false;
+                ((TextView)cmb_FromEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+            }
         }
 
-        if (((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId() == 0) {
-            isValid = false;
-            ((TextView)cmb_UntilEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+        if (cmb_UntilEstimate.getAdapter()!=null){
+            if (((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId() == 0) {
+                isValid = false;
+                ((TextView)cmb_UntilEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+            }
         }
 
         return isValid;

@@ -4,19 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableSingleObserver;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBCursor;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.FieldItem;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.RecordHolder;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.database;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_SavesGps;
 import ir.tdaapp.paymanyar.Model.Services.S_SavesGpsDialog;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_SavesGps;
 
@@ -25,63 +15,25 @@ public class P_SavesGpsDialog {
     private Context context;
     private S_SavesGpsDialog s_savesGpsDialog;
     Disposable dispose_getSavesGps, dispose_setGPS;
-    private DBExcute dbExcute;
+    Tbl_SavesGps tbl_savesGps;
 
     public P_SavesGpsDialog(Context context, S_SavesGpsDialog s_savesGpsDialog) {
         this.context = context;
         this.s_savesGpsDialog = s_savesGpsDialog;
-        dbExcute=DBExcute.getInstance(this.context);
+        tbl_savesGps = new Tbl_SavesGps(context);
     }
 
     public void start() {
         s_savesGpsDialog.OnStart();
 
         s_savesGpsDialog.onHideAll();
-        ShowLocations();
-    }
-
-    //در اینجا نقشه ها گرفته می شوند
-    void getSavesGps(ArrayList<VM_SavesGps> arrayList) {
-
-        Single<List<VM_SavesGps>> vals = Single.create(emitter -> {
-
-            new Thread(() -> {
-                try {
-
-                    emitter.onSuccess(arrayList);
-
-                } catch (Exception ex) {
-                    emitter.onError(ex);
-                }
-            }).run();
-
-        });
-
-
-        dispose_getSavesGps = vals.subscribeWith(new DisposableSingleObserver<List<VM_SavesGps>>() {
-            @Override
-            public void onSuccess(List<VM_SavesGps> vm_savesGps) {
-
-                //اگر کاربر نقشه ی ذخیره شده ای داشته باشد شرط زیر اجرا می شود در غیر این صورت آیکون نبود آیتم نمایش داده می شود
-                if (vm_savesGps.size() > 0) {
-                    s_savesGpsDialog.onShowRecycler();
-                    setGPS(vm_savesGps);
-                } else {
-                    s_savesGpsDialog.onShowDontHaveItem();
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                s_savesGpsDialog.onError();
-            }
-        });
+        setGPS();
     }
 
     //در اینجا نقشه ها به رسایکلر اضافه می شوند
-    void setGPS(List<VM_SavesGps> savesGps) {
-        Observable<VM_SavesGps> list = Observable.fromIterable(savesGps);
+    void setGPS() {
+        s_savesGpsDialog.onShowRecycler();
+        Observable<VM_SavesGps> list = Observable.fromIterable(tbl_savesGps.getAll());
         dispose_setGPS = list.subscribe(gps -> {
                     s_savesGpsDialog.onAddGpsItem(gps);
                 }, throwable -> {
@@ -91,43 +43,20 @@ public class P_SavesGpsDialog {
                 });
     }
 
-    public void ShowLocations(){
-        dbExcute.Open();
 
-        ArrayList<VM_SavesGps> arrayList=new ArrayList<>();
-
-        dbExcute.Read(database.QRY_GPS_GET_All,null).RecordFound(new DBCursor.ListCounter() {
-            @Override
-            public void onEachrecord(ArrayList<FieldItem> record) {
-                VM_SavesGps item=new VM_SavesGps();
-                item.setId(record.get(0).value);
-                item.setLength(record.get(1).value);
-                item.setWide(record.get(2).value);
-                arrayList.add(item);
-            }
-        }, null, new DBCursor.FetchFinishListener() {
-            @Override
-            public void onFinish() {
-                getSavesGps(arrayList);
-            }
-        },3);
-
+    public void RemoveITem(String id) {
+        tbl_savesGps.removeItem(id);
     }
 
-
-    public void RemoveITem(String id){
-        dbExcute.Open();
-        dbExcute.Execute(database.QRY_GPS_REMOVE_ITEM,new RecordHolder(new FieldItem("#1#",id)));
-    }
-
-    public void ShareItem(VM_SavesGps item){
-        try{
+    public void ShareItem(VM_SavesGps item) {
+        try {
             String uri = "google.streetview:cbll=" + item.getLength() + "," + item.getWide();
 
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             mapIntent.setPackage("com.google.android.apps.maps");
             this.context.startActivity(mapIntent);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
 

@@ -1,5 +1,8 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.DataBase;
 
+import android.content.Context;
+import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,36 +11,63 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_SavesGps;
 
 //مربوط به جدول نقشه های ذخیره شده می باشد
 public class Tbl_SavesGps {
+    Context context;
+    DBAdapter dbAdapter;
 
-    //در اینجا لیست نقشه های ذخیره شده بازگشت داده می شود
-    public Single<List<VM_SavesGps>> getSavesGps() {
+    public Tbl_SavesGps(Context context) {
+        this.context = context;
+        dbAdapter = DBAdapter.getInstance(context);
+    }
 
-        return Single.create(emitter -> {
+    public void removeItem(String id) {
+        dbAdapter.ExecuteQ("delete from tbl_gps where id=" + id);
+    }
 
-            new Thread(() -> {
-                try {
+    public ArrayList<VM_SavesGps> getAll() {
 
-                    List<VM_SavesGps> vals = new ArrayList<>();
+        ArrayList<VM_SavesGps> vals = new ArrayList<>();
+        Cursor q = dbAdapter.ExecuteQ("select * from tbl_gps");
 
-                    for (int i = 1; i < 10; i++) {
+        for (int i = 0; i < q.getCount(); i++) {
 
-                        VM_SavesGps v = new VM_SavesGps();
+            try{
 
-//                        v.setId(i);
-//                        v.setLength(65 * i);
-//                        v.setWide(78 * i);
+                VM_SavesGps item=new VM_SavesGps();
+                item.setId(q.getString(q.getColumnIndex("id")));
+                item.setLength(q.getString(q.getColumnIndex("lat")));
+                item.setWide(q.getString(q.getColumnIndex("lon")));
 
-                        vals.add(v);
-                    }
-                    emitter.onSuccess(vals);
+                vals.add(item);
+                q.moveToNext();
 
-                } catch (Exception ex) {
-                    emitter.onError(ex);
-                }
-            }).run();
+            }catch (Exception e){
+            }
 
-        });
+        }
 
+        return vals;
+
+    }
+
+    public void saveLocation(String lat,String lon){
+
+        if(!hasGPS(lat,lon)){
+
+            //if There is NO location like these so we Save it in database
+            dbAdapter.ExecuteQ("insert into tbl_gps(lat,lon) values("+lat+","+lon+")");
+
+        }
+
+    }
+
+    public boolean hasGPS(String lat,String lon){
+        Cursor q = dbAdapter.ExecuteQ("select COUNT(id) from tbl_gps where lat="+lat+" and lon="+lon);
+
+        if (q.getString(0) != null) {
+            return q.getInt(0) > 0;
+        } else {
+            return false;
+        }
     }
 
 }

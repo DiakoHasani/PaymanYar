@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.DataBase;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,12 @@ import ir.tdaapp.paymanyar.R;
 //مربوط به جدول برآورد
 public class Tbl_Estimate {
 
-    DBExcute db;
+    DBAdapter db;
     Context context;
 
     public Tbl_Estimate(Context context) {
         this.context = context;
-        db = DBExcute.getInstance(context);
+        db = DBAdapter.getInstance(context);
     }
 
     //در اینجا داده های برآورد از پاس داده می شوند
@@ -33,20 +34,27 @@ public class Tbl_Estimate {
                     List<VM_Estimate> estimates = new ArrayList<>();
                     estimates.add(new VM_Estimate(0, context.getString(R.string.FromEstimate)));
 
-                    db.Read("select * from TblPrices", new RecordHolder()).RecordFound(record -> {
+                    Cursor q = db.ExecuteQ("select * from TblPrices");
 
-                        VM_Estimate estimate = new VM_Estimate();
-                        estimate.setId(Integer.valueOf(record.get(0).value));
-                        estimate.setTitle(context.getString(R.string.from) + " " + record.get(1).value);
+                    for (int i = 0; i < q.getCount(); i++) {
 
-                        if (Integer.valueOf(record.get(4).value)==0){
-                            estimates.add(estimate);
-                        }
+                        try{
 
-                    }, () -> {
-                    }, () -> {
-                        emitter.onSuccess(estimates);
-                    }, 5);
+                            VM_Estimate estimate = new VM_Estimate();
+
+                            estimate.setId(q.getInt(q.getColumnIndex("Id")));
+                            estimate.setTitle(context.getString(R.string.from) + " " + q.getString(q.getColumnIndex("Price")));
+
+                            if (q.getInt(q.getColumnIndex("Kind")) == 0)
+                                estimates.add(estimate);
+
+                        }catch (Exception e){}
+
+                        q.moveToNext();
+                    }
+
+                    q.close();
+                    emitter.onSuccess(estimates);
 
                 } catch (Exception e) {
                     emitter.onError(e);
@@ -70,22 +78,27 @@ public class Tbl_Estimate {
                     List<VM_Estimate> estimates = new ArrayList<>();
                     estimates.add(new VM_Estimate(0, context.getString(R.string.UntilEstimate)));
 
-                    db.Read("select * from TblPrices", new RecordHolder()).RecordFound(record -> {
+                    Cursor q = db.ExecuteQ("select * from TblPrices");
 
-                        if (Integer.valueOf(record.get(0).value) != 17) {
+                    for (int i = 0; i < q.getCount(); i++) {
+
+                        try{
+
                             VM_Estimate estimate = new VM_Estimate();
-                            estimate.setId(Integer.valueOf(record.get(0).value));
-                            estimate.setTitle(context.getString(R.string.until) + " " + record.get(1).value);
-                            if (Integer.valueOf(record.get(4).value)==1){
+
+                            estimate.setId(q.getInt(q.getColumnIndex("Id")));
+                            estimate.setTitle(context.getString(R.string.until) + " " + q.getString(q.getColumnIndex("Price")));
+
+                            if (q.getInt(q.getColumnIndex("Kind")) == 1)
                                 estimates.add(estimate);
-                            }
-                        }
 
-                    }, () -> {
+                        }catch (Exception e){}
 
-                    }, () -> {
-                        emitter.onSuccess(estimates);
-                    }, 5);
+                        q.moveToNext();
+                    }
+
+                    q.close();
+                    emitter.onSuccess(estimates);
 
                 } catch (Exception e) {
                     emitter.onError(e);

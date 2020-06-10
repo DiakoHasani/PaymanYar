@@ -6,27 +6,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.SeekBar;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.karumi.dexter.Dexter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.DBExcute;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.FieldItem;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.RecordHolder;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.database;
-import ir.tdaapp.paymanyar.Model.Services.S_GPSFragment;
 import ir.tdaapp.paymanyar.Model.Services.S_MagnifierFragment;
 
 public class P_MagnifierFragment implements SurfaceHolder.Callback {
