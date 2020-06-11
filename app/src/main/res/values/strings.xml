@@ -91,7 +91,9 @@
     <string name="SendSuggestionsUp">ارسال پیشنهاد تا:</string>
     <string name="GetDocumentsUp">دریافت اسناد تا:</string>
     <string name="Place_of_Receipt_of_Documents">محل دریافت اسناد:</string>
+    <string name="CityName">نام استان:</string>
     <string name="TenderDevice">دستگاه مناقصه گذار:</string>
+    <string name="Major">رشته:</string>
     <string name="website">سایت اینترنتی:</string>
     <string name="Description">توضیحات:</string>
     <string name="DetailTender">شرح مناقصه</string>
@@ -127,4 +129,5 @@
     <string name="Back_to_the_app">بازگشت به برنامه</string>
     <string name="filter_frames">فیلتر شده ها</string>
     <string name="share">اشتراک</string>
+    <string name="SendApplication">ارسال برنامه</string>
 </resources>

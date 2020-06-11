@@ -449,6 +449,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             case R.id.menu_Login:
                 ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.fadeout, true, LoginFragment.TAG);
                 break;
+            case R.id.menu_SendApplication:
+                p_homeFragment.ShareApplication();
+                break;
         }
 
         drawer.closeDrawers();

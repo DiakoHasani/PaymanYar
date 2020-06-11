@@ -1,10 +1,31 @@
 package ir.tdaapp.paymanyar.Presenter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.View;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.io.File;
+import java.util.List;
+
+import androidx.core.content.FileProvider;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_City;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Major;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
@@ -13,6 +34,7 @@ import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
+import ir.tdaapp.paymanyar.R;
 
 public class P_DetailsTenderFragment {
 
@@ -21,12 +43,16 @@ public class P_DetailsTenderFragment {
     Api_Tender api_tender;
     Disposable dispose_getDetails;
     Tbl_Tender tbl_tender;
+    Tbl_City tbl_city;
+    Tbl_Major tbl_major;
 
     public P_DetailsTenderFragment(Context context, S_DetailsTenderFragment s_detailsTenderDialog) {
         this.context = context;
         this.s_detailsTenderDialog = s_detailsTenderDialog;
         api_tender = new Api_Tender();
         tbl_tender=new Tbl_Tender(context);
+        tbl_city=new Tbl_City(context);
+        tbl_major=new Tbl_Major(context);
     }
 
     public void start(VM_FilterTenderNotification filter) {
@@ -87,6 +113,54 @@ public class P_DetailsTenderFragment {
 
     public void RemoveFevorit(String id, removeTender t){
         tbl_tender.remove(id,t);
+    }
+
+    //ر اینجا نام شهر براساس آیدی گرفته می شود
+    public String getCityTitle(int id){
+        return tbl_city.getTitleById(id);
+    }
+
+    //ر اینجا نام رشته تحصیلی براساس آیدی گرفته می شود
+    public String getMajorTitle(int id){
+        return tbl_major.getTitleById(id);
+    }
+
+    //در اینجا ازصفحه اسکرین شات می گیرد
+    public Bitmap takeScreenshot(Activity activity) {
+        View rootView =activity.findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+
+    //در اینجا اسکرین شات صفحه را به اشتراک می زارد
+    public void share(Activity activity,String url){
+
+        Dexter.withActivity(activity).withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).withListener(
+                new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                        File imagePath = new File(SaveImageToMob.SaveImageCamera("screenShot.png",takeScreenshot(activity)));
+
+//                        Uri uri = Uri.fromFile(imagePath);
+                        Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", imagePath);
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("image/*");
+                        String shareBody = url;
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, context.getString(R.string.See_the_Following_Tender_in_the_Contractor));
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+                        activity.startActivity(Intent.createChooser(sharingIntent, context.getString(R.string.share)));
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                    }
+                }
+        ).check();
     }
 
     public void Cancel(String Tag) {

@@ -1,15 +1,26 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 import android.os.Handler;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
+import androidx.core.content.FileProvider;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.paymanyar.BuildConfig;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Setting;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Home;
 import ir.tdaapp.paymanyar.Model.Services.S_HomeFragment;
@@ -196,4 +207,58 @@ public class P_HomeFragment {
             }
         }
     };
+
+    public void ShareApplication(){
+        ApplicationInfo app =context.getApplicationInfo();
+        String filePath = app.sourceDir;
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        // MIME of .apk is "application/vnd.android.package-archive".
+        // but Bluetooth does not accept this. Let's use "*/*" instead.
+        intent.setType("*/*");
+
+        // Append file and send Intent
+        File originalApk = new File(filePath);
+
+        try {
+            //Make new directory in new location=
+            File tempFile = new File(context.getExternalCacheDir() + "/ExtractedApk");
+            //If directory doesn't exists create new
+            if (!tempFile.isDirectory())
+                if (!tempFile.mkdirs())
+                    return;
+            //Get application's name and convert to lowercase
+            tempFile = new File(tempFile.getPath() + "/" +context.getString(app.labelRes).replace(" ","").toLowerCase() + ".apk");
+            //If file doesn't exists create new
+            if (!tempFile.exists()) {
+                if (!tempFile.createNewFile()) {
+                    return;
+                }
+            }
+            //Copy file to new location
+            InputStream in = new FileInputStream(originalApk);
+            OutputStream out = new FileOutputStream(tempFile);
+
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+            System.out.println("File copied.");
+            //Open share dialog
+//          intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(tempFile));
+            Uri photoURI = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", tempFile);
+//          intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(tempFile));
+            intent.putExtra(Intent.EXTRA_STREAM, photoURI);
+            context.startActivity(Intent.createChooser(intent, "Share app via"));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

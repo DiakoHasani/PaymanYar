@@ -51,6 +51,9 @@ dependencies {
     //مربوط به فریم وورک یوتایلیتی می باشد
     implementation project(path: ':li_utility')
 
+    //مربوط به فریموورک عکس
+    implementation project(path: ':li_image')
+
     //مربوط به کتابخانه نمایش عکس در سرور
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 

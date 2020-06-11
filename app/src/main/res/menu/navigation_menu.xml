@@ -11,4 +11,9 @@
         android:title="@string/Login"
         android:icon="@drawable/ic_login"/>
 
+    <item
+        android:id="@+id/menu_SendApplication"
+        android:title="@string/SendApplication"
+        android:icon="@drawable/ic_send_application"/>
+
 </menu>

@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/li_image" />
             <option value="$PROJECT_DIR$/li_utility" />
             <option value="$PROJECT_DIR$/li_volley" />
           </set>

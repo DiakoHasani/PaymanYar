@@ -63,4 +63,16 @@ public class Tbl_Major {
 
     }
 
+    public String getTitleById(int id){
+        String name = "";
+
+        try {
+            Cursor q = db.ExecuteQ("select Title from TblFields where Id=" + id);
+            name = q.getString(0);
+        } catch (Exception e) {
+        }
+
+        return name;
+    }
+
 }

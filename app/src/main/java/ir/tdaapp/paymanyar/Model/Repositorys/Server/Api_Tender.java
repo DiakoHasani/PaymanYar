@@ -168,6 +168,8 @@ public class Api_Tender extends Base_Api {
                                 detailsTender.setNextTenderId(object.getString("NextTenderId"));
                                 detailsTender.setBeforeTenderId(object.getString("BeforeTenderId"));
                                 detailsTender.setFevorit(tbl_tender.isFavoritTender(filter.getTenderId()));
+                                detailsTender.setCityId(object.getInt("StateId"));
+                                detailsTender.setMajorId(object.getInt("FieldId"));
 
                             } catch (Exception e) {
                             }

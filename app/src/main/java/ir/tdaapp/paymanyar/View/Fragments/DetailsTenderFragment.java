@@ -73,6 +73,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     LinearLayout subscribers;
     ImageView img_star;
     ErrorAplicationDialog soonAdded;
+    TextView lbl_Major, lbl_CityName;
 
     @Nullable
     @Override
@@ -108,6 +109,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         background = view.findViewById(R.id.background);
         subscribers = view.findViewById(R.id.subscribers);
         img_star = view.findViewById(R.id.img_star);
+        lbl_Major = view.findViewById(R.id.lbl_Major);
+        lbl_CityName = view.findViewById(R.id.lbl_CityName);
 
         if (hasNextPrevTender) {
             btn_Right.setVisibility(View.VISIBLE);
@@ -227,6 +230,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
             lbl_website.setText(detailsTender.getWebsite());
             lbl_GetDocumentsUp.setText(detailsTender.getGetDocumentsUp());
             lbl_SendSuggestionsUp.setText(detailsTender.getSendSuggestionsUp());
+            lbl_CityName.setText(p_detailsTenderFragment.getCityTitle(detailsTender.getCityId()));
+            lbl_Major.setText(p_detailsTenderFragment.getMajorTitle(detailsTender.getMajorId()));
 
         } catch (Exception e) {
         }
@@ -314,18 +319,11 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                 break;
 
             case R.id.btn_Share:
-
-
                 String url = "http://tiptop.tdaapp.ir/Home/Index?TenderId=";
                 if (filter.getTenderId() != null) {
                     url += filter.getTenderId();
                 }
-
-                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-                intent.setType("text/plain");
-//                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.See_the_Following_Tender_in_the_Contractor));
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, url);
-                startActivity(Intent.createChooser(intent, getString(R.string.share)));
+                p_detailsTenderFragment.share(getActivity(),url);
                 break;
 
             case R.id.img_star:

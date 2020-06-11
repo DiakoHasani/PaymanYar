@@ -18,6 +18,7 @@
     <color name="colorUnderline">#E0E0E0</color>
     <color name="colorTextLoading">#5E5E5E</color>
     <color name="colorSubTitle">#BBBBBB</color>
+    <color name="colorBackgroundDetailTender">#F3F3F3</color>
     <color name="colorBackgroundDialog">#52232F34</color>
     <color name="colorBackgroundDay">#fd1058</color>
     <color name="colorBackgroundHour">#24d1fc</color>

@@ -18,7 +18,7 @@ public class Tbl_City {
 
     public Tbl_City(Context context) {
         this.context = context;
-        db=DBAdapter.getInstance(context);
+        db = DBAdapter.getInstance(context);
     }
 
     //در اینجا لیست شهرها برگشت داده می شوند
@@ -35,7 +35,7 @@ public class Tbl_City {
                     Cursor q = db.ExecuteQ("select * from TblStates");
 
                     for (int i = 0; i < q.getCount(); i++) {
-                        VM_City city=new VM_City();
+                        VM_City city = new VM_City();
                         city.setId(q.getInt(q.getColumnIndex("Id")));
                         city.setTitle(q.getString(q.getColumnIndex("Title")));
                         cities.add(city);
@@ -52,6 +52,19 @@ public class Tbl_City {
             }).run();
 
         });
+    }
+
+    //در اینجا تایتل شهر بر اساس آیدی برگشت داده می شود
+    public String getTitleById(int id) {
+        String name = "";
+
+        try {
+            Cursor q = db.ExecuteQ("select Title from TblStates where Id=" + id);
+            name = q.getString(0);
+        } catch (Exception e) {
+        }
+
+        return name;
     }
 
 }

@@ -42,6 +42,10 @@ public class VM_DetailsTender {
     //در اینجا چک می شود که مناقصه جز مورد علاقه ها می باشد
     private boolean fevorit;
 
+    private int cityId;
+
+    private int majorId;
+
     public int getId() {
         return Id;
     }
@@ -144,5 +148,21 @@ public class VM_DetailsTender {
 
     public void setFevorit(boolean fevorit) {
         this.fevorit = fevorit;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+
+    public int getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(int majorId) {
+        this.majorId = majorId;
     }
 }

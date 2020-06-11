@@ -1,2 +1,2 @@
-include ':app', ':li_volley', ':li_utility'
+include ':app', ':li_volley', ':li_utility', ':li_image'
 rootProject.name='PaymanYar'
