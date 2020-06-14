@@ -36,7 +36,7 @@ dependencies {
 
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'id.zelory:compressor:2.1.0'
-    compile "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {

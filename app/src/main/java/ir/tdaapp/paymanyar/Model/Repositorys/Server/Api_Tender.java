@@ -12,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.li_volley.Volleys.PostJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
@@ -25,6 +26,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 public class Api_Tender extends Base_Api {
 
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter;
+    PostJsonArrayVolley volley_getFavorites;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
     public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter, Tbl_Tender tbl_tender) {
@@ -130,15 +132,15 @@ public class Api_Tender extends Base_Api {
                         obg.put("UserId", filter.getUserId());
                         obg.put("TenderId", filter.getTenderId());
 
-                        if (filter.getDate()!=null){
+                        if (filter.getDate() != null) {
                             obg.put("FromDate", filter.getDate());
-                        }else{
+                        } else {
                             obg.put("FromDate", "");
                         }
 
-                        if (filter.getIncludesTheWord()!=null){
+                        if (filter.getIncludesTheWord() != null) {
                             obg.put("Word", filter.getIncludesTheWord());
-                        }else{
+                        } else {
                             obg.put("Word", "");
                         }
 
@@ -315,6 +317,62 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    //در اینجا لیست علاقه مندی ها نمایش داده می شوند
+    public Single<List<VM_TenderNotifications>> getFavorites(List<String> vals, Tbl_Tender tbl_tender) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                try {
+                    JSONArray input = new JSONArray();
+
+                    for (int i = 0; i < vals.size(); i++) {
+                        input.put(vals.get(i));
+                    }
+
+                    volley_getFavorites = new PostJsonArrayVolley(ApiUrl + "Tender/PostFavorite", input, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            try{
+                                List<VM_TenderNotifications> notifications = new ArrayList<>();
+                                JSONArray array=resault.getJsonArray();
+
+                                for (int i=0;i<array.length();i++){
+                                    try {
+                                        JSONObject object=array.getJSONObject(i);
+                                        VM_TenderNotifications notification=new VM_TenderNotifications();
+
+                                        notification.setId(object.getString("TenderId"));
+                                        notification.setTitle(object.getString("Title"));
+                                        notification.setFree(object.getBoolean("Free"));
+                                        notification.setStar(tbl_tender.isFavoritTender(object.getString("TenderId")));
+
+                                        notifications.add(notification);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                emitter.onSuccess(notifications);
+
+                            }catch (Exception e){
+                                emitter.onError(e);
+                            }
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
+
+                } catch (Exception e) {
+                }
+
+            }).start();
+        });
+    }
+
     public void Cancel(String Tag, Context context) {
 
         cancelBase(Tag, context);
@@ -333,6 +391,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_getTendersFilter != null) {
             volley_getTendersFilter.Cancel(Tag, context);
+        }
+
+        if (volley_getFavorites != null) {
+            volley_getFavorites.Cancel(Tag, context);
         }
 
     }

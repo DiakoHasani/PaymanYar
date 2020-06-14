@@ -305,30 +305,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
             @Override
             public void onClickFavorit_Add(String id, ImageView icon) {
-                p_tenderNotificationFragment.AddFavorit(id, new addTender() {
-                    @Override
-                    public void onSuccess() {
-                        tenderNotificationAdapter.setStart(id);
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                    }
-                });
+                setFavoriteTender(id,true);
             }
 
             @Override
             public void onClickFavorit_remove(String id, ImageView icon) {
-                p_tenderNotificationFragment.RemoveFevorit(id, new removeTender() {
-                    @Override
-                    public void onSuccess() {
-                        tenderNotificationAdapter.setStart(id);
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                    }
-                });
+                setFavoriteTender(id,false);
             }
         });
 
@@ -490,7 +472,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 if (validationLetMeKnow()) {
                     loadingLet_me_know(true);
                     p_tenderNotificationFragment.LetMeKnow(getLet_Me_KnowFilter());
-                }else{
+                } else {
                     Toast.makeText(getContext(), getString(R.string.PleaseCompleteTheAboveValues), Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -519,40 +501,76 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                     tenderNotificationAdapter.setStart(id);
                 });
                 break;
+            case R.id.favorite:
+                FavoriteTenderNotificationsFragment fragment = new FavoriteTenderNotificationsFragment();
+
+                ((MainActivity) getActivity()).onAddFragment(fragment, R.anim.short_fadein, R.anim.short_fadeout, true, FavoriteTenderNotificationsFragment.TAG);
+
+                fragment.setClickFevoritTender((id, fevorit) -> {
+                    setFavoriteTender(id,fevorit);
+                });
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //در اینجا تیک موردعلاقه مناقصات ست می شود
+    void setFavoriteTender(String id,boolean favorite){
+        if (favorite) {
+            p_tenderNotificationFragment.AddFavorit(id, new addTender() {
+                @Override
+                public void onSuccess() {
+                    tenderNotificationAdapter.setStart(id);
+                }
+
+                @Override
+                public void onError(String error) {
+                }
+            });
+        } else {
+            p_tenderNotificationFragment.RemoveFevorit(id, new removeTender() {
+                @Override
+                public void onSuccess() {
+                    tenderNotificationAdapter.setStart(id);
+                }
+
+                @Override
+                public void onError(String error) {
+                }
+            });
+        }
     }
 
     //در اینجا ولیدیشن با خبرم کن چک می شود
     boolean validationLetMeKnow() {
         boolean isValid = true;
 
-        if (cmb_City.getAdapter()!=null){
+        if (cmb_City.getAdapter() != null) {
             if (((VM_City) cmb_City.getSelectedItem()).getId() == 0) {
                 isValid = false;
-                ((TextView)cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
+                ((TextView) cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
             }
         }
 
-        if (cmb_Major.getAdapter()!=null){
+        if (cmb_Major.getAdapter() != null) {
             if (((VM_Major) cmb_Major.getSelectedItem()).getId() == 0) {
                 isValid = false;
-                ((TextView)cmb_Major.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMajor));
+                ((TextView) cmb_Major.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMajor));
             }
         }
 
-        if (cmb_FromEstimate.getAdapter()!=null){
+        if (cmb_FromEstimate.getAdapter() != null) {
             if (((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId() == 0) {
                 isValid = false;
-                ((TextView)cmb_FromEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+                ((TextView) cmb_FromEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
             }
         }
 
-        if (cmb_UntilEstimate.getAdapter()!=null){
+        if (cmb_UntilEstimate.getAdapter() != null) {
             if (((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId() == 0) {
                 isValid = false;
-                ((TextView)cmb_UntilEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
+                ((TextView) cmb_UntilEstimate.getSelectedView()).setError(getString(R.string.PleaseSelectedOneEstimate));
             }
         }
 

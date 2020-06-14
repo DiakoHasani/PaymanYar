@@ -50,9 +50,9 @@ public class P_DetailsTenderFragment {
         this.context = context;
         this.s_detailsTenderDialog = s_detailsTenderDialog;
         api_tender = new Api_Tender();
-        tbl_tender=new Tbl_Tender(context);
-        tbl_city=new Tbl_City(context);
-        tbl_major=new Tbl_Major(context);
+        tbl_tender = new Tbl_Tender(context);
+        tbl_city = new Tbl_City(context);
+        tbl_major = new Tbl_Major(context);
     }
 
     public void start(VM_FilterTenderNotification filter) {
@@ -66,7 +66,7 @@ public class P_DetailsTenderFragment {
     //در اینجا جزئیات مناقصه از سرور گرفته می شود
     void getDetails(VM_FilterTenderNotification filter) {
 
-        Single<VM_DetailsTender> data = api_tender.getDetailsTender(filter,tbl_tender);
+        Single<VM_DetailsTender> data = api_tender.getDetailsTender(filter, tbl_tender);
 
         dispose_getDetails = data.subscribeWith(new DisposableSingleObserver<VM_DetailsTender>() {
             @Override
@@ -89,10 +89,18 @@ public class P_DetailsTenderFragment {
                 }
 
                 //در اینجا دکمه آیتم بعدی ست می شود
-                s_detailsTenderDialog.onGetNextTender(detailsTender.getNextTenderId());
+                if (!s_detailsTenderDialog.isFavoritePage()) {
+                    s_detailsTenderDialog.onGetNextTender(detailsTender.getNextTenderId());
+                } else {
+                    s_detailsTenderDialog.onGetNextTender(tbl_tender.getNextTenderIdFavorite(filter.getTenderId()));
+                }
 
                 //در اینجا دکمه آیتم قبلی ست می شود
-                s_detailsTenderDialog.onGetPrevTender(detailsTender.getBeforeTenderId());
+                if (!s_detailsTenderDialog.isFavoritePage()){
+                    s_detailsTenderDialog.onGetPrevTender(detailsTender.getBeforeTenderId());
+                }else{
+                    s_detailsTenderDialog.onGetPrevTender(tbl_tender.getPrevTenderIdFavorite(filter.getTenderId()));
+                }
 
                 s_detailsTenderDialog.isFevorit(detailsTender.isFevorit());
 
@@ -107,40 +115,40 @@ public class P_DetailsTenderFragment {
     }
 
     //در اینجا یک مناقصه به لیست علاقه مندی ها اضافه می شود
-    public void AddFavorit(String id, addTender tender){
-        tbl_tender.Add(id,tender);
+    public void AddFavorit(String id, addTender tender) {
+        tbl_tender.Add(id, tender);
     }
 
-    public void RemoveFevorit(String id, removeTender t){
-        tbl_tender.remove(id,t);
+    public void RemoveFevorit(String id, removeTender t) {
+        tbl_tender.remove(id, t);
     }
 
     //ر اینجا نام شهر براساس آیدی گرفته می شود
-    public String getCityTitle(int id){
+    public String getCityTitle(int id) {
         return tbl_city.getTitleById(id);
     }
 
     //ر اینجا نام رشته تحصیلی براساس آیدی گرفته می شود
-    public String getMajorTitle(int id){
+    public String getMajorTitle(int id) {
         return tbl_major.getTitleById(id);
     }
 
     //در اینجا ازصفحه اسکرین شات می گیرد
     public Bitmap takeScreenshot(Activity activity) {
-        View rootView =activity.findViewById(android.R.id.content).getRootView();
+        View rootView = activity.findViewById(android.R.id.content).getRootView();
         rootView.setDrawingCacheEnabled(true);
         return rootView.getDrawingCache();
     }
 
     //در اینجا اسکرین شات صفحه را به اشتراک می زارد
-    public void share(Activity activity,String url){
+    public void share(Activity activity, String url) {
 
         Dexter.withActivity(activity).withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).withListener(
                 new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
 
-                        File imagePath = new File(SaveImageToMob.SaveImageCamera("screenShot.png",takeScreenshot(activity)));
+                        File imagePath = new File(SaveImageToMob.SaveImageCamera("screenShot.png", takeScreenshot(activity)));
 
 //                        Uri uri = Uri.fromFile(imagePath);
                         Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", imagePath);
