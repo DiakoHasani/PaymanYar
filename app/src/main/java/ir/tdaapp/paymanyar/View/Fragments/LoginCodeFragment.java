@@ -128,16 +128,8 @@ public class LoginCodeFragment extends BaseFragment implements S_LoginCodeFragme
                     homeFragment.hideMenuLoginNavigation();
                 }
 
-                LoginFragment loginFragment=((LoginFragment)getActivity().getSupportFragmentManager().findFragmentByTag(LoginFragment.TAG));
-                LoginCodeFragment loginCodeFragment=((LoginCodeFragment)getActivity().getSupportFragmentManager().findFragmentByTag(TAG));
-
-                if (loginFragment!=null){
-                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fadein,R.anim.fadeout).remove(loginFragment).commit();
-                }
-
-                if (loginCodeFragment!=null){
-                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fadein,R.anim.fadeout).remove(loginCodeFragment).commit();
-                }
+                //در اینجا صفحات مربوط به لاگین بسته می شود
+                ((MainActivity)getActivity()).onBackPressedLoginPage();
 
 
             }catch (Exception e){ }

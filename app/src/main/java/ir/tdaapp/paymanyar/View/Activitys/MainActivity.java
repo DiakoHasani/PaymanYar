@@ -22,6 +22,8 @@ import ir.tdaapp.paymanyar.Presenter.P_MainActivity;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Fragments.FilterFramesFragment;
 import ir.tdaapp.paymanyar.View.Fragments.HomeFragment;
+import ir.tdaapp.paymanyar.View.Fragments.LoginCodeFragment;
+import ir.tdaapp.paymanyar.View.Fragments.LoginFragment;
 
 public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
@@ -186,5 +188,19 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     protected void onStart() {
         super.onStart();
         isActive = true;
+    }
+
+    //زمانی که لاگین کاربر به اتمام میرسد در اینجا عملیت بستن صفحات لاگین انجام می شود
+    public void onBackPressedLoginPage(){
+
+        Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.FrameMain);
+        if (fragment instanceof LoginCodeFragment){
+            onBackPressed();
+        }
+
+        fragment=getSupportFragmentManager().findFragmentById(R.id.FrameMain);
+        if (fragment instanceof LoginFragment){
+            onBackPressed();
+        }
     }
 }

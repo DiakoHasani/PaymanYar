@@ -31,6 +31,7 @@ import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_HomeFragment;
 import ir.tdaapp.paymanyar.Model.Services.onClickSliderItem;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Presenter.P_HomeFragment;
 import ir.tdaapp.paymanyar.R;
@@ -223,8 +224,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
 
         sliderHomeAdapter.setClickSliderItem(new onClickSliderItem() {
             @Override
-            public void onClick(int id) {
+            public void onClick(VM_HomeSlider model) {
                 p_homeFragment.resetSlider();
+                openUrl.getLink(model.getUrlKind(), model.getUrl(), getContext());
             }
 
             @Override

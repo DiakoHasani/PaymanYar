@@ -55,7 +55,7 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
 
             Glide.with(context)
                     .asBitmap()
-                    .load(vals.get(position).getUrl())
+                    .load(vals.get(position).getImage())
                     .error(R.drawable.ic_error_slider)
                     .into(holder.img);
 
@@ -65,7 +65,7 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
         holder.lbl_Title.setText(vals.get(position).getTitle());
 
         holder.img.setOnClickListener(view -> {
-            clickSliderItem.onClick(vals.get(position).getId());
+            clickSliderItem.onClick(vals.get(position));
         });
 
         holder.img.setOnTouchListener((view, motionEvent) -> {

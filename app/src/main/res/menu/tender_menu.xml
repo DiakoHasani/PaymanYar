@@ -5,4 +5,9 @@
         android:icon="@drawable/ic_filter_frames"
         android:title="@string/filter_frames"
         app:showAsAction="always"/>
+
+    <item android:id="@+id/favorite"
+        android:icon="@drawable/ic_star"
+        android:title="@string/Favorite"
+        app:showAsAction="always"/>
 </menu>

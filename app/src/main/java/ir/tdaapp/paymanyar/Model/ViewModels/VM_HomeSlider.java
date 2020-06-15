@@ -3,7 +3,8 @@ package ir.tdaapp.paymanyar.Model.ViewModels;
 //مربوط به مشخصات اسلایدر صفحه اصلی
 public class VM_HomeSlider {
     private int id;
-    private String title,url;
+    private String title,image,url;
+    private int urlKind;
 
     public int getId() {
         return id;
@@ -19,6 +20,22 @@ public class VM_HomeSlider {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getUrlKind() {
+        return urlKind;
+    }
+
+    public void setUrlKind(int urlKind) {
+        this.urlKind = urlKind;
     }
 
     public String getUrl() {

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
@@ -93,10 +94,7 @@ public class BuyChargeDialog extends BaseDialogFragment implements View.OnClickL
     void gotoBuy() {
 
         String api_key = ((MainActivity) getActivity()).getTbl_notification().getToken(getContext());
-
         String url = "http://tiptop.tdaapp.ir/Payment/Index?ChargeId=" + charge.getId() + "&ApiKey=" + api_key;
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        openUrl.getWeb(url,getContext());
     }
 }

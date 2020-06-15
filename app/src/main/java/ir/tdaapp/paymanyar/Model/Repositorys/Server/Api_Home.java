@@ -51,7 +51,21 @@ public class Api_Home extends Base_Api {
 
                                     slider.setId(object.getInt("Id"));
                                     slider.setTitle(object.getString("Title"));
-                                    slider.setUrl(SliderImageUrl + object.getString("Image"));
+                                    slider.setImage(SliderImageUrl + object.getString("Image"));
+
+                                    //در اینجا نوع لینک اسلایدر ست می شود
+                                    int urlKind = 0;
+                                    String k = object.getString("UrlKind");
+                                    if (!k.equalsIgnoreCase("null")) {
+                                        urlKind = Integer.valueOf(k);
+                                    }
+                                    slider.setUrlKind(urlKind);
+
+                                    String url="";
+                                    if (!object.getString("Url").equalsIgnoreCase("null")){
+                                        url=object.getString("Url");
+                                    }
+                                    slider.setUrl(url);
 
                                     sliders.add(slider);
 

@@ -509,6 +509,11 @@
                                 android:src="@drawable/ic_tender_analise"
                                 android:padding="5dp"/>
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.5"/>
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
@@ -519,16 +524,16 @@
                                 android:textSize="14dp"
                                 android:textColor="@color/colorBlack"/>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:background="@color/colorPrimary"
-                                android:text="@string/New"
-                                android:gravity="center"
-                                android:textColor="@color/colorWhite"
-                                android:fontFamily="@font/vazir"
-                                android:textSize="12dp"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:background="@color/colorPrimary"-->
+<!--                                android:text="@string/New"-->
+<!--                                android:gravity="center"-->
+<!--                                android:textColor="@color/colorWhite"-->
+<!--                                android:fontFamily="@font/vazir"-->
+<!--                                android:textSize="12dp"/>-->
 
                         </LinearLayout>
 

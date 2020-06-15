@@ -53,9 +53,19 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
     boolean hasNextPrevTender = true;
 
+    //اگر متغیر زیر ترو باشد یعنی کاربر از صفحه علاقه مندی ها وارد شده است
+    boolean isFavoritePage = false;
+
     public DetailsTenderFragment(VM_FilterTenderNotification filter, boolean hasNextPrevTender, onClickFevoritTender clickFevoritTender) {
         this.filter = filter;
         this.hasNextPrevTender = hasNextPrevTender;
+        this.clickFevoritTender = clickFevoritTender;
+    }
+
+    public DetailsTenderFragment(VM_FilterTenderNotification filter, boolean hasNextPrevTender, boolean isFavoritePage, onClickFevoritTender clickFevoritTender) {
+        this.filter = filter;
+        this.hasNextPrevTender = hasNextPrevTender;
+        this.isFavoritePage = isFavoritePage;
         this.clickFevoritTender = clickFevoritTender;
     }
 
@@ -280,6 +290,12 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         }
     }
 
+    //در اینجا نشان می دهد که کاربر از صفحه مورد علاقه ها وارد شده است یا خیر
+    @Override
+    public boolean isFavoritePage() {
+        return isFavoritePage;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -323,7 +339,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                 if (filter.getTenderId() != null) {
                     url += filter.getTenderId();
                 }
-                p_detailsTenderFragment.share(getActivity(),url);
+                p_detailsTenderFragment.share(getActivity(), url);
                 break;
 
             case R.id.img_star:
