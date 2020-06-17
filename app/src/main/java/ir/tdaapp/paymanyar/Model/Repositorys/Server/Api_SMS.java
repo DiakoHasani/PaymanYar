@@ -22,10 +22,11 @@ import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailSMS;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_SMS;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Support;
 
 public class Api_SMS extends Base_Api {
 
-    GetJsonArrayVolley volley_getSMS;
+    GetJsonArrayVolley volley_getSMS, volley_getUsersSuport;
     PostJsonObjectVolley volley_setArchiveSMS, volley_postSMS;
     GetJsonObjectVolley volley_getDetailSMS;
 
@@ -77,8 +78,8 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(smsList);
 
                     } else {
-                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
-                            postError("Api_SMS->getSMS",resault.getMessage());
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_SMS->getSMS", resault.getMessage());
                         }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
@@ -122,8 +123,8 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(message);
 
                     } else {
-                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
-                            postError("Api_SMS->setArchiveSMS",resault.getMessage());
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_SMS->setArchiveSMS", resault.getMessage());
                         }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
@@ -163,8 +164,8 @@ public class Api_SMS extends Base_Api {
                         emitter.onSuccess(detailSMS);
 
                     } else {
-                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
-                            postError("Api_SMS->getDetailSMS",resault.getMessage());
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_SMS->getDetailSMS", resault.getMessage());
                         }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
@@ -195,22 +196,23 @@ public class Api_SMS extends Base_Api {
 
                     if (resault.getResault() == ResaultCode.Success) {
 
-                        VM_Message msg=new VM_Message();
-                        JSONObject obj=resault.getObject();
+                        VM_Message msg = new VM_Message();
+                        JSONObject obj = resault.getObject();
 
-                        try{
+                        try {
 
                             msg.setMessage(obj.getString("MessageText"));
                             msg.setResult(obj.getBoolean("Result"));
                             msg.setCode(obj.getInt("Code"));
 
-                        }catch (Exception e){}
+                        } catch (Exception e) {
+                        }
 
                         emitter.onSuccess(msg);
 
                     } else {
-                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
-                            postError("Api_SMS->postSMS",resault.getMessage());
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_SMS->postSMS", resault.getMessage());
                         }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
@@ -223,9 +225,63 @@ public class Api_SMS extends Base_Api {
 
     }
 
+    //در اینجا افراد مربوط به بخش پشتیبانی گرفته می شوند
+    public Single<List<VM_Support>> getUsersSupport() {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                try {
+
+                    volley_getUsersSuport = new GetJsonArrayVolley(ApiUrl + "ContactUs/GetSupporter", resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            List<VM_Support> supports = new ArrayList<>();
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                try {
+
+                                    VM_Support support=new VM_Support();
+                                    JSONObject object=array.getJSONObject(i);
+
+                                    support.setCellPhone(object.getString("CellPhone"));
+                                    support.setDescription(object.getString("Role"));
+                                    support.setImage(object.getString("Image"));
+                                    support.setName(object.getString("FullName"));
+                                    support.setTelegram(object.getString("Telegram"));
+                                    support.setEmail(object.getString("Emaill"));
+
+                                    supports.add(support);
+
+                                }catch (Exception e){}
+
+                            }
+
+                            emitter.onSuccess(supports);
+
+                        } else {
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_SMS->getUsersSupport", resault.getMessage());
+                            }
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
+
+                } catch (Exception e) {
+                    postError("Api_SMS->getUsersSupport", e.toString());
+                    emitter.onError(e);
+                }
+
+            }).start();
+        });
+    }
+
     public void Cancel(String tag, Context context) {
 
-        cancelBase(tag,context);
+        cancelBase(tag, context);
 
         if (volley_getSMS != null) {
             volley_getSMS.Cancel(tag, context);
@@ -241,6 +297,10 @@ public class Api_SMS extends Base_Api {
 
         if (volley_postSMS != null) {
             volley_postSMS.Cancel(tag, context);
+        }
+
+        if (volley_getUsersSuport != null) {
+            volley_getUsersSuport.Cancel(tag, context);
         }
 
     }

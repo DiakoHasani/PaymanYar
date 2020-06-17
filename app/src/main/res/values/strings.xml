@@ -131,4 +131,7 @@
     <string name="share">اشتراک</string>
     <string name="SendApplication">ارسال برنامه</string>
     <string name="Favorite">علاقه مندی ها</string>
+    <string name="SelectedOneCity">استان</string>
+    <string name="SelectedOneMajor">رشته</string>
+    <string name="Suggest_or_Criticize">پیشنهاد یا انتقاد</string>
 </resources>

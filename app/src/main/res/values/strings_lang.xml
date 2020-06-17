@@ -9,8 +9,6 @@
     <string name="You_Have_Not_Saved_Any_Maps">شما هیچ نقشه ای ذخیره نکرده اید</string>
     <string name="please_Checked_Your_Internet_Connection">لطفا اتصال اینترنت خود را چک نمایید</string>
     <string name="YourInternetIsVrySlow">اینترنت شما بسیار کند است</string>
-    <string name="SelectedOneCity">یک استان انتخاب کنید</string>
-    <string name="SelectedOneMajor">یک رشته انتخاب کنید</string>
     <string name="DisplayableForSubscribers">قابل نمایش برای مشترکان</string>
     <string name="TheRemainingDaysOfYourCredit">روزهای باقی مانده از اعتبار شما</string>
     <string name="TheAmount_of_the_Guarantee_in_the_Tender">مبلغ تضمین در مناقصه:</string>
@@ -27,4 +25,5 @@
     <string name="Please_Input_The_Price">لطفا مبلغ را وارد کنید</string>
     <string name="See_the_Following_Tender_in_the_Contractor">مناقصه زیر را در پیمانیار ببینید</string>
     <string name="It_will_be_presented_in_the_next_version">در نسخه بعد ارائه خواهد شد</string>
+    <string name="Please_take_action_to_speed_up_the_tender_process">لطفا برای اصلاح کارهای مربوط به مناقصه سرعا اقدام کنید</string>
 </resources>

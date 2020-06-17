@@ -35,100 +35,66 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_marginTop="10dp">
 
-                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                            android:id="@+id/cmb_City"
-                            android:layout_width="match_parent"
+                        <RelativeLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
+                            android:layout_weight="1"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="5dp">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
+                            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                                android:id="@+id/cmb_City"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textDirection="rtl"
+                                android:layoutDirection="rtl"
+                                android:spinnerMode="dialog"
+                                android:background="@drawable/border_spinner"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_toggle_spinner"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="8dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp">
 
-                    </RelativeLayout>
+                            <Spinner
+                                android:id="@+id/cmb_Major"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textDirection="rtl"
+                                android:layoutDirection="rtl"
+                                android:spinnerMode="dialog"
+                                android:background="@drawable/border_spinner"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_toggle_spinner"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="8dp"/>
 
-                        <Spinner
-                            android:id="@+id/cmb_Major"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textDirection="rtl"
-                            android:layoutDirection="rtl"
-                            android:spinnerMode="dialog"
-                            android:background="@drawable/border_spinner"/>
+                        </RelativeLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_toggle_spinner"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="8dp"/>
-
-                    </RelativeLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/IncludesTheWord"
-                        style="@style/LoginTextInputLayoutStyle"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_IncludesTheWord"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/vazir"
-                            android:textSize="16dp"
-                            android:textColor="@color/colorEditText"
-                            android:maxLines="1"
-                            android:textAlignment="center"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/FromDate"
-                        style="@style/LoginTextInputLayoutStyle"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_Date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/vazir"
-                            android:textSize="16dp"
-                            android:textColor="@color/colorEditText"
-                            android:maxLines="1"
-                            android:textAlignment="center"
-                            android:inputType="date"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -185,15 +151,100 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="2"
+                        android:layout_marginTop="10dp">
+
+<!--                        <com.google.android.material.textfield.TextInputLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:hint="@string/IncludesTheWord"-->
+<!--                            style="@style/LoginTextInputLayoutStyle"-->
+<!--                            android:layout_marginRight="10dp"-->
+<!--                            android:layout_marginLeft="5dp">-->
+
+<!--                            <com.google.android.material.textfield.TextInputEditText-->
+<!--                                android:id="@+id/txt_IncludesTheWord"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/vazir"-->
+<!--                                android:textSize="14dp"-->
+<!--                                android:textColor="@color/colorEditText"-->
+<!--                                android:maxLines="1"-->
+<!--                                android:textAlignment="center"/>-->
+
+<!--                        </com.google.android.material.textfield.TextInputLayout>-->
+
+                        <EditText
+                            android:id="@+id/txt_IncludesTheWord"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/vazir"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16dp"
+                            android:layout_marginLeft="5dp"
+                            android:hint="@string/IncludesTheWord"
+                            android:background="@drawable/border_txt"
+                            android:padding="8dp"
+                            android:layout_marginRight="10dp"
+                            android:singleLine="true"/>
+
+                        <EditText
+                            android:id="@+id/txt_Date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/vazir"
+                            android:textColor="@color/colorTitle"
+                            android:textSize="16dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:hint="@string/FromDate"
+                            android:background="@drawable/border_txt"
+                            android:padding="8dp"
+                            android:singleLine="true" />
+
+<!--                        <com.google.android.material.textfield.TextInputLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:hint="@string/FromDate"-->
+<!--                            style="@style/LoginTextInputLayoutStyle"-->
+<!--                            android:layout_marginRight="5dp"-->
+<!--                            android:layout_marginLeft="10dp">-->
+
+<!--                            <com.google.android.material.textfield.TextInputEditText-->
+<!--                                android:id="@+id/txt_Date"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/vazir"-->
+<!--                                android:textSize="14dp"-->
+<!--                                android:textColor="@color/colorEditText"-->
+<!--                                android:maxLines="1"-->
+<!--                                android:textAlignment="center"-->
+<!--                                android:inputType="date"/>-->
+
+<!--                        </com.google.android.material.textfield.TextInputLayout>-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/btn_search"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             app:cardBackgroundColor="@color/colorPrimary"
                             android:layout_marginRight="10dp"
+                            android:layout_marginLeft="5dp"
                             app:cardCornerRadius="4dp"
                             android:clipToPadding="false"
                             app:cardUseCompatPadding="false"
@@ -208,17 +259,19 @@
                                 android:text="@string/Search"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="14dp"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"/>
+                                android:paddingBottom="8dp"
+                                android:paddingTop="8dp"/>
 
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/btn_Let_me_know"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
                             app:cardBackgroundColor="@color/colorPrimary"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="10dp"
                             app:cardCornerRadius="4dp"
                             android:clipToPadding="false"
                             app:cardUseCompatPadding="false"
@@ -234,8 +287,8 @@
                                 android:text="@string/Let_me_know"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="14dp"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"/>
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"/>
 
                             <ProgressBar
                                 android:id="@+id/progress_btn_Let_me_know"

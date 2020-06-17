@@ -96,6 +96,9 @@ dependencies {
     implementation 'com.github.anastr:rulerview:1.1.0'
 
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    //برای عکس پروفایل می باشد
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
 repositories {
     mavenCentral()

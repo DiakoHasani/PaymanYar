@@ -2,36 +2,53 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.paymanyar.Model.Adapters.SupportAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_SupportFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickSupport;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Support;
 import ir.tdaapp.paymanyar.Presenter.P_SupportFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 public class SupportFragment extends BaseFragment implements S_SupportFragment, View.OnClickListener {
 
     public static final String TAG = "SupportFragment";
 
-    CardView btn_Send;
-    EditText txt_message;
-    RelativeLayout loading;
     P_SupportFragment p_supportFragment;
     Toolbar toolbar;
+    RecyclerView recycler;
+    SupportAdapter supportAdapter;
+    ShimmerFrameLayout loading;
+    ErrorAplicationDialog errorAplicationDialog;
+    EditText txt_Message;
+    CardView btn_Send;
+    ProgressBar progress_btn_send;
+    TextView lbl_btn_send;
 
     @Nullable
     @Override
@@ -42,19 +59,25 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
         implement();
         setToolbar();
 
+        new Handler().postDelayed(() -> {
+            p_supportFragment.start();
+        }, 300);
+
         return view;
     }
 
     void findItem(View view) {
-        btn_Send = view.findViewById(R.id.btn_Send);
-        txt_message = view.findViewById(R.id.txt_message);
-        loading = view.findViewById(R.id.loading);
         toolbar = view.findViewById(R.id.toolbar);
+        recycler = view.findViewById(R.id.recycler);
+        loading = view.findViewById(R.id.loading);
+        txt_Message = view.findViewById(R.id.txt_Message);
+        btn_Send = view.findViewById(R.id.btn_Send);
+        progress_btn_send = view.findViewById(R.id.progress_btn_send);
+        lbl_btn_send = view.findViewById(R.id.lbl_btn_send);
     }
 
     void implement() {
         p_supportFragment = new P_SupportFragment(getContext(), this);
-
         btn_Send.setOnClickListener(this);
     }
 
@@ -79,9 +102,49 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
     }
 
     @Override
-    public void onFinish(VM_Message message) {
-        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
-        btn_Send.setEnabled(true);
+    public void OnStart() {
+        loading.startShimmerAnimation();
+        supportAdapter = new SupportAdapter(getContext());
+        recycler.setAdapter(supportAdapter);
+        recycler.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+
+        supportAdapter.setClickSupport(new onClickSupport() {
+            @Override
+            public void onClickSMS(String phoneNumber) {
+                openUrl.sms(phoneNumber, "", getContext());
+            }
+
+            @Override
+            public void onClickTelegram(String url) {
+                openUrl.getTelegram(url, getContext());
+            }
+
+            @Override
+            public void onClickCall(String phoneNumber) {
+                openUrl.call(phoneNumber, getContext());
+            }
+
+            @Override
+            public void onClickEmail(String url) {
+                openUrl.getEmail(url,getContext());
+            }
+        });
+    }
+
+    @Override
+    public void onHideAll() {
+        recycler.setVisibility(View.GONE);
+        loading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSuccess() {
+        recycler.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onFinish() {
+        loading.stopShimmerAnimation();
     }
 
     @Override
@@ -114,8 +177,11 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
-        btn_Send.setEnabled(true);
+        errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
+            p_supportFragment.start();
+            errorAplicationDialog.dismiss();
+        });
+        errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
     }
 
     @Override
@@ -124,17 +190,64 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
     }
 
     @Override
+    public void onUser(VM_Support support) {
+        supportAdapter.add(support);
+    }
+
+    @Override
+    public void onCreateAccount() {
+        Toast.makeText(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+        ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), 0, 0, true, LoginFragment.TAG);
+        btn_Send.setEnabled(true);
+    }
+
+    @Override
+    public void onErrorSend(ResaultCode result) {
+        String text = "";
+
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        btn_Send.setEnabled(false);
+    }
+
+    @Override
+    public void onLoadingSend(boolean load) {
+        if (load){
+            lbl_btn_send.setVisibility(View.INVISIBLE);
+            progress_btn_send.setVisibility(View.VISIBLE);
+        }else{
+            lbl_btn_send.setVisibility(View.VISIBLE);
+            progress_btn_send.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onFinishSend(VM_Message message) {
+        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        btn_Send.setEnabled(true);
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Send:
-
-                if (((MainActivity) getActivity()).getTbl_user().hasAccount(getContext())) {
-                    btn_Send.setEnabled(false);
-                    p_supportFragment.sendMessage(txt_message);
-                } else {
-                    Toast.makeText(getContext(), getContext().getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
-                    ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
-                }
+                btn_Send.setEnabled(false);
+                p_supportFragment.sendMessage(txt_Message);
                 break;
         }
     }

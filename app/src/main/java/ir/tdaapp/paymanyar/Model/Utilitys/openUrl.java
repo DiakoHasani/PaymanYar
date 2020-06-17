@@ -3,6 +3,7 @@ package ir.tdaapp.paymanyar.Model.Utilitys;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import ir.tdaapp.paymanyar.R;
 
@@ -47,7 +48,7 @@ public class openUrl {
             telegramIntent.setData(Uri.parse(url));
             context.startActivity(telegramIntent);
         } catch (Exception e) {
-            // show error message
+            Log.e("getTelegram", e.toString());
         }
     }
 
@@ -57,7 +58,9 @@ public class openUrl {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             context.startActivity(i);
-        }catch (Exception e){}
+        } catch (Exception e) {
+            Log.e("getWeb", e.toString());
+        }
     }
 
     //در اینجا یک متن را به اشتراک میزارد
@@ -68,7 +71,9 @@ public class openUrl {
             intent.putExtra(Intent.EXTRA_SUBJECT, title);
             intent.putExtra(Intent.EXTRA_TEXT, url);
             context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
-        }catch (Exception e){}
+        } catch (Exception e) {
+            Log.e("getApplicationsText", e.toString());
+        }
     }
 
     //در اینجا اینستاگرام باز می شود
@@ -78,6 +83,7 @@ public class openUrl {
             instagramIntent.setData(Uri.parse(url));
             context.startActivity(instagramIntent);
         } catch (Exception e) {
+            Log.e("getInstagram", e.toString());
         }
 
     }
@@ -89,6 +95,7 @@ public class openUrl {
             intent.setData(Uri.parse(url));
             context.startActivity(intent);
         } catch (Exception e) {
+            Log.e("getWhatsApp", e.toString());
         }
     }
 
@@ -98,14 +105,33 @@ public class openUrl {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + phoneNumber));
             context.startActivity(intent);
-        }catch (Exception e){}
+        } catch (Exception e) {
+            Log.e("call", e.toString());
+        }
     }
 
     //در اینجا پیامک رسانی را باز می کند
-    void sms(String number, String text, Context context) {
+    public static void sms(String number, String text, Context context) {
         try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts(text, number, null)));
-        }catch (Exception e){}
+            Uri sms_uri = Uri.parse("smsto:"+number);
+            Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
+            sms_intent.putExtra("sms_body", text);
+            context.startActivity(sms_intent);
+        } catch (Exception e) {
+            Log.e("sms", e.toString());
+        }
+    }
+
+    //در اینجا ایمیل باز می شود
+    public static void getEmail(String email,Context context){
+        try {
+            Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + email));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "");
+            intent.putExtra(Intent.EXTRA_TEXT, "");
+            context.startActivity(intent);
+        }catch (Exception e){
+            Log.e("getEmail", e.toString());
+        }
     }
 
 }

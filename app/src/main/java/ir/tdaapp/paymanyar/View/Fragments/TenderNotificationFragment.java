@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -69,7 +70,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     TenderNotificationAdapter tenderNotificationAdapter;
     LinearLayoutManager layoutManager;
     SearchableSpinner cmb_City;
-    TextInputEditText txt_Date, txt_IncludesTheWord;
+    EditText txt_IncludesTheWord, txt_Date;
     int countTenders = 0;
     ErrorAplicationDialog errorAplicationDialog;
     CardView btn_Let_me_know, btn_search;
@@ -305,12 +306,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
             @Override
             public void onClickFavorit_Add(String id, ImageView icon) {
-                setFavoriteTender(id,true);
+                setFavoriteTender(id, true);
             }
 
             @Override
             public void onClickFavorit_remove(String id, ImageView icon) {
-                setFavoriteTender(id,false);
+                setFavoriteTender(id, false);
             }
         });
 
@@ -507,7 +508,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 ((MainActivity) getActivity()).onAddFragment(fragment, R.anim.short_fadein, R.anim.short_fadeout, true, FavoriteTenderNotificationsFragment.TAG);
 
                 fragment.setClickFevoritTender((id, fevorit) -> {
-                    setFavoriteTender(id,fevorit);
+                    setFavoriteTender(id, fevorit);
                 });
                 break;
         }
@@ -516,7 +517,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     }
 
     //در اینجا تیک موردعلاقه مناقصات ست می شود
-    void setFavoriteTender(String id,boolean favorite){
+    void setFavoriteTender(String id, boolean favorite) {
         if (favorite) {
             p_tenderNotificationFragment.AddFavorit(id, new addTender() {
                 @Override
