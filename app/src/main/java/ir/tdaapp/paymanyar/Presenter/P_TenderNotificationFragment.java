@@ -94,6 +94,7 @@ public class P_TenderNotificationFragment {
                     s_tenderNotificationFragment.onHideAll();
                     s_tenderNotificationFragment.onShowRecycler();
                 } else {
+                    s_tenderNotificationFragment.onLoading(false);
                     s_tenderNotificationFragment.onLoadingPaging(false);
                     s_tenderNotificationFragment.onShowRecycler();
                 }
@@ -108,6 +109,7 @@ public class P_TenderNotificationFragment {
                     s_tenderNotificationFragment.onHideAll();
                     s_tenderNotificationFragment.onError(Error.GetErrorVolley(e.toString()));
                 } else {
+                    s_tenderNotificationFragment.onLoading(false);
                     s_tenderNotificationFragment.onLoadingPaging(false);
                     s_tenderNotificationFragment.onError(Error.GetErrorVolley(e.toString()));
                 }

@@ -87,6 +87,7 @@
     <string name="Toman">تومان</string>
     <string name="PaymanyarCode">کد پیمانیار:</string>
     <string name="NationalEstimate">برآورد مالی:</string>
+    <string name="TenderTitle">تیتر مناقصه:</string>
     <string name="ReopeningDate">تاریخ بازگشایی:</string>
     <string name="SendSuggestionsUp">ارسال پیشنهاد تا:</string>
     <string name="GetDocumentsUp">دریافت اسناد تا:</string>

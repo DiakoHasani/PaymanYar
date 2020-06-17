@@ -172,6 +172,7 @@ public class Api_Tender extends Base_Api {
                                 detailsTender.setFevorit(tbl_tender.isFavoritTender(filter.getTenderId()));
                                 detailsTender.setCityId(object.getInt("StateId"));
                                 detailsTender.setMajorId(object.getInt("FieldId"));
+                                detailsTender.setTitle(object.getString("Title"));
 
                             } catch (Exception e) {
                             }

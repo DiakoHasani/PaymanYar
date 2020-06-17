@@ -83,7 +83,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     LinearLayout subscribers;
     ImageView img_star;
     ErrorAplicationDialog soonAdded;
-    TextView lbl_Major, lbl_CityName;
+    TextView lbl_Major, lbl_CityName, lbl_Title;
+    CardView btn_charge;
 
     @Nullable
     @Override
@@ -121,6 +122,8 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         img_star = view.findViewById(R.id.img_star);
         lbl_Major = view.findViewById(R.id.lbl_Major);
         lbl_CityName = view.findViewById(R.id.lbl_CityName);
+        lbl_Title = view.findViewById(R.id.lbl_Title);
+        btn_charge = view.findViewById(R.id.btn_charge);
 
         if (hasNextPrevTender) {
             btn_Right.setVisibility(View.VISIBLE);
@@ -139,6 +142,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         img_star.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
         btn_Analize.setOnClickListener(this);
+        btn_charge.setOnClickListener(this);
 
         btn_Share.setOnClickListener(this);
     }
@@ -163,6 +167,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         lbl_TenderDevice.setText("-");
         lbl_website.setText("-");
         lbl_Description.setText("-");
+        lbl_Title.setText("-");
     }
 
     @Override
@@ -231,6 +236,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             detail.setVisibility(View.VISIBLE);
 
+            lbl_Title.setText(detailsTender.getTitle());
             lbl_Description.setText(detailsTender.getDescription());
             new ShowPriceTextView(detailsTender.getNationalEstimate(), lbl_NationalEstimate);
             lbl_PaymanyarCode.setText(detailsTender.getId() + "");
@@ -323,6 +329,14 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             case R.id.btn_reload:
                 p_detailsTenderFragment.start(filter);
+                break;
+
+            case R.id.btn_charge:
+                if (((MainActivity) getActivity()).getTbl_user().hasAccount(getActivity())) {
+                    ((MainActivity)getActivity()).onAddFragment(new ChargeFragment(),R.anim.fadein,R.anim.short_fadeout,true,ChargeFragment.TAG);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.btn_Analize:

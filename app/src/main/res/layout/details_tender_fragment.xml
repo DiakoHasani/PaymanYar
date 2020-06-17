@@ -53,7 +53,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/head"
                 android:layout_above="@id/bottomBar"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:background="@color/colorWhite"
                 android:scrollbars="none">
 
@@ -61,6 +61,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:background="@color/colorBackgroundDetailTender">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/vazir"
+                            android:textColor="@color/colorGray"
+                            android:text="@string/TenderTitle"
+                            android:paddingRight="16dp"
+                            android:layout_gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/lbl_Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/vazir"
+                            android:textColor="@color/colorTitle"
+                            android:paddingRight="1dp"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -453,6 +485,32 @@
                     android:textSize="14dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/DisplayableForSubscribers"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="4dp"
+                    android:clipToPadding="false"
+                    app:cardUseCompatPadding="false"
+                    android:clickable="true"
+                    android:theme="@style/AppTheme.MyRipple"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/vazir"
+                        android:gravity="center"
+                        android:text="@string/Charge"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"/>
+
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 

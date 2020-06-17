@@ -50,7 +50,7 @@
             android:textSize="16dp"
             android:textColor="@color/colorTitle"
             android:gravity="right"
-            android:maxLines="1"/>
+            android:singleLine="true"/>
 
     </LinearLayout>
 

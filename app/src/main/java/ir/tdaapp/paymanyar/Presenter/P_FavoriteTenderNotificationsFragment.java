@@ -44,8 +44,13 @@ public class P_FavoriteTenderNotificationsFragment {
             @Override
             public void onSuccess(List<VM_TenderNotifications> notifications) {
                 s_favoriteTenderNotificationsFragment.onHideAll();
-                s_favoriteTenderNotificationsFragment.onSuccess();
-                setTenders(notifications);
+
+                if (notifications.size()>0){
+                    s_favoriteTenderNotificationsFragment.onSuccess();
+                    setTenders(notifications);
+                }else{
+                    s_favoriteTenderNotificationsFragment.onEmpty();
+                }
             }
 
             @Override

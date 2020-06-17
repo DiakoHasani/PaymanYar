@@ -111,7 +111,28 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
         supportAdapter.setClickSupport(new onClickSupport() {
             @Override
             public void onClickSMS(String phoneNumber) {
-                openUrl.sms(phoneNumber, "", getContext());
+
+                if (phoneNumber != null) {
+
+                    if (phoneNumber.length() != 0) {
+
+                        if (phoneNumber.charAt(0) == '0') {
+                            String a = "+98";
+                            int b = 0;
+                            for (char i : phoneNumber.toCharArray()) {
+                                if (b != 0) {
+                                    a += i;
+                                }
+                                b++;
+                            }
+                            openUrl.getWhatsApp(a, getContext());
+                        }else{
+                            openUrl.getWhatsApp(phoneNumber, getContext());
+                        }
+
+                    }
+
+                }
             }
 
             @Override
@@ -126,7 +147,7 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
 
             @Override
             public void onClickEmail(String url) {
-                openUrl.getEmail(url,getContext());
+                openUrl.getEmail(url, getContext());
             }
         });
     }
@@ -227,10 +248,10 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
 
     @Override
     public void onLoadingSend(boolean load) {
-        if (load){
+        if (load) {
             lbl_btn_send.setVisibility(View.INVISIBLE);
             progress_btn_send.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             lbl_btn_send.setVisibility(View.VISIBLE);
             progress_btn_send.setVisibility(View.GONE);
         }

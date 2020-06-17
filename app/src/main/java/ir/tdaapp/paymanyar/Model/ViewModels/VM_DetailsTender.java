@@ -42,6 +42,8 @@ public class VM_DetailsTender {
     //در اینجا چک می شود که مناقصه جز مورد علاقه ها می باشد
     private boolean fevorit;
 
+    private String Title;
+
     private int cityId;
 
     private int majorId;
@@ -164,5 +166,13 @@ public class VM_DetailsTender {
 
     public void setMajorId(int majorId) {
         this.majorId = majorId;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
     }
 }

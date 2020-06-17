@@ -33,7 +33,7 @@ public class ShowPrice implements TextWatcher {
         s = s.replace(",", "");
         if (s.length() > 0) {
             DecimalFormat sdd = new DecimalFormat("#,###");
-            Double doubleNumber = Double.parseDouble(s);
+            Double doubleNumber = Double.parseDouble(Replace.Number_fn_To_en(s));
 
             String format = sdd.format(doubleNumber);
             editText.setText(format);

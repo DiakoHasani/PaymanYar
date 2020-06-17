@@ -79,6 +79,8 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     NestedScrollView nestedScroll;
     Spinner cmb_Major, cmb_FromEstimate, cmb_UntilEstimate;
     SwipeRefreshLayout reload;
+    //زمانی که برنامه در حال دریافت مناقصه از سرور باشد مقدار زیر ترو است
+    boolean isWorking = false;
 
     @Nullable
     @Override
@@ -134,12 +136,16 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
                         //در اینجا اگر تعداد کل مناقصه ها در سرور با تعداد مناقصه ها در رسایکلر برابر باشد یعنی تمام مناقصه ها گرفته شده و اجازه عملیات پیجینگ نمی دهد
                         if (recycler.getAdapter().getItemCount() < countTenders) {
-                            isLoading = true;
 
-                            onLoadingPaging(true);
+                            //اگر برنامه در حال دریافت اطلاعات از سرور باشد اجازه در یافت آیتم بعدی را نمی دهد
+                            if (!isWorking) {
+                                isLoading = true;
 
-                            ++page;
-                            p_tenderNotificationFragment.start(getFilter());
+                                onLoadingPaging(true);
+
+                                ++page;
+                                p_tenderNotificationFragment.start(getFilter());
+                            }
                         }
                     }
                 }
@@ -157,8 +163,12 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         });
 
         reload.setOnRefreshListener(() -> {
-            page = 0;
-            p_tenderNotificationFragment.start(getFilter());
+            if (!isWorking){
+                page = 0;
+                p_tenderNotificationFragment.start(getFilter());
+            }else{
+                reload.setRefreshing(false);
+            }
         });
     }
 
@@ -279,6 +289,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void OnStart() {
 
+        isWorking = true;
         Loading.startShimmerAnimation();
 
         layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -333,6 +344,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     public void onFinish() {
         Loading.stopShimmerAnimation();
         isLoading = false;
+        isWorking = false;
     }
 
     @Override
@@ -357,30 +369,47 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onError(ResaultCode result) {
 
+        boolean showError;
+        isLoading = false;
+        isWorking = false;
         reload.setRefreshing(false);
-        String text = "";
 
-        switch (result) {
-            case NetworkError:
-                text = getString(R.string.please_Checked_Your_Internet_Connection);
-                break;
-            case TimeoutError:
-                text = getString(R.string.YourInternetIsVrySlow);
-                break;
-            case ServerError:
-                text = getString(R.string.There_Was_an_Error_In_The_Server);
-                break;
-            case ParseError:
-            case Error:
-                text = getString(R.string.There_Was_an_Error_In_The_Application);
-                break;
+        if (errorAplicationDialog != null
+                && errorAplicationDialog.getDialog() != null
+                && errorAplicationDialog.getDialog().isShowing()
+                && !errorAplicationDialog.isRemoving()) {
+
+            showError = false;
+
+        } else {
+            showError = true;
         }
 
-        errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
-            p_tenderNotificationFragment.start(getFilter());
-            errorAplicationDialog.dismiss();
-        });
-        errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+        if (showError) {
+            String text = "";
+
+            switch (result) {
+                case NetworkError:
+                    text = getString(R.string.please_Checked_Your_Internet_Connection);
+                    break;
+                case TimeoutError:
+                    text = getString(R.string.YourInternetIsVrySlow);
+                    break;
+                case ServerError:
+                    text = getString(R.string.There_Was_an_Error_In_The_Server);
+                    break;
+                case ParseError:
+                case Error:
+                    text = getString(R.string.There_Was_an_Error_In_The_Application);
+                    break;
+            }
+
+            errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
+                p_tenderNotificationFragment.start(getFilter());
+                errorAplicationDialog.dismiss();
+            });
+            errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+        }
     }
 
     //در اینجا رسایکلر نمایش داده می شود
@@ -429,6 +458,8 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onErrorLetMeKnow(ResaultCode result) {
 
+        isLoading = false;
+        isWorking = false;
         loadingLet_me_know(false);
 
         String text = "";

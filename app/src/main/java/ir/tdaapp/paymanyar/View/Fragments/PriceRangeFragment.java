@@ -245,13 +245,15 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     //تنظیم ارتفاع هر کدام از نقاط چارت براساس درصد پیشنهادی
     private void ChartPoint(String Percenet, RelativeLayout obj, int number) {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(obj.getLayoutParams());
-        String val = Percenet.substring(0, Percenet.indexOf("."));
-        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(number * 20 + 20), IntToDP(Integer.valueOf(val) + 12));
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        try {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(obj.getLayoutParams());
+            String val = Percenet.substring(0, Percenet.indexOf("."));
+            params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(number * 20 + 20), IntToDP(Integer.valueOf(val) + 12));
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
-        //فق براساس درصد پیشنهادی از پایین فاصله میدهیم
-        obj.setLayoutParams(params);
+            //فق براساس درصد پیشنهادی از پایین فاصله میدهیم
+            obj.setLayoutParams(params);
+        }catch (Exception e){}
     }
 
     @Override

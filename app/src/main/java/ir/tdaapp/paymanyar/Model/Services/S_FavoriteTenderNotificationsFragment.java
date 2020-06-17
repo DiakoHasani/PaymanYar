@@ -11,4 +11,5 @@ public interface S_FavoriteTenderNotificationsFragment {
     void onLoading(boolean load);
     void onError(ResaultCode result);
     void onItem(VM_TenderNotifications item);
+    void onEmpty();
 }

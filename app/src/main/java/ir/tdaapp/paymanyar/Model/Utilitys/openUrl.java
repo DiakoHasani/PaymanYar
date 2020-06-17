@@ -92,7 +92,7 @@ public class openUrl {
     public static void getWhatsApp(String url, Context context) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
+            intent.setData(Uri.parse("https://wa.me/" + url));
             context.startActivity(intent);
         } catch (Exception e) {
             Log.e("getWhatsApp", e.toString());

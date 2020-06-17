@@ -41,4 +41,30 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <LinearLayout
+        android:id="@+id/empty"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_empty"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/vazir"
+            android:textSize="14dp"
+            android:textColor="@color/colorTitle"
+            android:gravity="center"
+            android:text="@string/dont_have_saves_Tender"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

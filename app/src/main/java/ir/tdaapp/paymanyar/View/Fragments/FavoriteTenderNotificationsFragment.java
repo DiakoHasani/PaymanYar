@@ -2,12 +2,14 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -42,6 +44,7 @@ public class FavoriteTenderNotificationsFragment extends BaseFragment implements
     TenderNotificationAdapter tenderNotificationAdapter;
     ErrorAplicationDialog errorAplicationDialog;
     onClickFevoritTender clickFevoritTender;
+    LinearLayout empty;
 
     @Nullable
     @Override
@@ -51,7 +54,10 @@ public class FavoriteTenderNotificationsFragment extends BaseFragment implements
         findItem(view);
         implement();
         setToolbar();
-        p_favoriteTenderNotificationsFragment.start();
+
+        new Handler().postDelayed(() -> {
+            p_favoriteTenderNotificationsFragment.start();
+        }, 300);
 
         return view;
     }
@@ -60,6 +66,7 @@ public class FavoriteTenderNotificationsFragment extends BaseFragment implements
         toolbar = view.findViewById(R.id.toolbar);
         recycler = view.findViewById(R.id.recycler);
         loading = view.findViewById(R.id.loading);
+        empty = view.findViewById(R.id.empty);
     }
 
     void implement() {
@@ -136,6 +143,7 @@ public class FavoriteTenderNotificationsFragment extends BaseFragment implements
     public void onHideAll() {
         recycler.setVisibility(View.GONE);
         loading.setVisibility(View.GONE);
+        empty.setVisibility(View.GONE);
     }
 
     @Override
@@ -182,6 +190,11 @@ public class FavoriteTenderNotificationsFragment extends BaseFragment implements
     @Override
     public void onItem(VM_TenderNotifications item) {
         tenderNotificationAdapter.add(item);
+    }
+
+    @Override
+    public void onEmpty() {
+        empty.setVisibility(View.VISIBLE);
     }
 
     @Override

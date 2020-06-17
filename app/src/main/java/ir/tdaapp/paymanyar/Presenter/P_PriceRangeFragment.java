@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.paymanyar.Model.Services.S_PriceRangeFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DegreeOfImportance;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PriceRange;
@@ -69,7 +70,7 @@ public class P_PriceRangeFragment {
 
         try {
             //مبلغ مناقصه
-            long A = (Long.valueOf(price));
+            long A = (Long.valueOf(Replace.Number_fn_To_en(price)));
 
             //میزان اهمیت
             double T = GetPriority(participates.size() - 1, priority);
@@ -100,7 +101,7 @@ public class P_PriceRangeFragment {
             boolean hasRequestDeleted = false;
             //حذف درخواست های نامتعارف
             for (int i = 0; i < participates.size(); i++) {
-                if (Double.valueOf(participates.get(i).percent) > B) {
+                if (Double.valueOf(Replace.Number_fn_To_en(participates.get(i).percent)) > B) {
                     participates.get(i).isDeleted = true;
                     hasRequestDeleted = true;
                 }
@@ -146,7 +147,7 @@ public class P_PriceRangeFragment {
             try {
                 //جمع کردن درصدها
                 for (int i = 0; i < arr.size(); i++) {
-                    average += Double.valueOf(arr.get(i).percent);
+                    average += Double.valueOf(Replace.Number_fn_To_en(arr.get(i).percent));
                 }
 
                 //تقسیم بر تعداد نفرات
@@ -162,7 +163,7 @@ public class P_PriceRangeFragment {
                 //جمع کردن درصدها
                 for (int i = 0; i < arr.size(); i++) {
                     if (!arr.get(i).isDeleted) {
-                        average += Double.valueOf(arr.get(i).percent);
+                        average += Double.valueOf(Replace.Number_fn_To_en(arr.get(i).percent));
                         numbers++;
                     }
                 }
@@ -212,7 +213,7 @@ public class P_PriceRangeFragment {
             if (tender_offer == null) return ans;
 
             if (tender_offer.length() > 0) {
-                double prc = (Double.valueOf(tender_offer) * 100) / Double.valueOf(price);
+                double prc = (Double.valueOf(Replace.Number_fn_To_en(tender_offer)) * 100) / Double.valueOf(Replace.Number_fn_To_en(price));
                 ans = String.valueOf(prc);
             }
 
