@@ -9,6 +9,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Login;
@@ -42,7 +43,7 @@ public class P_LoginCodeFragment {
 
                 String api_key=((MainActivity)context).getTbl_notification().getToken(context);
                 String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-                Single<VM_Message> data = api_login.checkCode(phoneNumber, android_id, Integer.valueOf(txt.getText().toString()),api_key);
+                Single<VM_Message> data = api_login.checkCode(phoneNumber, android_id, Integer.valueOf(Replace.Number_fn_To_en(txt.getText().toString())),api_key);
 
                 dispose_sendCode = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
                     @Override

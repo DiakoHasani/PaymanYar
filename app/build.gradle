@@ -99,6 +99,9 @@ dependencies {
 
     //برای عکس پروفایل می باشد
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //برای رویداد باز شدن یا بسته شدن کیبورد می باشد
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
 }
 repositories {
     mavenCentral()

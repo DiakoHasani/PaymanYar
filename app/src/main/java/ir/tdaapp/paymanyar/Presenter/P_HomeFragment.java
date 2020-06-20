@@ -23,41 +23,48 @@ import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.paymanyar.BuildConfig;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Setting;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Home;
+import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_User;
 import ir.tdaapp.paymanyar.Model.Services.S_HomeFragment;
 import ir.tdaapp.paymanyar.Model.Services.resultVersionApp_Sql;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Home;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_UpdateApp;
+import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
 public class P_HomeFragment {
 
     S_HomeFragment s_homeFragment;
     Context context;
-    Disposable dispose_getVals, dispose_setSliderItem;
+    Disposable dispose_getVals, dispose_setSliderItem, dispose_validationUser;
     Api_Home api_home;
     Tbl_Setting tbl_setting;
     boolean SliderNext;
     boolean started;
     Handler handler;
+    Api_User api_user;
 
     public P_HomeFragment(S_HomeFragment s_homeFragment, Context context) {
         this.s_homeFragment = s_homeFragment;
         this.context = context;
         api_home = new Api_Home();
         tbl_setting = new Tbl_Setting(context);
+        api_user = new Api_User();
     }
 
     //با فراخوانی این متد عملیات گرفتن داده ها شروع می شود
     public void start() {
+
+        validationUser();
+
         s_homeFragment.OnStart();
         s_homeFragment.onHideAll();
         getVals();
 
-        if (handler!=null){
+        if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
-        started=false;
+        started = false;
         handler = new Handler();
     }
 
@@ -126,6 +133,8 @@ public class P_HomeFragment {
         //با بسته شدن صفحه تمامی عملیات وولی لغو می شوند
         api_home.Cancel(TAG, context);
 
+        api_user.cancel(TAG, context);
+
         //در اینجا آرایکس جاوا مربوط به گرفتن اطلاعات از سرور لغو می شود
         if (dispose_getVals != null) {
             dispose_getVals.dispose();
@@ -133,6 +142,10 @@ public class P_HomeFragment {
 
         if (dispose_setSliderItem != null) {
             dispose_setSliderItem.dispose();
+        }
+
+        if (dispose_validationUser != null) {
+            dispose_validationUser.dispose();
         }
     }
 
@@ -166,12 +179,12 @@ public class P_HomeFragment {
         return deletedAll;
     }
 
-    public void startSlider(){
+    public void startSlider() {
         started = true;
         handler.postDelayed(runnable, 4000);
     }
 
-    public void resetSlider(){
+    public void resetSlider() {
         handler.removeCallbacks(runnable);
         startSlider();
     }
@@ -208,8 +221,8 @@ public class P_HomeFragment {
         }
     };
 
-    public void ShareApplication(){
-        ApplicationInfo app =context.getApplicationInfo();
+    public void ShareApplication() {
+        ApplicationInfo app = context.getApplicationInfo();
         String filePath = app.sourceDir;
 
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -229,7 +242,7 @@ public class P_HomeFragment {
                 if (!tempFile.mkdirs())
                     return;
             //Get application's name and convert to lowercase
-            tempFile = new File(tempFile.getPath() + "/" +context.getString(app.labelRes).replace(" ","").toLowerCase() + ".apk");
+            tempFile = new File(tempFile.getPath() + "/" + context.getString(app.labelRes).replace(" ", "").toLowerCase() + ".apk");
             //If file doesn't exists create new
             if (!tempFile.exists()) {
                 if (!tempFile.createNewFile()) {
@@ -260,5 +273,33 @@ public class P_HomeFragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //در اینجا چک می شود کاربر حق استفاده از این اکانت را دارد یا خیر
+    void validationUser() {
+
+        int userId = ((MainActivity) context).getTbl_user().getUserId(context);
+        String api_Key = ((MainActivity) context).getTbl_notification().getToken(context);
+
+        if (userId != 0) {
+            Single<Boolean> val = api_user.validationUser(userId, api_Key);
+            dispose_validationUser = val.subscribeWith(new DisposableSingleObserver<Boolean>() {
+                @Override
+                public void onSuccess(Boolean res) {
+
+                    //در اینجا حساب کاربر از گوشی پاک می شود
+                    if (!res) {
+                        ((MainActivity) context).getTbl_user().add(context, 0);
+                        s_homeFragment.onShowMenuLoginNavigation();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            });
+        }
+
     }
 }

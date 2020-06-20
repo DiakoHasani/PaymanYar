@@ -7,10 +7,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +35,7 @@ public class LoginFragment extends BaseFragment implements S_LoginFragment,View.
     CardView btn_Login;
     TextView lbl_btn_Login;
     ProgressBar progress_btn_Login;
+    RelativeLayout bottom;
 
     @Nullable
     @Override
@@ -49,11 +53,21 @@ public class LoginFragment extends BaseFragment implements S_LoginFragment,View.
         btn_Login = view.findViewById(R.id.btn_Login);
         lbl_btn_Login = view.findViewById(R.id.lbl_btn_Login);
         progress_btn_Login = view.findViewById(R.id.progress_btn_Login);
+        bottom = view.findViewById(R.id.bottom);
     }
 
     void implement() {
         p_loginFragment = new P_LoginFragment(getContext(), this);
         btn_Login.setOnClickListener(this);
+
+        KeyboardVisibilityEvent.setEventListener(getActivity(), isOpen -> {
+            if (isOpen) {
+                bottom.setVisibility(View.GONE);
+            } else {
+                bottom.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override

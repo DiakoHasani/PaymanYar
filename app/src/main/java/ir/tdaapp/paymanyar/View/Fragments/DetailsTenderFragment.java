@@ -239,6 +239,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
             lbl_Title.setText(detailsTender.getTitle());
             lbl_Description.setText(detailsTender.getDescription());
             new ShowPriceTextView(detailsTender.getNationalEstimate(), lbl_NationalEstimate);
+            lbl_NationalEstimate.setText(lbl_NationalEstimate.getText().toString() + " " + getString(R.string.rial));
             lbl_PaymanyarCode.setText(detailsTender.getId() + "");
             lbl_Place_of_Receipt_of_Documents.setText(detailsTender.getPlace_of_Receipt_of_Documents());
             lbl_ReopeningDate.setText(detailsTender.getReopeningDate());
@@ -333,9 +334,10 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             case R.id.btn_charge:
                 if (((MainActivity) getActivity()).getTbl_user().hasAccount(getActivity())) {
-                    ((MainActivity)getActivity()).onAddFragment(new ChargeFragment(),R.anim.fadein,R.anim.short_fadeout,true,ChargeFragment.TAG);
+                    ((MainActivity) getActivity()).onAddFragment(new ChargeFragment(), R.anim.fadein, R.anim.short_fadeout, true, ChargeFragment.TAG);
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+                    ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
                 }
                 break;
 

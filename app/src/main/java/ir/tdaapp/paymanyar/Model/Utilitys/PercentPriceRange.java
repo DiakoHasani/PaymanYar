@@ -4,6 +4,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import ir.tdaapp.li_utility.Codes.Replace;
+
 public class PercentPriceRange implements TextWatcher {
 
     EditText txt_PricePercent, txt_AmountToToman, txt_Price;
@@ -36,7 +38,14 @@ public class PercentPriceRange implements TextWatcher {
                 } else {
 
                     if (txt_AmountToToman.getText().toString().length() > 0) {
-                        double prc = (Double.valueOf(txt_AmountToToman.getText().toString().replace(",", "")) * 100) / Double.valueOf(txt_Price.getText().toString().replace(",", ""));
+                        String price = txt_AmountToToman.getText().toString();
+                        price = price.replace(",", "").replace("٬", "");
+                        String precent = txt_Price.getText().toString().replace(",", "").replace("٬", "");
+
+                        price= Replace.Number_fn_To_en(price);
+                        precent=Replace.Number_fn_To_en(precent);
+
+                        double prc = (Double.valueOf(price) * 100) / Double.valueOf(precent);
                         txt_PricePercent.setText(String.valueOf(prc));
                     } else {
                         txt_PricePercent.setText("0");

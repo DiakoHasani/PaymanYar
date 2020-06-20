@@ -131,6 +131,7 @@ public class Api_Tender extends Base_Api {
                         obg.put("UpFeeId", filter.getUntilEstimateId());
                         obg.put("UserId", filter.getUserId());
                         obg.put("TenderId", filter.getTenderId());
+                        obg.put("ApiKey", filter.getApiKey());
 
                         if (filter.getDate() != null) {
                             obg.put("FromDate", filter.getDate());
@@ -334,14 +335,14 @@ public class Api_Tender extends Base_Api {
 
                         if (resault.getResault() == ResaultCode.Success) {
 
-                            try{
+                            try {
                                 List<VM_TenderNotifications> notifications = new ArrayList<>();
-                                JSONArray array=resault.getJsonArray();
+                                JSONArray array = resault.getJsonArray();
 
-                                for (int i=0;i<array.length();i++){
+                                for (int i = 0; i < array.length(); i++) {
                                     try {
-                                        JSONObject object=array.getJSONObject(i);
-                                        VM_TenderNotifications notification=new VM_TenderNotifications();
+                                        JSONObject object = array.getJSONObject(i);
+                                        VM_TenderNotifications notification = new VM_TenderNotifications();
 
                                         notification.setId(object.getString("TenderId"));
                                         notification.setTitle(object.getString("Title"));
@@ -357,7 +358,7 @@ public class Api_Tender extends Base_Api {
 
                                 emitter.onSuccess(notifications);
 
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 emitter.onError(e);
                             }
 

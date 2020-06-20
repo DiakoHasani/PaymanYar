@@ -9,6 +9,7 @@ import android.provider.Settings.Secure;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Login;
@@ -41,7 +42,7 @@ public class P_LoginFragment {
                 String api_key = ((MainActivity) context).getTbl_notification().getToken(context);
 
                 s_loginFragment.onLoading(true);
-                Single<VM_Message> data = api_login.login(txt_CellPhone.getText().toString(), android_id, api_key);
+                Single<VM_Message> data = api_login.login(Replace.Number_fn_To_en(txt_CellPhone.getText().toString()), android_id, api_key);
 
                 dispose_startLogin = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
                     @Override

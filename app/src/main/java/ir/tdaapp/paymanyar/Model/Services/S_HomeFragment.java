@@ -28,4 +28,6 @@ public interface S_HomeFragment {
     int onGetCurrentSlider();
 
     void onSetCurrentSlider(int i, boolean b);
+
+    void onShowMenuLoginNavigation();
 }

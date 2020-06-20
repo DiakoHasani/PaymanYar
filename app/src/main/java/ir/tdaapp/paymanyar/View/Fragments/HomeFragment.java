@@ -389,6 +389,13 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         Slider.setCurrentItem(i, b);
     }
 
+    //در اینجا دکمه لاگین در منو بغل نمایش داده می شود
+    @Override
+    public void onShowMenuLoginNavigation() {
+        Menu nav_Menu = nav_View.getMenu();
+        nav_Menu.findItem(R.id.menu_Login).setVisible(true);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -454,6 +461,15 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             case R.id.menu_SendApplication:
                 p_homeFragment.ShareApplication();
                 break;
+            case R.id.menu_smsBox:
+                ((MainActivity) getActivity()).onAddFragment(new SmsFragment(), R.anim.fadein, R.anim.fadeout, true, SmsFragment.TAG);
+                break;
+            case R.id.menu_contactUS:
+                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.fadeout, true, SupportFragment.TAG);
+                break;
+            case R.id.menu_telegramChannel:
+                openUrl.getTelegram("http://telegram.me/diako099",getContext());
+                break;
         }
 
         drawer.closeDrawers();
@@ -461,4 +477,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         return true;
     }
 
+    public DrawerLayout getDrawer() {
+        return drawer;
+    }
 }

@@ -29,6 +29,9 @@ public class VM_FilterTenderNotification {
     //آی دی مناقصه
     private String tenderId;
 
+    //کد منحصر بفرد کاربر
+    private String apiKey;
+
     public int getCityId() {
         return cityId;
     }
@@ -99,5 +102,13 @@ public class VM_FilterTenderNotification {
 
     public void setTenderId(String tenderId) {
         this.tenderId = tenderId;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }

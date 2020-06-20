@@ -7,10 +7,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +36,7 @@ public class LoginCodeFragment extends BaseFragment implements S_LoginCodeFragme
     TextView lbl_resend, lbl_btn_Login;
     TextInputEditText txt_Code;
     ProgressBar progress_btn_Login, progress_btn_Resend;
+    RelativeLayout bottom;
 
     String PhoneNumber;
 
@@ -59,12 +63,22 @@ public class LoginCodeFragment extends BaseFragment implements S_LoginCodeFragme
         progress_btn_Login = view.findViewById(R.id.progress_btn_Login);
         progress_btn_Resend = view.findViewById(R.id.progress_btn_Resend);
         lbl_btn_Login = view.findViewById(R.id.lbl_btn_Login);
+        bottom = view.findViewById(R.id.bottom);
     }
 
     void implement() {
         p_loginCodeFragment = new P_LoginCodeFragment(getContext(), this);
         btn_Login.setOnClickListener(this);
         btn_Resend.setOnClickListener(this);
+
+        KeyboardVisibilityEvent.setEventListener(getActivity(), isOpen -> {
+            if (isOpen) {
+                bottom.setVisibility(View.GONE);
+            } else {
+                bottom.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override

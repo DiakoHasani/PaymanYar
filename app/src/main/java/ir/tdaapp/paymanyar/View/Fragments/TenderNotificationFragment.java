@@ -21,6 +21,9 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -163,13 +166,17 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         });
 
         reload.setOnRefreshListener(() -> {
-            if (!isWorking){
+            if (!isWorking) {
                 page = 0;
                 p_tenderNotificationFragment.start(getFilter());
-            }else{
+            } else {
                 reload.setRefreshing(false);
             }
         });
+
+        cmb_City.setTitle(getString(R.string.select_one_city));
+        cmb_City.setPositiveButton(getString(R.string.close));
+
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -221,36 +228,42 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         VM_FilterTenderNotification filter = new VM_FilterTenderNotification();
 
-        //در اینجا آیدی استان گرفته می شود
-        if (cmb_City.getSelectedItem() != null) {
-            filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
-        }
+        try {
+
+            //در اینجا آیدی استان گرفته می شود
+            if (cmb_City.getSelectedItem() != null) {
+                filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+            }
 
 
-        //در اینجا آیدی رشته تحصیلی گرفته می شود
-        if (cmb_Major.getSelectedItem() != null) {
-            filter.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
-        }
+            //در اینجا آیدی رشته تحصیلی گرفته می شود
+            if (cmb_Major.getSelectedItem() != null) {
+                filter.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
+            }
 
 
-        //در اینجا شامل کلمه ست می شود
-        filter.setIncludesTheWord(txt_IncludesTheWord.getText().toString());
+            //در اینجا شامل کلمه ست می شود
+            filter.setIncludesTheWord(txt_IncludesTheWord.getText().toString());
 
-        //در اینجا از تاریخ ست می شود
-        filter.setDate(txt_Date.getText().toString());
+            //در اینجا از تاریخ ست می شود
+            filter.setDate(txt_Date.getText().toString());
 
-        //در اینجا برآورد از ست می شود
-        if (cmb_FromEstimate.getSelectedItem() != null) {
-            filter.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
-        }
+            //در اینجا برآورد از ست می شود
+            if (cmb_FromEstimate.getSelectedItem() != null) {
+                filter.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
+            }
 
 
-        //در اینجا تا برآورد ست می شود
-        if (cmb_UntilEstimate.getSelectedItem() != null) {
-            filter.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
-        }
+            //در اینجا تا برآورد ست می شود
+            if (cmb_UntilEstimate.getSelectedItem() != null) {
+                filter.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
+            }
 
-        filter.setPage(page);
+            filter.setPage(page);
+
+            filter.setApiKey(((MainActivity)getActivity()).getTbl_notification().getToken(getContext()));
+
+        }catch (Exception e){}
 
         return filter;
     }

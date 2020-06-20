@@ -78,12 +78,12 @@
                             android:textSize="14dp"
                             android:fontFamily="@font/vazir"
                             android:textColor="@color/colorGray"
-                            android:text="@string/TenderTitle"
+                            android:text="@string/PaymanyarCode"
                             android:paddingRight="16dp"
                             android:layout_gravity="center_vertical"/>
 
                         <TextView
-                            android:id="@+id/lbl_Title"
+                            android:id="@+id/lbl_PaymanyarCode"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -109,12 +109,12 @@
                             android:textSize="14dp"
                             android:fontFamily="@font/vazir"
                             android:textColor="@color/colorGray"
-                            android:text="@string/PaymanyarCode"
+                            android:text="@string/TenderTitle"
                             android:paddingRight="16dp"
                             android:layout_gravity="center_vertical"/>
 
                         <TextView
-                            android:id="@+id/lbl_PaymanyarCode"
+                            android:id="@+id/lbl_Title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -504,7 +504,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/vazir"
                         android:gravity="center"
-                        android:text="@string/Charge"
+                        android:text="@string/Increase_Credit"
                         android:textColor="@color/colorWhite"
                         android:textSize="14dp"
                         android:paddingLeft="16dp"

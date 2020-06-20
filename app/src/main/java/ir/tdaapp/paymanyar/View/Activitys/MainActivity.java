@@ -11,6 +11,7 @@ import java.util.List;
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     }
 
     //ر اینجا تنظیمات فلورای انجام می شود
-    void settingFlurry(){
+    void settingFlurry() {
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
                 .build(this, "G3CSR3SH55SXQ36NXBR3");
@@ -191,16 +192,38 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     }
 
     //زمانی که لاگین کاربر به اتمام میرسد در اینجا عملیت بستن صفحات لاگین انجام می شود
-    public void onBackPressedLoginPage(){
+    public void onBackPressedLoginPage() {
 
-        Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.FrameMain);
-        if (fragment instanceof LoginCodeFragment){
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.FrameMain);
+        if (fragment instanceof LoginCodeFragment) {
             onBackPressed();
         }
 
-        fragment=getSupportFragmentManager().findFragmentById(R.id.FrameMain);
-        if (fragment instanceof LoginFragment){
+        fragment = getSupportFragmentManager().findFragmentById(R.id.FrameMain);
+        if (fragment instanceof LoginFragment) {
             onBackPressed();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //چک می کند که منو بغل صفحه اصلی باز است اگر باز باشد آن را می بندد در غیر این صورت عملیات بستن صفحه جاری را انجام می دهد
+        if (!closeDrawer()) {
+            super.onBackPressed();
+        }
+    }
+
+    //در اینج اگر منوی بل باز باشد آن را می بندد
+    boolean closeDrawer() {
+
+        HomeFragment fragment = ((HomeFragment) getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG));
+        if (fragment != null) {
+            if (fragment.getDrawer().isDrawerOpen(GravityCompat.START)) {
+                fragment.getDrawer().closeDrawers();
+                return true;
+            }
+        }
+        return false;
     }
 }

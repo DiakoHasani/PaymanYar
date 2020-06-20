@@ -12,8 +12,23 @@
         android:icon="@drawable/ic_login"/>
 
     <item
+        android:id="@+id/menu_smsBox"
+        android:title="@string/smsBox"
+        android:icon="@drawable/ic_sms_black"/>
+
+    <item
+        android:id="@+id/menu_contactUS"
+        android:title="@string/ContactUs"
+        android:icon="@drawable/ic_support_black"/>
+
+    <item
         android:id="@+id/menu_SendApplication"
         android:title="@string/SendApplication"
         android:icon="@drawable/ic_send_application"/>
+
+    <item
+        android:id="@+id/menu_telegramChannel"
+        android:title="@string/telegramChannel"
+        android:icon="@drawable/ic_telegram"/>
 
 </menu>

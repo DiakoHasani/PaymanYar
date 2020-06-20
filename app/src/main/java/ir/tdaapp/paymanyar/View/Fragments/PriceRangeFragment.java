@@ -205,40 +205,40 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
             //ساخت یک آرایه از مقادیر پیشنهادی
             ArrayList<VM_PriceRange> arrayList = new ArrayList<>();
             if (txt_AmountToToman1.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("1", txt_AmountToToman1.getText().toString().replaceAll(",", ""), percent1.getText().toString()));
+                arrayList.add(new VM_PriceRange("1", txt_AmountToToman1.getText().toString().replace(",", "").replace("٬",""), percent1.getText().toString()));
                 ChartPoint(percent1.getText().toString(), chPoint1, 1);
             }
             if (txt_AmountToToman2.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("2", txt_AmountToToman2.getText().toString().replaceAll(",", ""), percent2.getText().toString()));
+                arrayList.add(new VM_PriceRange("2", txt_AmountToToman2.getText().toString().replace(",", "").replace("٬",""), percent2.getText().toString()));
                 ChartPoint(percent2.getText().toString(), chPoint2, 2);
             }
             if (txt_AmountToToman3.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("3", txt_AmountToToman3.getText().toString().replaceAll(",", ""), percent3.getText().toString()));
+                arrayList.add(new VM_PriceRange("3", txt_AmountToToman3.getText().toString().replace(",", "").replace("٬",""), percent3.getText().toString()));
                 ChartPoint(percent3.getText().toString(), chPoint3, 3);
             }
             if (txt_AmountToToman4.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("4", txt_AmountToToman4.getText().toString().replaceAll(",", ""), percent4.getText().toString()));
+                arrayList.add(new VM_PriceRange("4", txt_AmountToToman4.getText().toString().replace(",", "").replace("٬",""), percent4.getText().toString()));
                 ChartPoint(percent4.getText().toString(), chPoint4, 4);
             }
             if (txt_AmountToToman5.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("5", txt_AmountToToman5.getText().toString().replaceAll(",", ""), percent5.getText().toString()));
+                arrayList.add(new VM_PriceRange("5", txt_AmountToToman5.getText().toString().replace(",", "").replace("٬",""), percent5.getText().toString()));
                 ChartPoint(percent5.getText().toString(), chPoint5, 5);
             }
             if (txt_AmountToToman6.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("6", txt_AmountToToman6.getText().toString().replaceAll(",", ""), percent6.getText().toString()));
+                arrayList.add(new VM_PriceRange("6", txt_AmountToToman6.getText().toString().replace(",", "").replace("٬",""), percent6.getText().toString()));
                 ChartPoint(percent6.getText().toString(), chPoint6, 6);
             }
             if (txt_AmountToToman7.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("7", txt_AmountToToman7.getText().toString().replaceAll(",", ""), percent7.getText().toString()));
+                arrayList.add(new VM_PriceRange("7", txt_AmountToToman7.getText().toString().replace(",", "").replace("٬",""), percent7.getText().toString()));
                 ChartPoint(percent7.getText().toString(), chPoint7, 7);
             }
             if (txt_AmountToToman8.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("8", txt_AmountToToman8.getText().toString().replaceAll(",", ""), percent8.getText().toString()));
+                arrayList.add(new VM_PriceRange("8", txt_AmountToToman8.getText().toString().replace(",", "").replace("٬",""), percent8.getText().toString()));
                 ChartPoint(percent8.getText().toString(), chPoint8, 8);
             }
 
             //شروع محاسبه
-            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replaceAll(",", ""), arrayList, txt_guarantee.getText().toString().replaceAll(",", ""), cmb_Degree_of_Importance.getSelectedItemPosition() + 1);
+            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replace(",", "").replace("٬",""), arrayList, txt_guarantee.getText().toString().replace(",", "").replace("٬",""), cmb_Degree_of_Importance.getSelectedItemPosition() + 1);
 
         }
     }
@@ -290,14 +290,14 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     //در اینجا درصدها ست می شود
     void setPercents() {
-        percent1.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman1.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent2.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman2.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent3.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman3.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent4.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman4.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent5.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman5.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent6.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman6.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent7.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman7.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
-        percent8.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman8.getText().toString().replaceAll(",", ""), txt_Price.getText().toString().replaceAll(",", "")));
+        percent1.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman1.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent2.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman2.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent3.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman3.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent4.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman4.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent5.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman5.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent6.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman6.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent7.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman7.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent8.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman8.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
     }
 
 }
