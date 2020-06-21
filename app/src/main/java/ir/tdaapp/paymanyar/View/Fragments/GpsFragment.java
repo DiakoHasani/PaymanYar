@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -97,6 +98,7 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
                 if(report.areAllPermissionsGranted()){
+                    p_gpsFragment.setLocation();
                     p_gpsFragment.ShowMap();
                 }else{
                     ActivityCompat.requestPermissions(getActivity(),Permisions,22);

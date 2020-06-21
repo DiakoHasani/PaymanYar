@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.View.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.flurry.android.FlurryAgent;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;

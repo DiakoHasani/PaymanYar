@@ -1,5 +1,6 @@
 package ir.tdaapp.paymanyar.View.Activitys;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,8 +9,10 @@ import ir.tdaapp.paymanyar.Model.Services.S_ToolsActivity;
 import ir.tdaapp.paymanyar.Presenter.P_ToolsActivity;
 import ir.tdaapp.paymanyar.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 public class ToolsActivity extends AppCompatActivity implements S_ToolsActivity {
 
