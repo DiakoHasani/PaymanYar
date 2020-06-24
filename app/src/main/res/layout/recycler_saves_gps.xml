@@ -67,7 +67,8 @@
                 android:fontFamily="@font/vazir"
                 android:textColor="@color/colorTitle"
                 android:textSize="16dp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:layout_marginLeft="3dp"/>
 
         </LinearLayout>
 
@@ -94,7 +95,8 @@
                 android:fontFamily="@font/vazir"
                 android:textColor="@color/colorTitle"
                 android:textSize="16dp"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:layout_marginLeft="3dp"/>
 
         </LinearLayout>
 

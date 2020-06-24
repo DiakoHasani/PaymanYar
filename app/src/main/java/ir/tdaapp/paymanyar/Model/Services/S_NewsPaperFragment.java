@@ -1,5 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Services;
 
+import android.widget.ArrayAdapter;
+
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
 
@@ -11,4 +13,5 @@ public interface S_NewsPaperFragment {
     void onHideAll();
     void onSuccess();
     void onNews(VM_NewsPaper newsPaper);
+    void onAdapter_txtSearch(ArrayAdapter<String> adapter);
 }

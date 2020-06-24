@@ -150,4 +150,33 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <RelativeLayout
+        android:id="@+id/loading_Download"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDialog"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.paymanyar.Model.Adapters.SavesGpsAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_SavesGpsDialog;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseBottomSheetDialogFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_SavesGps;
 import ir.tdaapp.paymanyar.Presenter.P_SavesGpsDialog;
 import ir.tdaapp.paymanyar.R;
@@ -66,7 +67,9 @@ public class SavesGpsDialog extends BaseBottomSheetDialogFragment implements S_S
 
             @Override
             public void ShareItem(VM_SavesGps item) {
-                p_savesGpsDialog.ShareItem(item);
+//                p_savesGpsDialog.ShareItem(item);
+                String a = getString(R.string.directedByPaymanyar) + "\n\n" + getString(R.string.Wide) + " " + item.getWide() + "\n" + getString(R.string.Length) + " " + item.getLength();
+                openUrl.getApplicationsText(getString(R.string.GPS), a, getContext());
             }
         });
         recycler.setAdapter(adapter);

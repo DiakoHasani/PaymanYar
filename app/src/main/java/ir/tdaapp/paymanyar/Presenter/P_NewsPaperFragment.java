@@ -3,7 +3,9 @@ package ir.tdaapp.paymanyar.Presenter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -14,6 +16,7 @@ import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_NewsPaper;
 import ir.tdaapp.paymanyar.Model.Services.S_NewsPaperFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
+import ir.tdaapp.paymanyar.R;
 
 public class P_NewsPaperFragment {
 
@@ -28,15 +31,15 @@ public class P_NewsPaperFragment {
         api_newsPaper = new Api_NewsPaper();
     }
 
-    public void start() {
+    public void start(String title) {
         s_newsPaperFragment.OnStart();
         s_newsPaperFragment.onHideAll();
         s_newsPaperFragment.onLoading(true);
-        getNewsPapers();
+        getNewsPapers(title);
     }
 
     //در اینجا روزنامه ها گرفته می شوند
-    void getNewsPapers() {
+    void getNewsPapers(String title) {
 
         Single<List<VM_NewsPaper>> data = api_newsPaper.getNews();
 
@@ -46,7 +49,7 @@ public class P_NewsPaperFragment {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     s_newsPaperFragment.onHideAll();
                     s_newsPaperFragment.onSuccess();
-                    setNewsPaper(vm_newsPapers);
+                    setNewsPaper(vm_newsPapers,title);
                 });
 
             }
@@ -64,15 +67,36 @@ public class P_NewsPaperFragment {
     }
 
     //در اینجا روزنامه ها در رسایکلر ست می شوند
-    void setNewsPaper(List<VM_NewsPaper> newsPaper) {
+    void setNewsPaper(List<VM_NewsPaper> newsPaper,String title) {
+
+        //در اینجا تایتل روزنامه ها گرفته می شود و در تکست باکس سرچ ست می شوند
+        List<String> valsAdapter = new ArrayList<>();
 
         Observable<VM_NewsPaper> newsPaperObservable = Observable.fromIterable(newsPaper);
 
         dispose_setNewsPaper = newsPaperObservable.subscribe(vm_newsPaper -> {
-            s_newsPaperFragment.onNews(vm_newsPaper);
+
+            if (!title.equalsIgnoreCase("")){
+
+                if (vm_newsPaper.getTitle().contains(title)){
+                    s_newsPaperFragment.onNews(vm_newsPaper);
+                }
+
+            }else{
+                s_newsPaperFragment.onNews(vm_newsPaper);
+            }
+
+            //در اینجا تایتل روزنامه ها گرفته می شود
+            valsAdapter.add(vm_newsPaper.getTitle());
         }, throwable -> {
 
         }, () -> {
+
+            //در اینجا تایتل ها در آداپتر ست می شوند
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.layout_auto_complete, valsAdapter);
+            //سپس به ادیت تکست ارسال می شود
+            s_newsPaperFragment.onAdapter_txtSearch(adapter);
+
             s_newsPaperFragment.onFinish();
         });
 
@@ -80,7 +104,7 @@ public class P_NewsPaperFragment {
 
     public void Cancel(String Tag) {
 
-        api_newsPaper.cancel(Tag,context);
+        api_newsPaper.cancel(Tag, context);
 
         if (dispose_getNewsPapers != null) {
             dispose_getNewsPapers.dispose();

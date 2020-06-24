@@ -54,14 +54,14 @@ public class Tbl_SavesGps {
         if(!hasGPS(lat,lon)){
 
             //if There is NO location like these so we Save it in database
-            dbAdapter.ExecuteQ("insert into tbl_gps(lat,lon) values("+lat+","+lon+")");
+            dbAdapter.ExecuteQ("insert into tbl_gps(lat,lon) values('"+lat+"','"+lon+"')");
 
         }
 
     }
 
     public boolean hasGPS(String lat,String lon){
-        Cursor q = dbAdapter.ExecuteQ("select COUNT(id) from tbl_gps where lat="+lat+" and lon="+lon);
+        Cursor q = dbAdapter.ExecuteQ("select COUNT(id) from tbl_gps where lat='"+lat+"' and lon='"+lon+"'");
 
         if (q.getString(0) != null) {
             return q.getInt(0) > 0;

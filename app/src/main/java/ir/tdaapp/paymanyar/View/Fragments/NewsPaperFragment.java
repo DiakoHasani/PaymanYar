@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -30,7 +33,7 @@ import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 //مربوط به صفحه روزنامه
-public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragment {
+public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragment,View.OnClickListener {
 
     public final static String TAG = "NewsPaperFragment";
 
@@ -41,6 +44,8 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
     NewsPaperAdapter newsPaperAdapter;
     ErrorAplicationDialog errorAplicationDialog;
     SwipeRefreshLayout reload;
+    AutoCompleteTextView txt_Search;
+    Button btn_Search;
 
     @Nullable
     @Override
@@ -52,7 +57,7 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         setToolbar();
 
         new Handler().postDelayed(() -> {
-            p_newsPaperFragment.start();
+            p_newsPaperFragment.start(txt_Search.getText().toString());
         },300);
 
         return view;
@@ -63,14 +68,18 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         recycler = view.findViewById(R.id.recycler);
         toolbar = view.findViewById(R.id.toolbar);
         reload = view.findViewById(R.id.reload);
+        txt_Search = view.findViewById(R.id.txt_Search);
+        btn_Search = view.findViewById(R.id.btn_Search);
     }
 
     void implement() {
         p_newsPaperFragment = new P_NewsPaperFragment(getContext(), this);
 
         reload.setOnRefreshListener(() -> {
-            p_newsPaperFragment.start();
+            p_newsPaperFragment.start(txt_Search.getText().toString());
         });
+
+        btn_Search.setOnClickListener(this);
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -130,7 +139,7 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         String text = getString(R.string.please_Checked_Your_Internet_Connection);
 
         errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
-            p_newsPaperFragment.start();
+            p_newsPaperFragment.start(txt_Search.getText().toString());
             errorAplicationDialog.dismiss();
         });
 
@@ -160,9 +169,24 @@ public class NewsPaperFragment extends BaseFragment implements S_NewsPaperFragme
         newsPaperAdapter.add(newsPaper);
     }
 
+    //در اینجا آداپتر تکست باکس سرچ ست می شود
+    @Override
+    public void onAdapter_txtSearch(ArrayAdapter<String> adapter) {
+        txt_Search.setAdapter(adapter);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         p_newsPaperFragment.Cancel(TAG);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_Search:
+                p_newsPaperFragment.start(txt_Search.getText().toString());
+                break;
+        }
     }
 }

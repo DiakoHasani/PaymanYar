@@ -141,4 +141,9 @@
     <string name="ContactUs">ارتباط با ما</string>
     <string name="smsBox">جعبه پیام</string>
     <string name="telegramChannel">کانال تلگرام</string>
+    <string name="About_the_chart">اطلاعات نمودار</string>
+    <string name="upper_line">حد بالا:</string>
+    <string name="Low_limit">حد پایین:</string>
+    <string name="outOfRange">خارج از دامنه ها:</string>
+    <string name="see">مشاهده:</string>
 </resources>

@@ -5,6 +5,8 @@ import android.widget.ArrayAdapter;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ir.tdaapp.li_utility.Codes.Replace;
@@ -232,23 +234,40 @@ public class P_PriceRangeFragment {
         double max_percent = 1000;
         String index = "---";
 
+        Collections.sort(arr, new Comparator<VM_PriceRange>() {
+            public int compare(VM_PriceRange o1, VM_PriceRange o2) {
+                return Double.valueOf(o1.percent).compareTo(Double.valueOf(o2.percent));
+            }
+        });
+
+        for (int i = 0; i < arr.size(); i++) {
+            VM_PriceRange item = arr.get(i);
+
+            if (Double.valueOf(item.percent) >= C) {
+                max_price = Long.valueOf(item.price);
+                max_percent = Math.abs(C - Double.valueOf(item.percent));
+                index = item.id;
+                break;
+            }
+        }
+
         /*
         انتخاب برنده به شکل زیر است:
         وقتی حد پایین رو به دست اوردی اولین بزرگترین موردی که کمترین اختلاف رو داره میشه برنده
         درخواست های حذف شده ملاک قرار نمی گیرند
          */
 
-        for (int i = 0; i < arr.size(); i++) {
-            VM_PriceRange item = arr.get(i);
-
-            if (!item.isDeleted) {
-                if (Long.valueOf(item.price) > max_price && Math.abs(C - Double.valueOf(item.percent)) < max_percent && Double.valueOf(item.percent) > C && Double.valueOf(item.percent) < c2) {
-                    max_price = Long.valueOf(item.price);
-                    max_percent = Math.abs(C - Double.valueOf(item.percent));
-                    index = item.id;
-                }
-            }
-        }
+//        for (int i = 0; i < arr.size(); i++) {
+//            VM_PriceRange item = arr.get(i);
+//
+//            if (!item.isDeleted) {
+//                if (Long.valueOf(item.price) > max_price && Math.abs(C - Double.valueOf(item.percent)) < max_percent && Double.valueOf(item.percent) > C && Double.valueOf(item.percent) < c2) {
+//                    max_price = Long.valueOf(item.price);
+//                    max_percent = Math.abs(C - Double.valueOf(item.percent));
+//                    index = item.id;
+//                }
+//            }
+//        }
 
         if (s_priceRangeFragment != null)
             s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price), index, String.valueOf(c2), String.valueOf(C));

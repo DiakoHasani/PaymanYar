@@ -1,6 +1,8 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class P_LibraryFragment {
     private Context context;
     private S_LibraryFragment s_libraryFragment;
     Api_Library api_library;
-    Disposable dispose_getLibraries, dispose_setLibraries, dispose_downloadLibrary;
+    Disposable dispose_getLibraries, dispose_setLibraries, dispose_downloadLibrary, dispose_downloadPDF;
     Tbl_Library tbl_library;
 
     public P_LibraryFragment(Context context, S_LibraryFragment s_libraryFragment) {
@@ -30,6 +32,7 @@ public class P_LibraryFragment {
         api_library = new Api_Library();
         tbl_library = new Tbl_Library(context);
     }
+
 
     public void start(String queryText, int page) {
 
@@ -100,9 +103,9 @@ public class P_LibraryFragment {
 
     //زمانی که کاربر یک کتاب دانلود کند آی دی آن به سرور ارسال می شود
     public void downloadLibrary(int id) {
-        Single<VM_Message> data=api_library.addCountDownloadLibrary(id);
+        Single<VM_Message> data = api_library.addCountDownloadLibrary(id);
 
-        dispose_downloadLibrary=data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
+        dispose_downloadLibrary = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
             @Override
             public void onSuccess(VM_Message message) {
 
@@ -118,6 +121,37 @@ public class P_LibraryFragment {
     //زمانی که کاربر یک کتابخانه دانلود کند آن را به لیست دانلود شده ها اضافه می کند
     public void addLibraryDownloaded(int libraryId, addLibrary a) {
         tbl_library.add(libraryId, a);
+    }
+
+    public void downloadPDF(String downloadUrl, String title) {
+
+        new Handler(Looper.getMainLooper()).post(() -> {
+            s_libraryFragment.onLoadingDownloadPDF(true);
+        });
+
+        Single<Boolean> val = api_library.downloadPDF(downloadUrl, title);
+        dispose_downloadPDF = val.subscribeWith(new DisposableSingleObserver<Boolean>() {
+            @Override
+            public void onSuccess(Boolean res) {
+
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    s_libraryFragment.onLoadingDownloadPDF(false);
+                    if (res) {
+                        s_libraryFragment.onShowPDF(title);
+                    } else {
+                        s_libraryFragment.onErrorDownloadPDF();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    s_libraryFragment.onLoadingDownloadPDF(false);
+                    s_libraryFragment.onErrorDownloadPDF();
+                });
+            }
+        });
     }
 
     public void Cancel(String tag) {
@@ -136,6 +170,10 @@ public class P_LibraryFragment {
 
         if (dispose_downloadLibrary != null) {
             dispose_downloadLibrary.dispose();
+        }
+
+        if (dispose_downloadPDF != null) {
+            dispose_downloadPDF.dispose();
         }
     }
 }

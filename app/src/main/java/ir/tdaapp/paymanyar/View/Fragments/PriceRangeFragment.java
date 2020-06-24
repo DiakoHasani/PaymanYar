@@ -45,10 +45,12 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     EditText txt_AmountToToman7, txt_AmountToToman8, percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8, txt_Percentage, txt_guarantee;
     Spinner cmb_Degree_of_Importance;
     TextView winnerPrice, winnerNumber;
-    RelativeLayout chPoint1, chPoint2, chPoint3, chPoint4, chPoint5, chPoint6, chPoint7, chPoint8;
+    RelativeLayout chPoint1, chPoint2, chPoint3, chPoint4, chPoint5, chPoint6, chPoint7, chPoint8, chPoint9, chPoint10, chPoint11, chPoint12;
     RelativeLayout ChartUpLine, ChartDownLine;
     CardView btnCalc, btn_Home;
     Toolbar toolbar;
+    EditText txt_AmountToToman9, txt_AmountToToman10, txt_AmountToToman11, txt_AmountToToman12, percent9, percent10, percent11, percent12;
+    TextView Low_limit, lbl_upper_line, lbl_outOfRange;
 
     public static final String TAG = "PriceRangeFragment";
 
@@ -59,6 +61,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
         findItem(view);
         implement();
+        onHideAllChPoints();
         p_priceRangeFragment.start();
 
         setToolbar();
@@ -79,6 +82,10 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman6 = view.findViewById(R.id.txt_AmountToToman6);
         txt_AmountToToman7 = view.findViewById(R.id.txt_AmountToToman7);
         txt_AmountToToman8 = view.findViewById(R.id.txt_AmountToToman8);
+        txt_AmountToToman9 = view.findViewById(R.id.txt_AmountToToman9);
+        txt_AmountToToman10 = view.findViewById(R.id.txt_AmountToToman10);
+        txt_AmountToToman11 = view.findViewById(R.id.txt_AmountToToman11);
+        txt_AmountToToman12 = view.findViewById(R.id.txt_AmountToToman12);
         percent1 = view.findViewById(R.id.pricerange_percent1);
         percent2 = view.findViewById(R.id.pricerange_percent2);
         percent3 = view.findViewById(R.id.pricerange_percent3);
@@ -87,6 +94,10 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         percent6 = view.findViewById(R.id.pricerange_percent6);
         percent7 = view.findViewById(R.id.pricerange_percent7);
         percent8 = view.findViewById(R.id.pricerange_percent8);
+        percent9 = view.findViewById(R.id.pricerange_percent9);
+        percent10 = view.findViewById(R.id.pricerange_percent10);
+        percent11 = view.findViewById(R.id.pricerange_percent11);
+        percent12 = view.findViewById(R.id.pricerange_percent12);
         btnCalc = view.findViewById(R.id.btn_PriceRange);
         txt_guarantee = view.findViewById(R.id.txt_percentage);
 
@@ -98,6 +109,10 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         chPoint6 = view.findViewById(R.id.pricerange_chartpoint6);
         chPoint7 = view.findViewById(R.id.pricerange_chartpoint7);
         chPoint8 = view.findViewById(R.id.pricerange_chartpoint8);
+        chPoint9 = view.findViewById(R.id.pricerange_chartpoint9);
+        chPoint10 = view.findViewById(R.id.pricerange_chartpoint10);
+        chPoint11 = view.findViewById(R.id.pricerange_chartpoint11);
+        chPoint12 = view.findViewById(R.id.pricerange_chartpoint12);
 
         ChartDownLine = (RelativeLayout) view.findViewById(R.id.pricerange_chartDownLine);
         ChartUpLine = (RelativeLayout) view.findViewById(R.id.pricerange_chartUpLine);
@@ -107,6 +122,9 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
         txt_Percentage = view.findViewById(R.id.txt_percentage);
         btn_Home = view.findViewById(R.id.btn_Home);
+        lbl_upper_line = view.findViewById(R.id.lbl_upper_line);
+        Low_limit = view.findViewById(R.id.Low_limit);
+        lbl_outOfRange = view.findViewById(R.id.lbl_outOfRange);
     }
 
     void implement() {
@@ -121,6 +139,10 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman6.addTextChangedListener(new ShowPrice(txt_AmountToToman6));
         txt_AmountToToman7.addTextChangedListener(new ShowPrice(txt_AmountToToman7));
         txt_AmountToToman8.addTextChangedListener(new ShowPrice(txt_AmountToToman8));
+        txt_AmountToToman9.addTextChangedListener(new ShowPrice(txt_AmountToToman9));
+        txt_AmountToToman10.addTextChangedListener(new ShowPrice(txt_AmountToToman10));
+        txt_AmountToToman11.addTextChangedListener(new ShowPrice(txt_AmountToToman11));
+        txt_AmountToToman12.addTextChangedListener(new ShowPrice(txt_AmountToToman12));
         txt_guarantee.addTextChangedListener(new ShowPrice(txt_Percentage));
         btnCalc.setOnClickListener(this);
         btn_Home.setOnClickListener(this);
@@ -133,6 +155,10 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         txt_AmountToToman6.addTextChangedListener(new PercentPriceRange(percent6, txt_AmountToToman6, txt_Price));
         txt_AmountToToman7.addTextChangedListener(new PercentPriceRange(percent7, txt_AmountToToman7, txt_Price));
         txt_AmountToToman8.addTextChangedListener(new PercentPriceRange(percent8, txt_AmountToToman8, txt_Price));
+        txt_AmountToToman9.addTextChangedListener(new PercentPriceRange(percent9, txt_AmountToToman9, txt_Price));
+        txt_AmountToToman10.addTextChangedListener(new PercentPriceRange(percent10, txt_AmountToToman10, txt_Price));
+        txt_AmountToToman11.addTextChangedListener(new PercentPriceRange(percent11, txt_AmountToToman11, txt_Price));
+        txt_AmountToToman12.addTextChangedListener(new PercentPriceRange(percent12, txt_AmountToToman12, txt_Price));
 
         txt_Price.addTextChangedListener(new TextWatcher() {
             @Override
@@ -186,6 +212,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_PriceRange:
+                lbl_outOfRange.setText("---");
                 Calculate();
                 break;
             case R.id.btn_Home:
@@ -199,46 +226,76 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         //چک کنیم که مبلغ مناقصه وارد شده است
         if (Validation.Required(txt_Price, getString(R.string.Please_Input_The_Price))) {
 
+            onHideAllChPoints();
+
             //ابتدا درصدها مشخص شود
             setPercents();
 
             //ساخت یک آرایه از مقادیر پیشنهادی
             ArrayList<VM_PriceRange> arrayList = new ArrayList<>();
             if (txt_AmountToToman1.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("1", txt_AmountToToman1.getText().toString().replace(",", "").replace("٬",""), percent1.getText().toString()));
+                chPoint1.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("1", txt_AmountToToman1.getText().toString().replace(",", "").replace("٬", ""), percent1.getText().toString()));
                 ChartPoint(percent1.getText().toString(), chPoint1, 1);
             }
             if (txt_AmountToToman2.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("2", txt_AmountToToman2.getText().toString().replace(",", "").replace("٬",""), percent2.getText().toString()));
+                chPoint2.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("2", txt_AmountToToman2.getText().toString().replace(",", "").replace("٬", ""), percent2.getText().toString()));
                 ChartPoint(percent2.getText().toString(), chPoint2, 2);
             }
             if (txt_AmountToToman3.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("3", txt_AmountToToman3.getText().toString().replace(",", "").replace("٬",""), percent3.getText().toString()));
+                chPoint3.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("3", txt_AmountToToman3.getText().toString().replace(",", "").replace("٬", ""), percent3.getText().toString()));
                 ChartPoint(percent3.getText().toString(), chPoint3, 3);
             }
             if (txt_AmountToToman4.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("4", txt_AmountToToman4.getText().toString().replace(",", "").replace("٬",""), percent4.getText().toString()));
+                chPoint4.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("4", txt_AmountToToman4.getText().toString().replace(",", "").replace("٬", ""), percent4.getText().toString()));
                 ChartPoint(percent4.getText().toString(), chPoint4, 4);
             }
             if (txt_AmountToToman5.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("5", txt_AmountToToman5.getText().toString().replace(",", "").replace("٬",""), percent5.getText().toString()));
+                chPoint5.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("5", txt_AmountToToman5.getText().toString().replace(",", "").replace("٬", ""), percent5.getText().toString()));
                 ChartPoint(percent5.getText().toString(), chPoint5, 5);
             }
             if (txt_AmountToToman6.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("6", txt_AmountToToman6.getText().toString().replace(",", "").replace("٬",""), percent6.getText().toString()));
+                chPoint6.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("6", txt_AmountToToman6.getText().toString().replace(",", "").replace("٬", ""), percent6.getText().toString()));
                 ChartPoint(percent6.getText().toString(), chPoint6, 6);
             }
             if (txt_AmountToToman7.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("7", txt_AmountToToman7.getText().toString().replace(",", "").replace("٬",""), percent7.getText().toString()));
+                chPoint7.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("7", txt_AmountToToman7.getText().toString().replace(",", "").replace("٬", ""), percent7.getText().toString()));
                 ChartPoint(percent7.getText().toString(), chPoint7, 7);
             }
             if (txt_AmountToToman8.getText().toString().length() > 0) {
-                arrayList.add(new VM_PriceRange("8", txt_AmountToToman8.getText().toString().replace(",", "").replace("٬",""), percent8.getText().toString()));
+                chPoint8.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("8", txt_AmountToToman8.getText().toString().replace(",", "").replace("٬", ""), percent8.getText().toString()));
                 ChartPoint(percent8.getText().toString(), chPoint8, 8);
+            }
+            if (txt_AmountToToman9.getText().toString().length() > 0) {
+                chPoint9.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("9", txt_AmountToToman9.getText().toString().replace(",", "").replace("٬", ""), percent9.getText().toString()));
+                ChartPoint(percent9.getText().toString(), chPoint9, 9);
+            }
+            if (txt_AmountToToman10.getText().toString().length() > 0) {
+                chPoint10.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("10", txt_AmountToToman10.getText().toString().replace(",", "").replace("٬", ""), percent10.getText().toString()));
+                ChartPoint(percent10.getText().toString(), chPoint10, 10);
+            }
+            if (txt_AmountToToman11.getText().toString().length() > 0) {
+                chPoint11.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("11", txt_AmountToToman11.getText().toString().replace(",", "").replace("٬", ""), percent11.getText().toString()));
+                ChartPoint(percent11.getText().toString(), chPoint11, 11);
+            }
+            if (txt_AmountToToman12.getText().toString().length() > 0) {
+                chPoint12.setVisibility(View.VISIBLE);
+                arrayList.add(new VM_PriceRange("12", txt_AmountToToman12.getText().toString().replace(",", "").replace("٬", ""), percent12.getText().toString()));
+                ChartPoint(percent12.getText().toString(), chPoint12, 12);
             }
 
             //شروع محاسبه
-            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replace(",", "").replace("٬",""), arrayList, txt_guarantee.getText().toString().replace(",", "").replace("٬",""), cmb_Degree_of_Importance.getSelectedItemPosition() + 1);
+            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replace(",", "").replace("٬", ""), arrayList, txt_guarantee.getText().toString().replace(",", "").replace("٬", ""), cmb_Degree_of_Importance.getSelectedItemPosition() + 1);
 
         }
     }
@@ -248,12 +305,30 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         try {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(obj.getLayoutParams());
             String val = Percenet.substring(0, Percenet.indexOf("."));
-            params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(number * 20 + 20), IntToDP(Integer.valueOf(val) + 12));
+            params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(number * 21 + 20), IntToDP(Integer.valueOf(val) + 12));
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
             //فق براساس درصد پیشنهادی از پایین فاصله میدهیم
             obj.setLayoutParams(params);
-        }catch (Exception e){}
+
+            //در اینجا خارج از محدوده ست می شود
+            if (Integer.valueOf(val) > 220) {
+                int value = Integer.valueOf(val);
+                if (value > 220) {
+                    String text = lbl_outOfRange.getText().toString();
+
+                    if (text.equalsIgnoreCase("---")) {
+                        text = number + "";
+                    } else {
+                        text = text + "," + number;
+                    }
+
+                    lbl_outOfRange.setText(text);
+                }
+            }
+
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -266,7 +341,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         //حد بالا
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ChartUpLine.getLayoutParams());
         int m = Integer.valueOf(CUp.substring(0, CUp.indexOf(".")));
-        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(50), IntToDP(m + 18));
+        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(m + 18));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         ChartUpLine.setLayoutParams(params);
 
@@ -274,9 +349,69 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         //حد پایین
         params = new RelativeLayout.LayoutParams(ChartDownLine.getLayoutParams());
         m = Integer.valueOf(CDown.substring(0, CDown.indexOf(".")));
-        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(50), IntToDP(m + 18));
+        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(m + 18));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         ChartDownLine.setLayoutParams(params);
+
+        String up = "";
+        String down = "";
+
+        //ر اینجا حد بالا گرفته می شود
+        boolean a = true;
+        int a1 = 0;
+        try {
+            for (int i = 0; i < CUp.length(); i++) {
+                if (CUp.charAt(i) == '.') {
+                    a = false;
+                }
+                if (!a) {
+                    a1++;
+                }
+                up = up + CUp.charAt(i);
+                if (a1 > 2) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        //در اینجا حدپایین گرفته می شود
+        a = true;
+        a1 = 0;
+        try {
+            for (int i = 0; i < CDown.length(); i++) {
+                if (CDown.charAt(i) == '.') {
+                    a = false;
+                }
+                if (!a) {
+                    a1++;
+                }
+                down = down + CDown.charAt(i);
+                if (a1 > 2) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        lbl_upper_line.setText(up);
+        Low_limit.setText(down);
+    }
+
+    @Override
+    public void onHideAllChPoints() {
+        chPoint1.setVisibility(View.GONE);
+        chPoint2.setVisibility(View.GONE);
+        chPoint3.setVisibility(View.GONE);
+        chPoint4.setVisibility(View.GONE);
+        chPoint5.setVisibility(View.GONE);
+        chPoint6.setVisibility(View.GONE);
+        chPoint7.setVisibility(View.GONE);
+        chPoint8.setVisibility(View.GONE);
+        chPoint9.setVisibility(View.GONE);
+        chPoint10.setVisibility(View.GONE);
+        chPoint11.setVisibility(View.GONE);
+        chPoint12.setVisibility(View.GONE);
     }
 
     private int IntToDP(int value) {
@@ -290,14 +425,18 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     //در اینجا درصدها ست می شود
     void setPercents() {
-        percent1.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman1.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent2.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman2.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent3.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman3.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent4.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman4.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent5.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman5.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent6.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman6.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent7.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman7.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
-        percent8.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman8.getText().toString().replace(",", "").replace("٬",""), txt_Price.getText().toString().replace(",", "").replace("٬","")));
+        percent1.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman1.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent2.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman2.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent3.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman3.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent4.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman4.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent5.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman5.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent6.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman6.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent7.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman7.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent8.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman8.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent9.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman9.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent10.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman10.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent11.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman11.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
+        percent12.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman12.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
     }
 
 }

@@ -6,6 +6,7 @@ public class VM_Library {
     private int Id;
     private String Title;
     private String Url;
+    private String BookName;
     private boolean IsDownloaded;
 
     public int getId() {
@@ -38,5 +39,13 @@ public class VM_Library {
 
     public void setDownloaded(boolean downloaded) {
         IsDownloaded = downloaded;
+    }
+
+    public String getBookName() {
+        return BookName;
+    }
+
+    public void setBookName(String bookName) {
+        BookName = bookName;
     }
 }

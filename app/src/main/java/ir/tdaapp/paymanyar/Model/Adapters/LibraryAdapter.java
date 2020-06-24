@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -67,11 +68,15 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         }
 
         holder.download.setOnClickListener(view -> {
-            onClickLibrary.clickDownload(libraries.get(position).getId(), libraries.get(position).getUrl());
+            onClickLibrary.clickDownload(libraries.get(position));
         });
 
         holder.layout.setOnClickListener(view -> {
             onClickLibrary.clickItem(libraries.get(position).getId());
+        });
+
+        holder.share.setOnClickListener(view -> {
+            onClickLibrary.clickShare(libraries.get(position).getUrl(),libraries.get(position).getTitle());
         });
     }
 
@@ -84,13 +89,15 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView lbl_Title;
-        RelativeLayout download, layout;
+        RelativeLayout layout;
+        ImageView download,share;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             lbl_Title = itemView.findViewById(R.id.lbl_Title);
             download = itemView.findViewById(R.id.download);
             layout = itemView.findViewById(R.id.layout);
+            share = itemView.findViewById(R.id.share);
         }
     }
 

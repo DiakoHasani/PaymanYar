@@ -13,4 +13,7 @@ public interface S_LibraryFragment {
     void onLibraryItem(VM_Library library);
     void onLoadingPaging(boolean load);
     void onEmptyItem();
+    void onShowPDF(String pdfName);
+    void onLoadingDownloadPDF(boolean load);
+    void onErrorDownloadPDF();
 }
