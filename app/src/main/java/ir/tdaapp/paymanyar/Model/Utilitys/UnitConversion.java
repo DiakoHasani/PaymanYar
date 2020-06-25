@@ -13,7 +13,7 @@ public class UnitConversion {
 
             // Acceleration
             case 1:
-                answer.add("AttometersPerSecondSquared");
+//                answer.add("AttometersPerSecondSquared");
                 answer.add("CentimeterPerSecondSquared");
                 answer.add("DecimetersPerSecondSquared");
                 answer.add("DekametersPerSecondSquared");
@@ -66,32 +66,32 @@ public class UnitConversion {
 
             // Area
             case 3:
-                answer.add("Ares");
-                answer.add("Arpents");
-                answer.add("Barns");
-                answer.add("CircularInches");
-                answer.add("CircularMils");
-                answer.add("Hectares");
-                answer.add("Homesteads");
-                answer.add("Roods");
-                answer.add("Sabins");
-                answer.add("SquareCentimeters");
-                answer.add("SquareChains");
-                answer.add("SquareDecimeters");
-                answer.add("SquareDekameters");
-                answer.add("SquareFeet");
-                answer.add("SquareHectometers");
-                answer.add("SquareInches");
-                answer.add("SquareKilometers");
-                answer.add("SquareMeters");
-                answer.add("SquareMicrometers");
-                answer.add("SquareMiles");
-                answer.add("SquareMillimeters");
-                answer.add("SquareNanometers");
-                answer.add("SquarePerches");
-                answer.add("SquarePoles");
-                answer.add("SquareRods");
-                answer.add("SquareYards");
+                answer.add("Are");
+                answer.add("Acre");
+//                answer.add("Barns");
+//                answer.add("CircularInches");
+//                answer.add("CircularMils");
+                answer.add("Hectare");
+//                answer.add("Homesteads");
+//                answer.add("Roods");
+//                answer.add("Sabins");
+                answer.add("cm2");
+//                answer.add("SquareChains");
+//                answer.add("SquareDecimeters");
+//                answer.add("SquareDekameters");
+                answer.add("ft2");
+//                answer.add("SquareHectometers");
+                answer.add("in2");
+                answer.add("km2");
+                answer.add("m2");
+//                answer.add("SquareMicrometers");
+                answer.add("mile2");
+                answer.add("mm2");
+//                answer.add("SquareNanometers");
+//                answer.add("SquarePerches");
+//                answer.add("SquarePoles");
+//                answer.add("SquareRods");
+                answer.add("yare2");
                 break;
 
             // Electric Charge
@@ -120,57 +120,57 @@ public class UnitConversion {
 
             // Distance
             case 5:
-                answer.add("Attometers");
-                answer.add("Barleycorns");
-                answer.add("CablesImperial");
-                answer.add("CablesInternational");
-                answer.add("CablesUSCustomary");
-                answer.add("Caliber");
-                answer.add("Centiinches");
-                answer.add("Centimeters");
-                answer.add("Chains");
-                answer.add("Cubits");
-                answer.add("Decimeters");
-                answer.add("Dekameters");
-                answer.add("Ells");
-                answer.add("Exameters");
-                answer.add("Fathoms");
-                answer.add("Feet");
-                answer.add("Femtometers");
-                answer.add("Fingers");
-                answer.add("Furlongs");
-                answer.add("Gigameters");
-                answer.add("Hands");
-                answer.add("Hectometers");
-                answer.add("Inches");
-                answer.add("Kilometers");
-                answer.add("Kiloyards");
-                answer.add("Leagues");
-                answer.add("LightYears");
-                answer.add("Links");
-                answer.add("Megameters");
-                answer.add("Meters");
-                answer.add("Microinches");
-                answer.add("Micrometers");
+//                answer.add("Attometers");
+//                answer.add("Barleycorns");
+//                answer.add("CablesImperial");
+//                answer.add("CablesInternational");
+//                answer.add("CablesUSCustomary");
+//                answer.add("Caliber");
+//                answer.add("Centiinches");
+                answer.add("cm");
+//                answer.add("Chains");
+//                answer.add("Cubits");
+//                answer.add("Decimeters");
+//                answer.add("Dekameters");
+//                answer.add("Ells");
+//                answer.add("Exameters");
+//                answer.add("Fathoms");
+                answer.add("ft");
+//                answer.add("Femtometers");
+//                answer.add("Fingers");
+//                answer.add("Furlongs");
+//                answer.add("Gigameters");
+//                answer.add("Hands");
+//                answer.add("Hectometers");
+                answer.add("in");
+                answer.add("km");
+//                answer.add("Kiloyards");
+//                answer.add("Leagues");
+//                answer.add("LightYears");
+//                answer.add("Links");
+//                answer.add("Megameters");
+                answer.add("m");
+//                answer.add("Microinches");
+//                answer.add("Micrometers");
                 answer.add("Microns");
                 answer.add("Miles");
-                answer.add("Millimeters");
-                answer.add("Nails");
-                answer.add("Nanometers");
-                answer.add("NauticalLeaguesInternational");
-                answer.add("NauticalLeaguesUK");
-                answer.add("NauticalMilesInternational");
-                answer.add("NauticalMilesUK");
-                answer.add("NauticalMilesUSCustomary");
-                answer.add("Perches");
-                answer.add("Petameters");
-                answer.add("Picometers");
-                answer.add("Poles");
-                answer.add("Rods");
-                answer.add("Ropes");
-                answer.add("Spans");
-                answer.add("Terameters");
-                answer.add("ThousandthInches");
+                answer.add("mm");
+//                answer.add("Nails");
+//                answer.add("Nanometers");
+//                answer.add("NauticalLeaguesInternational");
+//                answer.add("NauticalLeaguesUK");
+//                answer.add("NauticalMilesInternational");
+//                answer.add("NauticalMilesUK");
+//                answer.add("NauticalMilesUSCustomary");
+//                answer.add("Perches");
+//                answer.add("Petameters");
+//                answer.add("Picometers");
+//                answer.add("Poles");
+//                answer.add("Rods");
+//                answer.add("Ropes");
+//                answer.add("Spans");
+//                answer.add("Terameters");
+//                answer.add("ThousandthInches");
                 answer.add("Yards");
                 break;
 
@@ -492,71 +492,71 @@ public class UnitConversion {
             // Volume
             case 16:
 
-                answer.add("AcreFeetUSSurvey");
-                answer.add("AcreInches");
-                answer.add("ArceFeet");
-                answer.add("Attoliters");
-                answer.add("BarrelsOfOil");
-                answer.add("BarrelsUK");
-                answer.add("BarrelsUS");
-                answer.add("BoardFeet");
-                answer.add("Centiliters");
-                answer.add("Cords");
-                answer.add("CubicCentimeters");
-                answer.add("CubicDecimeters");
-                answer.add("CubicFeet");
-                answer.add("CubicInches");
-                answer.add("CubicKilometers");
-                answer.add("CubicMeters");
-                answer.add("CubicMiles");
-                answer.add("CubicMillimeters");
-                answer.add("CubicYards");
-                answer.add("CupsMetric");
-                answer.add("CupsUK");
-                answer.add("CupsUS");
-                answer.add("Deciliters");
-                answer.add("Decisteres");
-                answer.add("Dekaliters");
-                answer.add("Dekasteres");
-                answer.add("DessertspoonsUK");
-                answer.add("DessertspoonsUS");
-                answer.add("Drops");
-                answer.add("Exaliters");
-                answer.add("Femtoliters");
-                answer.add("FluidOuncesUK");
-                answer.add("FluidOuncesUS");
-                answer.add("GallonsUK");
-                answer.add("GallonsUS");
-                answer.add("Gigaliters");
-                answer.add("GillsUK");
-                answer.add("GillsUS");
-                answer.add("Hectoliters");
-                answer.add("Hogsheads");
-                answer.add("HundredCubicFeet");
-                answer.add("Kiloliters");
-                answer.add("Liters");
-                answer.add("Megaliters");
-                answer.add("Microliters");
-                answer.add("Milliliters");
-                answer.add("MinimsUK");
-                answer.add("MinimsUS");
-                answer.add("Nanoliters");
-                answer.add("Petaliters");
-                answer.add("Picoliters");
-                answer.add("PintsUK");
-                answer.add("PintsUS");
-                answer.add("QuartsUK");
-                answer.add("QuartsUS");
-                answer.add("RegisterTons");
-                answer.add("Steres");
-                answer.add("TablespoonsMetric");
-                answer.add("TablespoonsUK");
-                answer.add("TablespoonsUS");
-                answer.add("TeaspoonsMetric");
-                answer.add("TeaspoonsUK");
-                answer.add("TeaspoonsUS");
-                answer.add("Teraliters");
-                answer.add("Tuns");
+//                answer.add("AcreFeetUSSurvey");
+//                answer.add("AcreInches");
+//                answer.add("ArceFeet");
+//                answer.add("Attoliters");
+//                answer.add("BarrelsOfOil");
+                answer.add("bbl");
+//                answer.add("BarrelsUS");
+//                answer.add("BoardFeet");
+//                answer.add("Centiliters");
+//                answer.add("Cords");
+                answer.add("cm3");
+//                answer.add("CubicDecimeters");
+                answer.add("ft3");
+                answer.add("in3");
+//                answer.add("CubicKilometers");
+                answer.add("m3");
+//                answer.add("CubicMiles");
+//                answer.add("CubicMillimeters");
+                answer.add("yard3");
+//                answer.add("CupsMetric");
+//                answer.add("CupsUK");
+//                answer.add("CupsUS");
+//                answer.add("Deciliters");
+//                answer.add("Decisteres");
+//                answer.add("Dekaliters");
+//                answer.add("Dekasteres");
+//                answer.add("DessertspoonsUK");
+//                answer.add("DessertspoonsUS");
+//                answer.add("Drops");
+//                answer.add("Exaliters");
+//                answer.add("Femtoliters");
+//                answer.add("FluidOuncesUK");
+                answer.add("fl.oz");
+                answer.add("gal IM");
+                answer.add("gal US");
+//                answer.add("Gigaliters");
+//                answer.add("GillsUK");
+//                answer.add("GillsUS");
+//                answer.add("Hectoliters");
+//                answer.add("Hogsheads");
+//                answer.add("HundredCubicFeet");
+//                answer.add("Kiloliters");
+                answer.add("lit");
+//                answer.add("Megaliters");
+//                answer.add("Microliters");
+                answer.add("ml");
+//                answer.add("MinimsUK");
+//                answer.add("MinimsUS");
+//                answer.add("Nanoliters");
+//                answer.add("Petaliters");
+//                answer.add("Picoliters");
+//                answer.add("PintsUK");
+//                answer.add("PintsUS");
+//                answer.add("QuartsUK");
+//                answer.add("QuartsUS");
+//                answer.add("RegisterTons");
+//                answer.add("Steres");
+//                answer.add("TablespoonsMetric");
+//                answer.add("TablespoonsUK");
+//                answer.add("TablespoonsUS");
+//                answer.add("TeaspoonsMetric");
+//                answer.add("TeaspoonsUK");
+//                answer.add("TeaspoonsUS");
+//                answer.add("Teraliters");
+//                answer.add("Tuns");
 
                 break;
 
@@ -1022,11 +1022,11 @@ public class UnitConversion {
         
         switch (value_unit){
 
-            case "Area":
+            case "Are":
                 unitOf=new UnitOf.Area().fromAres(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "Arpents":
+            case "Acre":
                 unitOf=new UnitOf.Area().fromArpents(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1042,7 +1042,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Area().fromCircularMils(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "Hectares":
+            case "Hectare":
                 unitOf=new UnitOf.Area().fromHectares(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1058,7 +1058,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Area().fromSabins(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareCentimeters":
+            case "cm2":
                 unitOf=new UnitOf.Area().fromSquareCentimeters(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1070,7 +1070,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Area().fromSquareDecimeters(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareFeet":
+            case "ft2":
                 unitOf=new UnitOf.Area().fromSquareFeet(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1078,15 +1078,15 @@ public class UnitConversion {
                 unitOf=new UnitOf.Area().fromSquareHectometers(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareInches":
+            case "in2":
                 unitOf=new UnitOf.Area().fromSquareInches(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareKilometers":
+            case "km2":
                 unitOf=new UnitOf.Area().fromSquareKilometers(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareMeters":
+            case "m2":
                 unitOf=new UnitOf.Area().fromSquareMeters(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1094,11 +1094,11 @@ public class UnitConversion {
                 unitOf=new UnitOf.Area().fromSquareMicrometers(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareMiles":
+            case "mile2":
                 unitOf=new UnitOf.Area().fromSquareMiles(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareMillimeters":
+            case "mm2":
                 unitOf=new UnitOf.Area().fromSquareMillimeters(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1118,7 +1118,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Area().fromSquareRods(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
-            case "SquareYards":
+            case "yare2":
                 unitOf=new UnitOf.Area().fromSquareYards(Double.valueOf(value));
                 ans=AreaHelper(answer_unit,unitOf);
                 break;
@@ -1132,10 +1132,10 @@ public class UnitConversion {
         
         switch (answer_unit){
 
-            case"Ares":
+            case"Are":
                 ans=String.valueOf(unitOf.toAres());
                 break;
-            case"Arpents":
+            case"Acre":
                 ans=String.valueOf(unitOf.toArpents());
                 break;
             case"Barns":
@@ -1147,7 +1147,7 @@ public class UnitConversion {
             case"CircularMils":
                 ans=String.valueOf(unitOf.toCircularMils());
                 break;
-            case"Hectares":
+            case"Hectare":
                 ans=String.valueOf(unitOf.toHectares());
                 break;
             case"Homesteads":
@@ -1159,7 +1159,7 @@ public class UnitConversion {
             case"Sabins":
                 ans=String.valueOf(unitOf.toSabins());
                 break;
-            case"SquareCentimeters":
+            case"cm2":
                 ans=String.valueOf(unitOf.toSquareCentimeters());
                 break;
             case"SquareChains":
@@ -1171,28 +1171,28 @@ public class UnitConversion {
             case"SquareDekameters":
                 ans=String.valueOf(unitOf.toSquareDekameters());
                 break;
-            case"SquareFeet":
+            case"ft2":
                 ans=String.valueOf(unitOf.toSquareFeet());
                 break;
             case"SquareHectometers":
                 ans=String.valueOf(unitOf.toSquareHectometers());
                 break;
-            case"SquareInches":
+            case"in2":
                 ans=String.valueOf(unitOf.toSquareInches());
                 break;
-            case"SquareKilometers":
+            case"km2":
                 ans=String.valueOf(unitOf.toSquareKilometers());
                 break;
-            case"SquareMeters":
+            case"m2":
                 ans=String.valueOf(unitOf.toSquareMeters());
                 break;
             case"SquareMicrometers":
                 ans=String.valueOf(unitOf.toSquareMicrometers());
                 break;
-            case"SquareMiles":
+            case"mile2":
                 ans=String.valueOf(unitOf.toSquareMiles());
                 break;
-            case"SquareMillimeters":
+            case"mm2":
                 ans=String.valueOf(unitOf.toSquareMillimeters());
                 break;
             case"SquareNanometers":
@@ -1207,7 +1207,7 @@ public class UnitConversion {
             case"SquareRods":
                 ans=String.valueOf(unitOf.toSquareRods());
                 break;
-            case"SquareYards":
+            case"yare2":
                 ans=String.valueOf(unitOf.toSquareYards());
                 break;
 
@@ -1248,7 +1248,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Length().fromCentiinches(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
-            case "Centimeters":
+            case "cm":
                 unitOf=new UnitOf.Length().fromCentimeters(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
@@ -1280,7 +1280,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Length().fromFathoms(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
-            case "Feet":
+            case "ft":
                 unitOf=new UnitOf.Length().fromFeet(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
@@ -1308,11 +1308,11 @@ public class UnitConversion {
                 unitOf=new UnitOf.Length().fromHectometers(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
-            case "Inches":
+            case "in":
                 unitOf=new UnitOf.Length().fromInches(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
-            case "Kilometers":
+            case "km":
                 unitOf=new UnitOf.Length().fromKilometers(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
@@ -1336,7 +1336,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Length().fromMegameters(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
-            case "Meters":
+            case "m":
                 unitOf=new UnitOf.Length().fromMeters(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
@@ -1356,7 +1356,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Length().fromMiles(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
-            case "Millimeters":
+            case "mm":
                 unitOf=new UnitOf.Length().fromMillimeters(Double.valueOf(value));
                 ans=DistanceHelper(answer_unit,unitOf);
                 break;
@@ -1459,7 +1459,7 @@ public class UnitConversion {
             case "Centiinches":
                 ans=String.valueOf(unitOf.toCentiinches());
                 break;
-            case "Centimeters":
+            case "cm":
                 ans=String.valueOf(unitOf.toCentimeters());
                 break;
             case "Chains":
@@ -1483,7 +1483,7 @@ public class UnitConversion {
             case "Fathoms":
                 ans=String.valueOf(unitOf.toFathoms());
                 break;
-            case "Feet":
+            case "ft":
                 ans=String.valueOf(unitOf.toFeet());
                 break;
             case "Femtometers":
@@ -1504,10 +1504,10 @@ public class UnitConversion {
             case "Hectometers":
                 ans=String.valueOf(unitOf.toHectometers());
                 break;
-            case "Inches":
+            case "in":
                 ans=String.valueOf(unitOf.toInches());
                 break;
-            case "Kilometers":
+            case "km":
                 ans=String.valueOf(unitOf.toKilometers());
                 break;
             case "Kiloyards":
@@ -1525,7 +1525,7 @@ public class UnitConversion {
             case "Megameters":
                 ans=String.valueOf(unitOf.toMegameters());
                 break;
-            case "Meters":
+            case "m":
                 ans=String.valueOf(unitOf.toMeters());
                 break;
             case "Microinches":
@@ -1540,7 +1540,7 @@ public class UnitConversion {
             case "Miles":
                 ans=String.valueOf(unitOf.toMiles());
                 break;
-            case "Millimeters":
+            case "mm":
                 ans=String.valueOf(unitOf.toMillimeters());
                 break;
             case "Nails":
@@ -3648,7 +3648,7 @@ public class UnitConversion {
             case "BarrelsOfOil":
                 ans=String.valueOf(unitOf.toBarrelsOfOil());
                 break;
-            case "BarrelsUK":
+            case "bbl":
                 ans=String.valueOf(unitOf.toBarrelsUK());
                 break;
             case "BarrelsUS":
@@ -3663,22 +3663,22 @@ public class UnitConversion {
             case "Cords":
                 ans=String.valueOf(unitOf.toCords());
                 break;
-            case "CubicCentimeters":
+            case "cm3":
                 ans=String.valueOf(unitOf.toCubicCentimeters());
                 break;
             case "CubicDecimeters":
                 ans=String.valueOf(unitOf.toCubicDecimeters());
                 break;
-            case "CubicFeet":
+            case "ft3":
                 ans=String.valueOf(unitOf.toCubicFeet());
                 break;
-            case "CubicInches":
+            case "in3":
                 ans=String.valueOf(unitOf.toCubicInches());
                 break;
             case "CubicKilometers":
                 ans=String.valueOf(unitOf.toCubicKilometers());
                 break;
-            case "CubicMeters":
+            case "m3":
                 ans=String.valueOf(unitOf.toCubicMeters());
                 break;
             case "CubicMiles":
@@ -3687,7 +3687,7 @@ public class UnitConversion {
             case "CubicMillimeters":
                 ans=String.valueOf(unitOf.toCubicMillimeters());
                 break;
-            case "CubicYards":
+            case "yard3":
                 ans=String.valueOf(unitOf.toCubicYards());
                 break;
             case "CupsMetric":
@@ -3729,13 +3729,13 @@ public class UnitConversion {
             case "FluidOuncesUK":
                 ans=String.valueOf(unitOf.toFluidOuncesUK());
                 break;
-            case "FluidOuncesUS":
+            case "fl.oz":
                 ans=String.valueOf(unitOf.toFluidOuncesUS());
                 break;
-            case "GallonsUK":
+            case "gal IM":
                 ans=String.valueOf(unitOf.toGallonsUK());
                 break;
-            case "GallonsUS":
+            case "gal US":
                 ans=String.valueOf(unitOf.toGallonsUS());
                 break;
             case "Gigaliters":
@@ -3759,7 +3759,7 @@ public class UnitConversion {
             case "Kiloliters":
                 ans=String.valueOf(unitOf.toKiloliters());
                 break;
-            case "Liters":
+            case "lit":
                 ans=String.valueOf(unitOf.toLiters());
                 break;
             case "Megaliters":
@@ -3768,7 +3768,7 @@ public class UnitConversion {
             case "Microliters":
                 ans=String.valueOf(unitOf.toMicroliters());
                 break;
-            case "Milliliters":
+            case "ml":
                 ans=String.valueOf(unitOf.toMilliliters());
                 break;
             case "MinimsUK":
@@ -3859,7 +3859,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromBarrelsOfOil(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "BarrelsUK":
+            case "bbl":
                 unitOf=new UnitOf.Volume().fromBarrelsUK(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -3879,7 +3879,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromCords(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "CubicCentimeters":
+            case "cm3":
                 unitOf=new UnitOf.Volume().fromCubicCentimeters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -3887,11 +3887,11 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromCubicDecimeters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "CubicFeet":
+            case "ft3":
                 unitOf=new UnitOf.Volume().fromCubicFeet(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "CubicInches":
+            case "in3":
                 unitOf=new UnitOf.Volume().fromCubicInches(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -3899,7 +3899,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromCubicKilometers(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "CubicMeters":
+            case "m3":
                 unitOf=new UnitOf.Volume().fromCubicMeters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -3911,7 +3911,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromCubicMillimeters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "CubicYards":
+            case "yard3":
                 unitOf=new UnitOf.Volume().fromCubicYards(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -3967,15 +3967,15 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromFluidOuncesUK(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "FluidOuncesUS":
+            case "fl.oz":
                 unitOf=new UnitOf.Volume().fromFluidOuncesUS(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "GallonsUK":
+            case "gal IM":
                 unitOf=new UnitOf.Volume().fromGallonsUK(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "GallonsUS":
+            case "gal US":
                 unitOf=new UnitOf.Volume().fromGallonsUS(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -4007,7 +4007,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromKiloliters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "Liters":
+            case "lit":
                 unitOf=new UnitOf.Volume().fromLiters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
@@ -4019,7 +4019,7 @@ public class UnitConversion {
                 unitOf=new UnitOf.Volume().fromMicroliters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;
-            case "Milliliters":
+            case "ml":
                 unitOf=new UnitOf.Volume().fromMilliliters(Double.valueOf(value));
                 ans=VolumeHelper(answer_unit,unitOf);
                 break;

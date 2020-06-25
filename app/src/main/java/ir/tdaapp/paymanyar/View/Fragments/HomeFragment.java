@@ -468,7 +468,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.fadeout, true, SupportFragment.TAG);
                 break;
             case R.id.menu_telegramChannel:
-                openUrl.getTelegram("http://telegram.me/diako099",getContext());
+                openUrl.getTelegram("http://telegram.me/paimanyar",getContext());
                 break;
         }
 
@@ -480,4 +480,5 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     public DrawerLayout getDrawer() {
         return drawer;
     }
+
 }

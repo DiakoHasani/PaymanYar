@@ -272,4 +272,10 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
                 break;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        p_supportFragment.Cancel(TAG);
+    }
 }
