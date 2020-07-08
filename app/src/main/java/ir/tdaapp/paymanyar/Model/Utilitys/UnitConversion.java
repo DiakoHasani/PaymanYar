@@ -3,6 +3,7 @@ package ir.tdaapp.paymanyar.Model.Utilitys;
 import com.digidemic.unitof.UnitOf;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 public class UnitConversion {
@@ -576,6 +577,18 @@ public class UnitConversion {
                 answer.add("oz/gal");
                 answer.add("SG(liquid)");
                 break;
+            case 18:
+                answer.add("hp.hr");
+                answer.add("Btu");
+                answer.add("ft.lbf");
+                answer.add("kw.hr");
+                answer.add("Cal");
+                answer.add("kCal");
+                answer.add("joule");
+                answer.add("W.sec");
+                answer.add("ft3.lbf/in2");
+                answer.add("lit.atm");
+                break;
 
 
         }
@@ -671,6 +684,11 @@ public class UnitConversion {
             //Density
             case 17:
                 ans = Density(value, value_unit, answer_unit);
+                break;
+
+                //Power
+            case 18:
+                ans= Power(value, value_unit, answer_unit);
                 break;
         }
 
@@ -4394,9 +4412,19 @@ public class UnitConversion {
         BigDecimal number_val = getValDensity(value_unit);
         BigDecimal number_answer = getValDensity(answer_unit);
 
-        BigDecimal res = (number_answer.subtract(number_val)).add(new BigDecimal(value));
+        BigDecimal res = (number_answer.divide(number_val)).multiply(new BigDecimal(value));
 
         return res.toString();
+    }
+
+    private String Power(String value, String value_unit, String answer_unit){
+        double number_val = getValPower(value_unit);
+        double number_answer = getValPower(answer_unit);
+
+//        double res = (number_answer.divide(number_val)).multiply(new BigDecimal(value));
+        double res = number_answer/number_val*Double.valueOf(value);
+
+        return String.valueOf(res);
     }
 
     //در اینجا نام چگالی می گیرد و مقدار آن را برگشت می دهد
@@ -4438,6 +4466,49 @@ public class UnitConversion {
         }
 
         return new BigDecimal(val);
+    }
+
+    //در اینجا نام قدرت می گیرد و مقدار آن را برگشت می دهد
+    private double getValPower(String value) {
+        String val = "0";
+        try {
+
+            switch (value) {
+                case "hp.hr":
+                    val = "0.000393015";
+                    break;
+                case "Btu":
+                    val="1";
+                    break;
+                case "ft.lbf":
+                    val="778.1693";
+                    break;
+                case "kw.hr":
+                    val="0.000293071";
+                    break;
+                case "Cal":
+                    val="252.1644";
+                    break;
+                case "kCal":
+                    val="0.2521644";
+                    break;
+                case "joule":
+                case "W.sec":
+                    val="1055.056";
+                    break;
+                case "ft3.lbf/in2":
+                    val="5.4039";
+                    break;
+                case "lit.atm":
+                    val="10.412";
+                    break;
+            }
+
+        } catch (Exception e) {
+
+        }
+
+        return Double.valueOf(val);
     }
 
 }

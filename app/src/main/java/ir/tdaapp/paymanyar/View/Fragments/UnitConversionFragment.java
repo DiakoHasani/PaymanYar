@@ -200,8 +200,8 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
             case R.id.unit_btnPower:
                 ResetButtons();
                 btnPower.setBackgroundResource(R.color.colorSelected);
-                p_unitConversionFragment.ShowItemsFor(11);
-                mode = 11;
+                p_unitConversionFragment.ShowItemsFor(18);
+                mode = 18;
                 break;
             case R.id.unit_btnPressure:
                 ResetButtons();
