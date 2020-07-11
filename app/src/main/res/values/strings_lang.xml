@@ -31,4 +31,7 @@
     <string name="directedByPaymanyar">تهیه شده توسط نرم افزار پیمانیار</string>
     <string name="ChoseApp">یک برنامه انتخاب کنید</string>
     <string name="notFoundThisPDF">این کتاب در گوشی شما یافت نشد</string>
+    <string name="Format_Your_File_Not_Valid">فرمت فایل شما معتبر نمی باشد</string>
+    <string name="Maximum_Length_File_10MB">حداکثر حجم فایل باید 10 مگابایت باشد</string>
+    <string name="error_In_Your_File">در فایل شما خطایی به وجود آمده است</string>
 </resources>

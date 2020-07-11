@@ -431,6 +431,8 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 p_homeFragment.start();
                 break;
             case R.id.btn_TenderAnalise:
+                ((MainActivity) getActivity()).onAddFragment(new AnalizeTenders(), R.anim.fadein, R.anim.fadeout, true, AnalizeTenders.TAG);
+                break;
             case R.id.btn_Scheduling:
             case R.id.btn_Audit:
             case R.id.btn_Difference:
@@ -468,7 +470,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.fadeout, true, SupportFragment.TAG);
                 break;
             case R.id.menu_telegramChannel:
-                openUrl.getTelegram("http://telegram.me/paimanyar",getContext());
+                openUrl.getTelegram("http://telegram.me/paimanyar", getContext());
                 break;
         }
 

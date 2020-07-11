@@ -24,4 +24,12 @@
     <color name="colorBackgroundHour">#24d1fc</color>
     <color name="colorYellow">#da954b</color>
     <color name="colorMySMS">#e9e9e9</color>
+    <color name="colorPDF">#FA6160</color>
+    <color name="colorWord">#005298</color>
+    <color name="colorRAR">#E53535</color>
+    <color name="colorZIP">#FDAF17</color>
+    <color name="colorExcel">#026F39</color>
+    <color name="colorPowerPoint">#D14C29</color>
+    <color name="colorJPG">#3D7FF3</color>
+    <color name="colorPNG">#69A3DA</color>
 </resources>

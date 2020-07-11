@@ -89,6 +89,7 @@
     <string name="Toman">تومان</string>
     <string name="PaymanyarCode">کد پیمانیار:</string>
     <string name="NationalEstimate">برآورد مالی:</string>
+    <string name="NationalEstimate2">برآورد مالی</string>
     <string name="TenderTitle">عنوان مناقصه:</string>
     <string name="ReopeningDate">تاریخ بازگشایی:</string>
     <string name="SendSuggestionsUp">ارسال پیشنهاد تا:</string>
@@ -147,4 +148,13 @@
     <string name="Low_limit">حد پایین:</string>
     <string name="outOfRange">خارج از دامنه ها:</string>
     <string name="see">مشاهده:</string>
+    <string name="TenderName">نام مناقصه</string>
+    <string name="DetailsTender">جزئیات مناقصه</string>
+    <string name="Name_of_contractor">نام پیمانکار</string>
+    <string name="CallNumber">شماره تماس</string>
+    <string name="description">توضیحات</string>
+    <string name="AddDocuments">افزودن اسناد</string>
+    <string name="choseOneFile">یک فایل انتخاب کنید</string>
+    <string name="select">انتخاب</string>
+    <string name="cancel">انصراف</string>
 </resources>
