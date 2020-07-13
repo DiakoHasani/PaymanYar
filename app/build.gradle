@@ -105,6 +105,9 @@ dependencies {
 
     //مربوط به انتخاب فایل می باشد
     implementation 'com.obsez.android.lib.filechooser:filechooser:1.2.+'
+
+    //مربوط به دکمه لودینگ
+    implementation 'br.com.simplepass:loading-button-android:1.6.5'
 }
 repositories {
     mavenCentral()

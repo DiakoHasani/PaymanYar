@@ -26,26 +26,27 @@
             <RelativeLayout
                 android:id="@+id/head"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="wrap_content"
                 android:background="@color/colorWhite">
 
                 <TextView
                     android:id="@+id/lbl_Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:textSize="16dp"
                     android:fontFamily="@font/vazir"
                     android:textColor="@color/colorTitle"
                     android:text="@string/DetailTender"
                     android:layout_marginRight="12dp"
-                    android:layout_marginLeft="12dp"/>
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/colorGray"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_below="@id/lbl_Title"/>
 
             </RelativeLayout>
 

@@ -157,4 +157,16 @@
     <string name="choseOneFile">یک فایل انتخاب کنید</string>
     <string name="select">انتخاب</string>
     <string name="cancel">انصراف</string>
+    <string name="SuggestedPercentages_in_Paymanyar">درصدهای پیشنهادی در پیمانیار %</string>
+    <string name="send_order">ارسال سفارش</string>
+    <string name="order_check">بررسی سفارش</string>
+    <string name="duration">مدت زمان انجام</string>
+    <string name="order_cost">هزینه سفارش</string>
+    <string name="doing">درحال انجام</string>
+    <string name="Pay">پرداخت هزینه</string>
+    <string name="Taking_orders">دریافت سفارش</string>
+    <string name="send_orders">ارسال سفارش</string>
+    <string name="Previous_orders">سفارشات قبلی</string>
+    <string name="New_order">سفارش جدید</string>
+    <string name="Amount_in_Rial">مبلغ به ریال</string>
 </resources>

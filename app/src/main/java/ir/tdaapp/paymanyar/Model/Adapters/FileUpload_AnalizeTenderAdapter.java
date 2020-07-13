@@ -41,6 +41,21 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
         notifyItemChanged(position);
     }
 
+    //در اینجا یک فایل را پاک می کند
+    public void clearFile(VM_FileUploadAnalizeTender v){
+        int position = 0;
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId() == v.getId()) {
+                position = i;
+                break;
+            }
+        }
+
+        vals.get(position).setType(FileUploadAnalizeTenderType.empty);
+        vals.get(position).setPath("");
+        notifyItemChanged(position);
+    }
+
     public void setClickFileUpload_analizeTender(onClickFileUpload_AnalizeTender clickFileUpload_analizeTender) {
         this.clickFileUpload_analizeTender = clickFileUpload_analizeTender;
     }
@@ -63,6 +78,7 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
             });
 
             holder.close.setOnClickListener(view -> {
+                clearFile(vals.get(position));
                 clickFileUpload_analizeTender.onClickClose(vals.get(position));
             });
 

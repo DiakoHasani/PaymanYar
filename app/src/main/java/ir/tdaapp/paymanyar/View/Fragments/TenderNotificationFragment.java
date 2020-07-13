@@ -18,11 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
-
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,10 +39,8 @@ import ir.tdaapp.paymanyar.Model.Services.onClickTenderNotification;
 import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_EshtalItem;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
@@ -55,9 +49,6 @@ import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
-
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
-import static android.nfc.tech.MifareUltralight.get;
 
 //صفحه مربوط به اطلاع رسانی مناقصات
 public class TenderNotificationFragment extends BaseFragment implements S_TenderNotificationFragment, View.OnClickListener {

@@ -47,6 +47,11 @@
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
+    <style name="AppTheme.MyRipple3">
+        <item name="colorControlHighlight">@color/colorLowPDF</item>
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
 
     //در اینجا انیمیشن جابجایی بین اکتیویتی ست می شود
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
