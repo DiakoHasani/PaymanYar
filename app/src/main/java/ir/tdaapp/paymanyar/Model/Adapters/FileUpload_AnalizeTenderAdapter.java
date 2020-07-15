@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,7 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
     }
 
     //در اینجا یک فایل را پاک می کند
-    public void clearFile(VM_FileUploadAnalizeTender v){
+    public void clearFile(VM_FileUploadAnalizeTender v) {
         int position = 0;
         for (int i = 0; i < vals.size(); i++) {
             if (vals.get(i).getId() == v.getId()) {
@@ -58,6 +59,18 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
 
     public void setClickFileUpload_analizeTender(onClickFileUpload_AnalizeTender clickFileUpload_analizeTender) {
         this.clickFileUpload_analizeTender = clickFileUpload_analizeTender;
+    }
+
+    //در اینجا آدرس فایل ها برگشت داده می شوند
+    public List<String> getPathFiles() {
+        List<String> paths = new ArrayList<>();
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (!vals.get(i).getPath().equalsIgnoreCase("")) {
+                paths.add(vals.get(i).getPath());
+            }
+        }
+        return paths;
     }
 
     @NonNull

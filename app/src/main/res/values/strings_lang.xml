@@ -36,4 +36,5 @@
     <string name="error_In_Your_File">در فایل شما خطایی به وجود آمده است</string>
     <string name="addedTenderName">نام مناقصه را وارد کنید</string>
     <string name="addedDescription">توضیحات را وارد کنید</string>
+    <string name="Please_enter_full_values">لطفا مقادیر را کامل وارد نمایید</string>
 </resources>

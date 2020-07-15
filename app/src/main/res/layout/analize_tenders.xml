@@ -39,6 +39,7 @@
                     android:padding="2dp">
 
                     <EditText
+                        android:id="@+id/txt_TenderName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vazir"
@@ -136,6 +137,7 @@
                         android:padding="2dp">
 
                         <EditText
+                            android:id="@+id/txt_ContractorName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/vazir"
@@ -182,6 +184,7 @@
                     android:padding="2dp">
 
                     <EditText
+                        android:id="@+id/txt_CellPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vazir"
@@ -229,6 +232,7 @@
                     android:padding="2dp">
 
                     <EditText
+                        android:id="@+id/txt_Description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vazir"
@@ -604,7 +608,7 @@
                             <RelativeLayout
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_enable_step"
+                                android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
 
                                 <ImageView
@@ -635,7 +639,7 @@
                             <RelativeLayout
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_enable_step"
+                                android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
 
                                 <ImageView
@@ -705,7 +709,7 @@
                             <RelativeLayout
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_enable_step"
+                                android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
 
                                 <ImageView
@@ -736,7 +740,7 @@
                             <RelativeLayout
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_enable_step"
+                                android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
 
                                 <ImageView
@@ -776,7 +780,7 @@
                             <RelativeLayout
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_enable_step"
+                                android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
 
                                 <ImageView
@@ -856,12 +860,13 @@
                             app:spinning_bar_color="@color/colorWhite"
                             app:spinning_bar_padding="8dp"
                             android:textColor="@color/colorWhite"
-                            android:background="@drawable/circular_border_shape"
+                            android:background="@drawable/circular_border_shape_disable"
                             android:text="@string/Taking_orders"
                             android:paddingRight="16dp"
                             android:paddingLeft="16dp"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"/>
+                            android:fontFamily="@font/vazir"
+                            android:enabled="false"/>
 
                     </LinearLayout>
 

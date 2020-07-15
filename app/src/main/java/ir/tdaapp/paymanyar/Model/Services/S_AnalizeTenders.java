@@ -3,7 +3,9 @@ package ir.tdaapp.paymanyar.Model.Services;
 import java.io.File;
 import java.util.List;
 
+import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 
 public interface S_AnalizeTenders {
     void OnStart();
@@ -11,4 +13,12 @@ public interface S_AnalizeTenders {
     void onSelectedFile(VM_FileUploadAnalizeTender val,File file);
     void onValidFile(VM_FileUploadAnalizeTender val,File file);
     void onNotValidFile(String errorText);
+    List<String> onGetUrlPaths();
+    void onLoading(boolean isLoad);
+    void onNoAccount();
+    VM_InputAnalizeTender onGetInputAnalize(List<String> fileUrls);
+    boolean isValidInputs();
+    void onNotValid();
+    void onError(ResaultCode resaultCode);
+    void onSuccess();
 }

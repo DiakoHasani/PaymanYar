@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
@@ -24,7 +22,6 @@ import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
@@ -431,7 +428,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 p_homeFragment.start();
                 break;
             case R.id.btn_TenderAnalise:
-                ((MainActivity) getActivity()).onAddFragment(new AnalizeTenders(), R.anim.fadein, R.anim.fadeout, true, AnalizeTenders.TAG);
+                ((MainActivity) getActivity()).onAddFragment(new AnalizeTendersFragment(), R.anim.fadein, R.anim.fadeout, true, AnalizeTendersFragment.TAG);
                 break;
             case R.id.btn_Scheduling:
             case R.id.btn_Audit:

@@ -34,4 +34,5 @@
     <color name="colorJPG">#3D7FF3</color>
     <color name="colorPNG">#69A3DA</color>
     <color name="colorGreen">#00c6cf</color>
+    <color name="colorDisable">#dedede</color>
 </resources>

@@ -15,9 +15,12 @@ import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.PostJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
+import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
+import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
@@ -25,8 +28,11 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
 public class Api_Tender extends Base_Api {
 
-    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter;
+    PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
     PostJsonArrayVolley volley_getFavorites;
+
+    //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
+    boolean isUploadedFile = false;
 
     //در اینجا اطلاع رسانی مناقصات برگشت داده می شود
     public Single<VM_TenderNotification> getTenderNotification(VM_FilterTenderNotification filter, Tbl_Tender tbl_tender) {
@@ -375,8 +381,100 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    //در اینجا لیستی از فایل ها آپلود می شود
+    public void uploadFiles(List<String> urlfiles, onUploadFiles uploadFiles) {
+
+        isUploadedFile = true;
+
+        String url = ApiUrl + "PostFileOrder";
+        FileManger fileManger = new FileManger(url);
+
+        new Thread(() -> {
+
+            List<String> vals = new ArrayList<>();
+
+            for (String i : urlfiles) {
+                try {
+                    vals.add(fileManger.uploadFile(i).replace("\"", ""));
+                } catch (Exception e) {
+                }
+            }
+
+            if (isUploadedFile) {
+                uploadFiles.onSuccess(vals);
+            }
+
+        }).start();
+
+    }
+
+    //در اینجا سفارش آنالیز به سمت سرور ارسال می شود
+    public Single<VM_Message> postOrderAnalize(VM_InputAnalizeTender input) {
+
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                JSONObject obj = new JSONObject();
+
+                try {
+                    obj.put("UserId", input.getUserId());
+                    obj.put("TenderId", input.getTenderId());
+                    obj.put("Fee", input.getFee());
+                    obj.put("ContractorName", input.getContractorName());
+                    obj.put("CellPhone", input.getCellPhone());
+                    obj.put("TenderName", input.getTenderName());
+                    obj.put("Description", input.getDescription());
+                    obj.put("FileUrl1", input.getFileUrl1());
+                    obj.put("FileUrl2", input.getFileUrl2());
+                    obj.put("FileUrl3", input.getFileUrl3());
+                    obj.put("FileUrl4", input.getFileUrl4());
+                    obj.put("FileUrl5", input.getFileUrl5());
+                    obj.put("FileUrl6", input.getFileUrl6());
+                    obj.put("FileUrl7", input.getFileUrl7());
+                    obj.put("FileUrl8", input.getFileUrl8());
+                    obj.put("FileUrl9", input.getFileUrl9());
+                    obj.put("FileUrl10", input.getFileUrl10());
+                    obj.put("Price1", input.getPrice1());
+                    obj.put("Price2", input.getPrice2());
+                    obj.put("Price3", input.getPrice3());
+                    obj.put("Price4", input.getPrice4());
+                    obj.put("Price5", input.getPrice5());
+                    obj.put("Price6", input.getPrice6());
+                    obj.put("Price7", input.getPrice7());
+                    obj.put("Price8", input.getPrice8());
+                    obj.put("Price9", input.getPrice9());
+                    obj.put("Price10", input.getPrice10());
+                } catch (Exception e) {
+                }
+
+                volley_postOrderAnalize = new PostJsonObjectVolley(ApiUrl + "Order/PostAddOrderAnaliz", obj, resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_Message message = new VM_Message();
+                        JSONObject object=resault.getObject();
+
+                        try {
+                            message.setMessage(object.getString("MessageText"));
+                            message.setCode(object.getInt("Code"));
+                            message.setResult(object.getBoolean("Result"));
+                        }catch (Exception e){}
+
+                        emitter.onSuccess(message);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+
+            }).start();
+        });
+
+    }
+
     public void Cancel(String Tag, Context context) {
 
+        isUploadedFile = false;
         cancelBase(Tag, context);
 
         if (volley_getTenderNotification != null) {
@@ -397,6 +495,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_getFavorites != null) {
             volley_getFavorites.Cancel(Tag, context);
+        }
+
+        if (volley_postOrderAnalize != null) {
+            volley_postOrderAnalize.Cancel(Tag, context);
         }
 
     }
