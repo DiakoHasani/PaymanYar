@@ -89,7 +89,6 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         new Handler().postDelayed(() -> {
             p_libraryFragment.start(txt_Search.getText().toString(), page);
         }, 300);
-
         return view;
     }
 
@@ -131,7 +130,6 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         });
         setHasOptionsMenu(true);
     }
-
 
     //در اینجا چک می کند که زمان پیجینگ رسیده است اگر رسیده باشد عملیات را شروع می کند
     RecyclerView.OnScrollListener pOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -183,7 +181,6 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
 
         return false;
     }
-
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

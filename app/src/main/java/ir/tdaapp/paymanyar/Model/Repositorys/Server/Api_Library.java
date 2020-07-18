@@ -29,13 +29,14 @@ public class Api_Library extends Base_Api {
 
     private GetJsonArrayVolley volley_getLibraries;
     PostJsonObjectVolley volley_addCountDownloadLibrary;
+    Thread thread;
 
     //در اینجا لیست کتاب ها گرفته می شود
     public Single<List<VM_Library>> getLibraries(String query, int page, Tbl_Library tbl_library) {
 
         return Single.create(emitter -> {
 
-            new Thread(() -> {
+            thread = new Thread(() -> {
 
                 try {
 
@@ -82,7 +83,8 @@ public class Api_Library extends Base_Api {
                     emitter.onError(e);
                 }
 
-            }).start();
+            });
+            thread.start();
 
         });
 
@@ -123,7 +125,7 @@ public class Api_Library extends Base_Api {
     }
 
     //ر اینجا پی دی اف دانلود می شود
-    public Single<Boolean> downloadPDF(String downloadUrl,String title) {
+    public Single<Boolean> downloadPDF(String downloadUrl, String title) {
         return Single.create(emitter -> {
 
             new Thread(() -> {

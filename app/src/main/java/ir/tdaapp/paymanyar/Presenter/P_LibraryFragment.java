@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Library;
@@ -98,7 +100,6 @@ public class P_LibraryFragment {
                 s_libraryFragment.onFinish();
             }
         });
-
     }
 
     //زمانی که کاربر یک کتاب دانلود کند آی دی آن به سرور ارسال می شود

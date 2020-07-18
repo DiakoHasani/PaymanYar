@@ -29,6 +29,7 @@ import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
@@ -82,9 +83,11 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
     RelativeLayout background;
     LinearLayout subscribers;
     ImageView img_star;
-    ErrorAplicationDialog soonAdded;
     TextView lbl_Major, lbl_CityName, lbl_Title;
     CardView btn_charge;
+
+    //در اینجا مقادیر برای صفحه آنالیز مناقصات نگهداری می شود
+    VM_InputAnalizeTender inputAnalizeTender;
 
     @Nullable
     @Override
@@ -145,6 +148,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
         btn_charge.setOnClickListener(this);
 
         btn_Share.setOnClickListener(this);
+        inputAnalizeTender = new VM_InputAnalizeTender();
     }
 
     //در اینجا دکمه ها فعال یا غیرفعال می شوند
@@ -250,6 +254,11 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
             lbl_CityName.setText(p_detailsTenderFragment.getCityTitle(detailsTender.getCityId()));
             lbl_Major.setText(p_detailsTenderFragment.getMajorTitle(detailsTender.getMajorId()));
 
+            inputAnalizeTender.setTenderName(detailsTender.getTitle());
+            inputAnalizeTender.setFee(detailsTender.getNationalEstimate());
+            inputAnalizeTender.setDescription(detailsTender.getDescription());
+            inputAnalizeTender.setTenderId(detailsTender.getId());
+
         } catch (Exception e) {
         }
     }
@@ -343,11 +352,17 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             case R.id.btn_Analize:
 
-                soonAdded = new ErrorAplicationDialog(getString(R.string.Soon), getString(R.string.It_will_be_presented_in_the_next_version), getString(R.string.ok), R.drawable.ic_error, R.color.colorError, () -> {
-                    soonAdded.dismiss();
-                });
-                soonAdded.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+                Bundle bundle = new Bundle();
 
+                bundle.putString("tenderName", inputAnalizeTender.getTenderName());
+                bundle.putString("fee", inputAnalizeTender.getFee());
+                bundle.putString("description", inputAnalizeTender.getDescription());
+                bundle.putInt("tenderId", inputAnalizeTender.getTenderId());
+
+                AnalizeTendersFragment analizeTendersFragment = new AnalizeTendersFragment();
+                analizeTendersFragment.setArguments(bundle);
+
+                ((MainActivity) getActivity()).onAddFragment(analizeTendersFragment, R.anim.fadein, R.anim.short_fadeout, true, AnalizeTendersFragment.TAG);
                 break;
 
             case R.id.btn_Share:

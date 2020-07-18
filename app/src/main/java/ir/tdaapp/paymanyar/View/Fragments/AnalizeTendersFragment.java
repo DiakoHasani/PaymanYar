@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -188,7 +191,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             input.setTenderName(txt_TenderName.getText().toString());
 
             //در اینجا برآورد مالی ست می شود
-            input.setFee(txt_NationalEstimate.getText().toString());
+            input.setFee(txt_NationalEstimate.getText().toString().replace(",","").replace("٬",""));
 
             //در اینجا نام پیمانکار ست می شود
             input.setContractorName(txt_ContractorName.getText().toString());
@@ -351,6 +354,38 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         });
     }
 
+    //اگر کاربر در صفحه مناقصات با زدن دکمه آنالیز وارد شود در اینجا آن مقادیر در ادیت تکست ها ست می شوند
+    @Override
+    public void onSetDetailsData() {
+        try {
+
+            Bundle bundle = getArguments();
+
+            //در اینجا آیدی مناقصه گرفته می شود
+            if (bundle != null) {
+                tenderId = bundle.getInt("tenderId");
+
+                //در اینجا نام مناقصه گرفته می شود
+                if (bundle.getString("tenderName") != null) {
+                    txt_TenderName.setText(bundle.getString("tenderName"));
+                }
+
+                //در اینجا برآورد مالی ست می شود
+                if (bundle.getString("fee") != null) {
+                    new ShowPrice(txt_NationalEstimate);
+                    txt_NationalEstimate.setText(bundle.getString("fee"));
+                }
+
+                //در اینجا توضیحات ست می شود
+                if (bundle.getString("description") != null) {
+                    txt_Description.setText(bundle.getString("description"));
+                }
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
@@ -377,5 +412,11 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     public void onDestroy() {
         super.onDestroy();
         p_analizeTenders.cancel(TAG);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

@@ -68,7 +68,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         implement();
         setToolBar();
 
-        p_homeFragment.start();
+//        p_homeFragment.start();
 
         return view;
     }

@@ -21,4 +21,5 @@ public interface S_AnalizeTenders {
     void onNotValid();
     void onError(ResaultCode resaultCode);
     void onSuccess();
+    void onSetDetailsData();
 }

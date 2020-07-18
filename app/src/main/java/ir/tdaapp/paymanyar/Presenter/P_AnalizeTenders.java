@@ -47,6 +47,7 @@ public class P_AnalizeTenders {
 
     public void start() {
         s_analizeTenders.OnStart();
+        s_analizeTenders.onSetDetailsData();
         setValueFiles();
     }
 
