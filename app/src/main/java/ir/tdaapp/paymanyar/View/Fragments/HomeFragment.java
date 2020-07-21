@@ -56,7 +56,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     RelativeLayout point1, point2, point3, point4, point5, point6, point7, point8;
     ImageView btn_reload;
     CardView btn_TenderAnalise, btn_Scheduling, btn_Audit, btn_Difference, btn_CostEstimation;
-    CardView btn_WorkForce, btn_Machinery, btn_Materials;
+    CardView btn_WorkForce, btn_Machinery, btn_Materials,btn_orders;
     ErrorAplicationDialog soonAdded;
 
     @Nullable
@@ -103,6 +103,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_WorkForce = view.findViewById(R.id.btn_WorkForce);
         btn_Machinery = view.findViewById(R.id.btn_Machinery);
         btn_Materials = view.findViewById(R.id.btn_Materials);
+        btn_orders = view.findViewById(R.id.btn_orders);
     }
 
     void implement() {
@@ -124,6 +125,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_WorkForce.setOnClickListener(this);
         btn_Machinery.setOnClickListener(this);
         btn_Materials.setOnClickListener(this);
+        btn_orders.setOnClickListener(this);
 
         //در اینجا زمانی که یکی از صفحه های اسلایدر تغییر پیجینگ مربوط به آن را تغییر می دهد
         Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -429,6 +431,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_TenderAnalise:
                 ((MainActivity) getActivity()).onAddFragment(new AnalizeTendersFragment(), R.anim.fadein, R.anim.fadeout, true, AnalizeTendersFragment.TAG);
+                break;
+            case R.id.btn_orders:
+                ((MainActivity) getActivity()).onAddFragment(new OrdersFragment(), R.anim.fadein, R.anim.fadeout, true, OrdersFragment.TAG);
                 break;
             case R.id.btn_Scheduling:
             case R.id.btn_Audit:

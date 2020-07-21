@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -59,14 +57,6 @@ public class LoginFragment extends BaseFragment implements S_LoginFragment,View.
     void implement() {
         p_loginFragment = new P_LoginFragment(getContext(), this);
         btn_Login.setOnClickListener(this);
-
-        KeyboardVisibilityEvent.setEventListener(getActivity(), isOpen -> {
-            if (isOpen) {
-                bottom.setVisibility(View.GONE);
-            } else {
-                bottom.setVisibility(View.VISIBLE);
-            }
-        });
 
     }
 

@@ -15,7 +15,9 @@
     <string name="Audit">حسابرسی</string>
     <string name="orders">سفارشات</string>
     <string name="Difference">مابه\n التفاوت</string>
+    <string name="Difference2">مابه التفاوت</string>
     <string name="CostEstimation">متره و\nبرآورد</string>
+    <string name="CostEstimation2">متره و برآورد</string>
     <string name="Ordering_Services">سفارش خدمات</string>
     <string name="Daily">روزانه</string>
     <string name="WorkForce">نیروی کار</string>
@@ -169,4 +171,5 @@
     <string name="Previous_orders">سفارشات قبلی</string>
     <string name="New_order">سفارش جدید</string>
     <string name="Amount_in_Rial">مبلغ به ریال</string>
+    <string name="Grouping">دسته بندی</string>
 </resources>

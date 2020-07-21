@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,14 +69,6 @@ public class LoginCodeFragment extends BaseFragment implements S_LoginCodeFragme
         p_loginCodeFragment = new P_LoginCodeFragment(getContext(), this);
         btn_Login.setOnClickListener(this);
         btn_Resend.setOnClickListener(this);
-
-        KeyboardVisibilityEvent.setEventListener(getActivity(), isOpen -> {
-            if (isOpen) {
-                bottom.setVisibility(View.GONE);
-            } else {
-                bottom.setVisibility(View.VISIBLE);
-            }
-        });
 
     }
 

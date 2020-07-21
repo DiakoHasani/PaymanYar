@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl"
+    android:clickable="true"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="2dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginLeft="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/lbl_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/vazir"
+                android:textSize="16dp"
+                android:maxLines="2"
+                android:lines="2"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorUnderline"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_oclock"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/lbl_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:layout_marginRight="8dp"
+                        android:text="----/--/--"
+                        android:fontFamily="@font/vazir"
+                        android:textColor="@color/colorPDF"
+                        android:layout_gravity="center_vertical"
+                        android:textDirection="ltr"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="36dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_money"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/lbl_Pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:layout_marginRight="8dp"
+                        android:text="--,---"
+                        android:fontFamily="@font/vazir"
+                        android:textColor="@color/colorPDF"
+                        android:layout_gravity="center_vertical"
+                        android:textDirection="ltr"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorUnderline"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/step1"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorPrimary"/>
+
+                <View
+                    android:id="@+id/step2"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginRight="5dp"/>
+
+                <View
+                    android:id="@+id/step3"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginRight="5dp"/>
+
+                <View
+                    android:id="@+id/step4"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginRight="5dp"/>
+
+                <View
+                    android:id="@+id/step5"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorDisable"
+                    android:layout_marginRight="5dp"/>
+
+                <View
+                    android:id="@+id/step6"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorDisable"
+                    android:layout_marginRight="5dp"/>
+
+                <View
+                    android:id="@+id/step7"
+                    android:layout_width="30dp"
+                    android:layout_height="5dp"
+                    android:background="@color/colorDisable"
+                    android:layout_marginRight="5dp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_Item"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_btn_orders"
+            android:clickable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/lbl_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/vazir"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/order_cost"/>
+
+                <ImageView
+                    android:id="@+id/icon_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/ic_order_cost"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

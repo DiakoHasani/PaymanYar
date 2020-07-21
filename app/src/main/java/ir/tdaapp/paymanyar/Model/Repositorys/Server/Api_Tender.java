@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
 import android.content.Context;
+import android.os.Handler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +20,12 @@ import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterOrder;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
@@ -452,13 +455,14 @@ public class Api_Tender extends Base_Api {
                     if (resault.getResault() == ResaultCode.Success) {
 
                         VM_Message message = new VM_Message();
-                        JSONObject object=resault.getObject();
+                        JSONObject object = resault.getObject();
 
                         try {
                             message.setMessage(object.getString("MessageText"));
                             message.setCode(object.getInt("Code"));
                             message.setResult(object.getBoolean("Result"));
-                        }catch (Exception e){}
+                        } catch (Exception e) {
+                        }
 
                         emitter.onSuccess(message);
 
@@ -468,6 +472,31 @@ public class Api_Tender extends Base_Api {
                 });
 
             }).start();
+        });
+
+    }
+
+    //در اینجا سفارشات برگشت داده می شود
+    public Single<List<VM_Orders>> getOrders(int page, int userId, VM_FilterOrder filterOrder) {
+
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                List<VM_Orders> orders = new ArrayList<>();
+
+                for (int i = 1; i <= 10; i++) {
+                    VM_Orders order = new VM_Orders();
+
+                    order.setId(i);
+                    order.setDate("1399/5/" + i);
+                    order.setPayment(i+"0000");
+                    order.setTitle(i+"گر شما یک طراح هستین و یا با طراحی های گرافیکی سروکار دارید به متن های برخورده اید که با نام لورم ایپسوم شناخته میشوند. لورم ایپسوم ی");
+                    orders.add(order);
+                }
+
+                emitter.onSuccess(orders);
+
+            }).run();
         });
 
     }

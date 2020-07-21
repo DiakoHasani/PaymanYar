@@ -13,47 +13,87 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"/>
 
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/reload"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        android:layout_marginTop="8dp">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="2dp"
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/loading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/recycler_loading"/>
+                    <include layout="@layout/recycler_loading"/>
+                    <include layout="@layout/recycler_loading"/>
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <LinearLayout
+                android:id="@+id/empty"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:orientation="vertical"
-                android:gravity="center_horizontal">
+                android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_tender_analise"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_empty"
+                    android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/vazir"
+                    android:textSize="14dp"
                     android:textColor="@color/colorTitle"
-                    android:textSize="12dp"
-                    android:text="@string/TenderAnalise"/>
+                    android:gravity="center"
+                    android:text="@string/YouHaveNotOrder"/>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_refresh"
+                android:visibility="gone"/>
 
-    </LinearLayout>
+        </RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_filter"
+        android:clickable="true"/>
 
 </RelativeLayout>
