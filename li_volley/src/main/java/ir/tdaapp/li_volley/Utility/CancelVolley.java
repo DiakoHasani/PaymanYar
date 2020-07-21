@@ -62,4 +62,20 @@ public class CancelVolley {
 
         }
     }
+
+    public CancelVolley(String TAG,CustomRequest_JsonArray request, Context context){
+        if (request!=null){
+
+            requestQueue = Volley.newRequestQueue(context);
+
+            request.setTag(TAG);
+
+            requestQueue.add(request);
+
+            if (requestQueue != null) {
+                requestQueue.cancelAll(TAG);
+            }
+
+        }
+    }
 }

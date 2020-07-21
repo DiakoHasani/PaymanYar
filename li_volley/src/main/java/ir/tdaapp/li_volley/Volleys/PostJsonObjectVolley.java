@@ -32,7 +32,7 @@ public class PostJsonObjectVolley {
     //تعداد دفعات تکرار
     int Retries = -1;
 
-    float Multiplier = 1f;
+    float Multiplier = DefaultRetryPolicy.DEFAULT_BACKOFF_MULT;
 
     IGetJsonObject iGetJsonObject;
 
@@ -83,21 +83,17 @@ public class PostJsonObjectVolley {
                 iGetJsonObject.Get(resault);
             },error -> {
                 if (error instanceof TimeoutError) {
-                    resault.setObject(null);
                     resault.setResault(ResaultCode.TimeoutError);
                 } else if (error instanceof ServerError) {
-                    resault.setObject(null);
                     resault.setResault(ResaultCode.ServerError);
                 } else if (error instanceof NetworkError) {
-                    resault.setObject(null);
                     resault.setResault(ResaultCode.NetworkError);
                 } else if (error instanceof ParseError) {
-                    resault.setObject(null);
                     resault.setResault(ResaultCode.ParseError);
                 } else {
-                    resault.setObject(null);
                     resault.setResault(ResaultCode.Error);
                 }
+                resault.setObject(null);
                 resault.setMessage(error.toString());
                 iGetJsonObject.Get(resault);
             });

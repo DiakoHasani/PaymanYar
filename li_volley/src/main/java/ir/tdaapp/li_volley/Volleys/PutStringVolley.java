@@ -32,7 +32,7 @@ public class PutStringVolley {
     //تعداد دفعات تکرار
     int Retries = -1;
 
-    float Multiplier = 1f;
+    float Multiplier = DefaultRetryPolicy.DEFAULT_BACKOFF_MULT;
 
     IGetString iGetString;
 
@@ -83,21 +83,17 @@ public class PutStringVolley {
                 iGetString.Get(resault);
             }, error -> {
                 if (error instanceof TimeoutError) {
-                    resault.setRequest("");
                     resault.setResault(ResaultCode.TimeoutError);
                 } else if (error instanceof ServerError) {
-                    resault.setRequest("");
                     resault.setResault(ResaultCode.ServerError);
                 } else if (error instanceof NetworkError) {
-                    resault.setRequest("");
                     resault.setResault(ResaultCode.NetworkError);
                 } else if (error instanceof ParseError) {
-                    resault.setRequest("");
                     resault.setResault(ResaultCode.ParseError);
                 } else {
-                    resault.setRequest("");
                     resault.setResault(ResaultCode.Error);
                 }
+                resault.setRequest("");
                 resault.setMessage(error.toString());
                 iGetString.Get(resault);
             }) {
