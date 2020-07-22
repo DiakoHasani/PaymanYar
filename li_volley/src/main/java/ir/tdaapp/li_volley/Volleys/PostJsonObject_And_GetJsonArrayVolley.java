@@ -6,6 +6,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Services.IGetJsonArray;
+import ir.tdaapp.li_volley.Utility.AppController;
 import ir.tdaapp.li_volley.Utility.CancelVolley;
 import ir.tdaapp.li_volley.Utility.CustomRequest_JsonArray;
 import ir.tdaapp.li_volley.ViewModel.ResaultGetJsonArrayVolley;
@@ -97,6 +99,11 @@ public class PostJsonObject_And_GetJsonArrayVolley {
                 iGetJsonArray.Get(result);
 
             });
+
+            RetryPolicy policy = new DefaultRetryPolicy(TimeOut, Retries, Multiplier);
+            request.setRetryPolicy(policy);
+
+            AppController.getInstance().addToRequestQueue(request);
 
         } catch (Exception e) {
             result.setJsonArray(null);

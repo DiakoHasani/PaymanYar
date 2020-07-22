@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,6 +62,9 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
     //زمانی که برنامه در حال دریافت مناقصه از سرور باشد مقدار زیر ترو است
     boolean isWorking = false;
 
+    //اگر تعداد آیتم ها در سرور به پایان برسد مقدار زیر ترو می شود
+    boolean finishOrders = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +74,9 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
         implement();
         setToolbar();
 
-        p_ordersFragment.start(page);
+        new Handler().postDelayed(() -> {
+            p_ordersFragment.start(page);
+        }, 300);
 
         return view;
     }
@@ -101,6 +107,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
         });
 
         btn_filter.setOnClickListener(this);
+        refresh.setOnClickListener(this);
     }
 
     //در اینجا چک می کند که زمان پیجینگ رسیده است اگر رسیده باشد عملیات را شروع می کند
@@ -123,10 +130,13 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                     //اگر اسکرول رسایکلر ما به آخر برسد یعنی زمان پیجینگ است و شرط زیر اجرا می شود
                     if (isLastItemDisplaying()) {
 
-                        isLoading = true;
+                        //اگر تعداد آیتم ها در سرور به پایانرسید باشد دیگر عمل پیجینگ انجام نمی شود
+                        if (!finishOrders) {
+                            isLoading = true;
 
-                        ++page;
-                        p_ordersFragment.start(page);
+                            ++page;
+                            p_ordersFragment.start(page);
+                        }
                     }
                 }
             }
@@ -178,6 +188,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
     public void OnStart() {
 
         if (page == 0) {
+            finishOrders = false;
             loading.startShimmerAnimation();
             ordersAdapter = new OrdersAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -293,6 +304,18 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
         return filterOrder;
     }
 
+    //برای لودینگ مربوط به پیجینگ می باشد
+    @Override
+    public void onLoadingPaging(boolean load) {
+        reload.setRefreshing(load);
+    }
+
+    //اگر تعداد آیتم ها در سرور به پایان برسد متد زیر فراخوانی می شود
+    @Override
+    public void onFinishOrderServer() {
+        finishOrders = true;
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -307,7 +330,8 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                     FilterOrdersDialog dialog = new FilterOrdersDialog(filterOrder, new onClickFilterOrdersDialog() {
                         @Override
                         public void clickSearch() {
-
+                            page = 0;
+                            p_ordersFragment.start(page);
                         }
 
                         @Override
@@ -320,6 +344,16 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                 }
 
                 break;
+            case R.id.refresh:
+                page=0;
+                p_ordersFragment.start(page);
+                break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        p_ordersFragment.cancel(TAG);
     }
 }

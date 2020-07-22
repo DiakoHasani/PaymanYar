@@ -15,6 +15,8 @@ import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.PostJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
+import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
+import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
@@ -33,6 +35,7 @@ public class Api_Tender extends Base_Api {
 
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
     PostJsonArrayVolley volley_getFavorites;
+    PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
@@ -482,21 +485,81 @@ public class Api_Tender extends Base_Api {
         return Single.create(emitter -> {
             new Thread(() -> {
 
-                List<VM_Orders> orders = new ArrayList<>();
+                JSONObject input = new JSONObject();
+                JSONArray filters = new JSONArray();
 
-                for (int i = 1; i <= 10; i++) {
-                    VM_Orders order = new VM_Orders();
+                try {
 
-                    order.setId(i);
-                    order.setDate("1399/5/" + i);
-                    order.setPayment(i+"0000");
-                    order.setTitle(i+"گر شما یک طراح هستین و یا با طراحی های گرافیکی سروکار دارید به متن های برخورده اید که با نام لورم ایپسوم شناخته میشوند. لورم ایپسوم ی");
-                    orders.add(order);
+                    input.put("UserId", userId);
+                    input.put("Paging", page);
+
+                    filters.put(filterOrder.isTenderAnalise());
+                    filters.put(filterOrder.isScheduling());
+                    filters.put(filterOrder.isCostEstimation());
+                    filters.put(filterOrder.isDifference());
+                    filters.put(filterOrder.isAudit());
+
+                    input.put("Kind", filters);
+
+                } catch (Exception e) {
+
                 }
 
-                emitter.onSuccess(orders);
+                volley_getOrders = new PostJsonObject_And_GetJsonArrayVolley(ApiUrl + "Order/PostOrders", input, resault -> {
 
-            }).run();
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_Orders> orders = new ArrayList<>();
+                        JSONArray array = resault.getJsonArray();
+
+                        if (array != null) {
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                try {
+
+                                    JSONObject object = array.getJSONObject(i);
+                                    VM_Orders order = new VM_Orders();
+
+                                    order.setTitle(object.getString("TenderName"));
+                                    order.setDate(object.getString("DateOfCompletion"));
+                                    order.setPayment(object.getString("AmountPayable"));
+
+                                    switch (object.getInt("Steep")) {
+                                        case 1:
+                                            order.setStepsAnalizeTender(StepsAnalizeTender.sendOrder);
+                                            break;
+                                        case 2:
+                                            order.setStepsAnalizeTender(StepsAnalizeTender.orderCost);
+                                            break;
+                                        case 3:
+                                            order.setStepsAnalizeTender(StepsAnalizeTender.pay);
+                                            break;
+                                        case 4:
+                                            order.setStepsAnalizeTender(StepsAnalizeTender.doing);
+                                            break;
+                                        case 5:
+                                            order.setStepsAnalizeTender(StepsAnalizeTender.takingOrders);
+                                            break;
+                                    }
+
+                                    orders.add(order);
+
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        }
+
+                        emitter.onSuccess(orders);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+
+            }).start();
+
         });
 
     }
@@ -528,6 +591,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_postOrderAnalize != null) {
             volley_postOrderAnalize.Cancel(Tag, context);
+        }
+
+        if (volley_getOrders != null) {
+            volley_getOrders.Cancel(Tag, context);
         }
 
     }

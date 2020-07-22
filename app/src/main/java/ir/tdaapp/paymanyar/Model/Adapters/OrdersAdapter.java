@@ -30,6 +30,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         this.context = context;
         vals = new ArrayList<>();
     }
+
     //در اینجا یک آیتم جدید اضافه می شود
     public void add(VM_Orders order) {
         vals.add(order);
@@ -102,7 +103,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
             disableAllSteps();
 
-            if (stepItem!=null){
+            if (stepItem != null) {
                 switch (stepItem) {
                     case sendOrder:
 
@@ -180,6 +181,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
                         lbl_Button.setText(context.getString(R.string.Taking_orders));
                         icon_button.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_taking_orders));
 
+                        break;
+                    default:
+                        lbl_Button.setText(context.getString(R.string.details));
+                        icon_button.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_details));
                         break;
                 }
             }

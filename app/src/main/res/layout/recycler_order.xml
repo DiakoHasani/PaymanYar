@@ -206,14 +206,14 @@
                     android:textSize="14dp"
                     android:fontFamily="@font/vazir"
                     android:textColor="@color/colorWhite"
-                    android:text="@string/order_cost"/>
+                    android:text="@string/details"/>
 
                 <ImageView
                     android:id="@+id/icon_button"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginRight="8dp"
-                    android:src="@drawable/ic_order_cost"
+                    android:src="@drawable/ic_details"
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>

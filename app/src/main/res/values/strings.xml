@@ -172,4 +172,5 @@
     <string name="New_order">سفارش جدید</string>
     <string name="Amount_in_Rial">مبلغ به ریال</string>
     <string name="Grouping">دسته بندی</string>
+    <string name="details">جزئیات</string>
 </resources>

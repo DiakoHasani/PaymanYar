@@ -38,6 +38,8 @@ public class P_OrdersFragment {
         if (page == 0) {
             s_ordersFragment.onHideAll();
             s_ordersFragment.onLoading(true);
+        }else{
+            s_ordersFragment.onLoadingPaging(true);
         }
 
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
@@ -59,6 +61,7 @@ public class P_OrdersFragment {
                         }
 
                     } else {
+                        s_ordersFragment.onLoadingPaging(false);
                         setOrders(vm_orders);
                     }
                 }
@@ -67,6 +70,8 @@ public class P_OrdersFragment {
                 public void onError(Throwable e) {
                     if (page == 0) {
                         s_ordersFragment.onHideAll();
+                    }else{
+                        s_ordersFragment.onLoadingPaging(false);
                     }
 
                     s_ordersFragment.onError(Error.GetErrorVolley(e.toString()));
@@ -81,6 +86,12 @@ public class P_OrdersFragment {
     }
 
     void setOrders(List<VM_Orders> orders) {
+
+        //اگر شرط زیر درست باشد یعنی تعداد آیتم ها در سرور به پایان رسیده
+        if (orders.size() < 30) {
+            s_ordersFragment.onFinishOrderServer();
+        }
+
         Observable<VM_Orders> data = Observable.fromIterable(orders);
         dispose_setOrders = data.subscribe(order -> {
             s_ordersFragment.onItem(order);

@@ -16,4 +16,6 @@ public interface S_OrdersFragment {
     void onEmpty();
     void onReload();
     VM_FilterOrder getFilterOrder();
+    void onLoadingPaging(boolean load);
+    void onFinishOrderServer();
 }
