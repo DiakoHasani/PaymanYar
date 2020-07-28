@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
@@ -21,6 +22,7 @@ import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailsTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterOrder;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
@@ -36,6 +38,7 @@ public class Api_Tender extends Base_Api {
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
+    GetJsonObjectVolley volley_getOrderAnaliseInfo;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
@@ -521,6 +524,7 @@ public class Api_Tender extends Base_Api {
                                     JSONObject object = array.getJSONObject(i);
                                     VM_Orders order = new VM_Orders();
 
+                                    order.setId(object.getInt("Id"));
                                     order.setTitle(object.getString("TenderName"));
                                     order.setDate(object.getString("DateOfCompletion"));
                                     order.setPayment(object.getString("AmountPayable"));
@@ -564,6 +568,86 @@ public class Api_Tender extends Base_Api {
 
     }
 
+    //در اینجا جزئیات آنالیز مناقصه برگشت داده می شود
+    public Single<VM_AnaliseInfo> getOrderAnaliseInfo(int id) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getOrderAnaliseInfo = new GetJsonObjectVolley(ApiUrl + "Order/GetOrderInfo?Id="+id, resault -> {
+                    try {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            VM_AnaliseInfo analiseInfo = new VM_AnaliseInfo();
+
+                            JSONObject object = resault.getObject();
+
+                            try {
+
+                                JSONArray filesArray = object.getJSONArray("FileUrl1");
+                                JSONArray percentsArray = object.getJSONArray("Price");
+
+                                analiseInfo.setId(id);
+                                analiseInfo.setTenderName(object.getString("TenderName"));
+                                analiseInfo.setNationalEstimate(object.getString("Fee"));
+                                analiseInfo.setContractorName(object.getString("ContractorName"));
+                                analiseInfo.setPhoneNumber(object.getString("CellPhone"));
+                                analiseInfo.setDescription(object.getString("Description"));
+                                analiseInfo.setAmountPayable(object.getString("AmountPayable"));
+                                analiseInfo.setTimePay(object.getString("TimePay"));
+                                analiseInfo.setDoingTime(object.getString("Time"));
+                                analiseInfo.setTimer(object.getString("TimeForTimer"));
+
+                                //در اینجا استپ ها گرفته می شوند
+                                if (object.get("Steep") != null) {
+                                    switch (object.getInt("Steep")) {
+                                        case 1:
+                                            analiseInfo.setStep(StepsAnalizeTender.sendOrder);
+                                            break;
+                                        case 2:
+                                            analiseInfo.setStep(StepsAnalizeTender.orderCost);
+                                            break;
+                                        case 3:
+                                            analiseInfo.setStep(StepsAnalizeTender.pay);
+                                            break;
+                                        case 4:
+                                            analiseInfo.setStep(StepsAnalizeTender.doing);
+                                            break;
+                                        case 5:
+                                            analiseInfo.setStep(StepsAnalizeTender.takingOrders);
+                                            break;
+                                    }
+                                }
+
+                                //در اینجا نام فایل ها گرفته می شود
+                                List<String> files = new ArrayList<>();
+                                for (int i = 0; i < filesArray.length(); i++) {
+                                    files.add(filesArray.get(i).toString());
+                                }
+                                analiseInfo.setFileUrls(files);
+
+                                //در اینجا درصدها گرفته می شوند
+                                List<Float> percents = new ArrayList<>();
+                                for (int i = 0; i < percentsArray.length(); i++) {
+                                    percents.add(Float.valueOf(percentsArray.get(i).toString()));
+                                }
+                                analiseInfo.setPercents(percents);
+
+                            } catch (Exception e) {
+                            }
+
+                            emitter.onSuccess(analiseInfo);
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    } catch (Exception e) {
+                        emitter.onError(e);
+                    }
+                });
+            }).start();
+        });
+    }
+
     public void Cancel(String Tag, Context context) {
 
         isUploadedFile = false;
@@ -595,6 +679,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_getOrders != null) {
             volley_getOrders.Cancel(Tag, context);
+        }
+
+        if (volley_getOrderAnaliseInfo != null) {
+            volley_getOrderAnaliseInfo.Cancel(Tag, context);
         }
 
     }

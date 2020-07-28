@@ -26,6 +26,7 @@ import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_AnalizeTenders;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
@@ -37,7 +38,7 @@ public class P_AnalizeTenders {
     Context context;
     S_AnalizeTenders s_analizeTenders;
     Api_Tender api_tender;
-    Disposable dispose_addOrder;
+    Disposable dispose_addOrder, dispose_getDetailItem;
 
     public P_AnalizeTenders(Context context, S_AnalizeTenders s_analizeTenders) {
         this.context = context;
@@ -47,8 +48,8 @@ public class P_AnalizeTenders {
 
     public void start() {
         s_analizeTenders.OnStart();
-        s_analizeTenders.onSetDetailsData();
         setValueFiles();
+        s_analizeTenders.onSetDetailsData();
     }
 
     void setValueFiles() {
@@ -175,6 +176,42 @@ public class P_AnalizeTenders {
         return type;
     }
 
+    public FileUploadAnalizeTenderType getTypeFile(String format) {
+        FileUploadAnalizeTenderType type;
+        switch (format) {
+            case "rar":
+                type = FileUploadAnalizeTenderType.rar;
+                break;
+            case "zip":
+                type = FileUploadAnalizeTenderType.zip;
+                break;
+            case "pdf":
+                type = FileUploadAnalizeTenderType.pdf;
+                break;
+            case "xlsx":
+                type = FileUploadAnalizeTenderType.excel;
+                break;
+            case "docx":
+                type = FileUploadAnalizeTenderType.word;
+                break;
+            case "pptx":
+                type = FileUploadAnalizeTenderType.powerPoint;
+                break;
+            case "jpeg":
+            case "jpg":
+                type = FileUploadAnalizeTenderType.jpg;
+                break;
+            case "png":
+                type = FileUploadAnalizeTenderType.png;
+                break;
+            default:
+                type = FileUploadAnalizeTenderType.empty;
+                break;
+        }
+
+        return type;
+    }
+
     //در اینجا سفارش جدید به سمت سرور ارسال می شود
     public void addOrder() {
 
@@ -216,12 +253,37 @@ public class P_AnalizeTenders {
         }
     }
 
+    //در اینجا جزئیات سفارش گرفته می شود
+    public void getDetailItem() {
+
+        s_analizeTenders.onShowReloadDialog(true);
+        s_analizeTenders.onLoadingGetItem(true);
+
+        Single<VM_AnaliseInfo> val = api_tender.getOrderAnaliseInfo(s_analizeTenders.onItemId());
+        dispose_getDetailItem = val.subscribeWith(new DisposableSingleObserver<VM_AnaliseInfo>() {
+            @Override
+            public void onSuccess(VM_AnaliseInfo vm_analiseInfo) {
+                s_analizeTenders.onShowReloadDialog(false);
+                s_analizeTenders.onSetAnaliseInfo(vm_analiseInfo);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_analizeTenders.onErrorGetItem(Error.GetErrorVolley(e.toString()));
+            }
+        });
+    }
+
     public void cancel(String tag) {
 
         api_tender.Cancel(tag, context);
 
         if (dispose_addOrder != null) {
             dispose_addOrder.dispose();
+        }
+
+        if (dispose_getDetailItem != null) {
+            dispose_getDetailItem.dispose();
         }
     }
 }

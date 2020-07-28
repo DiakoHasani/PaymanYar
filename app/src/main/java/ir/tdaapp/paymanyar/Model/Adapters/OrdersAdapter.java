@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
+import ir.tdaapp.paymanyar.Model.Services.onClickOrders;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
 import ir.tdaapp.paymanyar.R;
 
@@ -25,10 +27,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
     Context context;
     List<VM_Orders> vals;
+    onClickOrders clickOrders;
 
     public OrdersAdapter(Context context) {
         this.context = context;
         vals = new ArrayList<>();
+    }
+
+    public void setClickOrders(onClickOrders clickOrders) {
+        this.clickOrders = clickOrders;
     }
 
     //در اینجا یک آیتم جدید اضافه می شود
@@ -62,6 +69,18 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         }
 
         holder.setStepItem(vals.get(position).getStepsAnalizeTender());
+
+        holder.layout.setOnClickListener(view -> {
+            if (clickOrders != null) {
+                clickOrders.onClickItem(vals.get(position).getId());
+            }
+        });
+
+        holder.btn_Item.setOnClickListener(view -> {
+            if (clickOrders != null) {
+                clickOrders.onClickButton(vals.get(position).getId(),vals.get(position).getStepsAnalizeTender());
+            }
+        });
     }
 
     @Override
@@ -75,6 +94,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         View step1, step2, step3, step4, step5, step6, step7;
         RelativeLayout btn_Item;
         ImageView icon_button;
+        CardView layout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +116,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             btn_Item = view.findViewById(R.id.btn_Item);
             lbl_Button = view.findViewById(R.id.lbl_Button);
             icon_button = view.findViewById(R.id.icon_button);
+            layout = view.findViewById(R.id.layout);
         }
 
         //در اینجا عملیات مربوط به استپ بندی و آیکون دکمه آیتم ها انجام می شود
@@ -106,45 +127,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             if (stepItem != null) {
                 switch (stepItem) {
                     case sendOrder:
-
-                        step1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-
-                        lbl_Button.setText(context.getString(R.string.send_order));
-                        icon_button.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_send_order));
-
-                        break;
                     case orderCheck:
-
                         step1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                         step2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-
                         lbl_Button.setText(context.getString(R.string.order_check));
                         icon_button.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_order_check));
-
                         break;
                     case duration:
-
-                        step1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-                        step2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-                        step3.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-
-                        lbl_Button.setText(context.getString(R.string.duration));
-                        icon_button.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_duration));
-
-                        break;
                     case orderCost:
-
-                        step1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-                        step2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-                        step3.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-                        step4.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
-
-                        lbl_Button.setText(context.getString(R.string.order_cost));
-                        icon_button.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_order_cost));
-
-                        break;
                     case pay:
-
                         step1.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                         step2.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
                         step3.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));

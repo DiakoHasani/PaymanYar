@@ -25,8 +25,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.OrdersAdapter;
+import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.S_OrdersFragment;
 import ir.tdaapp.paymanyar.Model.Services.onClickFilterOrdersDialog;
+import ir.tdaapp.paymanyar.Model.Services.onClickOrders;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterOrder;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
@@ -193,6 +195,23 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
             ordersAdapter = new OrdersAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
+            ordersAdapter.setClickOrders(new onClickOrders() {
+                @Override
+                public void onClickItem(int id) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Id", id);
+                    AnalizeTendersFragment analizeTendersFragment = new AnalizeTendersFragment();
+                    analizeTendersFragment.setArguments(bundle);
+
+                    ((MainActivity) getActivity()).onAddFragment(analizeTendersFragment, R.anim.fadein, R.anim.short_fadeout, true, AnalizeTendersFragment.TAG);
+                }
+
+                @Override
+                public void onClickButton(int id, StepsAnalizeTender step) {
+
+                }
+            });
+
             recycler.setAdapter(ordersAdapter);
             recycler.setLayoutManager(layoutManager);
         }
@@ -345,7 +364,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
 
                 break;
             case R.id.refresh:
-                page=0;
+                page = 0;
                 p_ordersFragment.start(page);
                 break;
         }

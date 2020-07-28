@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 
@@ -22,4 +24,11 @@ public interface S_AnalizeTenders {
     void onError(ResaultCode resaultCode);
     void onSuccess();
     void onSetDetailsData();
+    int onItemId();
+    void onLoadingGetItem(boolean load);
+    void onErrorGetItem(ResaultCode result);
+    void onShowReloadDialog(boolean show);
+    void onSetAnaliseInfo(VM_AnaliseInfo analiseInfo);
+    void startTimer(String time);
+    void onAnimation_Step_pay(StepsAnalizeTender step, boolean enablesAnim);
 }

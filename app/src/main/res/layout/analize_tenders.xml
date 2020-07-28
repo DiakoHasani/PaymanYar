@@ -14,7 +14,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"/>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
@@ -534,7 +535,8 @@
                 android:paddingLeft="16dp"
                 android:textSize="14dp"
                 android:fontFamily="@font/vazir"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"/>
 
             <RelativeLayout
                 android:id="@+id/steps"
@@ -575,6 +577,7 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
+                                android:id="@+id/step_sendOrder"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="@drawable/background_enable_step"
@@ -606,10 +609,21 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
+                                android:id="@+id/step_orderCheck"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/background_central_step"/>
+
+                                <RelativeLayout
+                                    android:id="@+id/step_orderCheck_Background"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/background_enable_step"/>
 
                                 <ImageView
                                     android:layout_width="24dp"
@@ -637,6 +651,7 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
+                                android:id="@+id/step_duration"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="@drawable/background_disable_step"
@@ -660,11 +675,11 @@
                                 android:gravity="center"/>
 
                             <TextView
+                                android:id="@+id/lbl_Time_duration"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="12dp"
-                                android:text="48 ساعت"
                                 android:textColor="@color/colorError"
                                 android:gravity="center"/>
 
@@ -707,10 +722,22 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
+                                android:id="@+id/step_doing"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="@drawable/background_disable_step"
                                 android:layout_gravity="center_horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/background_central_step"/>
+
+                                <RelativeLayout
+                                    android:id="@+id/step_doing_Background"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/background_disable_step"/>
 
                                 <ImageView
                                     android:layout_width="24dp"
@@ -729,6 +756,16 @@
                                 android:textColor="@color/colorTitle"
                                 android:gravity="center"/>
 
+                            <Chronometer
+                                android:id="@+id/timer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorError"
+                                android:gravity="center"
+                                android:textSize="12dp"
+                                android:layoutDirection="ltr"
+                                android:textDirection="ltr"/>
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -738,10 +775,22 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
+                                android:id="@+id/step_pay"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:background="@drawable/background_disable_step"
-                                android:layout_gravity="center_horizontal">
+                                android:layout_gravity="center_horizontal"
+                                android:clickable="true">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/background_central_step"/>
+
+                                <RelativeLayout
+                                    android:id="@+id/step_pay_Background"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/background_disable_step"/>
 
                                 <ImageView
                                     android:layout_width="24dp"
@@ -761,13 +810,13 @@
                                 android:gravity="center"/>
 
                             <TextView
+                                android:id="@+id/lbl_Time_Pay"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="12dp"
-                                android:text="13:05 1399/12/12"
                                 android:textColor="@color/colorError"
-                                android:gravity="center"/>
+                                android:gravity="center" />
 
                         </LinearLayout>
 
@@ -778,6 +827,7 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
+                                android:id="@+id/step_orderCost"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="@drawable/background_disable_step"
@@ -801,11 +851,11 @@
                                 android:gravity="center"/>
 
                             <TextView
+                                android:id="@+id/lbl_price_order_cost"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="12dp"
-                                android:text="30000 تومان"
                                 android:textColor="@color/colorError"
                                 android:gravity="center"/>
 
@@ -882,6 +932,7 @@
                 android:weightSum="2">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Previous_Orders"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
                     android:layout_weight="1"
@@ -908,6 +959,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_NewOrder"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
                     android:layout_weight="1"
@@ -948,7 +1000,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/saves"
+                        android:id="@+id/btn_Support"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -1021,7 +1073,44 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
+    <RelativeLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDialog"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="false"
+            android:clipToPadding="false">
+
+            <ImageView
+                android:id="@+id/btn_reload"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_refresh"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:visibility="invisible"/>
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/progress_loading"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:src="@drawable/loading_details_tender"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 
 </RelativeLayout>

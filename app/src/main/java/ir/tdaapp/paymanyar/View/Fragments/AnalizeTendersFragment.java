@@ -1,27 +1,44 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.KeyEvent;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -30,15 +47,18 @@ import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.FileUpload_AnalizeTenderAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
+import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.S_AnalizeTenders;
 import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Presenter.P_AnalizeTenders;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import pl.droidsonroids.gif.GifImageView;
 
 //مربوط به صفحه آنالیز مناقصات
 public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTenders, View.OnClickListener {
@@ -54,10 +74,25 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     EditText txt_percent6, txt_percent7, txt_percent8, txt_percent9, txt_percent10;
     EditText txt_NationalEstimate;
     RelativeLayout steps;
-    Animation aniFadeIn, aniFadeOut;
+    Animation aniSlide_up, aniFadeOut, aniFadeIn;
     EditText txt_TenderName, txt_ContractorName, txt_CellPhone, txt_Description;
     int tenderId = 0;
     ErrorAplicationDialog errorAplicationDialog;
+    LinearLayout btn_Support, btn_Home;
+    CardView btn_Previous_Orders, btn_NewOrder;
+    NestedScrollView scroll;
+    Handler handler_clear;
+    RelativeLayout step_sendOrder, step_orderCheck, step_duration, step_orderCost, step_pay, step_doing;
+    GifImageView progress_loading;
+    ImageView btn_reload;
+    RelativeLayout loading;
+    TextView lbl_Time_Pay, lbl_price_order_cost, lbl_Time_duration;
+    Chronometer timer;
+    String doingTime = "";
+    RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
+
+    //آیدی سفارش
+    int id = 0;
 
     @Nullable
     @Override
@@ -77,10 +112,22 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         p_analizeTenders = new P_AnalizeTenders(getContext(), this);
 
         txt_NationalEstimate.addTextChangedListener(new ShowPrice(txt_NationalEstimate));
-        btn_ShowSteps.setOnClickListener(this);
 
-        aniFadeIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
+        btn_ShowSteps.setOnClickListener(this);
+        btn_Support.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
+        btn_Previous_Orders.setOnClickListener(this);
+        btn_NewOrder.setOnClickListener(this);
+        btn_reload.setOnClickListener(this);
+        step_pay.setOnClickListener(this);
+
+        aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
+        aniFadeIn = AnimationUtils.loadAnimation(getContext(), R.anim.fadein);
+
+        handler_clear = new Handler(Looper.getMainLooper());
+        timer.setText("");
+
     }
 
     void findItem(View view) {
@@ -104,6 +151,27 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         txt_ContractorName = view.findViewById(R.id.txt_ContractorName);
         txt_CellPhone = view.findViewById(R.id.txt_CellPhone);
         txt_Description = view.findViewById(R.id.txt_Description);
+        btn_Support = view.findViewById(R.id.btn_Support);
+        btn_Home = view.findViewById(R.id.btn_Home);
+        btn_Previous_Orders = view.findViewById(R.id.btn_Previous_Orders);
+        btn_NewOrder = view.findViewById(R.id.btn_NewOrder);
+        scroll = view.findViewById(R.id.scroll);
+        step_sendOrder = view.findViewById(R.id.step_sendOrder);
+        step_orderCheck = view.findViewById(R.id.step_orderCheck);
+        step_duration = view.findViewById(R.id.step_duration);
+        step_orderCost = view.findViewById(R.id.step_orderCost);
+        step_pay = view.findViewById(R.id.step_pay);
+        step_doing = view.findViewById(R.id.step_doing);
+        progress_loading = view.findViewById(R.id.progress_loading);
+        btn_reload = view.findViewById(R.id.btn_reload);
+        loading = view.findViewById(R.id.loading);
+        lbl_Time_Pay = view.findViewById(R.id.lbl_Time_Pay);
+        lbl_price_order_cost = view.findViewById(R.id.lbl_price_order_cost);
+        lbl_Time_duration = view.findViewById(R.id.lbl_Time_duration);
+        timer = view.findViewById(R.id.timer);
+        step_pay_Background = view.findViewById(R.id.step_pay_Background);
+        step_orderCheck_Background = view.findViewById(R.id.step_orderCheck_Background);
+        step_doing_Background = view.findViewById(R.id.step_doing_Background);
     }
 
     @Override
@@ -191,7 +259,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             input.setTenderName(txt_TenderName.getText().toString());
 
             //در اینجا برآورد مالی ست می شود
-            input.setFee(txt_NationalEstimate.getText().toString().replace(",","").replace("٬",""));
+            input.setFee(txt_NationalEstimate.getText().toString().replace(",", "").replace("٬", ""));
 
             //در اینجا نام پیمانکار ست می شود
             input.setContractorName(txt_ContractorName.getText().toString());
@@ -349,7 +417,21 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             btn_ShowSteps.setAnimation(aniFadeOut);
             btn_ShowSteps.setVisibility(View.GONE);
 
-            steps.setAnimation(aniFadeIn);
+            //ابتدا رنگ تمام استپ ها به رنگ غیر فعال تغییر می کند
+            setDisableColorSteps();
+
+            //در اینجا انیمیشن استپ ها غیر فعال می شوند
+            disableStepAnimation();
+
+            step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+            step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+            onAnimation_Step_pay(StepsAnalizeTender.orderCheck,true);
+
+            step_pay.setEnabled(false);
+            fileUploadAdapter.setEnabled(false);
+            loadingButton.setEnabled(false);
+
+            steps.setAnimation(aniSlide_up);
             steps.setVisibility(View.VISIBLE);
         });
     }
@@ -363,27 +445,311 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
             //در اینجا آیدی مناقصه گرفته می شود
             if (bundle != null) {
-                tenderId = bundle.getInt("tenderId");
 
-                //در اینجا نام مناقصه گرفته می شود
-                if (bundle.getString("tenderName") != null) {
-                    txt_TenderName.setText(bundle.getString("tenderName"));
-                }
+                //اگر شرط زیر درست باشد یعنی کاربر از صفحه سفارشات وارد شده است
+                //در غیر این صورت کاربر از طریق دیگری وارد شده است
+                if (bundle.get("Id") != null) {
 
-                //در اینجا برآورد مالی ست می شود
-                if (bundle.getString("fee") != null) {
-                    new ShowPrice(txt_NationalEstimate);
-                    txt_NationalEstimate.setText(bundle.getString("fee"));
-                }
+                    id = bundle.getInt("Id");
 
-                //در اینجا توضیحات ست می شود
-                if (bundle.getString("description") != null) {
-                    txt_Description.setText(bundle.getString("description"));
+                    //در اینجا فایل آپلود غیر فعال می شود
+                    if (fileUploadAdapter != null) {
+                        fileUploadAdapter.setEnabled(false);
+                    }
+
+                    p_analizeTenders.getDetailItem();
+
+                } else {
+                    tenderId = bundle.getInt("tenderId");
+
+                    //در اینجا نام مناقصه گرفته می شود
+                    if (bundle.getString("tenderName") != null) {
+                        txt_TenderName.setText(bundle.getString("tenderName"));
+                    }
+
+                    //در اینجا برآورد مالی ست می شود
+                    if (bundle.getString("fee") != null) {
+                        new ShowPrice(txt_NationalEstimate);
+                        txt_NationalEstimate.setText(bundle.getString("fee"));
+                    }
+
+                    //در اینجا توضیحات ست می شود
+                    if (bundle.getString("description") != null) {
+                        txt_Description.setText(bundle.getString("description"));
+                    }
                 }
             }
 
         } catch (Exception e) {
         }
+    }
+
+    //در اینجا آیدی آیتم پاس برگشت داده می شود
+    @Override
+    public int onItemId() {
+        return id;
+    }
+
+    //مربوط به لودینگ گرفتن جزئیات سفارش
+    @Override
+    public void onLoadingGetItem(boolean load) {
+        if (load) {
+            btn_reload.setVisibility(View.GONE);
+            progress_loading.setVisibility(View.VISIBLE);
+        } else {
+            progress_loading.setVisibility(View.GONE);
+        }
+    }
+
+    //مربوط به ارور، گرفتن جزئیات سفارش
+    @Override
+    public void onErrorGetItem(ResaultCode result) {
+
+        String text = "";
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+
+        btn_reload.setVisibility(View.VISIBLE);
+        progress_loading.setVisibility(View.GONE);
+    }
+
+    //در اینجا دیالوگ رلود نمایش داده می شود
+    @Override
+    public void onShowReloadDialog(boolean show) {
+        if (show) {
+            loading.setVisibility(View.VISIBLE);
+        } else {
+            loading.setVisibility(View.GONE);
+        }
+    }
+
+    //در اینجا مشخصات سفارش در المنت ها ست می شود
+    @Override
+    public void onSetAnaliseInfo(VM_AnaliseInfo analiseInfo) {
+
+        try {
+
+            if (analiseInfo.getTenderName() != null) {
+                if (!analiseInfo.getTenderName().equalsIgnoreCase("null"))
+                    txt_TenderName.setText(analiseInfo.getTenderName());
+            }
+
+            if (analiseInfo.getNationalEstimate() != null) {
+                if (!analiseInfo.getNationalEstimate().equalsIgnoreCase("null"))
+                    txt_NationalEstimate.setText(analiseInfo.getNationalEstimate());
+            }
+
+            if (analiseInfo.getTenderName() != null) {
+                if (!analiseInfo.getTenderName().equalsIgnoreCase("null"))
+                    txt_TenderName.setText(analiseInfo.getTenderName());
+            }
+
+            if (analiseInfo.getPhoneNumber() != null) {
+                if (!analiseInfo.getPhoneNumber().equalsIgnoreCase("null"))
+                    txt_CellPhone.setText(analiseInfo.getPhoneNumber());
+            }
+
+            if (analiseInfo.getDescription() != null) {
+                if (!analiseInfo.getDescription().equalsIgnoreCase("null"))
+                    txt_Description.setText(analiseInfo.getDescription());
+            }
+
+            if (analiseInfo.getContractorName() != null) {
+                if (!analiseInfo.getContractorName().equalsIgnoreCase("null"))
+                    txt_ContractorName.setText(analiseInfo.getContractorName());
+            }
+
+            if (analiseInfo.getTimePay() != null) {
+                if (!analiseInfo.getTimePay().equalsIgnoreCase("null"))
+                    lbl_Time_Pay.setText(analiseInfo.getTimePay());
+            }
+
+            if (analiseInfo.getAmountPayable() != null) {
+                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null"))
+                    lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.rial));
+            }
+
+            if (analiseInfo.getDoingTime() != null) {
+                if (!analiseInfo.getDoingTime().equalsIgnoreCase("null")) {
+                    lbl_Time_duration.setText(analiseInfo.getDoingTime() + " " + getString(R.string.Hour));
+                }
+            }
+
+            //در اینجا تایمر ست می شود
+            if (analiseInfo.getTimer() != null) {
+                if (!analiseInfo.getTimer().equalsIgnoreCase("") && !analiseInfo.getTimer().equalsIgnoreCase("null")) {
+                    startTimer(analiseInfo.getTimer().replace(",", ":"));
+                }
+            }
+
+            //در اینجا فایل ها ست می شوند
+            if (analiseInfo.getFileUrls() != null) {
+
+                List<String> files = analiseInfo.getFileUrls();
+
+                for (int i = 0; i < files.size(); i++) {
+                    try {
+                        VM_FileUploadAnalizeTender file = fileUploadAdapter.getFileByPosition(i);
+                        String name = files.get(i);
+
+                        String[] u = name.split("\\.");
+                        if (u.length > 0) {
+                            String format = u[u.length - 1];
+                            FileUploadAnalizeTenderType type = p_analizeTenders.getTypeFile(format);
+                            file.setPath(name);
+                            file.setType(type);
+                            fileUploadAdapter.addFile(file);
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
+            //در اینجا درصدها گرفته می شوند
+            if (analiseInfo.getPercents() != null) {
+
+                List<Float> percents = analiseInfo.getPercents();
+
+                for (int i = 1; i <= percents.size(); i++) {
+
+                    switch (i) {
+                        case 1:
+                            txt_percent1.setText(percents.get(0).toString());
+                            break;
+                        case 2:
+                            txt_percent2.setText(percents.get(1).toString());
+                            break;
+                        case 3:
+                            txt_percent3.setText(percents.get(2).toString());
+                            break;
+                        case 4:
+                            txt_percent4.setText(percents.get(3).toString());
+                            break;
+                        case 5:
+                            txt_percent5.setText(percents.get(4).toString());
+                            break;
+                        case 6:
+                            txt_percent6.setText(percents.get(5).toString());
+                            break;
+                        case 7:
+                            txt_percent7.setText(percents.get(6).toString());
+                            break;
+                        case 8:
+                            txt_percent8.setText(percents.get(7).toString());
+                            break;
+                        case 9:
+                            txt_percent9.setText(percents.get(8).toString());
+                            break;
+                        case 10:
+                            txt_percent10.setText(percents.get(9).toString());
+                            break;
+                    }
+
+                }
+
+            }
+
+            btn_ShowSteps.setVisibility(View.GONE);
+            if (analiseInfo.getStep() != null) {
+
+                //ابتدا رنگ تمام استپ ها به رنگ غیر فعال تغییر می کند
+                setDisableColorSteps();
+
+                loadingButton.setEnabled(false);
+
+                //در اینجا انیمیشن استپ ها غیر فعال می شوند
+                disableStepAnimation();
+
+                step_pay.setEnabled(false);
+
+                steps.setVisibility(View.VISIBLE);
+
+                switch (analiseInfo.getStep()) {
+                    case sendOrder:
+                    case orderCheck:
+                        step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        onAnimation_Step_pay(analiseInfo.getStep(), true);
+                        break;
+                    case duration:
+                    case orderCost:
+                    case pay:
+                        step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_duration.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+
+                        step_pay.setEnabled(true);
+                        onAnimation_Step_pay(analiseInfo.getStep(), true);
+                        break;
+                    case doing:
+                        step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_duration.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+
+                        onAnimation_Step_pay(analiseInfo.getStep(), true);
+                        break;
+                    case takingOrders:
+                        step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_duration.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+
+                        loadingButton.setBackground(getActivity().getResources().getDrawable(R.drawable.circular_border_shape_enable));
+                        loadingButton.setEnabled(true);
+                        break;
+                }
+
+            }
+
+        } catch (Exception e) {
+            int a = 1;
+            a++;
+        }
+
+    }
+
+    //در اینجا انیمیشن تمام استپ ها غیر فعال می شوند
+    void disableStepAnimation(){
+        onAnimation_Step_pay(StepsAnalizeTender.sendOrder, false);
+        onAnimation_Step_pay(StepsAnalizeTender.orderCheck, false);
+        onAnimation_Step_pay(StepsAnalizeTender.duration, false);
+        onAnimation_Step_pay(StepsAnalizeTender.doing, false);
+        onAnimation_Step_pay(StepsAnalizeTender.pay, false);
+        onAnimation_Step_pay(StepsAnalizeTender.orderCost, false);
+        onAnimation_Step_pay(StepsAnalizeTender.takingOrders, false);
+    }
+
+    //در اینجا رنگ تمام استپ ها به رنگ غیرفعال تغییر می کند
+    void setDisableColorSteps(){
+        step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
+        step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
+        step_duration.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
+        step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
+        step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
+        step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
+        loadingButton.setBackground(getActivity().getResources().getDrawable(R.drawable.circular_border_shape_disable));
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -405,7 +771,73 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             case R.id.btn_ShowSteps:
                 p_analizeTenders.addOrder();
                 break;
+            case R.id.btn_Home:
+                ((MainActivity) getActivity()).backToHome();
+                break;
+            case R.id.btn_Support:
+                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.short_fadeout, true, SupportFragment.TAG);
+                break;
+            case R.id.btn_Previous_Orders:
+                ((MainActivity) getActivity()).onAddFragment(new OrdersFragment(), R.anim.fadein, R.anim.short_fadeout, true, OrdersFragment.TAG);
+                break;
+            case R.id.btn_NewOrder:
+                doingTime = "00:00:00";
+                timer.stop();
+                fileUploadAdapter.setEnabled(true);
+                step_pay.setEnabled(false);
+                loadingButton.setEnabled(false);
+                tenderId = 0;
+                id = 0;
+                scrollToTop();
+                clear();
+                break;
+            case R.id.btn_reload:
+                p_analizeTenders.getDetailItem();
+                break;
+            case R.id.step_pay:
+                step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
+                break;
         }
+    }
+
+    //در اینجا اسکرول به صورت انیمیشن بالا می رود
+    void scrollToTop() {
+        int x = 0;
+        int y = 0;
+
+        ObjectAnimator xTranslate = ObjectAnimator.ofInt(scroll, "scrollX", x);
+        ObjectAnimator yTranslate = ObjectAnimator.ofInt(scroll, "scrollY", y);
+
+        AnimatorSet animators = new AnimatorSet();
+        animators.setDuration(1900L);
+        animators.playTogether(xTranslate, yTranslate);
+
+        animators.addListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator arg0) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        animators.start();
     }
 
     @Override
@@ -418,5 +850,268 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    //در دو متد زیر عملیات پاکسازی تمامی داده های جاری در المنت ها پاک می شود
+    void clear() {
+        new Thread(() -> {
+            try {
+
+                clear2("stepAnimation");
+
+                Thread.sleep(100);
+                clear2("stepItems");
+
+                Thread.sleep(100);
+                clear2("txt_percent10");
+
+                Thread.sleep(100);
+                clear2("txt_percent9");
+
+                Thread.sleep(100);
+                clear2("txt_percent8");
+
+                Thread.sleep(100);
+                clear2("txt_percent7");
+
+                Thread.sleep(100);
+                clear2("txt_percent6");
+
+                Thread.sleep(100);
+                clear2("txt_percent5");
+
+                Thread.sleep(100);
+                clear2("txt_percent4");
+
+                Thread.sleep(100);
+                clear2("txt_percent3");
+
+                Thread.sleep(100);
+                clear2("txt_percent2");
+
+                Thread.sleep(100);
+                clear2("txt_percent1");
+
+                Thread.sleep(100);
+                clear2("fileUploadAdapter");
+
+                Thread.sleep(100);
+                clear2("txt_Description");
+
+                Thread.sleep(100);
+                clear2("txt_CellPhone");
+
+                Thread.sleep(100);
+                clear2("txt_ContractorName");
+
+                Thread.sleep(100);
+                clear2("txt_NationalEstimate");
+
+                Thread.sleep(100);
+                clear2("txt_TenderName");
+
+                Thread.sleep(500);
+                clear2("steps");
+
+            } catch (Exception e) {
+            }
+        }).start();
+    }
+    void clear2(String val) {
+        handler_clear.post(() -> {
+            switch (val) {
+
+                case "txt_percent1":
+                    txt_percent1.setText("");
+                    break;
+                case "txt_percent2":
+                    txt_percent2.setText("");
+                    break;
+                case "txt_percent3":
+                    txt_percent3.setText("");
+                    break;
+                case "txt_percent4":
+                    txt_percent4.setText("");
+                    break;
+                case "txt_percent5":
+                    txt_percent5.setText("");
+                    break;
+                case "txt_percent6":
+                    txt_percent6.setText("");
+                    break;
+                case "txt_percent7":
+                    txt_percent7.setText("");
+                    break;
+                case "txt_percent8":
+                    txt_percent8.setText("");
+                    break;
+                case "txt_percent9":
+                    txt_percent9.setText("");
+                    break;
+                case "txt_percent10":
+                    txt_percent10.setText("");
+                    break;
+                case "fileUploadAdapter":
+                    fileUploadAdapter.clearAll();
+                    break;
+                case "txt_Description":
+                    txt_Description.setText("");
+                    break;
+                case "txt_CellPhone":
+                    txt_CellPhone.setText("");
+                    break;
+                case "txt_ContractorName":
+                    txt_ContractorName.setText("");
+                    break;
+                case "txt_NationalEstimate":
+                    txt_NationalEstimate.setText("");
+                    break;
+                case "txt_TenderName":
+                    txt_TenderName.setText("");
+                    break;
+                case "steps":
+                    if (steps.getVisibility() == View.VISIBLE) {
+                        steps.setAnimation(aniFadeOut);
+                        steps.setVisibility(View.GONE);
+
+                        btn_ShowSteps.setAnimation(aniFadeIn);
+                        btn_ShowSteps.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case "stepItems":
+                    timer.setText("");
+                    lbl_Time_duration.setText("");
+                    lbl_Time_Pay.setText("");
+                    lbl_price_order_cost.setText("");
+                    break;
+                case "stepAnimation":
+                    disableStepAnimation();
+                    break;
+            }
+        });
+    }
+
+    //مربوط به تایمر استپ در حال انجام
+    @Override
+    public void startTimer(String time) {
+        doingTime = time;
+        timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                try {
+
+                    String[] t = doingTime.split(":");
+
+                    int h, m, s;
+
+                    //در اینجا ساعت گرفته می شود
+                    h = Integer.valueOf(t[0].trim());
+
+                    //در اینجا دقیقه گرفته می شود
+                    m = Integer.valueOf(t[1].trim());
+
+                    //در اینجا ثانیه گرفته می شود
+                    s = Integer.valueOf(t[2].trim());
+
+                    h = h < 0 ? 0 : h;
+                    m = m < 0 ? 0 : m;
+                    s = s < 0 ? 0 : s;
+
+                    //در اینجا ساعت و دقیقه و ثانیه تنظیم می شود
+                    if (h > 0 || m > 0 || s > 0) {
+                        if (s > 0) {
+                            s--;
+                        } else {
+                            if (m > 0) {
+                                m--;
+                            } else {
+                                if (h > 0) {
+                                    h--;
+                                } else {
+                                    h = 00;
+                                }
+                                m = 59;
+                            }
+                            s = 59;
+                        }
+                        ////////////////////////////////////////////
+
+                        //در اینجا اگر زمان مثل ساعت یا دقیقه یا ثانیه تک رقمی باشد یک صفر به پشت آن اضافه می شود
+                        String hh, mm, ss;
+
+                        if (h >= 0 && h < 10) {
+                            hh = "0" + h;
+                        } else {
+                            hh = h + "";
+                        }
+
+                        if (m >= 0 && m < 10) {
+                            mm = "0" + m;
+                        } else {
+                            mm = m + "";
+                        }
+
+                        if (s >= 0 && s < 10) {
+                            ss = "0" + s;
+                        } else {
+                            ss = s + "";
+                        }
+                        ///////////////////////////////////////////////////////////////
+
+                        //در اینجا زمان ها نمایش داده می شوند
+                        doingTime = hh + " : " + mm + " : " + ss;
+                        chronometer.setText(doingTime);
+                    } else {
+                        doingTime = "00 : 00 : 00";
+                        chronometer.setText(doingTime);
+                        timer.stop();
+                    }
+
+                } catch (Exception e) {
+                    chronometer.setText(doingTime);
+                }
+            }
+        });
+        timer.start();
+    }
+
+    //برای نمایش انیمیشن پرداخت هزینه
+    @Override
+    public void onAnimation_Step_pay(StepsAnalizeTender step, boolean enablesAnim) {
+
+        if (enablesAnim) {
+            Animation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(500);
+            anim.setRepeatMode(Animation.REVERSE);
+            anim.setRepeatCount(Animation.INFINITE);
+
+            if (step == StepsAnalizeTender.sendOrder || step == StepsAnalizeTender.orderCheck) {
+                step_orderCheck_Background.startAnimation(anim);
+            }
+
+            if (step == StepsAnalizeTender.duration || step == StepsAnalizeTender.orderCost || step == StepsAnalizeTender.pay) {
+                step_pay_Background.startAnimation(anim);
+            }
+
+            if (step == StepsAnalizeTender.doing) {
+                step_doing_Background.startAnimation(anim);
+            }
+
+        } else {
+
+            if (step == StepsAnalizeTender.sendOrder || step == StepsAnalizeTender.orderCheck) {
+                step_orderCheck_Background.setAnimation(null);
+            }
+
+            if (step == StepsAnalizeTender.duration || step == StepsAnalizeTender.orderCost || step == StepsAnalizeTender.pay) {
+                step_pay_Background.setAnimation(null);
+            }
+
+            if (step == StepsAnalizeTender.doing) {
+                step_doing_Background.setAnimation(null);
+            }
+
+        }
+
     }
 }

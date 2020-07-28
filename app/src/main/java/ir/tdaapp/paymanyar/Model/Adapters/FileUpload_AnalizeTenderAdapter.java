@@ -25,6 +25,9 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
     List<VM_FileUploadAnalizeTender> vals;
     onClickFileUpload_AnalizeTender clickFileUpload_analizeTender;
 
+    //اگر متغیر زیر فالس باشد کاربر نمی تواند فایلی اضافه یا حذف کند
+    boolean isEnabled = true;
+
     public FileUpload_AnalizeTenderAdapter(Context context, List<VM_FileUploadAnalizeTender> vals) {
         this.context = context;
         this.vals = vals;
@@ -42,6 +45,14 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
         notifyItemChanged(position);
     }
 
+    //در اینجا یک فایل بر اساس پوزیشن برگشت داده می شود
+    public VM_FileUploadAnalizeTender getFileByPosition(int position) {
+        if (position < 10)
+            return vals.get(position);
+
+        return null;
+    }
+
     //در اینجا یک فایل را پاک می کند
     public void clearFile(VM_FileUploadAnalizeTender v) {
         int position = 0;
@@ -57,8 +68,25 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
         notifyItemChanged(position);
     }
 
+    //در اینجا تمامی فایل ها پاک می شود
+    public void clearAll() {
+        for (int i = 0; i < vals.size(); i++) {
+            vals.get(i).setType(FileUploadAnalizeTenderType.empty);
+            vals.get(i).setPath("");
+            notifyItemChanged(i);
+        }
+    }
+
     public void setClickFileUpload_analizeTender(onClickFileUpload_AnalizeTender clickFileUpload_analizeTender) {
         this.clickFileUpload_analizeTender = clickFileUpload_analizeTender;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
     //در اینجا آدرس فایل ها برگشت داده می شوند
@@ -87,12 +115,15 @@ public class FileUpload_AnalizeTenderAdapter extends RecyclerView.Adapter<FileUp
         if (clickFileUpload_analizeTender != null) {
 
             holder.layout.setOnClickListener(view -> {
-                clickFileUpload_analizeTender.onClickFile(vals.get(position));
+                if (isEnabled)
+                    clickFileUpload_analizeTender.onClickFile(vals.get(position));
             });
 
             holder.close.setOnClickListener(view -> {
-                clearFile(vals.get(position));
-                clickFileUpload_analizeTender.onClickClose(vals.get(position));
+                if (isEnabled) {
+                    clearFile(vals.get(position));
+                    clickFileUpload_analizeTender.onClickClose(vals.get(position));
+                }
             });
 
         }

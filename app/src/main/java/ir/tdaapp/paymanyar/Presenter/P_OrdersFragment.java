@@ -70,6 +70,7 @@ public class P_OrdersFragment {
                 public void onError(Throwable e) {
                     if (page == 0) {
                         s_ordersFragment.onHideAll();
+                        s_ordersFragment.onReload();
                     }else{
                         s_ordersFragment.onLoadingPaging(false);
                     }

@@ -513,6 +513,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 }
                 break;
             case R.id.btn_search:
+                page=0;
                 p_tenderNotificationFragment.start(getFilter());
                 break;
         }

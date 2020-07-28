@@ -1,9 +1,6 @@
 package ir.tdaapp.paymanyar.View.Dialogs;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +16,6 @@ import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
-import ir.tdaapp.paymanyar.View.Fragments.HomeFragment;
-import ir.tdaapp.paymanyar.View.Fragments.LoginFragment;
 
 //دیالوگ مربوط به خرید شارژ
 public class BuyChargeDialog extends BaseDialogFragment implements View.OnClickListener {
@@ -92,7 +87,6 @@ public class BuyChargeDialog extends BaseDialogFragment implements View.OnClickL
     }
 
     void gotoBuy() {
-
         String api_key = ((MainActivity) getActivity()).getTbl_notification().getToken(getContext());
         String url = "http://tiptop.tdaapp.ir/Payment/Index?ChargeId=" + charge.getId() + "&ApiKey=" + api_key;
         openUrl.getWeb(url,getContext());
