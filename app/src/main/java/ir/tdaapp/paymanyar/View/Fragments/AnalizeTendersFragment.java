@@ -5,9 +5,15 @@ import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -21,6 +27,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
+import android.webkit.MimeTypeMap;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +45,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +59,7 @@ import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.S_AnalizeTenders;
 import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
@@ -59,6 +68,9 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import pl.droidsonroids.gif.GifImageView;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 //مربوط به صفحه آنالیز مناقصات
 public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTenders, View.OnClickListener {
@@ -94,6 +106,12 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     //آیدی سفارش
     int id = 0;
 
+    //نام فایل نهایی سفارش که کاربر آن را دانلود می کند
+    String fileName = "";
+
+    //اگر مقدار زیر ترو باشد یعنی کاربر به صفحه پرداخت رفته است
+    boolean isPayment = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,6 +138,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         btn_NewOrder.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
         step_pay.setOnClickListener(this);
+        loadingButton.setOnClickListener(this);
 
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
@@ -425,7 +444,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
             step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
             step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
-            onAnimation_Step_pay(StepsAnalizeTender.orderCheck,true);
+            onAnimation_Step_pay(StepsAnalizeTender.orderCheck, true);
 
             step_pay.setEnabled(false);
             fileUploadAdapter.setEnabled(false);
@@ -581,12 +600,22 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
             if (analiseInfo.getAmountPayable() != null) {
                 if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null"))
-                    lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.rial));
+                    lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.Toman));
             }
 
             if (analiseInfo.getDoingTime() != null) {
                 if (!analiseInfo.getDoingTime().equalsIgnoreCase("null")) {
                     lbl_Time_duration.setText(analiseInfo.getDoingTime() + " " + getString(R.string.Hour));
+                }
+            }
+
+            //در اینجا نام فایل برای دانلود گرفته می شود
+            if (analiseInfo.getFileName() != null) {
+                if (!analiseInfo.getFileName().equalsIgnoreCase("null")) {
+                    try {
+                        fileName = analiseInfo.getFileName();
+                    } catch (Exception e) {
+                    }
                 }
             }
 
@@ -731,7 +760,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     }
 
     //در اینجا انیمیشن تمام استپ ها غیر فعال می شوند
-    void disableStepAnimation(){
+    void disableStepAnimation() {
         onAnimation_Step_pay(StepsAnalizeTender.sendOrder, false);
         onAnimation_Step_pay(StepsAnalizeTender.orderCheck, false);
         onAnimation_Step_pay(StepsAnalizeTender.duration, false);
@@ -742,7 +771,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     }
 
     //در اینجا رنگ تمام استپ ها به رنگ غیرفعال تغییر می کند
-    void setDisableColorSteps(){
+    void setDisableColorSteps() {
         step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
         step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
         step_duration.setBackground(getActivity().getResources().getDrawable(R.drawable.background_disable_step));
@@ -796,6 +825,30 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 break;
             case R.id.step_pay:
                 step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
+                isPayment = true;
+                if (id != 0) {
+                    String url = "http://tiptop.tdaapp.ir/PaymentOrder/Index?OrderId=" + id;
+                    openUrl.getWeb(url, getContext());
+                }
+                break;
+            case R.id.loadingButton:
+                if (!fileName.equalsIgnoreCase("")) {
+
+                    String t = "";
+                    try {
+                        String[] a = fileName.split("/");
+                        t = a[1];
+                    } catch (Exception e) {
+                    }
+                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), t);
+
+                    //در اینجا چک می شود اگر قبلا این فایل دانلود شده است آن را نمایش می دهد در غیر این صورت آن را دانلود می کند
+                    if (file.exists()) {
+                        onShowFile(t);
+                    } else {
+                        p_analizeTenders.downloadFile(t);
+                    }
+                }
                 break;
         }
     }
@@ -917,6 +970,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             }
         }).start();
     }
+
     void clear2(String val) {
         handler_clear.post(() -> {
             switch (val) {
@@ -1113,5 +1167,63 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
         }
 
+    }
+
+    @Override
+    public String onGetFileName() {
+        return fileName;
+    }
+
+    //مربوط به لودینگ دکمه دانلود فایل
+    @Override
+    public void onLoadingDownloadFile(boolean load) {
+        if (load) {
+            loadingButton.startAnimation();
+        } else {
+            loadingButton.revertAnimation();
+        }
+    }
+
+    //اگر در دانلود فایل خطای رخ دهد متد زیر فراخوانی می شود
+    @Override
+    public void onErrorDownloadFile(Throwable e) {
+        Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+    }
+
+    //در اینجا فایل نمایش داده می شود
+    @Override
+    public void onShowFile(String fileName) {
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+        if (file.exists()) {
+
+            try {
+                String extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(file).toString());
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP | FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = FileProvider.getUriForFile(getContext(), getActivity().getApplicationContext().getPackageName() + ".provider", file);
+
+                intent.setDataAndType(uri, mimeType);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                startActivity(Intent.createChooser(intent, getString(R.string.ChoseApp)));
+            } catch (Exception e) {
+                Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            Toast.makeText(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (id != 0 && isPayment) {
+            isPayment = false;
+            p_analizeTenders.getDetailItem();
+        }
     }
 }

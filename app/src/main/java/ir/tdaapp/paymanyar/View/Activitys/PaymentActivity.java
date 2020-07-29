@@ -120,6 +120,7 @@ public class PaymentActivity extends AppCompatActivity implements S_PaymentActiv
                     finish();
                 } else {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
                 break;
         }

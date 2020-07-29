@@ -1,13 +1,19 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,7 @@ public class Api_Tender extends Base_Api {
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
     GetJsonObjectVolley volley_getOrderAnaliseInfo;
+    boolean workingDownloadFile = true;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
@@ -572,7 +579,7 @@ public class Api_Tender extends Base_Api {
     public Single<VM_AnaliseInfo> getOrderAnaliseInfo(int id) {
         return Single.create(emitter -> {
             new Thread(() -> {
-                volley_getOrderAnaliseInfo = new GetJsonObjectVolley(ApiUrl + "Order/GetOrderInfo?Id="+id, resault -> {
+                volley_getOrderAnaliseInfo = new GetJsonObjectVolley(ApiUrl + "Order/GetOrderInfo?Id=" + id, resault -> {
                     try {
 
                         if (resault.getResault() == ResaultCode.Success) {
@@ -596,6 +603,7 @@ public class Api_Tender extends Base_Api {
                                 analiseInfo.setTimePay(object.getString("TimePay"));
                                 analiseInfo.setDoingTime(object.getString("Time"));
                                 analiseInfo.setTimer(object.getString("TimeForTimer"));
+                                analiseInfo.setFileName(object.getString("FileUrlOrder"));
 
                                 //در اینجا استپ ها گرفته می شوند
                                 if (object.get("Steep") != null) {
@@ -648,9 +656,55 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    public Single<Boolean> downloadOrder(String fileName, String title) {
+        return Single.create(emitter -> {
+
+            new Thread(() -> {
+
+                try {
+
+                    Thread.sleep(3000);
+                    URL url = new URL(Orderurl + fileName);
+                    HttpURLConnection c = (HttpURLConnection) url.openConnection();
+//                    c.setRequestMethod("GET");
+//                    c.setDoOutput(true);
+                    c.connect();
+
+                    String PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+                    File file = new File(PATH);
+                    if (!file.exists()) {
+                        file.mkdirs();
+                    }
+                    File outputFile = new File(file, title);
+                    FileOutputStream fos = new FileOutputStream(outputFile);
+                    InputStream is = c.getInputStream();
+                    byte[] buffer = new byte[1024];
+                    int len1 = 0;
+                    while ((len1 = is.read(buffer)) != -1) {
+                        fos.write(buffer, 0, len1);
+                    }
+                    fos.flush();
+                    fos.close();
+                    is.close();
+
+                    if (workingDownloadFile)
+                        emitter.onSuccess(true);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (workingDownloadFile)
+                        emitter.onSuccess(false);
+                }
+
+            }).start();
+
+        });
+    }
+
     public void Cancel(String Tag, Context context) {
 
         isUploadedFile = false;
+        workingDownloadFile = false;
         cancelBase(Tag, context);
 
         if (volley_getTenderNotification != null) {

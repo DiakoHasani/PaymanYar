@@ -45,6 +45,9 @@ public class VM_AnaliseInfo {
     //مربوط به زمان تایمر
     String timer;
 
+    //مربوط به نام فایل
+    String fileName;
+
     public int getId() {
         return id;
     }
@@ -147,5 +150,13 @@ public class VM_AnaliseInfo {
 
     public void setTimer(String timer) {
         this.timer = timer;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

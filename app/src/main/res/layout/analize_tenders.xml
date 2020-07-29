@@ -915,8 +915,7 @@
                             android:paddingRight="16dp"
                             android:paddingLeft="16dp"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
-                            android:enabled="false"/>
+                            android:fontFamily="@font/vazir"/>
 
                     </LinearLayout>
 

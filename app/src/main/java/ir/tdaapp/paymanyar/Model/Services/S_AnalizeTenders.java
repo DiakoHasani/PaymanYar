@@ -31,4 +31,8 @@ public interface S_AnalizeTenders {
     void onSetAnaliseInfo(VM_AnaliseInfo analiseInfo);
     void startTimer(String time);
     void onAnimation_Step_pay(StepsAnalizeTender step, boolean enablesAnim);
+    String onGetFileName();
+    void onLoadingDownloadFile(boolean load);
+    void onErrorDownloadFile(Throwable e);
+    void onShowFile(String fileName);
 }

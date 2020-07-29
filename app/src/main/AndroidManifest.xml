@@ -11,6 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".View.Activitys.PaymentOrderActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="homeorder"
+                    android:scheme="paymanyar" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".View.Activitys.RullerActivity"
             android:screenOrientation="landscape" />
@@ -34,8 +49,8 @@
         <activity
             android:name=".View.Activitys.MainActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,10 +61,10 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCII8Avqrt-tBZBaLs3CWygkFglhgBWU9s" />
+
         <provider
             android:name=".Model.Utilitys.GenericFileProvider"
             android:authorities="${applicationId}.provider"

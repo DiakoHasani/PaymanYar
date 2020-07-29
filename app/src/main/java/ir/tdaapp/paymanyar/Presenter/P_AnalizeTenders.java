@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class P_AnalizeTenders {
     S_AnalizeTenders s_analizeTenders;
     Api_Tender api_tender;
     Disposable dispose_addOrder, dispose_getDetailItem;
+    Disposable dispose_downloadFile;
 
     public P_AnalizeTenders(Context context, S_AnalizeTenders s_analizeTenders) {
         this.context = context;
@@ -263,15 +266,43 @@ public class P_AnalizeTenders {
         dispose_getDetailItem = val.subscribeWith(new DisposableSingleObserver<VM_AnaliseInfo>() {
             @Override
             public void onSuccess(VM_AnaliseInfo vm_analiseInfo) {
+
                 s_analizeTenders.onShowReloadDialog(false);
                 s_analizeTenders.onSetAnaliseInfo(vm_analiseInfo);
             }
 
             @Override
             public void onError(Throwable e) {
+                s_analizeTenders.onShowReloadDialog(false);
                 s_analizeTenders.onErrorGetItem(Error.GetErrorVolley(e.toString()));
             }
         });
+    }
+
+    public void downloadFile(String title) {
+
+        s_analizeTenders.onLoadingDownloadFile(true);
+
+        Single<Boolean> val = api_tender.downloadOrder(s_analizeTenders.onGetFileName(), title);
+
+        dispose_downloadFile = val.subscribeWith(new DisposableSingleObserver<Boolean>() {
+            @Override
+            public void onSuccess(Boolean a) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    s_analizeTenders.onLoadingDownloadFile(false);
+                    s_analizeTenders.onShowFile(title);
+                });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    s_analizeTenders.onLoadingDownloadFile(false);
+                    s_analizeTenders.onErrorDownloadFile(e);
+                });
+            }
+        });
+
     }
 
     public void cancel(String tag) {
@@ -284,6 +315,10 @@ public class P_AnalizeTenders {
 
         if (dispose_getDetailItem != null) {
             dispose_getDetailItem.dispose();
+        }
+
+        if (dispose_downloadFile != null) {
+            dispose_downloadFile.dispose();
         }
     }
 }
