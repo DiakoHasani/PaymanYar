@@ -1,6 +1,8 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class P_OrdersFragment {
     Context context;
     Api_Tender api_tender;
     S_OrdersFragment s_ordersFragment;
-    Disposable dispose_getOrders, dispose_setOrders;
+    Disposable dispose_getOrders, dispose_setOrders, dispose_downloadFile;
 
     public P_OrdersFragment(Context context, S_OrdersFragment s_ordersFragment) {
         this.context = context;
@@ -38,7 +40,7 @@ public class P_OrdersFragment {
         if (page == 0) {
             s_ordersFragment.onHideAll();
             s_ordersFragment.onLoading(true);
-        }else{
+        } else {
             s_ordersFragment.onLoadingPaging(true);
         }
 
@@ -71,7 +73,7 @@ public class P_OrdersFragment {
                     if (page == 0) {
                         s_ordersFragment.onHideAll();
                         s_ordersFragment.onReload();
-                    }else{
+                    } else {
                         s_ordersFragment.onLoadingPaging(false);
                     }
 
@@ -103,6 +105,32 @@ public class P_OrdersFragment {
         });
     }
 
+    public void downloadFile(String fileName, String title) {
+
+        s_ordersFragment.onLoading_DownloadFile(true);
+
+        Single<Boolean> val = api_tender.downloadOrder(fileName, title);
+
+        dispose_downloadFile = val.subscribeWith(new DisposableSingleObserver<Boolean>() {
+            @Override
+            public void onSuccess(Boolean a) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    s_ordersFragment.onLoading_DownloadFile(false);
+                    s_ordersFragment.onShowFile(title);
+                });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    s_ordersFragment.onLoading_DownloadFile(false);
+                    s_ordersFragment.onErrorDownloadFile(e);
+                });
+            }
+        });
+
+    }
+
     public void cancel(String tag) {
         api_tender.Cancel(tag, context);
 
@@ -112,6 +140,10 @@ public class P_OrdersFragment {
 
         if (dispose_setOrders != null) {
             dispose_setOrders.dispose();
+        }
+
+        if (dispose_downloadFile != null) {
+            dispose_downloadFile.dispose();
         }
     }
 }

@@ -13,6 +13,9 @@ public class VM_InputAnalizeTender {
         description = "";
         fileUrl1 = fileUrl2 = fileUrl3 = fileUrl4 = fileUrl5 = fileUrl6 = fileUrl7 = fileUrl8 = fileUrl9 = fileUrl10 = "";
         price1 = price2 = price3 = price4 = price5 = price6 = price7 = price8 = price9 = price10 = 0;
+        detailedSchedule = initialSchedule = false;
+        landDeliveryDate = "";
+        projectDuration = 0;
     }
 
     //آیدی کاربر
@@ -41,6 +44,18 @@ public class VM_InputAnalizeTender {
 
     //مربوط به درصدهای پیشنهادی
     float price1, price2, price3, price4, price5, price6, price7, price8, price9, price10;
+
+    //زمانبندی تفصیلی در بخش زمانبندی
+    boolean detailedSchedule;
+
+    //زمانبندی اولیه در بخش زمانبندی
+    boolean initialSchedule;
+
+    //تاریخ تحویل زمین در بخش زمانبندی
+    String landDeliveryDate;
+
+    //مدت زمان پروژه در بخش زمانبندی
+    int projectDuration;
 
     public int getUserId() {
         return userId;
@@ -256,5 +271,37 @@ public class VM_InputAnalizeTender {
 
     public void setPrice10(float price10) {
         this.price10 = price10;
+    }
+
+    public boolean isDetailedSchedule() {
+        return detailedSchedule;
+    }
+
+    public void setDetailedSchedule(boolean detailedSchedule) {
+        this.detailedSchedule = detailedSchedule;
+    }
+
+    public boolean isInitialSchedule() {
+        return initialSchedule;
+    }
+
+    public void setInitialSchedule(boolean initialSchedule) {
+        this.initialSchedule = initialSchedule;
+    }
+
+    public String getLandDeliveryDate() {
+        return landDeliveryDate;
+    }
+
+    public void setLandDeliveryDate(String landDeliveryDate) {
+        this.landDeliveryDate = landDeliveryDate;
+    }
+
+    public int getProjectDuration() {
+        return projectDuration;
+    }
+
+    public void setProjectDuration(int projectDuration) {
+        this.projectDuration = projectDuration;
     }
 }

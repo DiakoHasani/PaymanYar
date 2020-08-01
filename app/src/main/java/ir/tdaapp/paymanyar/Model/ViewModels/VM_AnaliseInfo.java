@@ -48,6 +48,18 @@ public class VM_AnaliseInfo {
     //مربوط به نام فایل
     String fileName;
 
+    //زمانبندی تفصیلی در بخش زمانبندی
+    boolean detailedSchedule;
+
+    //زمانبندی اولیه در بخش زمانبندی
+    boolean initialSchedule;
+
+    //تاریخ تحویل زمین در بخش زمانبندی
+    String landDeliveryDate;
+
+    //مدت زمان پروژه در بخش زمانبندی
+    int projectDuration;
+
     public int getId() {
         return id;
     }
@@ -158,5 +170,37 @@ public class VM_AnaliseInfo {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public boolean isDetailedSchedule() {
+        return detailedSchedule;
+    }
+
+    public void setDetailedSchedule(boolean detailedSchedule) {
+        this.detailedSchedule = detailedSchedule;
+    }
+
+    public boolean isInitialSchedule() {
+        return initialSchedule;
+    }
+
+    public void setInitialSchedule(boolean initialSchedule) {
+        this.initialSchedule = initialSchedule;
+    }
+
+    public String getLandDeliveryDate() {
+        return landDeliveryDate;
+    }
+
+    public void setLandDeliveryDate(String landDeliveryDate) {
+        this.landDeliveryDate = landDeliveryDate;
+    }
+
+    public int getProjectDuration() {
+        return projectDuration;
+    }
+
+    public void setProjectDuration(int projectDuration) {
+        this.projectDuration = projectDuration;
     }
 }

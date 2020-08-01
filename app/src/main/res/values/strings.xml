@@ -173,4 +173,10 @@
     <string name="Amount_in_Rial">مبلغ به ریال</string>
     <string name="Grouping">دسته بندی</string>
     <string name="details">جزئیات</string>
+    <string name="detailed_scheduling">زمانبندی تفصیلی</string>
+    <string name="initial_scheduling">زمانبندی اولیه</string>
+    <string name="Delivery_time">تاریخ تحویل زمین</string>
+    <string name="Project_duration">مدت زمان پروژه</string>
+    <string name="oneHundredDays">100 روز</string>
+    <string name="Schedule">برنامه زمانبندی</string>
 </resources>

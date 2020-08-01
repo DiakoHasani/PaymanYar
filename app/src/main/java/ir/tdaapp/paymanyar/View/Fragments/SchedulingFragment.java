@@ -3,22 +3,14 @@ package ir.tdaapp.paymanyar.View.Fragments;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,13 +19,13 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 import android.webkit.MimeTypeMap;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +37,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
-import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -57,20 +48,23 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.FileUpload_AnalizeTenderAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
-import ir.tdaapp.paymanyar.Model.Services.S_AnalizeTenders;
+import ir.tdaapp.paymanyar.Model.Services.S_SchedulingFragment;
 import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
-import ir.tdaapp.paymanyar.Presenter.P_AnalizeTenders;
+import ir.tdaapp.paymanyar.Presenter.P_SchedulingFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
@@ -79,18 +73,16 @@ import pl.droidsonroids.gif.GifImageView;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-//مربوط به صفحه آنالیز مناقصات
-public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTenders, View.OnClickListener {
+//صفحه زمانبندی مناقصات
+public class SchedulingFragment extends BaseFragment implements S_SchedulingFragment, View.OnClickListener {
 
-    public static final String TAG = "AnalizeTendersFragment";
+    public static final String TAG = "SchedulingFragment";
 
     Toolbar toolbar;
-    P_AnalizeTenders p_analizeTenders;
+    P_SchedulingFragment p_schedulingFragment;
     FileUpload_AnalizeTenderAdapter fileUploadAdapter;
     RecyclerView recycler_File;
     CircularProgressButton loadingButton, btn_ShowSteps;
-    EditText txt_percent1, txt_percent2, txt_percent3, txt_percent4, txt_percent5;
-    EditText txt_percent6, txt_percent7, txt_percent8, txt_percent9, txt_percent10;
     EditText txt_NationalEstimate;
     RelativeLayout steps;
     Animation aniSlide_up, aniFadeOut, aniFadeIn;
@@ -110,6 +102,9 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     String doingTime = "";
     RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    RadioButton rdo_Detailed_Scheduling, rdo_Initial_Scheduling;
+    EditText txt_Delivery_time, txt_Project_duration;
+    RadioGroup radioButtonsGroup;
 
     //آیدی سفارش
     int id = 0;
@@ -123,19 +118,19 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.analize_tenders, container, false);
+        View view = inflater.inflate(R.layout.scheduling_fragment, container, false);
 
         findItem(view);
         implement();
         setToolbar();
 
-        p_analizeTenders.start();
+        p_schedulingFragment.start();
 
         return view;
     }
 
     void implement() {
-        p_analizeTenders = new P_AnalizeTenders(getContext(), this);
+        p_schedulingFragment = new P_SchedulingFragment(getContext(), this);
 
         txt_NationalEstimate.addTextChangedListener(new ShowPrice(txt_NationalEstimate));
 
@@ -147,6 +142,14 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         btn_reload.setOnClickListener(this);
         step_pay.setOnClickListener(this);
         loadingButton.setOnClickListener(this);
+        rdo_Initial_Scheduling.setOnClickListener(this);
+        rdo_Detailed_Scheduling.setOnClickListener(this);
+
+        txt_Delivery_time.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                showDatePersian();
+            }
+        });
 
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
@@ -161,16 +164,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         toolbar = view.findViewById(R.id.toolbar);
         recycler_File = view.findViewById(R.id.recycler_File);
         loadingButton = view.findViewById(R.id.loadingButton);
-        txt_percent1 = view.findViewById(R.id.txt_percent1);
-        txt_percent2 = view.findViewById(R.id.txt_percent2);
-        txt_percent3 = view.findViewById(R.id.txt_percent3);
-        txt_percent4 = view.findViewById(R.id.txt_percent4);
-        txt_percent5 = view.findViewById(R.id.txt_percent5);
-        txt_percent6 = view.findViewById(R.id.txt_percent6);
-        txt_percent7 = view.findViewById(R.id.txt_percent7);
-        txt_percent8 = view.findViewById(R.id.txt_percent8);
-        txt_percent9 = view.findViewById(R.id.txt_percent9);
-        txt_percent10 = view.findViewById(R.id.txt_percent10);
         txt_NationalEstimate = view.findViewById(R.id.txt_NationalEstimate);
         btn_ShowSteps = view.findViewById(R.id.btn_ShowSteps);
         steps = view.findViewById(R.id.steps);
@@ -199,6 +192,86 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         step_pay_Background = view.findViewById(R.id.step_pay_Background);
         step_orderCheck_Background = view.findViewById(R.id.step_orderCheck_Background);
         step_doing_Background = view.findViewById(R.id.step_doing_Background);
+        rdo_Detailed_Scheduling = view.findViewById(R.id.rdo_Detailed_Scheduling);
+        rdo_Initial_Scheduling = view.findViewById(R.id.rdo_Initial_Scheduling);
+        txt_Delivery_time = view.findViewById(R.id.txt_Delivery_time);
+        txt_Project_duration = view.findViewById(R.id.txt_Project_duration);
+        radioButtonsGroup = view.findViewById(R.id.radioButtonsGroup);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_ShowSteps:
+                p_schedulingFragment.addOrder();
+                break;
+            case R.id.btn_Home:
+                ((MainActivity) getActivity()).backToHome();
+                break;
+            case R.id.btn_Support:
+                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.short_fadeout, true, SupportFragment.TAG);
+                break;
+            case R.id.btn_Previous_Orders:
+                ((MainActivity) getActivity()).onAddFragment(new OrdersFragment(), R.anim.fadein, R.anim.short_fadeout, true, OrdersFragment.TAG);
+                break;
+            case R.id.rdo_Initial_Scheduling:
+            case R.id.rdo_Detailed_Scheduling:
+                rdo_Initial_Scheduling.setError(null);
+                rdo_Detailed_Scheduling.setError(null);
+                break;
+            case R.id.btn_NewOrder:
+                doingTime = "00:00:00";
+                timer.stop();
+                fileUploadAdapter.setEnabled(true);
+                step_pay.setEnabled(false);
+                loadingButton.setEnabled(false);
+                tenderId = 0;
+                id = 0;
+                scrollToTop();
+                clear();
+                break;
+            case R.id.btn_reload:
+                p_schedulingFragment.getDetailItem();
+                break;
+            case R.id.step_pay:
+                step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
+                isPayment = true;
+                if (id != 0) {
+                    String url = "http://tiptop.tdaapp.ir/PaymentOrder/Index?OrderId=" + id;
+                    openUrl.getWeb(url, getContext());
+                }
+                break;
+            case R.id.loadingButton:
+
+                Dexter.withActivity(getActivity()).withPermissions(Permissions).withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (!fileName.equalsIgnoreCase("")) {
+
+                            String t = "";
+                            try {
+                                String[] a = fileName.split("/");
+                                t = a[1];
+                            } catch (Exception e) {
+                            }
+                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), t);
+
+                            //در اینجا چک می شود اگر قبلا این فایل دانلود شده است آن را نمایش می دهد در غیر این صورت آن را دانلود می کند
+                            if (file.exists()) {
+                                onShowFile(t);
+                            } else {
+                                p_schedulingFragment.downloadFile(t);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                    }
+                }).check();
+                break;
+        }
     }
 
     @Override
@@ -216,7 +289,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         fileUploadAdapter.setClickFileUpload_analizeTender(new onClickFileUpload_AnalizeTender() {
             @Override
             public void onClickFile(VM_FileUploadAnalizeTender file) {
-                p_analizeTenders.openFile(getActivity(), file);
+                p_schedulingFragment.openFile(getActivity(), file);
             }
 
             @Override
@@ -229,14 +302,14 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     //زمانی که کاربر یک فایل انتخاب کند متد زیر فراخوانی می شود
     @Override
     public void onSelectedFile(VM_FileUploadAnalizeTender val, File file) {
-        p_analizeTenders.checkValidationFile(file, val);
+        p_schedulingFragment.checkValidationFile(file, val);
     }
 
     //اگر فایل انتخاب شده ولید باشد متد زیر فراخوانی می شود
     @Override
     public void onValidFile(VM_FileUploadAnalizeTender val, File file) {
 
-        val.setType(p_analizeTenders.getTypeFile(file));
+        val.setType(p_schedulingFragment.getTypeFile(file));
 
         if (val.getType() != FileUploadAnalizeTenderType.empty) {
             val.setPath(file.getPath());
@@ -303,6 +376,14 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             //در اینجا آیدی کاربر ست می شود
             input.setUserId(((MainActivity) getActivity()).getTbl_user().getUserId(getContext()));
 
+            input.setDetailedSchedule(rdo_Detailed_Scheduling.isChecked());
+            input.setInitialSchedule(rdo_Initial_Scheduling.isChecked());
+            input.setLandDeliveryDate(txt_Delivery_time.getText().toString());
+            try {
+                input.setProjectDuration(Integer.valueOf(txt_Project_duration.getText().toString()));
+            } catch (Exception e) {
+            }
+
             //در اینجا آدرس فایل ها ست می شود
             for (int i = 0; i < fileUrls.size(); i++) {
                 if (i == 0) {
@@ -337,38 +418,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 }
             }
 
-            //در اینجا درصدها ست می شود
-            if (!txt_percent1.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice1(Float.valueOf(txt_percent1.getText().toString()));
-            }
-            if (!txt_percent2.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice2(Float.valueOf(txt_percent2.getText().toString()));
-            }
-            if (!txt_percent3.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice3(Float.valueOf(txt_percent3.getText().toString()));
-            }
-            if (!txt_percent4.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice4(Float.valueOf(txt_percent4.getText().toString()));
-            }
-            if (!txt_percent5.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice5(Float.valueOf(txt_percent5.getText().toString()));
-            }
-            if (!txt_percent6.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice6(Float.valueOf(txt_percent6.getText().toString()));
-            }
-            if (!txt_percent7.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice7(Float.valueOf(txt_percent7.getText().toString()));
-            }
-            if (!txt_percent8.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice8(Float.valueOf(txt_percent8.getText().toString()));
-            }
-            if (!txt_percent9.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice9(Float.valueOf(txt_percent9.getText().toString()));
-            }
-            if (!txt_percent10.getText().toString().equalsIgnoreCase("")) {
-                input.setPrice10(Float.valueOf(txt_percent10.getText().toString()));
-            }
-
         } catch (Exception e) {
         }
 
@@ -390,6 +439,20 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         }
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
+            valid = false;
+        }
+
+        if (!Validation.Required(txt_Delivery_time, getString(R.string.ThisValueMust_be_Filled))) {
+            valid = false;
+        }
+
+        if (!Validation.Required(txt_Project_duration, getString(R.string.ThisValueMust_be_Filled))) {
+            valid = false;
+        }
+
+        if (!rdo_Initial_Scheduling.isChecked() && !rdo_Detailed_Scheduling.isChecked()) {
+            rdo_Initial_Scheduling.setError("");
+            rdo_Detailed_Scheduling.setError("");
             valid = false;
         }
 
@@ -476,7 +539,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                         fileUploadAdapter.setEnabled(false);
                     }
 
-                    p_analizeTenders.getDetailItem();
+                    p_schedulingFragment.getDetailItem();
 
                 } else {
                     tenderId = bundle.getInt("tenderId");
@@ -626,6 +689,22 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 }
             }
 
+            //در اینجا رادیوباتن های تفصیلی و اولیه ست می شوند
+            radioButtonsGroup.clearCheck();
+            rdo_Detailed_Scheduling.setChecked(analiseInfo.isDetailedSchedule());
+            rdo_Initial_Scheduling.setChecked(analiseInfo.isInitialSchedule());
+            ///////////////////
+
+            //در اینجا ادیت تکست تاریخ تحویل زمین ست می شود
+            if (analiseInfo.getLandDeliveryDate() != null) {
+                if (!analiseInfo.getLandDeliveryDate().equalsIgnoreCase("null")) {
+                    txt_Delivery_time.setText(analiseInfo.getLandDeliveryDate());
+                }
+            }
+
+            //در اینجا مدت زمان پروژه ست می شود
+            txt_Project_duration.setText(analiseInfo.getProjectDuration() + "");
+
             //در اینجا فایل ها ست می شوند
             if (analiseInfo.getFileUrls() != null) {
 
@@ -639,7 +718,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                         String[] u = name.split("\\.");
                         if (u.length > 0) {
                             String format = u[u.length - 1];
-                            FileUploadAnalizeTenderType type = p_analizeTenders.getTypeFile(format);
+                            FileUploadAnalizeTenderType type = p_schedulingFragment.getTypeFile(format);
                             file.setPath(name);
                             file.setType(type);
                             fileUploadAdapter.addFile(file);
@@ -647,50 +726,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                     } catch (Exception e) {
                     }
                 }
-            }
-
-            //در اینجا درصدها گرفته می شوند
-            if (analiseInfo.getPercents() != null) {
-
-                List<Float> percents = analiseInfo.getPercents();
-
-                for (int i = 1; i <= percents.size(); i++) {
-
-                    switch (i) {
-                        case 1:
-                            txt_percent1.setText(percents.get(0).toString());
-                            break;
-                        case 2:
-                            txt_percent2.setText(percents.get(1).toString());
-                            break;
-                        case 3:
-                            txt_percent3.setText(percents.get(2).toString());
-                            break;
-                        case 4:
-                            txt_percent4.setText(percents.get(3).toString());
-                            break;
-                        case 5:
-                            txt_percent5.setText(percents.get(4).toString());
-                            break;
-                        case 6:
-                            txt_percent6.setText(percents.get(5).toString());
-                            break;
-                        case 7:
-                            txt_percent7.setText(percents.get(6).toString());
-                            break;
-                        case 8:
-                            txt_percent8.setText(percents.get(7).toString());
-                            break;
-                        case 9:
-                            txt_percent9.setText(percents.get(8).toString());
-                            break;
-                        case 10:
-                            txt_percent10.setText(percents.get(9).toString());
-                            break;
-                    }
-
-                }
-
             }
 
             btn_ShowSteps.setVisibility(View.GONE);
@@ -784,7 +819,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setTitle(getContext().getResources().getString(R.string.TenderAnalise));
+        toolbar.setTitle(getContext().getResources().getString(R.string.Schedule));
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
@@ -792,76 +827,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_ShowSteps:
-                p_analizeTenders.addOrder();
-                break;
-            case R.id.btn_Home:
-                ((MainActivity) getActivity()).backToHome();
-                break;
-            case R.id.btn_Support:
-                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.short_fadeout, true, SupportFragment.TAG);
-                break;
-            case R.id.btn_Previous_Orders:
-                ((MainActivity) getActivity()).onAddFragment(new OrdersFragment(), R.anim.fadein, R.anim.short_fadeout, true, OrdersFragment.TAG);
-                break;
-            case R.id.btn_NewOrder:
-                doingTime = "00:00:00";
-                timer.stop();
-                fileUploadAdapter.setEnabled(true);
-                step_pay.setEnabled(false);
-                loadingButton.setEnabled(false);
-                tenderId = 0;
-                id = 0;
-                scrollToTop();
-                clear();
-                break;
-            case R.id.btn_reload:
-                p_analizeTenders.getDetailItem();
-                break;
-            case R.id.step_pay:
-                step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
-                isPayment = true;
-                if (id != 0) {
-                    String url = "http://tiptop.tdaapp.ir/PaymentOrder/Index?OrderId=" + id;
-                    openUrl.getWeb(url, getContext());
-                }
-                break;
-            case R.id.loadingButton:
-
-                Dexter.withActivity(getActivity()).withPermissions(Permissions).withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if (!fileName.equalsIgnoreCase("")) {
-
-                            String t = "";
-                            try {
-                                String[] a = fileName.split("/");
-                                t = a[1];
-                            } catch (Exception e) {
-                            }
-                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), t);
-
-                            //در اینجا چک می شود اگر قبلا این فایل دانلود شده است آن را نمایش می دهد در غیر این صورت آن را دانلود می کند
-                            if (file.exists()) {
-                                onShowFile(t);
-                            } else {
-                                p_analizeTenders.downloadFile(t);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-
-                    }
-                }).check();
-                break;
-        }
     }
 
     //در اینجا اسکرول به صورت انیمیشن بالا می رود
@@ -873,7 +838,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         ObjectAnimator yTranslate = ObjectAnimator.ofInt(scroll, "scrollY", y);
 
         AnimatorSet animators = new AnimatorSet();
-        animators.setDuration(1900L);
+        animators.setDuration(1200L);
         animators.playTogether(xTranslate, yTranslate);
 
         animators.addListener(new Animator.AnimatorListener() {
@@ -907,7 +872,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        p_analizeTenders.cancel(TAG);
+        p_schedulingFragment.cancel(TAG);
     }
 
     @Override
@@ -927,34 +892,13 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 clear2("stepItems");
 
                 Thread.sleep(100);
-                clear2("txt_percent10");
+                clear2("txt_Project_duration");
 
                 Thread.sleep(100);
-                clear2("txt_percent9");
+                clear2("txt_Delivery_time");
 
                 Thread.sleep(100);
-                clear2("txt_percent8");
-
-                Thread.sleep(100);
-                clear2("txt_percent7");
-
-                Thread.sleep(100);
-                clear2("txt_percent6");
-
-                Thread.sleep(100);
-                clear2("txt_percent5");
-
-                Thread.sleep(100);
-                clear2("txt_percent4");
-
-                Thread.sleep(100);
-                clear2("txt_percent3");
-
-                Thread.sleep(100);
-                clear2("txt_percent2");
-
-                Thread.sleep(100);
-                clear2("txt_percent1");
+                clear2("radioButtonsGroup");
 
                 Thread.sleep(100);
                 clear2("fileUploadAdapter");
@@ -985,37 +929,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     void clear2(String val) {
         handler_clear.post(() -> {
             switch (val) {
-
-                case "txt_percent1":
-                    txt_percent1.setText("");
-                    break;
-                case "txt_percent2":
-                    txt_percent2.setText("");
-                    break;
-                case "txt_percent3":
-                    txt_percent3.setText("");
-                    break;
-                case "txt_percent4":
-                    txt_percent4.setText("");
-                    break;
-                case "txt_percent5":
-                    txt_percent5.setText("");
-                    break;
-                case "txt_percent6":
-                    txt_percent6.setText("");
-                    break;
-                case "txt_percent7":
-                    txt_percent7.setText("");
-                    break;
-                case "txt_percent8":
-                    txt_percent8.setText("");
-                    break;
-                case "txt_percent9":
-                    txt_percent9.setText("");
-                    break;
-                case "txt_percent10":
-                    txt_percent10.setText("");
-                    break;
                 case "fileUploadAdapter":
                     fileUploadAdapter.clearAll();
                     break;
@@ -1056,6 +969,19 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                     break;
                 case "stepAnimation":
                     disableStepAnimation();
+                    break;
+                case "radioButtonsGroup":
+                    rdo_Initial_Scheduling.setError(null);
+                    rdo_Detailed_Scheduling.setError(null);
+                    radioButtonsGroup.clearCheck();
+                    break;
+                case "txt_Delivery_time":
+                    txt_Delivery_time.setError(null);
+                    txt_Delivery_time.setText("");
+                    break;
+                case "txt_Project_duration":
+                    txt_Project_duration.setError(null);
+                    txt_Project_duration.setText("");
                     break;
             }
         });
@@ -1239,7 +1165,26 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
         if (id != 0 && isPayment) {
             isPayment = false;
-            p_analizeTenders.getDetailItem();
+            p_schedulingFragment.getDetailItem();
         }
     }
+
+    //در اینجا دیالوگ تاریخ فارسی نمایش داده می شود
+    void showDatePersian() {
+        PersianDatePickerDialog picker = p_schedulingFragment.getDatePicker();
+        picker.setListener(new Listener() {
+            @Override
+            public void onDateSelected(PersianCalendar persianCalendar) {
+                txt_Delivery_time.setError(null);
+                txt_Delivery_time.setText(persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay());
+            }
+
+            @Override
+            public void onDismissed() {
+
+            }
+        });
+        picker.show();
+    }
+
 }

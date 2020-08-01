@@ -23,6 +23,7 @@ import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
+import ir.tdaapp.paymanyar.Model.Enums.OrderKind;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
@@ -42,6 +43,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 public class Api_Tender extends Base_Api {
 
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
+    PostJsonObjectVolley volley_postOrderScheduling;
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
     GetJsonObjectVolley volley_getOrderAnaliseInfo;
@@ -489,6 +491,62 @@ public class Api_Tender extends Base_Api {
 
     }
 
+    //در اینجا زمانبندی سفارش به سرور ارسال می شود
+    public Single<VM_Message> postOrderScheduling(VM_InputAnalizeTender input) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                JSONObject obj = new JSONObject();
+
+                try {
+                    obj.put("UserId", input.getUserId());
+                    obj.put("TenderId", input.getTenderId());
+                    obj.put("Fee", input.getFee());
+                    obj.put("ContractorName", input.getContractorName());
+                    obj.put("CellPhone", input.getCellPhone());
+                    obj.put("TenderName", input.getTenderName());
+                    obj.put("Description", input.getDescription());
+                    obj.put("FileUrl1", input.getFileUrl1());
+                    obj.put("FileUrl2", input.getFileUrl2());
+                    obj.put("FileUrl3", input.getFileUrl3());
+                    obj.put("FileUrl4", input.getFileUrl4());
+                    obj.put("FileUrl5", input.getFileUrl5());
+                    obj.put("FileUrl6", input.getFileUrl6());
+                    obj.put("FileUrl7", input.getFileUrl7());
+                    obj.put("FileUrl8", input.getFileUrl8());
+                    obj.put("FileUrl9", input.getFileUrl9());
+                    obj.put("FileUrl10", input.getFileUrl10());
+                    obj.put("DetailedSchedule", input.isDetailedSchedule());
+                    obj.put("InitialSchedule", input.isInitialSchedule());
+                    obj.put("LandDeliveryDateShamsi", input.getLandDeliveryDate());
+                    obj.put("ProjectDuration", input.getProjectDuration());
+                } catch (Exception e) {
+                }
+
+                volley_postOrderScheduling = new PostJsonObjectVolley(ApiUrl + "Order/PostAddOrderZamanBandi", obj, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_Message message = new VM_Message();
+                        JSONObject object = resault.getObject();
+
+                        try {
+                            message.setMessage(object.getString("MessageText"));
+                            message.setCode(object.getInt("Code"));
+                            message.setResult(object.getBoolean("Result"));
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(message);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+
+            }).start();
+        });
+    }
+
     //در اینجا سفارشات برگشت داده می شود
     public Single<List<VM_Orders>> getOrders(int page, int userId, VM_FilterOrder filterOrder) {
 
@@ -535,6 +593,7 @@ public class Api_Tender extends Base_Api {
                                     order.setTitle(object.getString("TenderName"));
                                     order.setDate(object.getString("DateOfCompletion"));
                                     order.setPayment(object.getString("AmountPayable"));
+                                    order.setFileUrl(object.getString("FileUrl"));
 
                                     switch (object.getInt("Steep")) {
                                         case 1:
@@ -551,6 +610,24 @@ public class Api_Tender extends Base_Api {
                                             break;
                                         case 5:
                                             order.setStepsAnalizeTender(StepsAnalizeTender.takingOrders);
+                                            break;
+                                    }
+
+                                    switch (object.getString("Kind")) {
+                                        case "Analiz":
+                                            order.setOrderKind(OrderKind.Analiz);
+                                            break;
+                                        case "ZamanBandi":
+                                            order.setOrderKind(OrderKind.ZamanBandi);
+                                            break;
+                                        case "MetehVaBaravard":
+                                            order.setOrderKind(OrderKind.MetehVaBaravard);
+                                            break;
+                                        case "Teadil":
+                                            order.setOrderKind(OrderKind.Teadil);
+                                            break;
+                                        case "Hasabresi":
+                                            order.setOrderKind(OrderKind.Hasabresi);
                                             break;
                                     }
 
@@ -594,16 +671,48 @@ public class Api_Tender extends Base_Api {
                                 JSONArray percentsArray = object.getJSONArray("Price");
 
                                 analiseInfo.setId(id);
-                                analiseInfo.setTenderName(object.getString("TenderName"));
-                                analiseInfo.setNationalEstimate(object.getString("Fee"));
-                                analiseInfo.setContractorName(object.getString("ContractorName"));
-                                analiseInfo.setPhoneNumber(object.getString("CellPhone"));
-                                analiseInfo.setDescription(object.getString("Description"));
-                                analiseInfo.setAmountPayable(object.getString("AmountPayable"));
-                                analiseInfo.setTimePay(object.getString("TimePay"));
-                                analiseInfo.setDoingTime(object.getString("Time"));
-                                analiseInfo.setTimer(object.getString("TimeForTimer"));
-                                analiseInfo.setFileName(object.getString("FileUrlOrder"));
+
+                                if (object.getString("TenderName") != null)
+                                    analiseInfo.setTenderName(object.getString("TenderName"));
+
+                                if (object.getString("Fee") != null)
+                                    analiseInfo.setNationalEstimate(object.getString("Fee"));
+
+                                if (object.getString("ContractorName") != null)
+                                    analiseInfo.setContractorName(object.getString("ContractorName"));
+
+                                if (object.getString("CellPhone") != null)
+                                    analiseInfo.setPhoneNumber(object.getString("CellPhone"));
+
+                                if (object.getString("Description") != null)
+                                    analiseInfo.setDescription(object.getString("Description"));
+
+                                if (object.getString("AmountPayable") != null)
+                                    analiseInfo.setAmountPayable(object.getString("AmountPayable"));
+
+                                if (object.getString("TimePay") != null)
+                                    analiseInfo.setTimePay(object.getString("TimePay"));
+
+                                if (object.getString("Time") != null)
+                                    analiseInfo.setDoingTime(object.getString("Time"));
+
+                                if (object.getString("TimeForTimer") != null)
+                                    analiseInfo.setTimer(object.getString("TimeForTimer"));
+
+                                if (object.getString("FileUrlOrder") != null)
+                                    analiseInfo.setFileName(object.getString("FileUrlOrder"));
+
+                                if (!object.getString("DetailedSchedule").equalsIgnoreCase("null"))
+                                    analiseInfo.setDetailedSchedule(object.getBoolean("DetailedSchedule"));
+
+                                if (!object.getString("InitialSchedule").equalsIgnoreCase("null"))
+                                    analiseInfo.setInitialSchedule(object.getBoolean("InitialSchedule"));
+
+                                if (!object.getString("LandDeliveryDate").equalsIgnoreCase("null"))
+                                    analiseInfo.setLandDeliveryDate(object.getString("LandDeliveryDate"));
+
+                                if (!object.getString("ProjectDuration").equalsIgnoreCase("null"))
+                                    analiseInfo.setProjectDuration(object.getInt("ProjectDuration"));
 
                                 //در اینجا استپ ها گرفته می شوند
                                 if (object.get("Steep") != null) {
@@ -628,15 +737,21 @@ public class Api_Tender extends Base_Api {
 
                                 //در اینجا نام فایل ها گرفته می شود
                                 List<String> files = new ArrayList<>();
-                                for (int i = 0; i < filesArray.length(); i++) {
-                                    files.add(filesArray.get(i).toString());
+
+                                if (filesArray != null) {
+                                    for (int i = 0; i < filesArray.length(); i++) {
+                                        files.add(filesArray.get(i).toString());
+                                    }
                                 }
                                 analiseInfo.setFileUrls(files);
 
                                 //در اینجا درصدها گرفته می شوند
                                 List<Float> percents = new ArrayList<>();
-                                for (int i = 0; i < percentsArray.length(); i++) {
-                                    percents.add(Float.valueOf(percentsArray.get(i).toString()));
+
+                                if (percentsArray != null) {
+                                    for (int i = 0; i < percentsArray.length(); i++) {
+                                        percents.add(Float.valueOf(percentsArray.get(i).toString()));
+                                    }
                                 }
                                 analiseInfo.setPercents(percents);
 
@@ -737,6 +852,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_getOrderAnaliseInfo != null) {
             volley_getOrderAnaliseInfo.Cancel(Tag, context);
+        }
+
+        if (volley_postOrderScheduling != null) {
+            volley_postOrderScheduling.Cancel(Tag, context);
         }
 
     }

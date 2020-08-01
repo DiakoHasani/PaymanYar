@@ -1,5 +1,6 @@
 package ir.tdaapp.paymanyar.Model.ViewModels;
 
+import ir.tdaapp.paymanyar.Model.Enums.OrderKind;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 
 //برای لیست سفارشات
@@ -17,6 +18,12 @@ public class VM_Orders {
 
     //وضعیت سفارش که درچه حالتی است
     StepsAnalizeTender stepsAnalizeTender;
+
+    //آدرس فایل
+    String fileUrl;
+
+    //نوع سفارش
+    OrderKind orderKind;
 
     public int getId() {
         return id;
@@ -56,5 +63,21 @@ public class VM_Orders {
 
     public void setStepsAnalizeTender(StepsAnalizeTender stepsAnalizeTender) {
         this.stepsAnalizeTender = stepsAnalizeTender;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public OrderKind getOrderKind() {
+        return orderKind;
+    }
+
+    public void setOrderKind(OrderKind orderKind) {
+        this.orderKind = orderKind;
     }
 }

@@ -18,4 +18,7 @@ public interface S_OrdersFragment {
     VM_FilterOrder getFilterOrder();
     void onLoadingPaging(boolean load);
     void onFinishOrderServer();
+    void onLoading_DownloadFile(boolean load);
+    void onErrorDownloadFile(Throwable e);
+    void onShowFile(String fileName);
 }

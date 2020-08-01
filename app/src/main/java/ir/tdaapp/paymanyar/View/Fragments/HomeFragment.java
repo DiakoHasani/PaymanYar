@@ -436,6 +436,8 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 ((MainActivity) getActivity()).onAddFragment(new OrdersFragment(), R.anim.fadein, R.anim.fadeout, true, OrdersFragment.TAG);
                 break;
             case R.id.btn_Scheduling:
+                ((MainActivity) getActivity()).onAddFragment(new SchedulingFragment(), R.anim.fadein, R.anim.fadeout, true, SchedulingFragment.TAG);
+                break;
             case R.id.btn_Audit:
             case R.id.btn_Difference:
             case R.id.btn_CostEstimation:

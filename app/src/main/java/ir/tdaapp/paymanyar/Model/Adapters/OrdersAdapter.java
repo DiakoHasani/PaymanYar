@@ -72,13 +72,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
         holder.layout.setOnClickListener(view -> {
             if (clickOrders != null) {
-                clickOrders.onClickItem(vals.get(position).getId());
+                clickOrders.onClickItem(vals.get(position).getId(),vals.get(position).getOrderKind());
             }
         });
 
         holder.btn_Item.setOnClickListener(view -> {
             if (clickOrders != null) {
-                clickOrders.onClickButton(vals.get(position).getId(),vals.get(position).getStepsAnalizeTender());
+                clickOrders.onClickButton(vals.get(position));
             }
         });
     }

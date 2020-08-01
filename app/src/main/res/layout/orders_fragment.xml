@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:clickable="true"
     android:layoutDirection="rtl"
@@ -95,5 +96,43 @@
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_filter"
         android:clickable="true"/>
+
+    <RelativeLayout
+        android:id="@+id/loading_DownloadFile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDialog"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="false"
+            android:clipToPadding="false">
+
+            <ImageView
+                android:id="@+id/btn_reload"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_refresh"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:background="?attr/selectableItemBackground"
+                android:visibility="invisible"/>
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/progress_loading"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:src="@drawable/loading_details_tender"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 
 </RelativeLayout>
