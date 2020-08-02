@@ -60,6 +60,21 @@ public class VM_AnaliseInfo {
     //مدت زمان پروژه در بخش زمانبندی
     int projectDuration;
 
+    //سامانه جام در بخش حسابرسی
+    boolean jumSystem;
+
+    //سامانه پردیس در بخش حسابرسی
+    boolean pardisSystem;
+
+    //سامانه سحر در بخش حسابرسی
+    boolean saharSystem;
+
+    //نیاز به ثبت سامانه نیست در بخش حسابرسی
+    boolean noSystem;
+
+    //حسابرسی سال در بخش حسابرسی
+    String audit_of_the_year;
+
     public int getId() {
         return id;
     }
@@ -202,5 +217,45 @@ public class VM_AnaliseInfo {
 
     public void setProjectDuration(int projectDuration) {
         this.projectDuration = projectDuration;
+    }
+
+    public boolean isJumSystem() {
+        return jumSystem;
+    }
+
+    public void setJumSystem(boolean jumSystem) {
+        this.jumSystem = jumSystem;
+    }
+
+    public boolean isPardisSystem() {
+        return pardisSystem;
+    }
+
+    public void setPardisSystem(boolean pardisSystem) {
+        this.pardisSystem = pardisSystem;
+    }
+
+    public boolean isSaharSystem() {
+        return saharSystem;
+    }
+
+    public void setSaharSystem(boolean saharSystem) {
+        this.saharSystem = saharSystem;
+    }
+
+    public boolean isNoSystem() {
+        return noSystem;
+    }
+
+    public void setNoSystem(boolean noSystem) {
+        this.noSystem = noSystem;
+    }
+
+    public String getAudit_of_the_year() {
+        return audit_of_the_year;
+    }
+
+    public void setAudit_of_the_year(String audit_of_the_year) {
+        this.audit_of_the_year = audit_of_the_year;
     }
 }

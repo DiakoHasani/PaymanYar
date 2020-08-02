@@ -20,12 +20,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.MimeTypeMap;
+import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,23 +47,20 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.FileUpload_AnalizeTenderAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
-import ir.tdaapp.paymanyar.Model.Services.S_SchedulingFragment;
+import ir.tdaapp.paymanyar.Model.Services.S_AuditFragment;
 import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
-import ir.tdaapp.paymanyar.Presenter.P_SchedulingFragment;
+import ir.tdaapp.paymanyar.Presenter.P_AuditFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
@@ -73,20 +69,19 @@ import pl.droidsonroids.gif.GifImageView;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-//صفحه زمانبندی مناقصات
-public class SchedulingFragment extends BaseFragment implements S_SchedulingFragment, View.OnClickListener {
+//صفحه حسابرسی
+public class AuditFragment extends BaseFragment implements S_AuditFragment, View.OnClickListener {
 
-    public static final String TAG = "SchedulingFragment";
+    public static final String TAG = "AuditFragment";
 
+    P_AuditFragment p_auditFragment;
     Toolbar toolbar;
-    P_SchedulingFragment p_schedulingFragment;
     FileUpload_AnalizeTenderAdapter fileUploadAdapter;
     RecyclerView recycler_File;
     CircularProgressButton loadingButton, btn_ShowSteps;
-    EditText txt_NationalEstimate;
     RelativeLayout steps;
     Animation aniSlide_up, aniFadeOut, aniFadeIn;
-    EditText txt_TenderName, txt_ContractorName, txt_CellPhone, txt_Description;
+    EditText txt_ContractorName, txt_CellPhone, txt_Description;
     int tenderId = 0;
     ErrorAplicationDialog errorAplicationDialog;
     LinearLayout btn_Support, btn_Home;
@@ -102,9 +97,10 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     String doingTime = "";
     RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    RadioButton rdo_Detailed_Scheduling, rdo_Initial_Scheduling;
-    EditText txt_Delivery_time, txt_Project_duration;
-    RadioGroup radioButtonsGroup;
+    CheckBox chk_jum, chk_pardis, chk_sahar, chk_No_system;
+    LinearLayout No_system_registration;
+    TextView lbl_No_system_registrationTitle;
+    EditText txt_Audit_of_the_year;
 
     //آیدی سفارش
     int id = 0;
@@ -118,21 +114,19 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.scheduling_fragment, container, false);
+        View view = inflater.inflate(R.layout.audit_fragment, container, false);
 
         findItem(view);
         implement();
         setToolbar();
 
-        p_schedulingFragment.start();
+        p_auditFragment.start();
 
         return view;
     }
 
     void implement() {
-        p_schedulingFragment = new P_SchedulingFragment(getContext(), this);
-
-        txt_NationalEstimate.addTextChangedListener(new ShowPrice(txt_NationalEstimate));
+        p_auditFragment = new P_AuditFragment(getContext(), this);
 
         btn_ShowSteps.setOnClickListener(this);
         btn_Support.setOnClickListener(this);
@@ -142,14 +136,10 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
         btn_reload.setOnClickListener(this);
         step_pay.setOnClickListener(this);
         loadingButton.setOnClickListener(this);
-        rdo_Initial_Scheduling.setOnClickListener(this);
-        rdo_Detailed_Scheduling.setOnClickListener(this);
-
-        txt_Delivery_time.setOnFocusChangeListener((view, b) -> {
-            if (b) {
-                showDatePersian();
-            }
-        });
+        chk_jum.setOnClickListener(this);
+        chk_sahar.setOnClickListener(this);
+        chk_pardis.setOnClickListener(this);
+        chk_No_system.setOnClickListener(this);
 
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
@@ -157,17 +147,14 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
         handler_clear = new Handler(Looper.getMainLooper());
         timer.setText("");
-
     }
 
     void findItem(View view) {
         toolbar = view.findViewById(R.id.toolbar);
         recycler_File = view.findViewById(R.id.recycler_File);
         loadingButton = view.findViewById(R.id.loadingButton);
-        txt_NationalEstimate = view.findViewById(R.id.txt_NationalEstimate);
         btn_ShowSteps = view.findViewById(R.id.btn_ShowSteps);
         steps = view.findViewById(R.id.steps);
-        txt_TenderName = view.findViewById(R.id.txt_TenderName);
         txt_ContractorName = view.findViewById(R.id.txt_ContractorName);
         txt_CellPhone = view.findViewById(R.id.txt_CellPhone);
         txt_Description = view.findViewById(R.id.txt_Description);
@@ -192,18 +179,20 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
         step_pay_Background = view.findViewById(R.id.step_pay_Background);
         step_orderCheck_Background = view.findViewById(R.id.step_orderCheck_Background);
         step_doing_Background = view.findViewById(R.id.step_doing_Background);
-        rdo_Detailed_Scheduling = view.findViewById(R.id.rdo_Detailed_Scheduling);
-        rdo_Initial_Scheduling = view.findViewById(R.id.rdo_Initial_Scheduling);
-        txt_Delivery_time = view.findViewById(R.id.txt_Delivery_time);
-        txt_Project_duration = view.findViewById(R.id.txt_Project_duration);
-        radioButtonsGroup = view.findViewById(R.id.radioButtonsGroup);
+        chk_jum = view.findViewById(R.id.chk_jum);
+        chk_pardis = view.findViewById(R.id.chk_pardis);
+        chk_sahar = view.findViewById(R.id.chk_sahar);
+        chk_No_system = view.findViewById(R.id.chk_No_system);
+        No_system_registration = view.findViewById(R.id.No_system_registration);
+        lbl_No_system_registrationTitle = view.findViewById(R.id.lbl_No_system_registrationTitle);
+        txt_Audit_of_the_year = view.findViewById(R.id.txt_Audit_of_the_year);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_ShowSteps:
-                p_schedulingFragment.addOrder();
+                p_auditFragment.addOrder();
                 break;
             case R.id.btn_Home:
                 ((MainActivity) getActivity()).backToHome();
@@ -213,11 +202,6 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 break;
             case R.id.btn_Previous_Orders:
                 ((MainActivity) getActivity()).onAddFragment(new OrdersFragment(), R.anim.fadein, R.anim.short_fadeout, true, OrdersFragment.TAG);
-                break;
-            case R.id.rdo_Initial_Scheduling:
-            case R.id.rdo_Detailed_Scheduling:
-                rdo_Initial_Scheduling.setError(null);
-                rdo_Detailed_Scheduling.setError(null);
                 break;
             case R.id.btn_NewOrder:
                 doingTime = "00:00:00";
@@ -231,7 +215,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 clear();
                 break;
             case R.id.btn_reload:
-                p_schedulingFragment.getDetailItem();
+                p_auditFragment.getDetailItem();
                 break;
             case R.id.step_pay:
                 step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
@@ -242,7 +226,6 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 }
                 break;
             case R.id.loadingButton:
-
                 Dexter.withActivity(getActivity()).withPermissions(Permissions).withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
@@ -260,7 +243,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                             if (file.exists()) {
                                 onShowFile(t);
                             } else {
-                                p_schedulingFragment.downloadFile(t);
+                                p_auditFragment.downloadFile(t);
                             }
                         }
                     }
@@ -270,6 +253,13 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
                     }
                 }).check();
+                break;
+            case R.id.chk_jum:
+            case R.id.chk_sahar:
+            case R.id.chk_pardis:
+            case R.id.chk_No_system:
+                No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment));
+                lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
                 break;
         }
     }
@@ -289,7 +279,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
         fileUploadAdapter.setClickFileUpload_analizeTender(new onClickFileUpload_AnalizeTender() {
             @Override
             public void onClickFile(VM_FileUploadAnalizeTender file) {
-                p_schedulingFragment.openFile(getActivity(), file);
+                p_auditFragment.openFile(getActivity(), file);
             }
 
             @Override
@@ -302,14 +292,14 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     //زمانی که کاربر یک فایل انتخاب کند متد زیر فراخوانی می شود
     @Override
     public void onSelectedFile(VM_FileUploadAnalizeTender val, File file) {
-        p_schedulingFragment.checkValidationFile(file, val);
+        p_auditFragment.checkValidationFile(file, val);
     }
 
     //اگر فایل انتخاب شده ولید باشد متد زیر فراخوانی می شود
     @Override
     public void onValidFile(VM_FileUploadAnalizeTender val, File file) {
 
-        val.setType(p_schedulingFragment.getTypeFile(file));
+        val.setType(p_auditFragment.getTypeFile(file));
 
         if (val.getType() != FileUploadAnalizeTenderType.empty) {
             val.setPath(file.getPath());
@@ -355,14 +345,11 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
         try {
 
-            //در اینجا نام مناقصه ست می شود
-            input.setTenderName(txt_TenderName.getText().toString());
-
-            //در اینجا برآورد مالی ست می شود
-            input.setFee(txt_NationalEstimate.getText().toString().replace(",", "").replace("٬", ""));
-
             //در اینجا نام پیمانکار ست می شود
             input.setContractorName(txt_ContractorName.getText().toString());
+
+            //در اینجا حسابرسی سال ست می شود
+            input.setAudit_of_the_year(txt_Audit_of_the_year.getText().toString());
 
             //در اینجا شماره تماس ست می شود
             input.setCellPhone(txt_CellPhone.getText().toString());
@@ -376,13 +363,17 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
             //در اینجا آیدی کاربر ست می شود
             input.setUserId(((MainActivity) getActivity()).getTbl_user().getUserId(getContext()));
 
-            input.setDetailedSchedule(rdo_Detailed_Scheduling.isChecked());
-            input.setInitialSchedule(rdo_Initial_Scheduling.isChecked());
-            input.setLandDeliveryDate(txt_Delivery_time.getText().toString());
-            try {
-                input.setProjectDuration(Integer.valueOf(txt_Project_duration.getText().toString()));
-            } catch (Exception e) {
-            }
+            //در اینجا سامانه جام ست می شود
+            input.setJumSystem(chk_jum.isChecked());
+
+            //در اینجا سامانه پردیس ست می شود
+            input.setPardisSystem(chk_pardis.isChecked());
+
+            //در اینجا سامانه سحر ست می شود
+            input.setSaharSystem(chk_sahar.isChecked());
+
+            //در اینجا نیاز به ثبت سامانه ای نیست ست می شود
+            input.setNoSystem(chk_No_system.isChecked());
 
             //در اینجا آدرس فایل ها ست می شود
             for (int i = 0; i < fileUrls.size(); i++) {
@@ -430,11 +421,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
         boolean valid = true;
 
-        if (!Validation.Required(txt_TenderName, getString(R.string.ThisValueMust_be_Filled))) {
-            valid = false;
-        }
-
-        if (!Validation.Required(txt_NationalEstimate, getString(R.string.ThisValueMust_be_Filled))) {
+        if (!Validation.Required(txt_Audit_of_the_year, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
         }
 
@@ -442,18 +429,10 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
             valid = false;
         }
 
-        if (!Validation.Required(txt_Delivery_time, getString(R.string.ThisValueMust_be_Filled))) {
+        if (!chk_jum.isChecked() && !chk_No_system.isChecked() && !chk_pardis.isChecked() && !chk_sahar.isChecked()) {
             valid = false;
-        }
-
-        if (!Validation.Required(txt_Project_duration, getString(R.string.ThisValueMust_be_Filled))) {
-            valid = false;
-        }
-
-        if (!rdo_Initial_Scheduling.isChecked() && !rdo_Detailed_Scheduling.isChecked()) {
-            rdo_Initial_Scheduling.setError("");
-            rdo_Detailed_Scheduling.setError("");
-            valid = false;
+            No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment_red));
+            lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorError));
         }
 
         return valid;
@@ -539,21 +518,10 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                         fileUploadAdapter.setEnabled(false);
                     }
 
-                    p_schedulingFragment.getDetailItem();
+                    p_auditFragment.getDetailItem();
 
                 } else {
                     tenderId = bundle.getInt("tenderId");
-
-                    //در اینجا نام مناقصه گرفته می شود
-                    if (bundle.getString("tenderName") != null) {
-                        txt_TenderName.setText(bundle.getString("tenderName"));
-                    }
-
-                    //در اینجا برآورد مالی ست می شود
-                    if (bundle.getString("fee") != null) {
-                        new ShowPrice(txt_NationalEstimate);
-                        txt_NationalEstimate.setText(bundle.getString("fee"));
-                    }
 
                     //در اینجا توضیحات ست می شود
                     if (bundle.getString("description") != null) {
@@ -626,21 +594,6 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
         try {
 
-            if (analiseInfo.getTenderName() != null) {
-                if (!analiseInfo.getTenderName().equalsIgnoreCase("null"))
-                    txt_TenderName.setText(analiseInfo.getTenderName());
-            }
-
-            if (analiseInfo.getNationalEstimate() != null) {
-                if (!analiseInfo.getNationalEstimate().equalsIgnoreCase("null"))
-                    txt_NationalEstimate.setText(analiseInfo.getNationalEstimate());
-            }
-
-            if (analiseInfo.getTenderName() != null) {
-                if (!analiseInfo.getTenderName().equalsIgnoreCase("null"))
-                    txt_TenderName.setText(analiseInfo.getTenderName());
-            }
-
             if (analiseInfo.getPhoneNumber() != null) {
                 if (!analiseInfo.getPhoneNumber().equalsIgnoreCase("null"))
                     txt_CellPhone.setText(analiseInfo.getPhoneNumber());
@@ -689,21 +642,24 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 }
             }
 
-            //در اینجا رادیوباتن های تفصیلی و اولیه ست می شوند
-            radioButtonsGroup.clearCheck();
-            rdo_Detailed_Scheduling.setChecked(analiseInfo.isDetailedSchedule());
-            rdo_Initial_Scheduling.setChecked(analiseInfo.isInitialSchedule());
-            ///////////////////
-
-            //در اینجا ادیت تکست تاریخ تحویل زمین ست می شود
-            if (analiseInfo.getLandDeliveryDate() != null) {
-                if (!analiseInfo.getLandDeliveryDate().equalsIgnoreCase("null")) {
-                    txt_Delivery_time.setText(analiseInfo.getLandDeliveryDate());
+            //در اینجا حسابرسی سال ست می شود
+            if (analiseInfo.getAudit_of_the_year() != null) {
+                if (!analiseInfo.getAudit_of_the_year().equalsIgnoreCase("null")) {
+                    txt_Audit_of_the_year.setText(analiseInfo.getAudit_of_the_year());
                 }
             }
 
-            //در اینجا مدت زمان پروژه ست می شود
-            txt_Project_duration.setText(analiseInfo.getProjectDuration() + "");
+            //در اینجا ثبت در سامانه جام گرفته می شود
+            chk_jum.setChecked(analiseInfo.isJumSystem());
+
+            //در اینجا ثبت در سامانه سحر گرفته می شود
+            chk_sahar.setChecked(analiseInfo.isSaharSystem());
+
+            //در اینجا ثبت در سامانه پردیس گرفته می شود
+            chk_pardis.setChecked(analiseInfo.isPardisSystem());
+
+            //در اینجا نیاز به سمت در سامانه نیست گرفته می شود
+            chk_No_system.setChecked(analiseInfo.isNoSystem());
 
             //در اینجا فایل ها ست می شوند
             if (analiseInfo.getFileUrls() != null) {
@@ -718,7 +674,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                         String[] u = name.split("\\.");
                         if (u.length > 0) {
                             String format = u[u.length - 1];
-                            FileUploadAnalizeTenderType type = p_schedulingFragment.getTypeFile(format);
+                            FileUploadAnalizeTenderType type = p_auditFragment.getTypeFile(format);
                             file.setPath(name);
                             file.setType(type);
                             fileUploadAdapter.addFile(file);
@@ -819,7 +775,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setTitle(getContext().getResources().getString(R.string.Schedule));
+        toolbar.setTitle(getContext().getResources().getString(R.string.Audit));
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
@@ -868,7 +824,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     @Override
     public void onDestroy() {
         super.onDestroy();
-        p_schedulingFragment.cancel(TAG);
+        p_auditFragment.cancel(TAG);
     }
 
     @Override
@@ -888,13 +844,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 clear2("stepItems");
 
                 Thread.sleep(100);
-                clear2("txt_Project_duration");
-
-                Thread.sleep(100);
-                clear2("txt_Delivery_time");
-
-                Thread.sleep(100);
-                clear2("radioButtonsGroup");
+                clear2("system_registration");
 
                 Thread.sleep(100);
                 clear2("fileUploadAdapter");
@@ -909,10 +859,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 clear2("txt_ContractorName");
 
                 Thread.sleep(100);
-                clear2("txt_NationalEstimate");
-
-                Thread.sleep(100);
-                clear2("txt_TenderName");
+                clear2("txt_Audit_of_the_year");
 
                 Thread.sleep(500);
                 clear2("steps");
@@ -940,14 +887,6 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                     txt_ContractorName.setError(null);
                     txt_ContractorName.setText("");
                     break;
-                case "txt_NationalEstimate":
-                    txt_NationalEstimate.setError(null);
-                    txt_NationalEstimate.setText("");
-                    break;
-                case "txt_TenderName":
-                    txt_TenderName.setError(null);
-                    txt_TenderName.setText("");
-                    break;
                 case "steps":
                     if (steps.getVisibility() == View.VISIBLE) {
                         steps.setAnimation(aniFadeOut);
@@ -966,18 +905,18 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                 case "stepAnimation":
                     disableStepAnimation();
                     break;
-                case "radioButtonsGroup":
-                    rdo_Initial_Scheduling.setError(null);
-                    rdo_Detailed_Scheduling.setError(null);
-                    radioButtonsGroup.clearCheck();
+                case "system_registration":
+                    No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment));
+                    lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                    chk_No_system.setChecked(false);
+                    chk_pardis.setChecked(false);
+                    chk_sahar.setChecked(false);
+                    chk_jum.setChecked(false);
                     break;
-                case "txt_Delivery_time":
-                    txt_Delivery_time.setError(null);
-                    txt_Delivery_time.setText("");
-                    break;
-                case "txt_Project_duration":
-                    txt_Project_duration.setError(null);
-                    txt_Project_duration.setText("");
+                case "txt_Audit_of_the_year":
+                    txt_Audit_of_the_year.setError(null);
+                    txt_Audit_of_the_year.setText("");
                     break;
             }
         });
@@ -1161,26 +1100,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
         if (id != 0 && isPayment) {
             isPayment = false;
-            p_schedulingFragment.getDetailItem();
+            p_auditFragment.getDetailItem();
         }
     }
-
-    //در اینجا دیالوگ تاریخ فارسی نمایش داده می شود
-    void showDatePersian() {
-        PersianDatePickerDialog picker = p_schedulingFragment.getDatePicker();
-        picker.setListener(new Listener() {
-            @Override
-            public void onDateSelected(PersianCalendar persianCalendar) {
-                txt_Delivery_time.setError(null);
-                txt_Delivery_time.setText(persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay());
-            }
-
-            @Override
-            public void onDismissed() {
-
-            }
-        });
-        picker.show();
-    }
-
 }

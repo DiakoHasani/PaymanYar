@@ -179,4 +179,9 @@
     <string name="Project_duration">مدت زمان پروژه</string>
     <string name="oneHundredDays">100 روز</string>
     <string name="Schedule">برنامه زمانبندی</string>
+    <string name="jum">جام</string>
+    <string name="pardis">پردیس</string>
+    <string name="sahar">سحر</string>
+    <string name="Audit_of_the_year">حسابرسی سال</string>
+    <string name="year">سال</string>
 </resources>

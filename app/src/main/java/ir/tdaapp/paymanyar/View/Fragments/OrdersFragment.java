@@ -239,6 +239,11 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                             schedulingFragment.setArguments(bundle);
                             ((MainActivity) getActivity()).onAddFragment(schedulingFragment, R.anim.fadein, R.anim.short_fadeout, true, SchedulingFragment.TAG);
                             break;
+                        case Hasabresi:
+                            AuditFragment auditFragment = new AuditFragment();
+                            auditFragment.setArguments(bundle);
+                            ((MainActivity) getActivity()).onAddFragment(auditFragment, R.anim.fadein, R.anim.short_fadeout, true, AuditFragment.TAG);
+                            break;
                     }
 
 

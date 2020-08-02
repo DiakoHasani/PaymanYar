@@ -43,7 +43,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 public class Api_Tender extends Base_Api {
 
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
-    PostJsonObjectVolley volley_postOrderScheduling;
+    PostJsonObjectVolley volley_postOrderScheduling, volley_postOrderAudit;
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
     GetJsonObjectVolley volley_getOrderAnaliseInfo;
@@ -547,6 +547,70 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    //در اینجا یک حسابرسی جدید اضافه می شود
+    public Single<VM_Message> postOrderAudit(VM_InputAnalizeTender input) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                try {
+
+                    JSONObject obj = new JSONObject();
+
+                    try {
+                        obj.put("UserId", input.getUserId());
+                        obj.put("TenderId", input.getTenderId());
+                        obj.put("Fee", input.getFee());
+                        obj.put("ContractorName", input.getContractorName());
+                        obj.put("CellPhone", input.getCellPhone());
+                        obj.put("TenderName", input.getTenderName());
+                        obj.put("Description", input.getDescription());
+                        obj.put("FileUrl1", input.getFileUrl1());
+                        obj.put("FileUrl2", input.getFileUrl2());
+                        obj.put("FileUrl3", input.getFileUrl3());
+                        obj.put("FileUrl4", input.getFileUrl4());
+                        obj.put("FileUrl5", input.getFileUrl5());
+                        obj.put("FileUrl6", input.getFileUrl6());
+                        obj.put("FileUrl7", input.getFileUrl7());
+                        obj.put("FileUrl8", input.getFileUrl8());
+                        obj.put("FileUrl9", input.getFileUrl9());
+                        obj.put("FileUrl10", input.getFileUrl10());
+                        obj.put("AuditYear", input.getAudit_of_the_year());
+                        obj.put("RecordJame", input.isJumSystem());
+                        obj.put("RecordPardis", input.isPardisSystem());
+                        obj.put("RecordSahar", input.isSaharSystem());
+                        obj.put("NoRecord", input.isNoSystem());
+                    } catch (Exception e) {
+                    }
+
+                    volley_postOrderAudit = new PostJsonObjectVolley(ApiUrl + "Order/PostAddOrderHasabresi", obj, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            VM_Message message = new VM_Message();
+                            JSONObject object = resault.getObject();
+
+                            try {
+                                message.setMessage(object.getString("MessageText"));
+                                message.setCode(object.getInt("Code"));
+                                message.setResult(object.getBoolean("Result"));
+                            } catch (Exception e) {
+                            }
+
+                            emitter.onSuccess(message);
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+                    });
+
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+
+            }).start();
+        });
+    }
+
     //در اینجا سفارشات برگشت داده می شود
     public Single<List<VM_Orders>> getOrders(int page, int userId, VM_FilterOrder filterOrder) {
 
@@ -672,35 +736,47 @@ public class Api_Tender extends Base_Api {
 
                                 analiseInfo.setId(id);
 
-                                if (object.getString("TenderName") != null)
+                                if (!object.getString("TenderName").equalsIgnoreCase("null"))
                                     analiseInfo.setTenderName(object.getString("TenderName"));
 
-                                if (object.getString("Fee") != null)
+                                if (!object.getString("Fee").equalsIgnoreCase("null"))
                                     analiseInfo.setNationalEstimate(object.getString("Fee"));
 
-                                if (object.getString("ContractorName") != null)
+                                if (!object.getString("ContractorName").equalsIgnoreCase("null"))
                                     analiseInfo.setContractorName(object.getString("ContractorName"));
 
-                                if (object.getString("CellPhone") != null)
+                                if (!object.getString("CellPhone").equalsIgnoreCase("null"))
                                     analiseInfo.setPhoneNumber(object.getString("CellPhone"));
 
-                                if (object.getString("Description") != null)
+                                if (!object.getString("Description").equalsIgnoreCase("null"))
                                     analiseInfo.setDescription(object.getString("Description"));
 
-                                if (object.getString("AmountPayable") != null)
+                                if (!object.getString("AmountPayable").equalsIgnoreCase("null"))
                                     analiseInfo.setAmountPayable(object.getString("AmountPayable"));
 
-                                if (object.getString("TimePay") != null)
+                                if (!object.getString("TimePay").equalsIgnoreCase("null"))
                                     analiseInfo.setTimePay(object.getString("TimePay"));
 
-                                if (object.getString("Time") != null)
+                                if (!object.getString("Time").equalsIgnoreCase("null"))
                                     analiseInfo.setDoingTime(object.getString("Time"));
 
-                                if (object.getString("TimeForTimer") != null)
+                                if (!object.getString("TimeForTimer").equalsIgnoreCase("null"))
                                     analiseInfo.setTimer(object.getString("TimeForTimer"));
 
-                                if (object.getString("FileUrlOrder") != null)
+                                if (!object.getString("FileUrlOrder").equalsIgnoreCase("null"))
                                     analiseInfo.setFileName(object.getString("FileUrlOrder"));
+
+                                if (!object.getString("RecordJame").equalsIgnoreCase("null"))
+                                    analiseInfo.setJumSystem(object.getBoolean("RecordJame"));
+
+                                if (!object.getString("RecordPardis").equalsIgnoreCase("null"))
+                                    analiseInfo.setPardisSystem(object.getBoolean("RecordPardis"));
+
+                                if (!object.getString("NoRecord").equalsIgnoreCase("null"))
+                                    analiseInfo.setNoSystem(object.getBoolean("NoRecord"));
+
+                                if (!object.getString("RecordSahar").equalsIgnoreCase("null"))
+                                    analiseInfo.setSaharSystem(object.getBoolean("RecordSahar"));
 
                                 if (!object.getString("DetailedSchedule").equalsIgnoreCase("null"))
                                     analiseInfo.setDetailedSchedule(object.getBoolean("DetailedSchedule"));
@@ -713,6 +789,9 @@ public class Api_Tender extends Base_Api {
 
                                 if (!object.getString("ProjectDuration").equalsIgnoreCase("null"))
                                     analiseInfo.setProjectDuration(object.getInt("ProjectDuration"));
+
+                                if (!object.getString("AuditYear").equalsIgnoreCase("null"))
+                                    analiseInfo.setAudit_of_the_year(object.getString("AuditYear"));
 
                                 //در اینجا استپ ها گرفته می شوند
                                 if (object.get("Steep") != null) {
@@ -856,6 +935,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_postOrderScheduling != null) {
             volley_postOrderScheduling.Cancel(Tag, context);
+        }
+
+        if (volley_postOrderAudit != null) {
+            volley_postOrderAudit.Cancel(Tag, context);
         }
 
     }

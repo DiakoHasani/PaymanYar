@@ -38,4 +38,6 @@
     <string name="addedTenderName">نام مناقصه را وارد کنید</string>
     <string name="addedDescription">توضیحات را وارد کنید</string>
     <string name="Please_enter_full_values">لطفا مقادیر را کامل وارد نمایید</string>
+    <string name="Registration_in_the_system">ثبت در سامانه</string>
+    <string name="No_system_registration_required">نیاز به ثبت سامانه ای نیست</string>
 </resources>
