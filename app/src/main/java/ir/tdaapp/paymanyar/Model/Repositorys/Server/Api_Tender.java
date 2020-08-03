@@ -43,7 +43,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 public class Api_Tender extends Base_Api {
 
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
-    PostJsonObjectVolley volley_postOrderScheduling, volley_postOrderAudit;
+    PostJsonObjectVolley volley_postOrderScheduling, volley_postOrderAudit, volley_postOrderCostEstimation;
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
     GetJsonObjectVolley volley_getOrderAnaliseInfo;
@@ -611,6 +611,72 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    //در اینجا متره و برآورد اضافه می شود
+    public Single<VM_Message> postOrderCostEstimation(VM_InputAnalizeTender input) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                try {
+
+                    JSONObject obj = new JSONObject();
+
+                    try {
+                        obj.put("UserId", input.getUserId());
+                        obj.put("TenderId", input.getTenderId());
+                        obj.put("Fee", input.getFee());
+                        obj.put("ContractorName", input.getContractorName());
+                        obj.put("CellPhone", input.getCellPhone());
+                        obj.put("ProjectName", input.getProjectName());
+                        obj.put("Description", input.getDescription());
+                        obj.put("FileUrl1", input.getFileUrl1());
+                        obj.put("FileUrl2", input.getFileUrl2());
+                        obj.put("FileUrl3", input.getFileUrl3());
+                        obj.put("FileUrl4", input.getFileUrl4());
+                        obj.put("FileUrl5", input.getFileUrl5());
+                        obj.put("FileUrl6", input.getFileUrl6());
+                        obj.put("FileUrl7", input.getFileUrl7());
+                        obj.put("FileUrl8", input.getFileUrl8());
+                        obj.put("FileUrl9", input.getFileUrl9());
+                        obj.put("FileUrl10", input.getFileUrl10());
+                        obj.put("PriceList", input.getPriceList());
+                        obj.put("SuggestedCoefficient", input.getSuggested());
+                        obj.put("OverheadFactor", input.getAbove());
+                        obj.put("AreaCoefficient", input.getZone());
+                        obj.put("WorkshopEquipmentCoefficient", input.getEquippingTheIngotWorkshop());
+                        obj.put("TimeFactor", input.getTimely());
+                    } catch (Exception e) {
+                    }
+
+                    volley_postOrderCostEstimation = new PostJsonObjectVolley(ApiUrl + "Order/PostAddOrderMetehVaBaravard", obj, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            VM_Message message = new VM_Message();
+                            JSONObject object = resault.getObject();
+
+                            try {
+                                message.setMessage(object.getString("MessageText"));
+                                message.setCode(object.getInt("Code"));
+                                message.setResult(object.getBoolean("Result"));
+                            } catch (Exception e) {
+                            }
+
+                            emitter.onSuccess(message);
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
+
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+
+            }).start();
+        });
+    }
+
     //در اینجا سفارشات برگشت داده می شود
     public Single<List<VM_Orders>> getOrders(int page, int userId, VM_FilterOrder filterOrder) {
 
@@ -793,6 +859,27 @@ public class Api_Tender extends Base_Api {
                                 if (!object.getString("AuditYear").equalsIgnoreCase("null"))
                                     analiseInfo.setAudit_of_the_year(object.getString("AuditYear"));
 
+                                if (!object.getString("PriceList").equalsIgnoreCase("null"))
+                                    analiseInfo.setPriceList(object.getString("PriceList"));
+
+                                if (!object.getString("SuggestedCoefficient").equalsIgnoreCase("null"))
+                                    analiseInfo.setSuggested(Float.valueOf(object.getString("SuggestedCoefficient")));
+
+                                if (!object.getString("OverheadFactor").equalsIgnoreCase("null"))
+                                    analiseInfo.setAbove(Float.valueOf(object.getString("OverheadFactor")));
+
+                                if (!object.getString("AreaCoefficient").equalsIgnoreCase("null"))
+                                    analiseInfo.setZone(Float.valueOf(object.getString("AreaCoefficient")));
+
+                                if (!object.getString("WorkshopEquipmentCoefficient").equalsIgnoreCase("null"))
+                                    analiseInfo.setEquippingTheIngotWorkshop(Float.valueOf(object.getString("WorkshopEquipmentCoefficient")));
+
+                                if (!object.getString("ProjectName").equalsIgnoreCase("null"))
+                                    analiseInfo.setProjectName(object.getString("ProjectName"));
+
+                                if (!object.getString("TimeFactor").equalsIgnoreCase("null"))
+                                    analiseInfo.setTimely(Float.valueOf(object.getString("TimeFactor")));
+
                                 //در اینجا استپ ها گرفته می شوند
                                 if (object.get("Steep") != null) {
                                     switch (object.getInt("Steep")) {
@@ -939,6 +1026,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_postOrderAudit != null) {
             volley_postOrderAudit.Cancel(Tag, context);
+        }
+
+        if (volley_postOrderCostEstimation != null) {
+            volley_postOrderCostEstimation.Cancel(Tag, context);
         }
 
     }

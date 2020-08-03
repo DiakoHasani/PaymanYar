@@ -244,6 +244,11 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                             auditFragment.setArguments(bundle);
                             ((MainActivity) getActivity()).onAddFragment(auditFragment, R.anim.fadein, R.anim.short_fadeout, true, AuditFragment.TAG);
                             break;
+                        case MetehVaBaravard:
+                            CostEstimationFragment costEstimationFragment=new CostEstimationFragment();
+                            costEstimationFragment.setArguments(bundle);
+                            ((MainActivity) getActivity()).onAddFragment(costEstimationFragment, R.anim.fadein, R.anim.short_fadeout, true, CostEstimationFragment.TAG);
+                            break;
                     }
 
 

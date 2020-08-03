@@ -441,8 +441,10 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             case R.id.btn_Audit:
                 ((MainActivity) getActivity()).onAddFragment(new AuditFragment(), R.anim.fadein, R.anim.fadeout, true, AuditFragment.TAG);
                 break;
-            case R.id.btn_Difference:
             case R.id.btn_CostEstimation:
+                ((MainActivity) getActivity()).onAddFragment(new CostEstimationFragment(), R.anim.fadein, R.anim.fadeout, true, CostEstimationFragment.TAG);
+                break;
+            case R.id.btn_Difference:
             case R.id.btn_WorkForce:
             case R.id.btn_Machinery:
             case R.id.btn_Materials:

@@ -184,4 +184,12 @@
     <string name="sahar">سحر</string>
     <string name="Audit_of_the_year">حسابرسی سال</string>
     <string name="year">سال</string>
+    <string name="Suggested">پیشنهادی</string>
+    <string name="Above">بالاسری</string>
+    <string name="zone">منطقه</string>
+    <string name="Equipping_the_ingot_workshop">تجهیزکارگاه</string>
+    <string name="Timely">بهنگام</string>
+    <string name="Coefficients">ضرایب</string>
+    <string name="ProjectName">نام پروژه</string>
+    <string name="Price_list">فهرست بها</string>
 </resources>

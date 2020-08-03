@@ -75,6 +75,27 @@ public class VM_AnaliseInfo {
     //حسابرسی سال در بخش حسابرسی
     String audit_of_the_year;
 
+    //فهرست بها در متره و برآورد
+    String priceList;
+
+    //پیشنهادی در متره و برآورد
+    float suggested;
+
+    //بالاسری در متره و برآورد
+    float above;
+
+    //منطقه در متره و برآورد
+    float zone;
+
+    //تجهیز کارگاه در متره و برآورد
+    float equippingTheIngotWorkshop;
+
+    //بهنگام در متره و برآورد
+    float timely;
+
+    //نام پروژه
+    String projectName;
+
     public int getId() {
         return id;
     }
@@ -257,5 +278,61 @@ public class VM_AnaliseInfo {
 
     public void setAudit_of_the_year(String audit_of_the_year) {
         this.audit_of_the_year = audit_of_the_year;
+    }
+
+    public String getPriceList() {
+        return priceList;
+    }
+
+    public void setPriceList(String priceList) {
+        this.priceList = priceList;
+    }
+
+    public float getSuggested() {
+        return suggested;
+    }
+
+    public void setSuggested(float suggested) {
+        this.suggested = suggested;
+    }
+
+    public float getAbove() {
+        return above;
+    }
+
+    public void setAbove(float above) {
+        this.above = above;
+    }
+
+    public float getZone() {
+        return zone;
+    }
+
+    public void setZone(float zone) {
+        this.zone = zone;
+    }
+
+    public float getEquippingTheIngotWorkshop() {
+        return equippingTheIngotWorkshop;
+    }
+
+    public void setEquippingTheIngotWorkshop(float equippingTheIngotWorkshop) {
+        this.equippingTheIngotWorkshop = equippingTheIngotWorkshop;
+    }
+
+    public float getTimely() {
+        return timely;
+    }
+
+    public void setTimely(float timely) {
+        this.timely = timely;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 }
