@@ -249,6 +249,11 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                             costEstimationFragment.setArguments(bundle);
                             ((MainActivity) getActivity()).onAddFragment(costEstimationFragment, R.anim.fadein, R.anim.short_fadeout, true, CostEstimationFragment.TAG);
                             break;
+                        case Teadil:
+                            DifferenceFragment differenceFragment=new DifferenceFragment();
+                            differenceFragment.setArguments(bundle);
+                            ((MainActivity) getActivity()).onAddFragment(differenceFragment, R.anim.fadein, R.anim.short_fadeout, true, DifferenceFragment.TAG);
+                            break;
                     }
 
 

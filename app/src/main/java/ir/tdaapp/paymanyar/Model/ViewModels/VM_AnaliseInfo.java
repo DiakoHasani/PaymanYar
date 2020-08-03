@@ -96,6 +96,18 @@ public class VM_AnaliseInfo {
     //نام پروژه
     String projectName;
 
+    //مدت زمان تاخیرات مجاز روز در بخش تعدیل
+    int permittedDelayOfDay;
+
+    //مدت زمان تاخیرات مجاز ماه در بخش تعدیل
+    int permittedDelayOfMonth;
+
+    //مدت زمان تاخیرات غیر مجاز روز در بخش تعدیل
+    int unauthorizedDelayOfDay;
+
+    //مدت زمان تاخیرات غیر مجاز ماه در بخش تعدیل
+    int unauthorizedDelayOfMonth;
+
     public int getId() {
         return id;
     }
@@ -334,5 +346,37 @@ public class VM_AnaliseInfo {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public int getPermittedDelayOfDay() {
+        return permittedDelayOfDay;
+    }
+
+    public void setPermittedDelayOfDay(int permittedDelayOfDay) {
+        this.permittedDelayOfDay = permittedDelayOfDay;
+    }
+
+    public int getPermittedDelayOfMonth() {
+        return permittedDelayOfMonth;
+    }
+
+    public void setPermittedDelayOfMonth(int permittedDelayOfMonth) {
+        this.permittedDelayOfMonth = permittedDelayOfMonth;
+    }
+
+    public int getUnauthorizedDelayOfDay() {
+        return unauthorizedDelayOfDay;
+    }
+
+    public void setUnauthorizedDelayOfDay(int unauthorizedDelayOfDay) {
+        this.unauthorizedDelayOfDay = unauthorizedDelayOfDay;
+    }
+
+    public int getUnauthorizedDelayOfMonth() {
+        return unauthorizedDelayOfMonth;
+    }
+
+    public void setUnauthorizedDelayOfMonth(int unauthorizedDelayOfMonth) {
+        this.unauthorizedDelayOfMonth = unauthorizedDelayOfMonth;
     }
 }

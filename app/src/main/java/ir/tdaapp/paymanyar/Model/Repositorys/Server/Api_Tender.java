@@ -43,7 +43,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 public class Api_Tender extends Base_Api {
 
     PostJsonObjectVolley volley_getTenderNotification, volley_getDetailsTender, volley_postLetMeKnow, volley_getTendersFilter, volley_postOrderAnalize;
-    PostJsonObjectVolley volley_postOrderScheduling, volley_postOrderAudit, volley_postOrderCostEstimation;
+    PostJsonObjectVolley volley_postOrderScheduling, volley_postOrderAudit, volley_postOrderCostEstimation, volley_postOrderDifference;
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
     GetJsonObjectVolley volley_getOrderAnaliseInfo;
@@ -677,6 +677,73 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    //در اینجا تعدیل برای اضافه شدن به سرور ارسال می شود
+    public Single<VM_Message> postOrderDifference(VM_InputAnalizeTender input) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                try {
+
+                    JSONObject obj = new JSONObject();
+
+                    try {
+
+                        obj.put("UserId", input.getUserId());
+                        obj.put("TenderId", input.getTenderId());
+                        obj.put("Fee", input.getFee());
+                        obj.put("ContractorName", input.getContractorName());
+                        obj.put("CellPhone", input.getCellPhone());
+                        obj.put("ProjectName", input.getProjectName());
+                        obj.put("Description", input.getDescription());
+                        obj.put("FileUrl1", input.getFileUrl1());
+                        obj.put("FileUrl2", input.getFileUrl2());
+                        obj.put("FileUrl3", input.getFileUrl3());
+                        obj.put("FileUrl4", input.getFileUrl4());
+                        obj.put("FileUrl5", input.getFileUrl5());
+                        obj.put("FileUrl6", input.getFileUrl6());
+                        obj.put("FileUrl7", input.getFileUrl7());
+                        obj.put("FileUrl8", input.getFileUrl8());
+                        obj.put("FileUrl9", input.getFileUrl9());
+                        obj.put("FileUrl10", input.getFileUrl10());
+                        obj.put("PriceList", input.getPriceList());
+                        obj.put("PermittedDelayOfMonth", input.getPermittedDelayOfMonth());
+                        obj.put("PermittedDelayOfDay", input.getPermittedDelayOfDay());
+                        obj.put("UnauthorizedDelayOfDay", input.getUnauthorizedDelayOfDay());
+                        obj.put("UnauthorizedDelayOfMonth", input.getUnauthorizedDelayOfMonth());
+
+                    } catch (Exception e) {
+                    }
+
+                    volley_postOrderDifference = new PostJsonObjectVolley(ApiUrl + "Order/PostAddOrderTeadil", obj, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            VM_Message message = new VM_Message();
+                            JSONObject object = resault.getObject();
+
+                            try {
+                                message.setMessage(object.getString("MessageText"));
+                                message.setCode(object.getInt("Code"));
+                                message.setResult(object.getBoolean("Result"));
+                            } catch (Exception e) {
+                            }
+
+                            emitter.onSuccess(message);
+
+                        } else {
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
+
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+
+            }).start();
+        });
+    }
+
     //در اینجا سفارشات برگشت داده می شود
     public Single<List<VM_Orders>> getOrders(int page, int userId, VM_FilterOrder filterOrder) {
 
@@ -880,6 +947,18 @@ public class Api_Tender extends Base_Api {
                                 if (!object.getString("TimeFactor").equalsIgnoreCase("null"))
                                     analiseInfo.setTimely(Float.valueOf(object.getString("TimeFactor")));
 
+                                if (!object.getString("PermittedDelayOfDay").equalsIgnoreCase("null"))
+                                    analiseInfo.setPermittedDelayOfDay(object.getInt("PermittedDelayOfDay"));
+
+                                if (!object.getString("PermittedDelayOfMonth").equalsIgnoreCase("null"))
+                                    analiseInfo.setPermittedDelayOfMonth(object.getInt("PermittedDelayOfMonth"));
+
+                                if (!object.getString("UnauthorizedDelayOfDay").equalsIgnoreCase("null"))
+                                    analiseInfo.setUnauthorizedDelayOfDay(object.getInt("UnauthorizedDelayOfDay"));
+
+                                if (!object.getString("UnauthorizedDelayOfMonth").equalsIgnoreCase("null"))
+                                    analiseInfo.setUnauthorizedDelayOfMonth(object.getInt("UnauthorizedDelayOfMonth"));
+
                                 //در اینجا استپ ها گرفته می شوند
                                 if (object.get("Steep") != null) {
                                     switch (object.getInt("Steep")) {
@@ -1030,6 +1109,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_postOrderCostEstimation != null) {
             volley_postOrderCostEstimation.Cancel(Tag, context);
+        }
+
+        if (volley_postOrderDifference != null) {
+            volley_postOrderDifference.Cancel(Tag, context);
         }
 
     }

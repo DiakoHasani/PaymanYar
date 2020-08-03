@@ -192,4 +192,8 @@
     <string name="Coefficients">ضرایب</string>
     <string name="ProjectName">نام پروژه</string>
     <string name="Price_list">فهرست بها</string>
+    <string name="Duration_of_allowed_delays">مدت زمان تاخیرات مجاز</string>
+    <string name="Duration_of_unauthorized_delays">مدت زمان تاخیرات غیر مجاز</string>
+    <string name="month">ماه</string>
+    <string name="day">روز</string>
 </resources>
