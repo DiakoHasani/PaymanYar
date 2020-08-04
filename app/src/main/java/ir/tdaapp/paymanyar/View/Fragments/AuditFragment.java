@@ -429,6 +429,10 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             valid = false;
         }
 
+        if (!Validation.Required(txt_ContractorName, getString(R.string.ThisValueMust_be_Filled))) {
+            valid = false;
+        }
+
         if (!chk_jum.isChecked() && !chk_No_system.isChecked() && !chk_pardis.isChecked() && !chk_sahar.isChecked()) {
             valid = false;
             No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment_red));

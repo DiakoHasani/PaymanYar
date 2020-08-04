@@ -818,12 +818,30 @@ public class Api_Tender extends Base_Api {
                                             order.setOrderKind(OrderKind.ZamanBandi);
                                             break;
                                         case "MetehVaBaravard":
+                                            try {
+                                                if (!object.getString("ProjectName").equalsIgnoreCase("null")) {
+                                                    order.setTitle(object.getString("ProjectName"));
+                                                }
+                                            } catch (Exception e) {
+                                            }
                                             order.setOrderKind(OrderKind.MetehVaBaravard);
                                             break;
                                         case "Teadil":
+                                            try {
+                                                if (!object.getString("ProjectName").equalsIgnoreCase("null")) {
+                                                    order.setTitle(object.getString("ProjectName"));
+                                                }
+                                            } catch (Exception e) {
+                                            }
                                             order.setOrderKind(OrderKind.Teadil);
                                             break;
                                         case "Hasabresi":
+                                            try {
+                                                if (!object.getString("ContractorName").equalsIgnoreCase("null")) {
+                                                    order.setTitle(object.getString("ContractorName"));
+                                                }
+                                            } catch (Exception e) {
+                                            }
                                             order.setOrderKind(OrderKind.Hasabresi);
                                             break;
                                     }
@@ -833,7 +851,6 @@ public class Api_Tender extends Base_Api {
                                 } catch (Exception e) {
                                 }
                             }
-
                         }
 
                         emitter.onSuccess(orders);
@@ -930,22 +947,27 @@ public class Api_Tender extends Base_Api {
                                     analiseInfo.setPriceList(object.getString("PriceList"));
 
                                 if (!object.getString("SuggestedCoefficient").equalsIgnoreCase("null"))
-                                    analiseInfo.setSuggested(Float.valueOf(object.getString("SuggestedCoefficient")));
+                                    if (!object.getString("SuggestedCoefficient").equalsIgnoreCase(""))
+                                        analiseInfo.setSuggested(Float.valueOf(object.getString("SuggestedCoefficient")));
 
                                 if (!object.getString("OverheadFactor").equalsIgnoreCase("null"))
-                                    analiseInfo.setAbove(Float.valueOf(object.getString("OverheadFactor")));
+                                    if (!object.getString("OverheadFactor").equalsIgnoreCase(""))
+                                        analiseInfo.setAbove(Float.valueOf(object.getString("OverheadFactor")));
 
                                 if (!object.getString("AreaCoefficient").equalsIgnoreCase("null"))
-                                    analiseInfo.setZone(Float.valueOf(object.getString("AreaCoefficient")));
+                                    if (!object.getString("AreaCoefficient").equalsIgnoreCase(""))
+                                        analiseInfo.setZone(Float.valueOf(object.getString("AreaCoefficient")));
 
                                 if (!object.getString("WorkshopEquipmentCoefficient").equalsIgnoreCase("null"))
-                                    analiseInfo.setEquippingTheIngotWorkshop(Float.valueOf(object.getString("WorkshopEquipmentCoefficient")));
+                                    if (!object.getString("WorkshopEquipmentCoefficient").equalsIgnoreCase(""))
+                                        analiseInfo.setEquippingTheIngotWorkshop(Float.valueOf(object.getString("WorkshopEquipmentCoefficient")));
 
                                 if (!object.getString("ProjectName").equalsIgnoreCase("null"))
                                     analiseInfo.setProjectName(object.getString("ProjectName"));
 
                                 if (!object.getString("TimeFactor").equalsIgnoreCase("null"))
-                                    analiseInfo.setTimely(Float.valueOf(object.getString("TimeFactor")));
+                                    if (!object.getString("TimeFactor").equalsIgnoreCase(""))
+                                        analiseInfo.setTimely(Float.valueOf(object.getString("TimeFactor")));
 
                                 if (!object.getString("PermittedDelayOfDay").equalsIgnoreCase("null"))
                                     analiseInfo.setPermittedDelayOfDay(object.getInt("PermittedDelayOfDay"));
