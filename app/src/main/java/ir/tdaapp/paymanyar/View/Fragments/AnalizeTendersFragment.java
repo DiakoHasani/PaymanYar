@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,12 +42,17 @@ import android.widget.Toast;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,9 +60,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import ir.tdaapp.li_image.ImagesCodes.CompressImage;
+import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
+import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
+import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -64,8 +75,10 @@ import ir.tdaapp.paymanyar.Model.Adapters.FileUpload_AnalizeTenderAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.S_AnalizeTenders;
+import ir.tdaapp.paymanyar.Model.Services.onClickFileTypeOrderDialog;
 import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.ProjectDirectory;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
@@ -74,8 +87,10 @@ import ir.tdaapp.paymanyar.Presenter.P_AnalizeTenders;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.FileTypeOrderDialog;
 import pl.droidsonroids.gif.GifImageView;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -110,6 +125,11 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     String doingTime = "";
     RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+
+    GetByCamera getByCamera;
+    GetByGalery getByGalery;
+    CompressImage compressImage;
 
     //آیدی سفارش
     int id = 0;
@@ -154,6 +174,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
         handler_clear = new Handler(Looper.getMainLooper());
         timer.setText("");
+        compressImage = new CompressImage(480, 780, 100, getContext());
 
     }
 
@@ -216,7 +237,28 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         fileUploadAdapter.setClickFileUpload_analizeTender(new onClickFileUpload_AnalizeTender() {
             @Override
             public void onClickFile(VM_FileUploadAnalizeTender file) {
-                p_analizeTenders.openFile(getActivity(), file);
+                FileTypeOrderDialog fileTypeOrderDialog = new FileTypeOrderDialog(new onClickFileTypeOrderDialog() {
+                    @Override
+                    public void clickedCamera() {
+                        getByCamera = new GetByCamera(getActivity(), 1, image -> {
+                            saveImage(file, image);
+                        });
+                    }
+
+                    @Override
+                    public void clickedGallery() {
+                        getByGalery = new GetByGalery(getActivity(), 2, image -> {
+                            saveImage(file, image);
+                        });
+                    }
+
+                    @Override
+                    public void clickedFile() {
+                        p_analizeTenders.openFile(getActivity(), file);
+                    }
+                });
+
+                fileTypeOrderDialog.show(getActivity().getSupportFragmentManager(), FileTypeOrderDialog.TAG);
             }
 
             @Override
@@ -1065,81 +1107,78 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     @Override
     public void startTimer(String time) {
         doingTime = time;
-        timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                try {
+        timer.setOnChronometerTickListener(chronometer -> {
+            try {
 
-                    String[] t = doingTime.split(":");
+                String[] t = doingTime.split(":");
 
-                    int h, m, s;
+                int h, m, s;
 
-                    //در اینجا ساعت گرفته می شود
-                    h = Integer.valueOf(t[0].trim());
+                //در اینجا ساعت گرفته می شود
+                h = Integer.valueOf(t[0].trim());
 
-                    //در اینجا دقیقه گرفته می شود
-                    m = Integer.valueOf(t[1].trim());
+                //در اینجا دقیقه گرفته می شود
+                m = Integer.valueOf(t[1].trim());
 
-                    //در اینجا ثانیه گرفته می شود
-                    s = Integer.valueOf(t[2].trim());
+                //در اینجا ثانیه گرفته می شود
+                s = Integer.valueOf(t[2].trim());
 
-                    h = h < 0 ? 0 : h;
-                    m = m < 0 ? 0 : m;
-                    s = s < 0 ? 0 : s;
+                h = h < 0 ? 0 : h;
+                m = m < 0 ? 0 : m;
+                s = s < 0 ? 0 : s;
 
-                    //در اینجا ساعت و دقیقه و ثانیه تنظیم می شود
-                    if (h > 0 || m > 0 || s > 0) {
-                        if (s > 0) {
-                            s--;
-                        } else {
-                            if (m > 0) {
-                                m--;
-                            } else {
-                                if (h > 0) {
-                                    h--;
-                                } else {
-                                    h = 00;
-                                }
-                                m = 59;
-                            }
-                            s = 59;
-                        }
-                        ////////////////////////////////////////////
-
-                        //در اینجا اگر زمان مثل ساعت یا دقیقه یا ثانیه تک رقمی باشد یک صفر به پشت آن اضافه می شود
-                        String hh, mm, ss;
-
-                        if (h >= 0 && h < 10) {
-                            hh = "0" + h;
-                        } else {
-                            hh = h + "";
-                        }
-
-                        if (m >= 0 && m < 10) {
-                            mm = "0" + m;
-                        } else {
-                            mm = m + "";
-                        }
-
-                        if (s >= 0 && s < 10) {
-                            ss = "0" + s;
-                        } else {
-                            ss = s + "";
-                        }
-                        ///////////////////////////////////////////////////////////////
-
-                        //در اینجا زمان ها نمایش داده می شوند
-                        doingTime = hh + " : " + mm + " : " + ss;
-                        chronometer.setText(doingTime);
+                //در اینجا ساعت و دقیقه و ثانیه تنظیم می شود
+                if (h > 0 || m > 0 || s > 0) {
+                    if (s > 0) {
+                        s--;
                     } else {
-                        doingTime = "00 : 00 : 00";
-                        chronometer.setText(doingTime);
-                        timer.stop();
+                        if (m > 0) {
+                            m--;
+                        } else {
+                            if (h > 0) {
+                                h--;
+                            } else {
+                                h = 00;
+                            }
+                            m = 59;
+                        }
+                        s = 59;
+                    }
+                    ////////////////////////////////////////////
+
+                    //در اینجا اگر زمان مثل ساعت یا دقیقه یا ثانیه تک رقمی باشد یک صفر به پشت آن اضافه می شود
+                    String hh, mm, ss;
+
+                    if (h >= 0 && h < 10) {
+                        hh = "0" + h;
+                    } else {
+                        hh = h + "";
                     }
 
-                } catch (Exception e) {
+                    if (m >= 0 && m < 10) {
+                        mm = "0" + m;
+                    } else {
+                        mm = m + "";
+                    }
+
+                    if (s >= 0 && s < 10) {
+                        ss = "0" + s;
+                    } else {
+                        ss = s + "";
+                    }
+                    ///////////////////////////////////////////////////////////////
+
+                    //در اینجا زمان ها نمایش داده می شوند
+                    doingTime = hh + " : " + mm + " : " + ss;
                     chronometer.setText(doingTime);
+                } else {
+                    doingTime = "00 : 00 : 00";
+                    chronometer.setText(doingTime);
+                    timer.stop();
                 }
+
+            } catch (Exception e) {
+                chronometer.setText(doingTime);
             }
         });
         timer.start();
@@ -1241,5 +1280,47 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             isPayment = false;
             p_analizeTenders.getDetailItem();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            //اگر کاربر از طریق دوربین یک عکس برای آپلود فایل گرفته باشد شرط زیر فراخوانی می شود
+            if (requestCode == 1) {
+                getByCamera.Continue();
+            }
+
+            //اگر کاربر از طریق گالری عکس انتخاب کزده باشد شرط زیر اجرا می شود
+            if (requestCode == 2) {
+                getByGalery.Continue(data);
+            }
+        }
+    }
+
+    public void saveImage(VM_FileUploadAnalizeTender file, Bitmap bitmap) {
+
+        Dexter.withActivity(getActivity()).withPermissions(imagePermissions).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                ProjectDirectory.createDirectory("paymanyar");
+
+                String name = UUID.randomUUID().toString() + ".jpg";
+                name = "paymanyar/" + name;
+
+                String path = SaveImageToMob.SaveImageCamera(name, compressImage.Compress(bitmap));
+
+                File img = new File(path);
+
+                onSelectedFile(file, img);
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            }
+        }).check();
     }
 }

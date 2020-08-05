@@ -23,7 +23,7 @@ import ir.tdaapp.li_image.Services.IGetBitmapImage;
 public class GetByGalery {
 
     Activity getActivity;
-    int RequestCode=0;
+    int RequestCode = 0;
     IGetBitmapImage iGetBitmapImage;
 
     public GetByGalery(Activity getActivity, int requestCode, IGetBitmapImage iGetBitmapImage) {
@@ -33,7 +33,7 @@ public class GetByGalery {
         Get();
     }
 
-    void Get(){
+    void Get() {
         Dexter.withActivity(getActivity).withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE).withListener(
                 new PermissionListener() {
                     @Override
@@ -55,9 +55,9 @@ public class GetByGalery {
         ).check();
     }
 
-    public void Continue(Intent data){
+    public void Continue(Intent data) {
 
-        try{
+        try {
 
             Uri selectedImage = data.getData();
             String[] filePath = {MediaStore.Images.Media.DATA};
@@ -71,7 +71,7 @@ public class GetByGalery {
             Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             iGetBitmapImage.GetImage(bitmap);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             iGetBitmapImage.GetImage(null);
         }
 

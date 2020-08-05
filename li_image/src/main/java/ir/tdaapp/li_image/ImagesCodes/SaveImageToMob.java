@@ -16,7 +16,6 @@ public class SaveImageToMob {
 
 
     public static String SaveImageCamera(String Name, Bitmap bmp) {
-
         File sdCardDirectory = Environment.getExternalStorageDirectory();
 
         String Path = sdCardDirectory.getPath();
@@ -41,5 +40,4 @@ public class SaveImageToMob {
         }
         return image.getPath();
     }
-
 }

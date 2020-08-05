@@ -41,4 +41,5 @@
     <string name="Please_enter_full_values">لطفا مقادیر را کامل وارد نمایید</string>
     <string name="Registration_in_the_system">ثبت در سامانه</string>
     <string name="No_system_registration_required">نیاز به ثبت سامانه ای نیست</string>
+    <string name="choseOneItem">یک از گزینه های زیر را انتخاب کنید</string>
 </resources>

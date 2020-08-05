@@ -5,6 +5,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +49,10 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import ir.tdaapp.li_image.ImagesCodes.CompressImage;
+import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
+import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
+import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -54,8 +60,10 @@ import ir.tdaapp.paymanyar.Model.Adapters.FileUpload_AnalizeTenderAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.S_AuditFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickFileTypeOrderDialog;
 import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.ProjectDirectory;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AnaliseInfo;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
@@ -64,8 +72,10 @@ import ir.tdaapp.paymanyar.Presenter.P_AuditFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.FileTypeOrderDialog;
 import pl.droidsonroids.gif.GifImageView;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -111,6 +121,11 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
     //اگر مقدار زیر ترو باشد یعنی کاربر به صفحه پرداخت رفته است
     boolean isPayment = false;
 
+    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+    GetByCamera getByCamera;
+    GetByGalery getByGalery;
+    CompressImage compressImage;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -147,6 +162,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
 
         handler_clear = new Handler(Looper.getMainLooper());
         timer.setText("");
+        compressImage = new CompressImage(480, 780, 100, getContext());
     }
 
     void findItem(View view) {
@@ -279,7 +295,28 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
         fileUploadAdapter.setClickFileUpload_analizeTender(new onClickFileUpload_AnalizeTender() {
             @Override
             public void onClickFile(VM_FileUploadAnalizeTender file) {
-                p_auditFragment.openFile(getActivity(), file);
+                FileTypeOrderDialog fileTypeOrderDialog = new FileTypeOrderDialog(new onClickFileTypeOrderDialog() {
+                    @Override
+                    public void clickedCamera() {
+                        getByCamera = new GetByCamera(getActivity(), 1, image -> {
+                            saveImage(file, image);
+                        });
+                    }
+
+                    @Override
+                    public void clickedGallery() {
+                        getByGalery = new GetByGalery(getActivity(), 2, image -> {
+                            saveImage(file, image);
+                        });
+                    }
+
+                    @Override
+                    public void clickedFile() {
+                        p_auditFragment.openFile(getActivity(), file);
+                    }
+                });
+
+                fileTypeOrderDialog.show(getActivity().getSupportFragmentManager(), FileTypeOrderDialog.TAG);
             }
 
             @Override
@@ -1106,5 +1143,47 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             isPayment = false;
             p_auditFragment.getDetailItem();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            //اگر کاربر از طریق دوربین یک عکس برای آپلود فایل گرفته باشد شرط زیر فراخوانی می شود
+            if (requestCode == 1) {
+                getByCamera.Continue();
+            }
+
+            //اگر کاربر از طریق گالری عکس انتخاب کزده باشد شرط زیر اجرا می شود
+            if (requestCode == 2) {
+                getByGalery.Continue(data);
+            }
+        }
+    }
+
+    public void saveImage(VM_FileUploadAnalizeTender file, Bitmap bitmap) {
+
+        Dexter.withActivity(getActivity()).withPermissions(imagePermissions).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                ProjectDirectory.createDirectory("paymanyar");
+
+                String name = UUID.randomUUID().toString() + ".jpg";
+                name = "paymanyar/" + name;
+
+                String path = SaveImageToMob.SaveImageCamera(name, compressImage.Compress(bitmap));
+
+                File img = new File(path);
+
+                onSelectedFile(file, img);
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+            }
+        }).check();
     }
 }

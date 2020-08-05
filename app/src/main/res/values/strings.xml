@@ -196,4 +196,7 @@
     <string name="Duration_of_unauthorized_delays">مدت زمان تاخیرات غیر مجاز</string>
     <string name="month">ماه</string>
     <string name="day">روز</string>
+    <string name="camera">دوربین</string>
+    <string name="gallery">گالری</string>
+    <string name="file">فایل</string>
 </resources>

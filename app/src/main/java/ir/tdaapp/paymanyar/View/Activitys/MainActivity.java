@@ -228,4 +228,20 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+
+        if (fragments.size() > 0) {
+
+            Fragment fragment = fragments.get(fragments.size() - 1);
+
+            if (fragment != null) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
 }
