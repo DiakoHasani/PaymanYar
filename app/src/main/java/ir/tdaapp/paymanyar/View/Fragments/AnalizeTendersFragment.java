@@ -125,7 +125,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     String doingTime = "";
     RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
     GetByCamera getByCamera;
     GetByGalery getByGalery;
@@ -641,7 +641,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             }
 
             if (analiseInfo.getAmountPayable() != null) {
-                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null"))
+                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null") && !analiseInfo.getAmountPayable().equalsIgnoreCase(""))
                     lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.Toman));
             }
 

@@ -544,7 +544,7 @@
                         android:layout_weight="0.15"/>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/btn_orders"
+                        android:id="@+id/btn_CostEstimation"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -568,7 +568,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="@string/orders"
+                                android:text="@string/CostEstimation"
                                 android:gravity="center"
                                 android:background="@color/colorPrimary"
                                 android:textColor="@color/colorWhite"
@@ -579,7 +579,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:src="@drawable/ic_orders"
+                                android:src="@drawable/ic_cost_estimation"
                                 android:padding="10dp"/>
 
                         </LinearLayout>
@@ -766,7 +766,7 @@
                         android:layout_weight="0.15"/>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/btn_CostEstimation"
+                        android:id="@+id/btn_orders"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -790,9 +790,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="@string/CostEstimation"
+                                android:text="@string/orders"
                                 android:gravity="center"
-                                android:background="@color/colorPrimary"
+                                android:background="@color/colorLowPrimary"
                                 android:textColor="@color/colorWhite"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="12dp"/>
@@ -801,7 +801,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:src="@drawable/ic_cost_estimation"
+                                android:src="@drawable/ic_orders"
                                 android:padding="10dp"/>
 
                         </LinearLayout>

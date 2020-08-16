@@ -34,5 +34,7 @@
     <color name="colorJPG">#3D7FF3</color>
     <color name="colorPNG">#69A3DA</color>
     <color name="colorGreen">#00c6cf</color>
+    <color name="colorGreenMagnifier">#88AF11</color>
+    <color name="colorLowGreenMagnifier">#CFF55B</color>
     <color name="colorDisable">#dedede</color>
 </resources>

@@ -121,7 +121,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
     //اگر مقدار زیر ترو باشد یعنی کاربر به صفحه پرداخت رفته است
     boolean isPayment = false;
 
-    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     GetByCamera getByCamera;
     GetByGalery getByGalery;
     CompressImage compressImage;
@@ -656,7 +656,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             }
 
             if (analiseInfo.getAmountPayable() != null) {
-                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null"))
+                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null") && !analiseInfo.getAmountPayable().equalsIgnoreCase(""))
                     lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.Toman));
             }
 

@@ -18,6 +18,8 @@ import ir.tdaapp.paymanyar.Model.Services.S_ToolsFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Presenter.P_ToolsFragment;
 import ir.tdaapp.paymanyar.R;
+import ir.tdaapp.paymanyar.View.Activitys.LevelActivity;
+import ir.tdaapp.paymanyar.View.Activitys.MagnifierActivity;
 import ir.tdaapp.paymanyar.View.Activitys.RullerActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 
@@ -87,10 +89,10 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
                 ((ToolsActivity) getActivity()).onAddFragment(new UnitConversionFragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, UnitConversionFragment.TAG);
                 break;
             case R.id.btn_Level:
-                ((ToolsActivity) getActivity()).onAddFragment(new LevelFragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, LevelFragment.TAG);
+                startActivity(new Intent(getActivity(), LevelActivity.class));
                 break;
             case R.id.tools_btnMagnifier:
-                ((ToolsActivity) getActivity()).onAddFragment(new Magnifier_Fragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, Magnifier_Fragment.TAG);
+                startActivity(new Intent(getActivity(), MagnifierActivity.class));
                 break;
             case R.id.tools_btnCompass:
                 startActivity(new Intent(getActivity(), RullerActivity.class));

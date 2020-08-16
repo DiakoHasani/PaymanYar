@@ -69,7 +69,8 @@
                         android:maxLines="1"
                         android:maxLength="11"
                         android:inputType="number"
-                        android:drawablePadding="5dp" />
+                        android:drawablePadding="5dp"
+                        android:textDirection="ltr"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

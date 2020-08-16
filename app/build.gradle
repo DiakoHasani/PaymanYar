@@ -105,6 +105,7 @@ dependencies {
 
     //مربوط به دکمه لودینگ
     implementation 'br.com.simplepass:loading-button-android:1.6.5'
+
 }
 repositories {
     mavenCentral()

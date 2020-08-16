@@ -630,7 +630,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
             }
 
             if (analiseInfo.getAmountPayable() != null) {
-                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null"))
+                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null")&&!analiseInfo.getAmountPayable().equalsIgnoreCase(""))
                     lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.Toman));
             }
 

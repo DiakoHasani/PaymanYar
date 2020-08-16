@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="ir.tdaapp.paymanyar">
 
     <application
@@ -11,9 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activitys.PaymentOrderActivity"
+        <activity android:name=".View.Activitys.LevelActivity"></activity>
+        <activity android:name=".View.Activitys.MagnifierActivity" />
+        <activity
+            android:name=".View.Activitys.PaymentOrderActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -24,7 +25,6 @@
                     android:host="homeorder"
                     android:scheme="paymanyar" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".View.Activitys.RullerActivity"
