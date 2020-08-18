@@ -7,6 +7,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorError">#B00020</color>
     <color name="colorGray">#555555</color>
+    <color name="colorGray2">#949494</color>
     <color name="colorBlack">#000000</color>
     <color name="colorEditText">#3c4043</color>
     <color name="colorTextHint">#99000000</color>

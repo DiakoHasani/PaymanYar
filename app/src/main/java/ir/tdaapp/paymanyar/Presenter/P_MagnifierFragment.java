@@ -2,17 +2,21 @@ package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import ir.tdaapp.paymanyar.Model.Services.S_MagnifierFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.ProjectDirectory;
 
 public class P_MagnifierFragment implements SurfaceHolder.Callback {
 
@@ -24,93 +28,92 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
     android.hardware.Camera.PictureCallback rawCallback;
     android.hardware.Camera.ShutterCallback shutterCallback;
     android.hardware.Camera.PictureCallback jpegCallback;
-    int zoom=1;
-    int S_width=10;int s_height=10;
+    int zoom = 1;
+    int S_width = 10;
+    int s_height = 10;
+    Camera.Parameters parameters;
+    int maxZoom;
 
     public P_MagnifierFragment(Context context, S_MagnifierFragment s_magnifierFragment) {
         this.context = context;
         this.s_magnifierFragment = s_magnifierFragment;
-
     }
 
 
-    public void Initial(SurfaceView surfaceView){
+    public void Initial(SurfaceView surfaceView) {
         surfaceHolder = surfaceView.getHolder();
         surfaceView.setFocusable(true);
         surfaceView.setFocusableInTouchMode(true);
-        s_height=surfaceView.getRootView().getWidth()/2;
-        S_width=surfaceView.getRootView().getWidth()/2;
+        s_height = surfaceView.getRootView().getWidth() / 2;
+        S_width = surfaceView.getRootView().getWidth() / 2;
 
         Handler myHandler = new Handler();
-        myHandler.postDelayed(runnable,1000);
+        myHandler.postDelayed(runnable, 1000);
     }
 
-    Runnable runnable=new Runnable() {
+    Runnable runnable = new Runnable() {
         @Override
         public void run() {
             surfaceHolder.addCallback(P_MagnifierFragment.this);
-            surfaceHolder.setFixedSize(S_width,s_height);
-            rawCallback = new android.hardware.Camera.PictureCallback() {
-                public void onPictureTaken(byte[] data, Camera camera) {
-                    Log.d("Log", "onPictureTaken - raw");
-                }
-            };
+            surfaceHolder.setFixedSize(S_width, s_height);
+            rawCallback = (data, camera) -> Log.d("Log", "onPictureTaken - raw");
 
             /** Handles data for jpeg picture */
-            shutterCallback = new android.hardware.Camera.ShutterCallback() {
-                public void onShutter() {
-                    Log.i("Log", "onShutter'd");
+            shutterCallback = () -> Log.i("Log", "onShutter'd");
+            jpegCallback = (data, camera) -> {
+                FileOutputStream outStream = null;
+                try {
+
+                    ProjectDirectory.createDirectory("paymanyar");
+
+                    String name = UUID.randomUUID().toString() + ".jpg";
+                    name = "paymanyar/" + name;
+
+                    File sdCardDirectory = Environment.getExternalStorageDirectory();
+
+                    String path = sdCardDirectory.getPath() + "/" + name;
+
+                    outStream = new FileOutputStream(path);
+                    outStream.write(data);
+                    outStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
                 }
-            };
-            jpegCallback = new android.hardware.Camera.PictureCallback() {
-                public void onPictureTaken(byte[] data, Camera camera) {
-                    FileOutputStream outStream = null;
-                    try {
-                        outStream = new FileOutputStream(String.format(
-                                "/sdcard/DCIM/Camera/%d.jpg", System.currentTimeMillis()));
-                        outStream.write(data);
-                        outStream.close();
-                        Log.d("Log", "onPictureTaken - wrote bytes: " + data.length);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                    }
-                    Log.d("Log", "onPictureTaken - jpeg");
-                    camera.startPreview();
-                }
+                camera.startPreview();
             };
         }
     };
 
-    public void Requestermission(){
-
-    }
-
     public void captureImage() {
-        // TODO Auto-generated method stub
-        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+            camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void start_camera()
-    {
+    public void start_camera() {
         Handler myHandler = new Handler();
-        myHandler.postDelayed(camRun,1000);
+        myHandler.postDelayed(camRun, 1000);
     }
 
-    Runnable camRun=new Runnable() {
+    Runnable camRun = new Runnable() {
         @Override
         public void run() {
-            try{
+            try {
                 camera = Camera.open();
-            }catch(RuntimeException e){
+            } catch (RuntimeException e) {
                 Log.e("tag", "init_camera: " + e);
                 return;
             }
-            SetCameraParameters(S_width,s_height);
+            SetCameraParameters(S_width, s_height);
 
-            ChangeZoom(0);
+            ChangeZoom(Math.round(maxZoom / 2));
             try {
                 camera.setDisplayOrientation(90);
                 camera.setPreviewDisplay(surfaceHolder);
@@ -123,8 +126,7 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
         }
     };
 
-    public void stop_camera()
-    {
+    public void stop_camera() {
         camera.stopPreview();
         camera.release();
     }
@@ -133,7 +135,7 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
 
         final double ASPECT_TOLERANCE = 0.5;
 //        double targetRatio=(double)s_height / S_width;
-        double targetRatio=1.3f;
+        double targetRatio = 1.3f;
 
         if (sizes == null) return null;
 
@@ -162,51 +164,58 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
         }
         return optimalSize;
     }
+
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        try{
+        try {
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int w, int h) {
         //before changing the application orientation, you need to stop the preview, rotate and then start it again
 
-        if(surfaceHolder.getSurface() == null)//check if the surface is ready to receive camera data
+        if (surfaceHolder.getSurface() == null)//check if the surface is ready to receive camera data
             return;
 
-        try{
+        try {
             camera.stopPreview();
-        } catch (Exception e){
+        } catch (Exception e) {
             //this will happen when you are trying the camera if it's not running
         }
 
         //now, recreate the camera preview
-        try{
-           SetCameraParameters(w,h);
+        try {
+            SetCameraParameters(w, h);
 
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
             camera.setDisplayOrientation(1);
-        } catch(Exception exp){
-            Log.i("Camera","FROM surfaceChanged: "+exp.toString());
+        } catch (Exception exp) {
+            Log.i("Camera", "FROM surfaceChanged: " + exp.toString());
         }
     }
 
-    private void SetCameraParameters(int w,int h){
-        try{
+    private void SetCameraParameters(int w, int h) {
+        try {
             camera.setDisplayOrientation(90);
 //            surfaceHolder.setFixedSize(S_width,s_height);
             Camera.Parameters params = camera.getParameters();
 
             List<Camera.Size> sizes = params.getSupportedPreviewSizes();
-            Camera.Size optimalSize = getOptimalPreviewSize(sizes,w,h);
-            params.setPreviewSize(optimalSize.width,optimalSize.height);
+            Camera.Size optimalSize = getOptimalPreviewSize(sizes, w, h);
+            params.setPreviewSize(optimalSize.width, optimalSize.height);
             params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             camera.setParameters(params);
-        }catch (Exception e){}
+
+            parameters = camera.getParameters();
+            maxZoom = parameters.getMaxZoom();
+            s_magnifierFragment.onMaxZoomCamera(maxZoom);
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -214,30 +223,27 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
 
     }
 
-    private void ChangeZoom(int val){
-        try{
-            Camera.Parameters parameters = camera.getParameters();
-            int maxZoom = parameters.getMaxZoom();
+    private void ChangeZoom(int val) {
+        try {
             if (parameters.isZoomSupported()) {
-                if (val>=0 && val < maxZoom) {
+                if (val >= 0 && val < maxZoom) {
                     parameters.setZoom(val);
                     camera.setParameters(parameters);
                 } else {
                     // zoom parameter is incorrect
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
-    public void ZoomIn(int val){
+    public void ZoomIn(int val) {
         zoom++;
         ChangeZoom(val);
     }
 
-    public void ZoomOut(int val){
+    public void ZoomOut(int val) {
         zoom--;
         ChangeZoom(val);
     }
-
-
 }

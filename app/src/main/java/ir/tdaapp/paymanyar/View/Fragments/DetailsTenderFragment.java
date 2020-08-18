@@ -1,6 +1,5 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,12 +13,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.ShowPriceTextView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
@@ -33,12 +30,10 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
-import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import pl.droidsonroids.gif.GifImageView;
 
 //صفحه جزئیات مناقصه
 public class DetailsTenderFragment extends BaseFragment implements S_DetailsTenderFragment, View.OnClickListener {
-
 
     private VM_FilterTenderNotification filter;
 
@@ -240,19 +235,19 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
             detail.setVisibility(View.VISIBLE);
 
-            lbl_Title.setText(detailsTender.getTitle());
-            lbl_Description.setText(detailsTender.getDescription());
+            lbl_Title.setText(Replace.Number_en_To_fa(detailsTender.getTitle()));
+            lbl_Description.setText(Replace.Number_en_To_fa(detailsTender.getDescription()));
             new ShowPriceTextView(detailsTender.getNationalEstimate(), lbl_NationalEstimate);
-            lbl_NationalEstimate.setText(lbl_NationalEstimate.getText().toString() + " " + getString(R.string.rial));
-            lbl_PaymanyarCode.setText(detailsTender.getId() + "");
-            lbl_Place_of_Receipt_of_Documents.setText(detailsTender.getPlace_of_Receipt_of_Documents());
-            lbl_ReopeningDate.setText(detailsTender.getReopeningDate());
-            lbl_TenderDevice.setText(detailsTender.getTenderDevice());
-            lbl_website.setText(detailsTender.getWebsite());
-            lbl_GetDocumentsUp.setText(detailsTender.getGetDocumentsUp());
-            lbl_SendSuggestionsUp.setText(detailsTender.getSendSuggestionsUp());
-            lbl_CityName.setText(p_detailsTenderFragment.getCityTitle(detailsTender.getCityId()));
-            lbl_Major.setText(p_detailsTenderFragment.getMajorTitle(detailsTender.getMajorId()));
+            lbl_NationalEstimate.setText(Replace.Number_en_To_fa(lbl_NationalEstimate.getText().toString() + " " + getString(R.string.rial)));
+            lbl_PaymanyarCode.setText(Replace.Number_en_To_fa(detailsTender.getId() + ""));
+            lbl_Place_of_Receipt_of_Documents.setText(Replace.Number_en_To_fa(detailsTender.getPlace_of_Receipt_of_Documents()));
+            lbl_ReopeningDate.setText(Replace.Number_en_To_fa(detailsTender.getReopeningDate()));
+            lbl_TenderDevice.setText(Replace.Number_en_To_fa(detailsTender.getTenderDevice()));
+            lbl_website.setText(Replace.Number_en_To_fa(detailsTender.getWebsite()));
+            lbl_GetDocumentsUp.setText(Replace.Number_en_To_fa(detailsTender.getGetDocumentsUp()));
+            lbl_SendSuggestionsUp.setText(Replace.Number_en_To_fa(detailsTender.getSendSuggestionsUp()));
+            lbl_CityName.setText(Replace.Number_en_To_fa(p_detailsTenderFragment.getCityTitle(detailsTender.getCityId())));
+            lbl_Major.setText(Replace.Number_en_To_fa(p_detailsTenderFragment.getMajorTitle(detailsTender.getMajorId())));
 
             inputAnalizeTender.setTenderName(detailsTender.getTitle());
             inputAnalizeTender.setFee(detailsTender.getNationalEstimate());

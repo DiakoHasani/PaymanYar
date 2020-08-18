@@ -84,7 +84,6 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
 
         //نمایش اولیه مقادیر گزینه فاصله
         p_unitConversionFragment.ShowItemsFor(5);
-        mode = 1;
 
         btnVolume.setOnClickListener(this);
         btnTorque.setOnClickListener(this);

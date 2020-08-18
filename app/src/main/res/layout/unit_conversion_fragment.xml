@@ -147,7 +147,8 @@
                                 android:textAlignment="center"
                                 android:maxLines="1"
                                 android:id="@+id/unit_answer"
-                                android:inputType="number"/>
+                                android:inputType="number"
+                                android:maxLength="12"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
 

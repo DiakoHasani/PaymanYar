@@ -9,10 +9,12 @@ import ir.tdaapp.paymanyar.R;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.karumi.dexter.Dexter;
@@ -32,7 +34,8 @@ public class MagnifierActivity extends AppCompatActivity implements View.OnClick
     int preZoom = 0;
     private P_MagnifierFragment p_magnifierFragment;
     private String[] Permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    ImageView save;
+    RelativeLayout save;
+    ImageView btn_minus, btn_plus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +51,16 @@ public class MagnifierActivity extends AppCompatActivity implements View.OnClick
         zoomBar = findViewById(R.id.seekBar_zoom);
 
         surfaceView = findViewById(R.id.magnifier_surface);
+        btn_minus = findViewById(R.id.btn_minus);
+        btn_plus = findViewById(R.id.btn_plus);
     }
 
     void implement() {
+
         p_magnifierFragment = new P_MagnifierFragment(this, this);
         save.setOnClickListener(this);
+        btn_minus.setOnClickListener(this);
+        btn_plus.setOnClickListener(this);
         zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -116,6 +124,18 @@ public class MagnifierActivity extends AppCompatActivity implements View.OnClick
             case R.id.btn_save:
                 p_magnifierFragment.captureImage();
                 break;
+            case R.id.btn_minus:
+                if (preZoom > 0) {
+                    zoomBar.setProgress(--preZoom);
+                    p_magnifierFragment.ZoomOut(preZoom);
+                }
+                break;
+            case R.id.btn_plus:
+                if (preZoom < zoomBar.getMax()) {
+                    zoomBar.setProgress(++preZoom);
+                    p_magnifierFragment.ZoomIn(preZoom);
+                }
+                break;
         }
     }
 
@@ -123,5 +143,16 @@ public class MagnifierActivity extends AppCompatActivity implements View.OnClick
     public void onDestroy() {
         super.onDestroy();
         p_magnifierFragment.stop_camera();
+    }
+
+    @Override
+    public void onMaxZoomCamera(int maxZoom) {
+        zoomBar.setMax(maxZoom);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            zoomBar.setProgress(Math.round(maxZoom / 2), true);
+        } else {
+            zoomBar.setProgress(Math.round(maxZoom / 2));
+        }
     }
 }

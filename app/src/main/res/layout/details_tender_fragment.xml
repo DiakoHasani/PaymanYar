@@ -27,7 +27,7 @@
                 android:id="@+id/head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite">
+                android:background="@color/colorGray2">
 
                 <TextView
                     android:id="@+id/lbl_Title"
@@ -35,18 +35,20 @@
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
                     android:fontFamily="@font/vazir"
-                    android:textColor="@color/colorTitle"
+                    android:textColor="@color/colorWhite"
                     android:text="@string/DetailTender"
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="8dp"
+                    android:minLines="2"
+                    android:gravity="center_vertical"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/colorGray"
-                    android:layout_below="@id/lbl_Title"/>
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0.5dp"-->
+<!--                    android:background="@color/colorGray"-->
+<!--                    android:layout_below="@id/lbl_Title"/>-->
 
             </RelativeLayout>
 
@@ -229,7 +231,8 @@
                         android:weightSum="2"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:background="@color/colorBackgroundDetailTender">
+                        android:background="@color/colorBackgroundDetailTender"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="0dp"
@@ -260,7 +263,8 @@
                         android:orientation="horizontal"
                         android:weightSum="2"
                         android:paddingTop="8dp"
-                        android:paddingBottom="8dp">
+                        android:paddingBottom="8dp"
+                        android:background="@color/colorBackgroundDetailTender">
 
                         <TextView
                             android:layout_width="0dp"
@@ -291,8 +295,7 @@
                         android:orientation="horizontal"
                         android:weightSum="2"
                         android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:background="@color/colorBackgroundDetailTender">
+                        android:paddingBottom="8dp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -323,7 +326,8 @@
                         android:orientation="horizontal"
                         android:weightSum="2"
                         android:paddingTop="8dp"
-                        android:paddingBottom="8dp">
+                        android:paddingBottom="8dp"
+                        android:background="@color/colorBackgroundDetailTender">
 
                         <TextView
                             android:layout_width="0dp"
@@ -354,8 +358,7 @@
                         android:orientation="horizontal"
                         android:weightSum="2"
                         android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:background="@color/colorBackgroundDetailTender">
+                        android:paddingBottom="8dp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -387,7 +390,7 @@
                         android:weightSum="2"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:layout_marginBottom="16dp">
+                        android:background="@color/colorBackgroundDetailTender">
 
                         <TextView
                             android:layout_width="0dp"
@@ -515,7 +518,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             app:cardBackgroundColor="@color/colorPrimary"
-                            android:layout_marginRight="16dp"
+                            android:layout_marginRight="8dp"
                             app:cardCornerRadius="4dp"
                             android:clipToPadding="false"
                             app:cardUseCompatPadding="false"
@@ -528,7 +531,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/vazir"
                                 android:gravity="center"
-                                android:text="@string/Analize"
+                                android:text="@string/AnaliseThisTender"
                                 android:textColor="@color/colorWhite"
                                 android:textSize="14dp"
                                 android:paddingLeft="16dp"
