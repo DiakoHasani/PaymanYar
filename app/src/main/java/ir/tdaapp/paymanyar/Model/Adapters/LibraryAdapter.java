@@ -76,7 +76,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         });
 
         holder.share.setOnClickListener(view -> {
-            onClickLibrary.clickShare(libraries.get(position).getUrl(),libraries.get(position).getTitle());
+            onClickLibrary.clickShare(libraries.get(position));
         });
     }
 

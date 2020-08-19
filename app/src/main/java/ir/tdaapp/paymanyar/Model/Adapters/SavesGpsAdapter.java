@@ -34,7 +34,7 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
         notifyItemInserted(vals.size());
     }
 
-    void RemoveItem(int position){
+    void RemoveItem(int position) {
         vals.remove(position);
         notifyDataSetChanged();
     }
@@ -55,16 +55,17 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
 
         holder.lbl_Length.setText(vals.get(position).getLength() + "");
         holder.lbl_Wide.setText(vals.get(position).getWide() + "");
+        holder.lbl_number.setText((position + 1) + "");
 
         holder.ic_close.setOnClickListener(view -> {
-            if(this.listener!=null)listener.RemoveITem(vals.get(position));
+            if (this.listener != null) listener.RemoveITem(vals.get(position));
             RemoveItem(position);
         });
 
         holder.ic_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener!=null)listener.ShareItem(vals.get(position));
+                if (listener != null) listener.ShareItem(vals.get(position));
             }
         });
     }
@@ -78,7 +79,7 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
 
         RelativeLayout layout;
         ImageView ic_close, ic_share;
-        TextView lbl_Wide, lbl_Length;
+        TextView lbl_Wide, lbl_Length, lbl_number;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,11 +93,13 @@ public class SavesGpsAdapter extends RecyclerView.Adapter<SavesGpsAdapter.MyView
             ic_share = view.findViewById(R.id.ic_share);
             lbl_Wide = view.findViewById(R.id.lbl_Wide);
             lbl_Length = view.findViewById(R.id.lbl_Length);
+            lbl_number = view.findViewById(R.id.lbl_number);
         }
     }
 
-    public interface ItemListener{
+    public interface ItemListener {
         void RemoveITem(VM_SavesGps item);
+
         void ShareItem(VM_SavesGps item);
     }
 }

@@ -148,7 +148,8 @@
                                 android:maxLines="1"
                                 android:id="@+id/unit_answer"
                                 android:inputType="number"
-                                android:maxLength="12"/>
+                                android:maxLength="12"
+                                android:enabled="false"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
 

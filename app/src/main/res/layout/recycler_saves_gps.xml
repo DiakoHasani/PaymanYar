@@ -13,7 +13,7 @@
         android:id="@+id/icons"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         android:layout_alignParentLeft="true"
         android:gravity="center_vertical">
 
@@ -41,8 +41,18 @@
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/icons"
         android:layout_marginLeft="16dp"
-        android:paddingRight="16dp"
-        android:weightSum="2">
+        android:paddingRight="8dp"
+        android:weightSum="2.35">
+
+        <TextView
+            android:id="@+id/lbl_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35"
+            android:gravity="center"
+            android:fontFamily="@font/vazir"
+            android:textSize="16dp"
+            android:textColor="@color/colorTitle"/>
 
         <LinearLayout
             android:layout_width="0dp"

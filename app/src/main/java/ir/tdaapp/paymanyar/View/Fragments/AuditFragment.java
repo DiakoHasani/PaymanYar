@@ -470,7 +470,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             valid = false;
         }
 
-        if (!chk_jum.isChecked() && !chk_No_system.isChecked() && !chk_pardis.isChecked() && !chk_sahar.isChecked()) {
+        if (!chk_No_system.isChecked() && !chk_sahar.isChecked()) {
             valid = false;
             No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment_red));
             lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorError));

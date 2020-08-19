@@ -248,9 +248,10 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
             }
 
             @Override
-            public void clickShare(String url, String title) {
-                String a = getString(R.string.directedByPaymanyar) + "\n\n" + getString(R.string.Title) + ": " + title + "\n\n" + getString(R.string.see) + " " + url;
-                openUrl.getApplicationsText(getString(R.string.PaymanYar), a, getContext());
+            public void clickShare(VM_Library library) {
+//                String a = getString(R.string.directedByPaymanyar) + "\n\n" + getString(R.string.Title) + ": " + title + "\n\n" + getString(R.string.see) + " " + url;
+//                openUrl.getApplicationsText(getString(R.string.PaymanYar), a, getContext());
+                p_libraryFragment.sharePDF(library);
             }
         });
     }

@@ -88,6 +88,7 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.FileTypeOrderDialog;
+import ir.tdaapp.paymanyar.View.Dialogs.HelpPrecentAnalizeTenderDialog;
 import pl.droidsonroids.gif.GifImageView;
 
 import static android.app.Activity.RESULT_OK;
@@ -130,6 +131,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     GetByCamera getByCamera;
     GetByGalery getByGalery;
     CompressImage compressImage;
+    ImageView img_help;
 
     //آیدی سفارش
     int id = 0;
@@ -148,6 +150,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         findItem(view);
         implement();
         setToolbar();
+        setAnimationHelp();
 
         p_analizeTenders.start();
 
@@ -167,6 +170,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         btn_reload.setOnClickListener(this);
         step_pay.setOnClickListener(this);
         loadingButton.setOnClickListener(this);
+        img_help.setOnClickListener(this);
 
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
@@ -220,6 +224,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         step_pay_Background = view.findViewById(R.id.step_pay_Background);
         step_orderCheck_Background = view.findViewById(R.id.step_orderCheck_Background);
         step_doing_Background = view.findViewById(R.id.step_doing_Background);
+        img_help = view.findViewById(R.id.img_help);
     }
 
     @Override
@@ -903,6 +908,11 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                     }
                 }).check();
                 break;
+            case R.id.img_help:
+                HelpPrecentAnalizeTenderDialog dialog = new HelpPrecentAnalizeTenderDialog();
+                dialog.show(getActivity().getSupportFragmentManager(), HelpPrecentAnalizeTenderDialog.TAG);
+                img_help.setAnimation(null);
+                break;
         }
     }
 
@@ -1322,5 +1332,19 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
             }
         }).check();
+    }
+
+    //در اینجا انیمیشن راهنما در بخش درصدها فعال می شود و بعد بیست ثانیه متوقف می شود
+    void setAnimationHelp() {
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(500);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+
+        img_help.startAnimation(anim);
+
+        new Handler().postDelayed(() -> {
+            img_help.setAnimation(null);
+        }, 20000);
     }
 }

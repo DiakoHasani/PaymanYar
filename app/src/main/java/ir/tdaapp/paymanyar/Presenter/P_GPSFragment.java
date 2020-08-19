@@ -139,7 +139,7 @@ public class P_GPSFragment {
                 typeMap = GoogleMap.MAP_TYPE_SATELLITE;
                 break;
             case 2:
-                typeMap = GoogleMap.MAP_TYPE_HYBRID;
+                typeMap = GoogleMap.MAP_TYPE_TERRAIN;
                 break;
         }
 

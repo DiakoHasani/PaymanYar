@@ -1,12 +1,18 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.core.content.FileProvider;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,6 +25,7 @@ import ir.tdaapp.paymanyar.Model.Services.addLibrary;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.R;
 
 public class P_LibraryFragment {
 
@@ -34,7 +41,6 @@ public class P_LibraryFragment {
         api_library = new Api_Library();
         tbl_library = new Tbl_Library(context);
     }
-
 
     public void start(String queryText, int page) {
 
@@ -153,6 +159,26 @@ public class P_LibraryFragment {
                 });
             }
         });
+    }
+
+    //در اینجا پی دی اف به اشتراک گذاشته می شود
+    public void sharePDF(VM_Library library) {
+
+        String fileName = library.getBookName().substring(11);
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+        if (file.exists()) {
+            try {
+                Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file);
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.setType("application/pdf");
+                context.startActivity(Intent.createChooser(shareIntent,context.getString(R.string.share)));
+            } catch (Exception e) { }
+        } else {
+            Toast.makeText(context, context.getString(R.string.Download_the_PDF_first), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void Cancel(String tag) {

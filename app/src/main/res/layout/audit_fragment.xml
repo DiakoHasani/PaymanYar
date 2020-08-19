@@ -255,7 +255,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="8dp">
 
                         <CheckBox
                             android:id="@+id/chk_jum"
@@ -266,7 +267,8 @@
                             android:textColor="@color/colorTitle"
                             android:text="@string/jum"
                             android:layout_marginRight="4dp"
-                            android:layout_marginLeft="4dp"/>
+                            android:layout_marginLeft="4dp"
+                            android:visibility="gone"/>
 
                         <CheckBox
                             android:id="@+id/chk_pardis"
@@ -277,7 +279,8 @@
                             android:textColor="@color/colorTitle"
                             android:text="@string/pardis"
                             android:layout_marginRight="4dp"
-                            android:layout_marginLeft="4dp"/>
+                            android:layout_marginLeft="4dp"
+                            android:visibility="gone"/>
 
                         <CheckBox
                             android:id="@+id/chk_sahar"
@@ -289,16 +292,6 @@
                             android:text="@string/sahar"
                             android:layout_marginRight="4dp"
                             android:layout_marginLeft="4dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
 
                         <CheckBox
                             android:id="@+id/chk_No_system"

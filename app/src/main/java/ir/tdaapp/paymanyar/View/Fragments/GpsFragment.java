@@ -46,22 +46,22 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.SavesGpsDialog;
 
-public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnClickListener{
+public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnClickListener {
 
     public final static String TAG = "GpsFragment";
     Toolbar toolbar;
     LinearLayout saves;
     MapView mMapView;
     P_GPSFragment p_gpsFragment;
-    CardView btnSave,btnDefault,btnSatelite,btnGround;
-    TextView lat,lon;
-    private String[] Permisions={Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+    CardView btnSave, btnDefault, btnSatelite, btnGround;
+    TextView lat, lon;
+    private String[] Permisions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     LinearLayout btn_Home;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.gps_fragment,container,false);
+        View view = inflater.inflate(R.layout.gps_fragment, container, false);
 
         findItem(view);
         mMapView.onCreate(savedInstanceState);
@@ -71,24 +71,24 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
         return view;
     }
 
-    void findItem(View view){
-        toolbar=view.findViewById(R.id.toolbar);
-        saves=view.findViewById(R.id.saves);
+    void findItem(View view) {
+        toolbar = view.findViewById(R.id.toolbar);
+        saves = view.findViewById(R.id.saves);
 
-        btnDefault=view.findViewById(R.id.gps_defaultbtn);
-        btnSatelite=view.findViewById(R.id.gps_satelitebtn);
-        btnGround=view.findViewById(R.id.gps_groundbtn);
-        btnSave=view.findViewById(R.id.gps_savebtn);
-        btn_Home=view.findViewById(R.id.btn_Home);
+        btnDefault = view.findViewById(R.id.gps_defaultbtn);
+        btnSatelite = view.findViewById(R.id.gps_satelitebtn);
+        btnGround = view.findViewById(R.id.gps_groundbtn);
+        btnSave = view.findViewById(R.id.gps_savebtn);
+        btn_Home = view.findViewById(R.id.btn_Home);
 
-        lat=view.findViewById(R.id.gps_lat);
-        lon=view.findViewById(R.id.gps_lon);
+        lat = view.findViewById(R.id.gps_lat);
+        lon = view.findViewById(R.id.gps_lon);
 
-        mMapView = (MapView) view.findViewById(R.id.gps_mapview);
+        mMapView = view.findViewById(R.id.gps_mapview);
     }
 
-    void implement(){
-        p_gpsFragment=new P_GPSFragment(this.getContext(),this);
+    void implement() {
+        p_gpsFragment = new P_GPSFragment(this.getContext(), this);
 
         saves.setOnClickListener(this);
         mMapView.onResume(); // needed to get the map to display immediately
@@ -97,11 +97,11 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
         Dexter.withActivity(getActivity()).withPermissions(Permisions).withListener(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
-                if(report.areAllPermissionsGranted()){
+                if (report.areAllPermissionsGranted()) {
                     p_gpsFragment.setLocation();
                     p_gpsFragment.ShowMap();
-                }else{
-                    ActivityCompat.requestPermissions(getActivity(),Permisions,22);
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(), Permisions, 22);
                 }
             }
 
@@ -121,8 +121,8 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==22){
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED  && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 22) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 p_gpsFragment.ShowMap();
             }
         }
@@ -174,12 +174,10 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
 
     @Override
     public void onClick(View view) {
-
-
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.saves:
-                SavesGpsDialog savesGpsDialog=new SavesGpsDialog();
-                savesGpsDialog.show(((ToolsActivity)getActivity()).getSupportFragmentManager(),SavesGpsDialog.TAG);
+                SavesGpsDialog savesGpsDialog = new SavesGpsDialog();
+                savesGpsDialog.show(((ToolsActivity) getActivity()).getSupportFragmentManager(), SavesGpsDialog.TAG);
                 break;
             case R.id.gps_defaultbtn:
                 ResetMapTypeButtons();
@@ -197,8 +195,8 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
                 p_gpsFragment.ChangeMapType(2);
                 break;
             case R.id.gps_savebtn:
-                if(lat.getText().toString().length()>0){
-                    p_gpsFragment.SaveLocation(lat.getText().toString(),lon.getText().toString());
+                if (lat.getText().toString().length() > 0) {
+                    p_gpsFragment.SaveLocation(lat.getText().toString(), lon.getText().toString());
                 }
                 break;
             case R.id.btn_Home:
@@ -207,7 +205,7 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
         }
     }
 
-    private void ResetMapTypeButtons(){
+    private void ResetMapTypeButtons() {
         btnSatelite.setBackgroundResource(R.color.colorWhite);
         btnGround.setBackgroundResource(R.color.colorWhite);
         btnDefault.setBackgroundResource(R.color.colorWhite);

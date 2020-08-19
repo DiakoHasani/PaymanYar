@@ -40,6 +40,12 @@
     <string name="addedDescription">توضیحات را وارد کنید</string>
     <string name="Please_enter_full_values">لطفا مقادیر را کامل وارد نمایید</string>
     <string name="Registration_in_the_system">ثبت در سامانه</string>
-    <string name="No_system_registration_required">نیاز به ثبت سامانه ای نیست</string>
+    <string name="No_system_registration_required">بدون نیاز به سمت سامانه ای</string>
     <string name="choseOneItem">یک از گزینه های زیر را انتخاب کنید</string>
+    <string name="Download_the_PDF_first">ابتدا پی دی اف را دانلود کنید</string>
+
+
+    <string name="helpPrecentAnalizeTenderText">
+        شما می توانید تا 10 پیشنهاد متفاوت با درصدهای پیشنهادی مختلف را برای سفارش خود وارد کنید.آنالیز با کلیه قیمت های پیشنهادی شما برای شما ارسال می شود و قیمت نهایی شما برای کسی مشخص نیست تا 3 پیشنهاد اول با قیمت همان یک پیشنهاد پرداخت هزینه خواهید داشت و از 3 پیشنهاد بیشتر به ازای هر پیشنهاد 3% به مبلغ کل هزینه سفارش اضافه خواهد شد
+    </string>
 </resources>
