@@ -7,4 +7,10 @@ public interface S_PriceRangeFragment {
     void onGetDegreeOfImportance(ArrayAdapter adapter);
     void onWinnerChoosed(String number,String position,String CUp,String  CDown);
     void onHideAllChPoints();
+    int onGetTopChartNumber(int number);
+    void onSetChartNumbers(int number);
+    void onSetChartVisibility(int maxNumber);
+    int[] onGetChartValues();
+    void setDefaltChart();
+    void onOutOfRange(String id);
 }

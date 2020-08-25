@@ -1254,8 +1254,8 @@
                         android:orientation="horizontal">
 
 
-
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/chart"
                             android:layout_width="match_parent"
                             android:layout_height="260dp"
                             android:layout_marginLeft="8dp"
@@ -1269,6 +1269,7 @@
                                 android:layout_height="match_parent">
 
                                 <RelativeLayout
+                                    android:id="@+id/chartNumbers"
                                     android:layout_width="35dp"
                                     android:layout_height="240dp"
                                     android:layout_centerVertical="true">
@@ -1282,6 +1283,7 @@
                                         android:layout_centerVertical="true"/>
 
                                     <View
+                                        android:id="@+id/chart_view0"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1290,6 +1292,7 @@
                                         android:layout_marginBottom="10dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl0"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1302,6 +1305,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view1"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1310,6 +1314,7 @@
                                         android:layout_marginBottom="30dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1322,6 +1327,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view2"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1330,6 +1336,7 @@
                                         android:layout_marginBottom="50dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1342,6 +1349,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view3"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1350,6 +1358,7 @@
                                         android:layout_marginBottom="70dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl3"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1362,6 +1371,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view4"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1370,6 +1380,7 @@
                                         android:layout_marginBottom="90dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl4"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1382,6 +1393,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view5"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1390,6 +1402,7 @@
                                         android:layout_marginBottom="110dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1402,6 +1415,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view6"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1410,6 +1424,7 @@
                                         android:layout_marginBottom="130dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl6"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1422,6 +1437,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view7"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1430,6 +1446,7 @@
                                         android:layout_marginBottom="150dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl7"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1442,6 +1459,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view8"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1450,6 +1468,7 @@
                                         android:layout_marginBottom="170dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl8"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1462,6 +1481,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view9"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1470,6 +1490,7 @@
                                         android:layout_marginBottom="190dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl9"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1482,6 +1503,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view10"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1490,6 +1512,7 @@
                                         android:layout_marginBottom="210dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl10"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1502,6 +1525,7 @@
                                         android:fontFamily="@font/vazir"/>
 
                                     <View
+                                        android:id="@+id/chart_view11"
                                         android:layout_width="8dp"
                                         android:layout_height="1dp"
                                         android:layout_toRightOf="@id/line"
@@ -1510,6 +1534,7 @@
                                         android:layout_marginBottom="229dp"/>
 
                                     <TextView
+                                        android:id="@+id/chart_lbl11"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -1539,9 +1564,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint1"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1572,9 +1609,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1605,9 +1654,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint3"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1638,9 +1699,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint4"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1671,9 +1744,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint5"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1704,9 +1789,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint6"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1737,9 +1834,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint7"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1770,9 +1879,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint8"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1803,9 +1924,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint9"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1836,9 +1969,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint10"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1869,9 +2014,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint11"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"
@@ -1902,9 +2059,21 @@
                                         <RelativeLayout
                                             android:layout_width="6dp"
                                             android:layout_height="6dp"
-                                            android:background="@drawable/circle_chart"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="4dp"/>
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_gravity="bottom">
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart2" />
+
+                                            <RelativeLayout
+                                                android:id="@+id/circle_pricerange_chartpoint12"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/circle_chart" />
+
+                                        </RelativeLayout>
 
                                         <TextView
                                             android:layout_width="wrap_content"

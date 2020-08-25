@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import androidx.core.content.res.ResourcesCompat;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.paymanyar.Model.Services.S_PriceRangeFragment;
@@ -51,6 +55,23 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     Toolbar toolbar;
     EditText txt_AmountToToman9, txt_AmountToToman10, txt_AmountToToman11, txt_AmountToToman12, percent9, percent10, percent11, percent12;
     TextView Low_limit, lbl_upper_line, lbl_outOfRange;
+    CardView chart;
+    RelativeLayout chartLine, chartNumbers;
+    int[] chartVals;
+
+    float spaceChart = 1;
+
+    //مربوط به خط کنار چارت
+    View chart_view0, chart_view1, chart_view2, chart_view3, chart_view4, chart_view5, chart_view6, chart_view7, chart_view8, chart_view9, chart_view10, chart_view11;
+
+    //مربوط به اعداد چارت
+    TextView chart_lbl0, chart_lbl1, chart_lbl2, chart_lbl3, chart_lbl4, chart_lbl5, chart_lbl6, chart_lbl7, chart_lbl8, chart_lbl9, chart_lbl10, chart_lbl11;
+
+    //مربوط به نقطه های چارت می باشد
+    RelativeLayout circle_pricerange_chartpoint1, circle_pricerange_chartpoint2, circle_pricerange_chartpoint3;
+    RelativeLayout circle_pricerange_chartpoint4, circle_pricerange_chartpoint5, circle_pricerange_chartpoint6;
+    RelativeLayout circle_pricerange_chartpoint7, circle_pricerange_chartpoint8, circle_pricerange_chartpoint9;
+    RelativeLayout circle_pricerange_chartpoint10, circle_pricerange_chartpoint11, circle_pricerange_chartpoint12;
 
     public static final String TAG = "PriceRangeFragment";
 
@@ -114,8 +135,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         chPoint11 = view.findViewById(R.id.pricerange_chartpoint11);
         chPoint12 = view.findViewById(R.id.pricerange_chartpoint12);
 
-        ChartDownLine = (RelativeLayout) view.findViewById(R.id.pricerange_chartDownLine);
-        ChartUpLine = (RelativeLayout) view.findViewById(R.id.pricerange_chartUpLine);
+        ChartDownLine = view.findViewById(R.id.pricerange_chartDownLine);
+        ChartUpLine = view.findViewById(R.id.pricerange_chartUpLine);
 
         winnerNumber = view.findViewById(R.id.pricerange_winnerNumber);
         winnerPrice = view.findViewById(R.id.pricerange_winnerprice);
@@ -125,6 +146,49 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         lbl_upper_line = view.findViewById(R.id.lbl_upper_line);
         Low_limit = view.findViewById(R.id.Low_limit);
         lbl_outOfRange = view.findViewById(R.id.lbl_outOfRange);
+
+        chart = view.findViewById(R.id.chart);
+        chartLine = view.findViewById(R.id.line);
+        chartNumbers = view.findViewById(R.id.chartNumbers);
+
+        chart_view0 = view.findViewById(R.id.chart_view0);
+        chart_view1 = view.findViewById(R.id.chart_view1);
+        chart_view2 = view.findViewById(R.id.chart_view2);
+        chart_view3 = view.findViewById(R.id.chart_view3);
+        chart_view4 = view.findViewById(R.id.chart_view4);
+        chart_view5 = view.findViewById(R.id.chart_view5);
+        chart_view6 = view.findViewById(R.id.chart_view6);
+        chart_view7 = view.findViewById(R.id.chart_view7);
+        chart_view8 = view.findViewById(R.id.chart_view8);
+        chart_view9 = view.findViewById(R.id.chart_view9);
+        chart_view10 = view.findViewById(R.id.chart_view10);
+        chart_view11 = view.findViewById(R.id.chart_view11);
+
+        chart_lbl0 = view.findViewById(R.id.chart_lbl0);
+        chart_lbl1 = view.findViewById(R.id.chart_lbl1);
+        chart_lbl2 = view.findViewById(R.id.chart_lbl2);
+        chart_lbl3 = view.findViewById(R.id.chart_lbl3);
+        chart_lbl4 = view.findViewById(R.id.chart_lbl4);
+        chart_lbl5 = view.findViewById(R.id.chart_lbl5);
+        chart_lbl6 = view.findViewById(R.id.chart_lbl6);
+        chart_lbl7 = view.findViewById(R.id.chart_lbl7);
+        chart_lbl8 = view.findViewById(R.id.chart_lbl8);
+        chart_lbl9 = view.findViewById(R.id.chart_lbl9);
+        chart_lbl10 = view.findViewById(R.id.chart_lbl10);
+        chart_lbl11 = view.findViewById(R.id.chart_lbl11);
+
+        circle_pricerange_chartpoint1 = view.findViewById(R.id.circle_pricerange_chartpoint1);
+        circle_pricerange_chartpoint2 = view.findViewById(R.id.circle_pricerange_chartpoint2);
+        circle_pricerange_chartpoint3 = view.findViewById(R.id.circle_pricerange_chartpoint3);
+        circle_pricerange_chartpoint4 = view.findViewById(R.id.circle_pricerange_chartpoint4);
+        circle_pricerange_chartpoint5 = view.findViewById(R.id.circle_pricerange_chartpoint5);
+        circle_pricerange_chartpoint6 = view.findViewById(R.id.circle_pricerange_chartpoint6);
+        circle_pricerange_chartpoint7 = view.findViewById(R.id.circle_pricerange_chartpoint7);
+        circle_pricerange_chartpoint8 = view.findViewById(R.id.circle_pricerange_chartpoint8);
+        circle_pricerange_chartpoint9 = view.findViewById(R.id.circle_pricerange_chartpoint9);
+        circle_pricerange_chartpoint10 = view.findViewById(R.id.circle_pricerange_chartpoint10);
+        circle_pricerange_chartpoint11 = view.findViewById(R.id.circle_pricerange_chartpoint11);
+        circle_pricerange_chartpoint12 = view.findViewById(R.id.circle_pricerange_chartpoint12);
     }
 
     void implement() {
@@ -176,6 +240,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
                 setPercents();
             }
         });
+
+        chartVals = new int[12];
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -231,71 +297,91 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
             //ابتدا درصدها مشخص شود
             setPercents();
 
-            //ساخت یک آرایه از مقادیر پیشنهادی
-            ArrayList<VM_PriceRange> arrayList = new ArrayList<>();
-            if (txt_AmountToToman1.getText().toString().length() > 0) {
-                chPoint1.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("1", txt_AmountToToman1.getText().toString().replace(",", "").replace("٬", ""), percent1.getText().toString()));
-                ChartPoint(percent1.getText().toString(), chPoint1, 1);
-            }
-            if (txt_AmountToToman2.getText().toString().length() > 0) {
-                chPoint2.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("2", txt_AmountToToman2.getText().toString().replace(",", "").replace("٬", ""), percent2.getText().toString()));
-                ChartPoint(percent2.getText().toString(), chPoint2, 2);
-            }
-            if (txt_AmountToToman3.getText().toString().length() > 0) {
-                chPoint3.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("3", txt_AmountToToman3.getText().toString().replace(",", "").replace("٬", ""), percent3.getText().toString()));
-                ChartPoint(percent3.getText().toString(), chPoint3, 3);
-            }
-            if (txt_AmountToToman4.getText().toString().length() > 0) {
-                chPoint4.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("4", txt_AmountToToman4.getText().toString().replace(",", "").replace("٬", ""), percent4.getText().toString()));
-                ChartPoint(percent4.getText().toString(), chPoint4, 4);
-            }
-            if (txt_AmountToToman5.getText().toString().length() > 0) {
-                chPoint5.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("5", txt_AmountToToman5.getText().toString().replace(",", "").replace("٬", ""), percent5.getText().toString()));
-                ChartPoint(percent5.getText().toString(), chPoint5, 5);
-            }
-            if (txt_AmountToToman6.getText().toString().length() > 0) {
-                chPoint6.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("6", txt_AmountToToman6.getText().toString().replace(",", "").replace("٬", ""), percent6.getText().toString()));
-                ChartPoint(percent6.getText().toString(), chPoint6, 6);
-            }
-            if (txt_AmountToToman7.getText().toString().length() > 0) {
-                chPoint7.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("7", txt_AmountToToman7.getText().toString().replace(",", "").replace("٬", ""), percent7.getText().toString()));
-                ChartPoint(percent7.getText().toString(), chPoint7, 7);
-            }
-            if (txt_AmountToToman8.getText().toString().length() > 0) {
-                chPoint8.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("8", txt_AmountToToman8.getText().toString().replace(",", "").replace("٬", ""), percent8.getText().toString()));
-                ChartPoint(percent8.getText().toString(), chPoint8, 8);
-            }
-            if (txt_AmountToToman9.getText().toString().length() > 0) {
-                chPoint9.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("9", txt_AmountToToman9.getText().toString().replace(",", "").replace("٬", ""), percent9.getText().toString()));
-                ChartPoint(percent9.getText().toString(), chPoint9, 9);
-            }
-            if (txt_AmountToToman10.getText().toString().length() > 0) {
-                chPoint10.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("10", txt_AmountToToman10.getText().toString().replace(",", "").replace("٬", ""), percent10.getText().toString()));
-                ChartPoint(percent10.getText().toString(), chPoint10, 10);
-            }
-            if (txt_AmountToToman11.getText().toString().length() > 0) {
-                chPoint11.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("11", txt_AmountToToman11.getText().toString().replace(",", "").replace("٬", ""), percent11.getText().toString()));
-                ChartPoint(percent11.getText().toString(), chPoint11, 11);
-            }
-            if (txt_AmountToToman12.getText().toString().length() > 0) {
-                chPoint12.setVisibility(View.VISIBLE);
-                arrayList.add(new VM_PriceRange("12", txt_AmountToToman12.getText().toString().replace(",", "").replace("٬", ""), percent12.getText().toString()));
-                ChartPoint(percent12.getText().toString(), chPoint12, 12);
-            }
+            int maxPercent = getMaxPercents();
 
-            //شروع محاسبه
-            p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replace(",", "").replace("٬", ""), arrayList, txt_guarantee.getText().toString().replace(",", "").replace("٬", ""), cmb_Degree_of_Importance.getSelectedItemPosition() + 1);
+            if (maxPercent < 1000) {
+
+                setDefultPointChart();
+
+                onSetChartNumbers(maxPercent);
+
+                //ساخت یک آرایه از مقادیر پیشنهادی
+                ArrayList<VM_PriceRange> arrayList = new ArrayList<>();
+                if (txt_AmountToToman1.getText().toString().length() > 0) {
+                    chPoint1.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("1", txt_AmountToToman1.getText().toString().replace(",", "").replace("٬", ""), percent1.getText().toString()));
+                    ChartPoint(percent1.getText().toString(), chPoint1, 1);
+                }
+                if (txt_AmountToToman2.getText().toString().length() > 0) {
+                    chPoint2.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("2", txt_AmountToToman2.getText().toString().replace(",", "").replace("٬", ""), percent2.getText().toString()));
+                    ChartPoint(percent2.getText().toString(), chPoint2, 2);
+                }
+                if (txt_AmountToToman3.getText().toString().length() > 0) {
+                    chPoint3.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("3", txt_AmountToToman3.getText().toString().replace(",", "").replace("٬", ""), percent3.getText().toString()));
+                    ChartPoint(percent3.getText().toString(), chPoint3, 3);
+                }
+                if (txt_AmountToToman4.getText().toString().length() > 0) {
+                    chPoint4.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("4", txt_AmountToToman4.getText().toString().replace(",", "").replace("٬", ""), percent4.getText().toString()));
+                    ChartPoint(percent4.getText().toString(), chPoint4, 4);
+                }
+                if (txt_AmountToToman5.getText().toString().length() > 0) {
+                    chPoint5.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("5", txt_AmountToToman5.getText().toString().replace(",", "").replace("٬", ""), percent5.getText().toString()));
+                    ChartPoint(percent5.getText().toString(), chPoint5, 5);
+                }
+                if (txt_AmountToToman6.getText().toString().length() > 0) {
+                    chPoint6.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("6", txt_AmountToToman6.getText().toString().replace(",", "").replace("٬", ""), percent6.getText().toString()));
+                    ChartPoint(percent6.getText().toString(), chPoint6, 6);
+                }
+                if (txt_AmountToToman7.getText().toString().length() > 0) {
+                    chPoint7.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("7", txt_AmountToToman7.getText().toString().replace(",", "").replace("٬", ""), percent7.getText().toString()));
+                    ChartPoint(percent7.getText().toString(), chPoint7, 7);
+                }
+                if (txt_AmountToToman8.getText().toString().length() > 0) {
+                    chPoint8.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("8", txt_AmountToToman8.getText().toString().replace(",", "").replace("٬", ""), percent8.getText().toString()));
+                    ChartPoint(percent8.getText().toString(), chPoint8, 8);
+                }
+                if (txt_AmountToToman9.getText().toString().length() > 0) {
+                    chPoint9.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("9", txt_AmountToToman9.getText().toString().replace(",", "").replace("٬", ""), percent9.getText().toString()));
+                    ChartPoint(percent9.getText().toString(), chPoint9, 9);
+                }
+                if (txt_AmountToToman10.getText().toString().length() > 0) {
+                    chPoint10.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("10", txt_AmountToToman10.getText().toString().replace(",", "").replace("٬", ""), percent10.getText().toString()));
+                    ChartPoint(percent10.getText().toString(), chPoint10, 10);
+                }
+                if (txt_AmountToToman11.getText().toString().length() > 0) {
+                    chPoint11.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("11", txt_AmountToToman11.getText().toString().replace(",", "").replace("٬", ""), percent11.getText().toString()));
+                    ChartPoint(percent11.getText().toString(), chPoint11, 11);
+                }
+                if (txt_AmountToToman12.getText().toString().length() > 0) {
+                    chPoint12.setVisibility(View.VISIBLE);
+                    arrayList.add(new VM_PriceRange("12", txt_AmountToToman12.getText().toString().replace(",", "").replace("٬", ""), percent12.getText().toString()));
+                    ChartPoint(percent12.getText().toString(), chPoint12, 12);
+                }
+
+                //شروع محاسبه
+                p_priceRangeFragment.StartCalculate(txt_Price.getText().toString().replace(",", "").replace("٬", ""), arrayList, txt_guarantee.getText().toString().replace(",", "").replace("٬", ""), cmb_Degree_of_Importance.getSelectedItemPosition() + 1);
+
+
+                //در اینجا فقط بین دوخط دامنه نمایش داده می شوند یعنی بقیه دامنه نمایش داده نمی شود
+//                if (!lbl_upper_line.getText().toString().equalsIgnoreCase("")) {
+//                    float v = Float.valueOf(lbl_upper_line.getText().toString());
+//                    int v2 = (int) v;
+//                    hideNumbersChart(v2);
+//                }
+
+            } else {
+                Toast.makeText(getContext(), getResources().getString(R.string.The_maximum_percentage_should_be_999), Toast.LENGTH_SHORT).show();
+            }
 
         }
     }
@@ -305,27 +391,12 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         try {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(obj.getLayoutParams());
             String val = Percenet.substring(0, Percenet.indexOf("."));
-            params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(number * 21 + 20), IntToDP(Integer.valueOf(val) + 12));
+            int temp = (int) (Integer.valueOf(val) / spaceChart);
+            params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(number * 21 + 20), IntToDP(temp + 12));
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
             //فق براساس درصد پیشنهادی از پایین فاصله میدهیم
             obj.setLayoutParams(params);
-
-            //در اینجا خارج از محدوده ست می شود
-            if (Integer.valueOf(val) > 220) {
-                int value = Integer.valueOf(val);
-                if (value > 220) {
-                    String text = lbl_outOfRange.getText().toString();
-
-                    if (text.equalsIgnoreCase("---")) {
-                        text = number + "";
-                    } else {
-                        text = text + "," + number;
-                    }
-
-                    lbl_outOfRange.setText(text);
-                }
-            }
 
         } catch (Exception e) {
         }
@@ -336,12 +407,15 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         winnerPrice.setText(number);
         winnerNumber.setText(position);
 
+        enableAnimationPointChart(position);
+
         //نمایش خط حد بالا و پایین
 
         //حد بالا
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ChartUpLine.getLayoutParams());
         int m = Integer.valueOf(CUp.substring(0, CUp.indexOf(".")));
-        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(m + 18));
+        int valUp = (int) (m / spaceChart);
+        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(valUp + 18));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         ChartUpLine.setLayoutParams(params);
 
@@ -349,7 +423,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         //حد پایین
         params = new RelativeLayout.LayoutParams(ChartDownLine.getLayoutParams());
         m = Integer.valueOf(CDown.substring(0, CDown.indexOf(".")));
-        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(m + 18));
+        int valDown = (int) (m / spaceChart);
+        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(valDown + 18));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         ChartDownLine.setLayoutParams(params);
 
@@ -414,6 +489,141 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         chPoint12.setVisibility(View.GONE);
     }
 
+    //در اینجا بالاترین عدد نمودار گرفته می شود
+    @Override
+    public int onGetTopChartNumber(int number) {
+
+        int res = 0;
+
+        if (number >= 100 && number <= 999) {
+            int a = number;
+            float b = a / 100;
+            res = ((int) b) + 1;
+            res *= 100;
+        } else if (number < 100) {
+            res = 100;
+        } else {
+            res = 900;
+        }
+
+        switch (res) {
+            case 100:
+                spaceChart = 0.5f;
+                break;
+            case 200:
+                spaceChart = 1f;
+                break;
+            case 300:
+                spaceChart = 1.5f;
+                break;
+            case 400:
+                spaceChart = 2f;
+                break;
+            case 500:
+                spaceChart = 2.5f;
+                break;
+            case 600:
+                spaceChart = 3f;
+                break;
+            case 700:
+                spaceChart = 3.5f;
+                break;
+            case 800:
+                spaceChart = 4f;
+                break;
+            case 900:
+            case 1000:
+                spaceChart = 4.5f;
+                break;
+        }
+
+        return res;
+    }
+
+    //در اینجا اعداد سمت راست نمودار ست می شوند
+    @Override
+    public void onSetChartNumbers(int number) {
+        int topNumber = onGetTopChartNumber(number);
+        int zarib = topNumber / 10;
+
+        int i = 0;
+        chartVals[0] = i;
+        chart_lbl0.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[1] = i;
+        chart_lbl1.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[2] = i;
+        chart_lbl2.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[3] = i;
+        chart_lbl3.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[4] = i;
+        chart_lbl4.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[5] = i;
+        chart_lbl5.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[6] = i;
+        chart_lbl6.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[7] = i;
+        chart_lbl7.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[8] = i;
+        chart_lbl8.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[9] = i;
+        chart_lbl9.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[10] = i;
+        chart_lbl10.setText(String.valueOf(i));
+
+        i += zarib;
+        chartVals[11] = i;
+        chart_lbl11.setText(String.valueOf(i));
+
+        onSetChartVisibility(number);
+    }
+
+    //در اینجا عملیات مربوط به نمایش و مخفی کردن اعداد سمت راست انجام می شود
+    @Override
+    public void onSetChartVisibility(int maxNumber) {
+
+        //در اینجا براساس بالاترین درصد عدد بزرگتر از آن را در سمت راست نمودار می گیرد
+        //مثلا بالاترین درصد 300 باشد عدد 320 را ازسمت راست نمودار بر میدارد
+        int max = 0;
+        for (int i : chartVals) {
+            if (i > maxNumber) {
+                max = i;
+                break;
+            }
+        }
+
+        //در اینجا تنظیمات اولیه اسلایدر انجام می شود
+        setDefaltChart();
+
+        //در اینجا عددهای اضافی چارت حذف می شوند
+//        hideNumbersChart(max);
+    }
+
+    //در اینجا عددهای سمت راست چارت گرفته می شود
+    @Override
+    public int[] onGetChartValues() {
+        return chartVals;
+    }
+
     private int IntToDP(int value) {
 
         //تبدیل عدد صحیح به dp
@@ -439,4 +649,345 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
         percent12.setText(p_priceRangeFragment.CalculatePercent(txt_AmountToToman12.getText().toString().replace(",", "").replace("٬", ""), txt_Price.getText().toString().replace(",", "").replace("٬", "")));
     }
 
+    //در اینجا اعداد اضافی نمودار سمت راست مخفی می شوند
+    void hideNumbersChart(int max) {
+
+        for (int i = chartVals.length - 1; i >= 0; i--) {
+
+            if (chartVals[i] > max) {
+                hideNumbersChart(i, true);
+            } else {
+                break;
+            }
+        }
+    }
+
+    void hideNumbersChart(int position, boolean isHide) {
+
+        int show;
+
+        if (isHide) {
+            show = View.VISIBLE;
+        } else {
+            show = View.GONE;
+        }
+
+        switch (position) {
+            case 11:
+                chart_view11.setVisibility(show);
+                chart_lbl11.setVisibility(show);
+                break;
+            case 10:
+                chart_view10.setVisibility(show);
+                chart_lbl10.setVisibility(show);
+                break;
+            case 9:
+                chart_view9.setVisibility(show);
+                chart_lbl9.setVisibility(show);
+                break;
+            case 8:
+                chart_view8.setVisibility(show);
+                chart_lbl8.setVisibility(show);
+                break;
+            case 7:
+                chart_view7.setVisibility(show);
+                chart_lbl7.setVisibility(show);
+                break;
+            case 6:
+                chart_view6.setVisibility(show);
+                chart_lbl6.setVisibility(show);
+                break;
+            case 5:
+                chart_view5.setVisibility(show);
+                chart_lbl5.setVisibility(show);
+                break;
+            case 4:
+                chart_view4.setVisibility(show);
+                chart_lbl4.setVisibility(show);
+                break;
+            case 3:
+                chart_view3.setVisibility(show);
+                chart_lbl3.setVisibility(show);
+                break;
+            case 2:
+                chart_view2.setVisibility(show);
+                chart_lbl2.setVisibility(show);
+                break;
+            case 1:
+                chart_view1.setVisibility(show);
+                chart_lbl1.setVisibility(show);
+                break;
+            case 0:
+                chart_view0.setVisibility(show);
+                chart_lbl0.setVisibility(show);
+                break;
+        }
+
+        if (isHide) {
+            chartLine.getLayoutParams().height -= IntToDP(20);
+            chartNumbers.getLayoutParams().height -= IntToDP(20);
+            chart.getLayoutParams().height -= IntToDP(20);
+        } else {
+            chartLine.getLayoutParams().height += IntToDP(20);
+            chartNumbers.getLayoutParams().height += IntToDP(20);
+            chart.getLayoutParams().height += IntToDP(20);
+        }
+    }
+
+    //در اینجا تنظیمات اولیه چارت انجام می شود
+    @Override
+    public void setDefaltChart() {
+        chart_view11.setVisibility(View.VISIBLE);
+        chart_lbl11.setVisibility(View.VISIBLE);
+
+        chart_view10.setVisibility(View.VISIBLE);
+        chart_lbl10.setVisibility(View.VISIBLE);
+
+        chart_view9.setVisibility(View.VISIBLE);
+        chart_lbl9.setVisibility(View.VISIBLE);
+
+        chart_view8.setVisibility(View.VISIBLE);
+        chart_lbl8.setVisibility(View.VISIBLE);
+
+        chart_view7.setVisibility(View.VISIBLE);
+        chart_lbl7.setVisibility(View.VISIBLE);
+
+        chart_view6.setVisibility(View.VISIBLE);
+        chart_lbl6.setVisibility(View.VISIBLE);
+
+        chart_view5.setVisibility(View.VISIBLE);
+        chart_lbl5.setVisibility(View.VISIBLE);
+
+        chart_view4.setVisibility(View.VISIBLE);
+        chart_lbl4.setVisibility(View.VISIBLE);
+
+        chart_view3.setVisibility(View.VISIBLE);
+        chart_lbl3.setVisibility(View.VISIBLE);
+
+        chart_view2.setVisibility(View.VISIBLE);
+        chart_lbl2.setVisibility(View.VISIBLE);
+
+        chart_view1.setVisibility(View.VISIBLE);
+        chart_lbl1.setVisibility(View.VISIBLE);
+
+        chart_view0.setVisibility(View.VISIBLE);
+        chart_lbl0.setVisibility(View.VISIBLE);
+
+        chartLine.getLayoutParams().height = IntToDP(220);
+        chartNumbers.getLayoutParams().height = IntToDP(240);
+        chart.getLayoutParams().height = IntToDP(260);
+
+
+        //در اینجا دوتا خط نمودار ست می شوند
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ChartUpLine.getLayoutParams());
+        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(0));
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        ChartUpLine.setLayoutParams(params);
+
+        params = new RelativeLayout.LayoutParams(ChartDownLine.getLayoutParams());
+        params.setMargins(IntToDP(params.leftMargin), IntToDP(params.topMargin), IntToDP(35), IntToDP(0));
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        ChartDownLine.setLayoutParams(params);
+        ///////////////////////////////////////////////////////
+    }
+
+    //در اینجا خارج از محدوده ها ست می شود
+    @Override
+    public void onOutOfRange(String id) {
+        String text = lbl_outOfRange.getText().toString();
+
+        if (text.equalsIgnoreCase("---")) {
+            text = id + "";
+        } else {
+            text = text + "," + id;
+        }
+
+        lbl_outOfRange.setText(text);
+
+        setOutOfRangePointChart(id);
+    }
+
+    int getMaxPercents() {
+        int max = 0;
+
+        float[] vals = new float[12];
+
+        if (!percent1.getText().toString().equalsIgnoreCase("")) {
+            vals[0] = Float.valueOf(percent1.getText().toString());
+        }
+        if (!percent2.getText().toString().equalsIgnoreCase("")) {
+            vals[1] = Float.valueOf(percent2.getText().toString());
+        }
+        if (!percent3.getText().toString().equalsIgnoreCase("")) {
+            vals[2] = Float.valueOf(percent3.getText().toString());
+        }
+        if (!percent4.getText().toString().equalsIgnoreCase("")) {
+            vals[3] = Float.valueOf(percent4.getText().toString());
+        }
+        if (!percent5.getText().toString().equalsIgnoreCase("")) {
+            vals[4] = Float.valueOf(percent5.getText().toString());
+        }
+        if (!percent6.getText().toString().equalsIgnoreCase("")) {
+            vals[5] = Float.valueOf(percent6.getText().toString());
+        }
+        if (!percent7.getText().toString().equalsIgnoreCase("")) {
+            vals[6] = Float.valueOf(percent7.getText().toString());
+        }
+        if (!percent8.getText().toString().equalsIgnoreCase("")) {
+            vals[7] = Float.valueOf(percent8.getText().toString());
+        }
+        if (!percent9.getText().toString().equalsIgnoreCase("")) {
+            vals[8] = Float.valueOf(percent9.getText().toString());
+        }
+        if (!percent10.getText().toString().equalsIgnoreCase("")) {
+            vals[9] = Float.valueOf(percent10.getText().toString());
+        }
+        if (!percent11.getText().toString().equalsIgnoreCase("")) {
+            vals[10] = Float.valueOf(percent11.getText().toString());
+        }
+        if (!percent12.getText().toString().equalsIgnoreCase("")) {
+            vals[11] = Float.valueOf(percent12.getText().toString());
+        }
+
+        try {
+            max = Math.round(vals[0]);
+        } catch (Exception e) {
+        }
+
+        for (float i : vals) {
+            try {
+
+                int val = Math.round(i);
+
+                if (val > max)
+                    max = val;
+            } catch (Exception e) {
+            }
+        }
+
+        return max;
+    }
+
+    //در اینجا نقطه چشمک زن چارت ست می شود
+    void enableAnimationPointChart(String position) {
+        disableAnimationChart();
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(500);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+
+        switch (position) {
+            case "1":
+                circle_pricerange_chartpoint1.startAnimation(anim);
+                break;
+            case "2":
+                circle_pricerange_chartpoint2.startAnimation(anim);
+                break;
+            case "3":
+                circle_pricerange_chartpoint3.startAnimation(anim);
+                break;
+            case "4":
+                circle_pricerange_chartpoint4.startAnimation(anim);
+                break;
+            case "5":
+                circle_pricerange_chartpoint5.startAnimation(anim);
+                break;
+            case "6":
+                circle_pricerange_chartpoint6.startAnimation(anim);
+                break;
+            case "7":
+                circle_pricerange_chartpoint7.startAnimation(anim);
+                break;
+            case "8":
+                circle_pricerange_chartpoint8.startAnimation(anim);
+                break;
+            case "9":
+                circle_pricerange_chartpoint9.startAnimation(anim);
+                break;
+            case "10":
+                circle_pricerange_chartpoint10.startAnimation(anim);
+                break;
+            case "11":
+                circle_pricerange_chartpoint11.startAnimation(anim);
+                break;
+            case "12":
+                circle_pricerange_chartpoint12.startAnimation(anim);
+                break;
+        }
+    }
+
+    //در اینجا انیمیشن نقطه های چارت غیر فعال می شود
+    void disableAnimationChart(){
+        circle_pricerange_chartpoint1.setAnimation(null);
+        circle_pricerange_chartpoint2.setAnimation(null);
+        circle_pricerange_chartpoint3.setAnimation(null);
+        circle_pricerange_chartpoint4.setAnimation(null);
+        circle_pricerange_chartpoint5.setAnimation(null);
+        circle_pricerange_chartpoint6.setAnimation(null);
+        circle_pricerange_chartpoint7.setAnimation(null);
+        circle_pricerange_chartpoint8.setAnimation(null);
+        circle_pricerange_chartpoint9.setAnimation(null);
+        circle_pricerange_chartpoint10.setAnimation(null);
+        circle_pricerange_chartpoint11.setAnimation(null);
+        circle_pricerange_chartpoint12.setAnimation(null);
+    }
+
+    void setOutOfRangePointChart(String position){
+
+        switch (position) {
+            case "1":
+                circle_pricerange_chartpoint1.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "2":
+                circle_pricerange_chartpoint2.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "3":
+                circle_pricerange_chartpoint3.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "4":
+                circle_pricerange_chartpoint4.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "5":
+                circle_pricerange_chartpoint5.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "6":
+                circle_pricerange_chartpoint6.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "7":
+                circle_pricerange_chartpoint7.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "8":
+                circle_pricerange_chartpoint8.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "9":
+                circle_pricerange_chartpoint9.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "10":
+                circle_pricerange_chartpoint10.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "11":
+                circle_pricerange_chartpoint11.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+            case "12":
+                circle_pricerange_chartpoint12.setBackground(getResources().getDrawable(R.drawable.circle_chart_out));
+                break;
+        }
+
+    }
+
+    void setDefultPointChart(){
+        circle_pricerange_chartpoint1.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint2.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint3.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint4.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint5.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint6.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint7.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint8.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint9.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint10.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint11.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+        circle_pricerange_chartpoint12.setBackground(getResources().getDrawable(R.drawable.circle_chart));
+    }
 }

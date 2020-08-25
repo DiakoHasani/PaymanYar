@@ -133,6 +133,14 @@ public class P_PriceRangeFragment {
             //بدست آوردن حد بالا
             double C2 = Math.abs(M + (T * S));
 
+            for (VM_PriceRange i : participates) {
+                float v = Float.valueOf(i.percent);
+
+                if (v < C1 || v > C2) {
+                    s_priceRangeFragment.onOutOfRange(i.id);
+                }
+            }
+
             ChooseWinner(C1, participates, C2);
 
         } catch (Exception e) {
@@ -269,7 +277,6 @@ public class P_PriceRangeFragment {
 //            }
 //        }
 
-        if (s_priceRangeFragment != null)
-            s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price), index, String.valueOf(c2), String.valueOf(C));
+        s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price), index, String.valueOf(c2), String.valueOf(C));
     }
 }

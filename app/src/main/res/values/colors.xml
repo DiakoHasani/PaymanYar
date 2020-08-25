@@ -38,4 +38,5 @@
     <color name="colorGreenMagnifier">#88AF11</color>
     <color name="colorLowGreenMagnifier">#CFF55B</color>
     <color name="colorDisable">#dedede</color>
+    <color name="colorRed400">#ff1744</color>
 </resources>

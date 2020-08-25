@@ -43,6 +43,7 @@
     <string name="No_system_registration_required">بدون نیاز به سمت سامانه ای</string>
     <string name="choseOneItem">یک از گزینه های زیر را انتخاب کنید</string>
     <string name="Download_the_PDF_first">ابتدا پی دی اف را دانلود کنید</string>
+    <string name="The_maximum_percentage_should_be_999">حداکثر درصد باید 999 باشد</string>
 
 
     <string name="helpPrecentAnalizeTenderText">
