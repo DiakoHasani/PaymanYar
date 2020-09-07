@@ -135,9 +135,11 @@ public class P_DetailsTenderFragment {
 
     //در اینجا ازصفحه اسکرین شات می گیرد
     public Bitmap takeScreenshot(Activity activity) {
-        View rootView = activity.findViewById(android.R.id.content).getRootView();
-        rootView.setDrawingCacheEnabled(true);
-        return rootView.getDrawingCache();
+        View screenView =activity.getWindow().getDecorView().getRootView();
+        screenView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+        screenView.setDrawingCacheEnabled(false);
+        return bitmap;
     }
 
     //در اینجا اسکرین شات صفحه را به اشتراک می زارد
@@ -149,8 +151,6 @@ public class P_DetailsTenderFragment {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
 
                         File imagePath = new File(SaveImageToMob.SaveImageCamera("screenShot.png", takeScreenshot(activity)));
-
-//                        Uri uri = Uri.fromFile(imagePath);
                         Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", imagePath);
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("image/*");

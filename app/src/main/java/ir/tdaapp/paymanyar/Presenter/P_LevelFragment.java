@@ -29,7 +29,6 @@ public class P_LevelFragment {
         bubbleLevel = new BubbleLevel(context, width, height,marginCircular, this.s_levelFragment);
 
         sensorManager.registerListener(bubbleLevel, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
 
 

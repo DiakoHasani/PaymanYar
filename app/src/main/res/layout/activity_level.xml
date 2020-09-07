@@ -75,7 +75,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/border_center_level"/>
+            android:src="@drawable/border_center_level"
+            android:tag="f"/>
 
     </RelativeLayout>
 

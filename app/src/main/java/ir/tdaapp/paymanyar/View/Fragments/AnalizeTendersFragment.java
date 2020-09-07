@@ -540,9 +540,9 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                     }
 
                     //در اینجا توضیحات ست می شود
-                    if (bundle.getString("description") != null) {
-                        txt_Description.setText(bundle.getString("description"));
-                    }
+//                    if (bundle.getString("description") != null) {
+//                        txt_Description.setText(bundle.getString("description"));
+//                    }
                 }
             }
 

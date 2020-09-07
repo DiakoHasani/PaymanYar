@@ -133,12 +133,19 @@ public class P_PriceRangeFragment {
             //بدست آوردن حد بالا
             double C2 = Math.abs(M + (T * S));
 
+            s_priceRangeFragment.setDefultPointChart();
             for (VM_PriceRange i : participates) {
                 float v = Float.valueOf(i.percent);
 
                 if (v < C1 || v > C2) {
-                    s_priceRangeFragment.onOutOfRange(i.id);
+                    s_priceRangeFragment.setOutOfRangePointChart(i.id);
                 }
+            }
+
+            s_priceRangeFragment.onSetChartNumbers((int) C1, (int) C2);
+
+            for (int i = 0; i < participates.size(); i++) {
+                s_priceRangeFragment.setPointChart(participates.get(i));
             }
 
             ChooseWinner(C1, participates, C2);
@@ -242,11 +249,7 @@ public class P_PriceRangeFragment {
         double max_percent = 1000;
         String index = "---";
 
-        Collections.sort(arr, new Comparator<VM_PriceRange>() {
-            public int compare(VM_PriceRange o1, VM_PriceRange o2) {
-                return Double.valueOf(o1.percent).compareTo(Double.valueOf(o2.percent));
-            }
-        });
+        Collections.sort(arr, (o1, o2) -> Double.valueOf(o1.percent).compareTo(Double.valueOf(o2.percent)));
 
         for (int i = 0; i < arr.size(); i++) {
             VM_PriceRange item = arr.get(i);
@@ -259,24 +262,9 @@ public class P_PriceRangeFragment {
             }
         }
 
-        /*
-        انتخاب برنده به شکل زیر است:
-        وقتی حد پایین رو به دست اوردی اولین بزرگترین موردی که کمترین اختلاف رو داره میشه برنده
-        درخواست های حذف شده ملاک قرار نمی گیرند
-         */
+        //در اینجا نقطه چشمک زن ست می شود
+        s_priceRangeFragment.enableAnimationPointChart(index);
 
-//        for (int i = 0; i < arr.size(); i++) {
-//            VM_PriceRange item = arr.get(i);
-//
-//            if (!item.isDeleted) {
-//                if (Long.valueOf(item.price) > max_price && Math.abs(C - Double.valueOf(item.percent)) < max_percent && Double.valueOf(item.percent) > C && Double.valueOf(item.percent) < c2) {
-//                    max_price = Long.valueOf(item.price);
-//                    max_percent = Math.abs(C - Double.valueOf(item.percent));
-//                    index = item.id;
-//                }
-//            }
-//        }
-
-        s_priceRangeFragment.onWinnerChoosed(String.valueOf(max_price), index, String.valueOf(c2), String.valueOf(C));
+        s_priceRangeFragment.winnerSelection(String.valueOf(max_price), index, (int) c2, (int) C);
     }
 }

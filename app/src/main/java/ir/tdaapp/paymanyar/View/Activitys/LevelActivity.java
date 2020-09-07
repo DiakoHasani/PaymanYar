@@ -1,7 +1,10 @@
 package ir.tdaapp.paymanyar.View.Activitys;
 
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Window;
@@ -11,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import ir.tdaapp.paymanyar.Model.Enums.DisplaySize;
 import ir.tdaapp.paymanyar.Model.Services.S_LevelFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.DisplayPhone;
@@ -31,7 +35,8 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
     int backgroundSize = 0;
     DisplayMetrics displayMetrics;
     ImageView border_background;
-    RelativeLayout topLine,rightLine,bottomLine,leftLine;
+    RelativeLayout topLine, rightLine, bottomLine, leftLine;
+    ImageView center_level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
         rightLine = findViewById(R.id.rightLine);
         bottomLine = findViewById(R.id.bottomLine);
         leftLine = findViewById(R.id.leftLine);
+        center_level = findViewById(R.id.center_level);
     }
 
     void implement() {
@@ -136,6 +142,24 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
         return pixel;
     }
 
+    //اگر مقدار ورودی متد زیر ترو باشد یعنی حباب به مرکز تراز رسیده و رنگ بوردر تراز تغییر می کند
+    @Override
+    public void onCenterBubble(boolean isCenter) {
+        changeColorBorderLevel(isCenter);
+    }
+
+    //اگر مقدار ورودی متد زیر ترو باشد یعنی حباب به بالا یا پایین تراز رسیده و رنگ بوردر تراز تغییر می کند
+    @Override
+    public void on_Y_Bubble(boolean isY) {
+        changeColorBorderLevel(isY);
+    }
+
+    //اگر مقدار ورودی متد زیر ترو باشد یعنی حباب به راست یا چپ تراز رسیده و رنگ بوردر تراز تغییر می کند
+    @Override
+    public void on_X_Bubble(boolean isX) {
+        changeColorBorderLevel(isX);
+    }
+
     //در اینجا اندازه عرض صفحه نمایش برگشت داده می شود
     public int getWidthDisplay() {
         return displayMetrics.widthPixels;
@@ -144,5 +168,35 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
     //در اینجا اندازه طول صفحه نمایش برگشت داده می شود
     public int getHeightDisplay() {
         return displayMetrics.heightPixels;
+    }
+
+    //در اینجا رنگ بوردر تراز تغییر می کند
+    void changeColorBorderLevel(boolean isChange) {
+        if (isChange) {
+            if (center_level.getTag().equals("f")) {
+                new Handler().postDelayed(() -> {
+                    center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
+                    border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
+                    bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+
+                    center_level.setTag("t");
+                }, 150);
+            }
+        } else {
+            if (center_level.getTag().equals("t")) {
+
+                center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level));
+                border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background));
+                bottomLine.setBackgroundColor(getResources().getColor(R.color.colorTextLoading));
+                topLine.setBackgroundColor(getResources().getColor(R.color.colorTextLoading));
+                rightLine.setBackgroundColor(getResources().getColor(R.color.colorTextLoading));
+                leftLine.setBackgroundColor(getResources().getColor(R.color.colorTextLoading));
+
+                center_level.setTag("f");
+            }
+        }
     }
 }

@@ -78,9 +78,29 @@ public class BubbleLevel implements SensorEventListener {
 
         c = Math.sqrt(powX + powY);
 
+//        Log.e("ffgfgf", "x: " + x + " y: " + y + " c: " + c + " radius:" + radius);
+
         if (c <= radius) {
             s_levelFragment.onPositionBubble(x, y);
         }
+
+        //در اینجا چک می کند که حباب به وسط صفحه رسیده است یا خیر
+        if (x == xa && y == ya) {
+            s_levelFragment.onCenterBubble(true);
+        }
+        //در اینجا چک می کند که حباب به بالا یا پایین صفحه رسیده است یا خیر
+        else if (x == xa && c >= radius) {
+            s_levelFragment.on_Y_Bubble(true);
+        }
+        //در اینجا چک می کند که حباب به راست یا چپ صفحه رسیده است یا خیر
+        else if (y == ya && c >= radius) {
+            s_levelFragment.on_X_Bubble(true);
+        }
+        //اگر هیچکدام از شرط ها درست نباشد رنگ تراز به حالت عادی بر می گردد
+        else {
+            s_levelFragment.onCenterBubble(false);
+        }
+
     }
 
     @Override
