@@ -72,7 +72,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.MyViewHo
         });
 
         holder.layout.setOnClickListener(view -> {
-            onClickLibrary.clickItem(libraries.get(position).getId());
+            onClickLibrary.clickItem(libraries.get(position));
         });
 
         holder.share.setOnClickListener(view -> {

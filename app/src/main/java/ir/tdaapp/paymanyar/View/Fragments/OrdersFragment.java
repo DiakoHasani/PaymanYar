@@ -10,11 +10,13 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -43,21 +46,25 @@ import ir.tdaapp.paymanyar.Model.Adapters.OrdersAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.OrderKind;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.S_OrdersFragment;
+import ir.tdaapp.paymanyar.Model.Services.clickDeleteDialog;
 import ir.tdaapp.paymanyar.Model.Services.onClickFilterOrdersDialog;
 import ir.tdaapp.paymanyar.Model.Services.onClickOrders;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterOrder;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
 import ir.tdaapp.paymanyar.Presenter.P_OrdersFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.DeleteDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.FilterOrdersDialog;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+import static android.nfc.tech.MifareUltralight.get;
 
 //صفحه سفارشات
 public class OrdersFragment extends BaseFragment implements S_OrdersFragment, View.OnClickListener {
@@ -116,6 +123,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
         refresh = view.findViewById(R.id.refresh);
         btn_filter = view.findViewById(R.id.btn_filter);
         loading_DownloadFile = view.findViewById(R.id.loading_DownloadFile);
+
     }
 
     void implement() {
@@ -245,12 +253,12 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                             ((MainActivity) getActivity()).onAddFragment(auditFragment, R.anim.fadein, R.anim.short_fadeout, true, AuditFragment.TAG);
                             break;
                         case MetehVaBaravard:
-                            CostEstimationFragment costEstimationFragment=new CostEstimationFragment();
+                            CostEstimationFragment costEstimationFragment = new CostEstimationFragment();
                             costEstimationFragment.setArguments(bundle);
                             ((MainActivity) getActivity()).onAddFragment(costEstimationFragment, R.anim.fadein, R.anim.short_fadeout, true, CostEstimationFragment.TAG);
                             break;
                         case Teadil:
-                            DifferenceFragment differenceFragment=new DifferenceFragment();
+                            DifferenceFragment differenceFragment = new DifferenceFragment();
                             differenceFragment.setArguments(bundle);
                             ((MainActivity) getActivity()).onAddFragment(differenceFragment, R.anim.fadein, R.anim.short_fadeout, true, DifferenceFragment.TAG);
                             break;
@@ -316,6 +324,33 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                             break;
                     }
 
+                }
+
+                @Override
+                public void onClickMenu(int id, View btn) {
+
+                    PopupMenu popupMenu = new PopupMenu(getContext(), btn);
+                    popupMenu.getMenuInflater()
+                            .inflate(R.menu.order_item_menu, popupMenu.getMenu());
+
+                    popupMenu.setOnMenuItemClickListener(item -> {
+
+                        DeleteDialog deleteDialog=new DeleteDialog(new clickDeleteDialog() {
+                            @Override
+                            public void clickedYes() {
+                                p_ordersFragment.removeOrder(id);
+                            }
+
+                            @Override
+                            public void clickedNo() {
+
+                            }
+                        });
+                        deleteDialog.show(getFragmentManager(),DeleteDialog.TAG);
+                        return true;
+                    });
+
+                    popupMenu.show(); //showing popup menu
                 }
             });
 
@@ -483,6 +518,44 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
         } else {
             Toast.makeText(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * در اینجا نتیجه حذف سفارش گرفته می شود
+     **/
+    @Override
+    public void onResultRemoveOrder(VM_Message message, int orderId) {
+        if (message.isResult()) {
+            ordersAdapter.removeOrder(orderId);
+        } else {
+            Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * در نتیجه حذف مناقصه فراخوانی می شود
+     **/
+    @Override
+    public void onErrorRemoveOrder(ResaultCode result) {
+        String text = "";
+
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -38,6 +38,16 @@
                 android:paddingLeft="8dp"
                 android:gravity="center_vertical"/>
 
+            <ImageView
+                android:id="@+id/btn_MoreVert"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_more_vert"
+                android:clickable="true"
+                android:background="@drawable/more_vert_background_focus"/>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -76,11 +86,10 @@
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
                         android:layout_marginRight="8dp"
-                        android:text="----/--/--"
+                        android:text="--/--/----"
                         android:fontFamily="@font/vazir"
                         android:textColor="@color/colorPDF"
-                        android:layout_gravity="center_vertical"
-                        android:textDirection="ltr"/>
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
 

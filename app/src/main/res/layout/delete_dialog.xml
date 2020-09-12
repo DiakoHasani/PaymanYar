@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/vazir"
+            android:textSize="16dp"
+            android:textColor="@color/colorTitle"
+            android:paddingRight="24dp"
+            android:gravity="bottom"
+            android:text="@string/Do_you_want_to_delete"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="left">
+
+        <Button
+            android:id="@+id/btn_No"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:text="@string/no"
+            android:textSize="14dp"
+            android:fontFamily="@font/vazir"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/btn_Yes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:text="@string/yes"
+            android:textSize="14dp"
+            android:fontFamily="@font/vazir"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginRight="8dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

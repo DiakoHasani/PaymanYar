@@ -32,19 +32,19 @@ import ir.tdaapp.paymanyar.View.Dialogs.FilterWideDialog;
 //مربوط به صفحه نیم پهن
 public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWideFragment, View.OnClickListener {
 
-    public IPE_SemiWideFragment(int Eshtal_item){
-        this.Current_eshtal_id=Eshtal_item;
+    public IPE_SemiWideFragment(int Eshtal_item) {
+        this.Current_eshtal_id = Eshtal_item;
     }
 
     public final static String TAG = "IPE_SemiWideFragment";
 
     Toolbar toolBar;
     P_IPE_SemiWideFragment p_ipe_semiWideFragment;
-    public int Current_eshtal_id=0;
+    public int Current_eshtal_id = 0;
     ImageView imageView;
     ArrayList<VM_EshtalItem> columns;
     ArrayList<RelativeLayout> arrCols;
-    ArrayList<TextView> arrTitles,arrValues,arrUnits;
+    ArrayList<TextView> arrTitles, arrValues, arrUnits;
 
     @Nullable
     @Override
@@ -63,10 +63,10 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
     void findItem(View view) {
         toolBar = view.findViewById(R.id.mToolbar);
-        arrCols=new ArrayList<>();
-        arrTitles=new ArrayList<>();
-        arrUnits=new ArrayList<>();
-        arrValues=new ArrayList<>();
+        arrCols = new ArrayList<>();
+        arrTitles = new ArrayList<>();
+        arrUnits = new ArrayList<>();
+        arrValues = new ArrayList<>();
 
         arrCols.add(view.findViewById(R.id.ipe_btn_Item1));
         arrCols.add(view.findViewById(R.id.ipe_btn_Item2));
@@ -128,16 +128,16 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
         arrUnits.add(view.findViewById(R.id.ipe_unit13));
         arrUnits.add(view.findViewById(R.id.ipe_unit14));
 
-        imageView=view.findViewById(R.id.ipe_img);
+        imageView = view.findViewById(R.id.ipe_img);
     }
 
     void implement() {
-        p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this,String.valueOf(Current_eshtal_id));
+        p_ipe_semiWideFragment = new P_IPE_SemiWideFragment(getContext(), this, String.valueOf(Current_eshtal_id));
 
         //p_ipe_semiWideFragment.GetColumns();
 
         //Set Listener to Items
-        for(int i=0;i<arrCols.size();i++){
+        for (int i = 0; i < arrCols.size(); i++) {
             arrCols.get(i).setOnClickListener(this);
         }
     }
@@ -158,8 +158,36 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
 
+        String title = "";
+        switch (Current_eshtal_id) {
+            case 1:
+                title = getString(R.string.Rebar);
+                break;
+            case 2:
+                title = getString(R.string.P_Pipe);
+                break;
+            case 3:
+                title = getString(R.string.TheCan);
+                break;
+            case 4:
+                title = getString(R.string.L_Dont_Look);
+                break;
+            case 5:
+                title = getString(R.string.UNP_Gutters);
+                break;
+            case 6:
+                title = getString(R.string.IPB_Wide);
+                break;
+            case 7:
+                title = getString(R.string.INP_Narrow);
+                break;
+            case 8:
+                title = getString(R.string.IPE_Semi_wide);
+                break;
+        }
+
         toolBar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolBar.setTitle(getContext().getResources().getString(R.string.IPE_Semi_wide));
+        toolBar.setTitle(title);
         ((ToolsActivity) getActivity()).setSupportActionBar(toolBar);
         ((ToolsActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
@@ -178,11 +206,11 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
     public void SetItems(ArrayList<VM_EshtalItem> list) {
 
         //We Set Columns Here
-        columns=list;
+        columns = list;
         ShowColumns(columns.size());
 
         //Now Set Texts and Values
-        for(int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             arrValues.get(i).setText(list.get(i).getValue());
             arrUnits.get(i).setText(list.get(i).getUnit());
             arrTitles.get(i).setText(list.get(i).getTitle());
@@ -190,8 +218,8 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
 
     }
 
-    private void SetImage(){
-        switch (Current_eshtal_id){
+    private void SetImage() {
+        switch (Current_eshtal_id) {
             case 1:
                 imageView.setImageResource(R.drawable.ic_eshtal_teta);
                 break;
@@ -264,13 +292,13 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
         }
     }
 
-    void ShowColumns(int count){
+    void ShowColumns(int count) {
         //Set Visible Or Invisible Of Columns base on our Needs
-        for(int i=0;i<arrCols.size();i++){
+        for (int i = 0; i < arrCols.size(); i++) {
             arrCols.get(i).setVisibility(View.GONE);
         }
 
-        for(int i=0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             arrCols.get(i).setVisibility(View.VISIBLE);
         }
 
@@ -281,17 +309,17 @@ public class IPE_SemiWideFragment extends BaseFragment implements S_IPE_SemiWide
         new Thread(() -> {
 
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(FilterWideDialog.TAG);
+            Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(FilterWideDialog.TAG);
 
-                if (prev == null) {
-                    ft.addToBackStack(null);
-                    DialogFragment dialogFragment = new FilterWideDialog(columns.get(index - 1), String.valueOf(Current_eshtal_id), new FilterWideDialog.DialogListener() {
-                        @Override
-                        public void OnDialogClosed() {
-                            p_ipe_semiWideFragment.GetColumns();
-                        }
-                    });
-                    dialogFragment.show(ft, FilterWideDialog.TAG);
+            if (prev == null) {
+                ft.addToBackStack(null);
+                DialogFragment dialogFragment = new FilterWideDialog(columns.get(index - 1), String.valueOf(Current_eshtal_id), new FilterWideDialog.DialogListener() {
+                    @Override
+                    public void OnDialogClosed() {
+                        p_ipe_semiWideFragment.GetColumns();
+                    }
+                });
+                dialogFragment.show(ft, FilterWideDialog.TAG);
             }
 
         }).run();

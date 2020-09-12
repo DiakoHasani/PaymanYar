@@ -92,7 +92,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -124,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -155,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -187,7 +187,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -218,7 +218,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -283,7 +283,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -314,7 +314,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -346,7 +346,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -377,7 +377,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="14dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 
@@ -409,7 +409,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="12dp"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textColor="@color/colorTitle"
                             android:paddingRight="1dp"/>
 

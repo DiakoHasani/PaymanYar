@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.Model.Services;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterOrder;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
 
 public interface S_OrdersFragment {
@@ -21,4 +22,6 @@ public interface S_OrdersFragment {
     void onLoading_DownloadFile(boolean load);
     void onErrorDownloadFile(Throwable e);
     void onShowFile(String fileName);
+    void onResultRemoveOrder(VM_Message message,int orderId);
+    void onErrorRemoveOrder(ResaultCode result);
 }

@@ -26,6 +26,8 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -107,10 +109,11 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
     String doingTime = "";
     RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    CheckBox chk_jum, chk_pardis, chk_sahar, chk_No_system;
+    RadioButton chk_jum, chk_pardis, chk_sahar, chk_No_system,chk_its_necessary;
     LinearLayout No_system_registration;
     TextView lbl_No_system_registrationTitle;
     EditText txt_Audit_of_the_year;
+    RadioGroup radioGroup;
 
     //آیدی سفارش
     int id = 0;
@@ -155,6 +158,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
         chk_sahar.setOnClickListener(this);
         chk_pardis.setOnClickListener(this);
         chk_No_system.setOnClickListener(this);
+        chk_its_necessary.setOnClickListener(this);
 
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
@@ -199,9 +203,11 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
         chk_pardis = view.findViewById(R.id.chk_pardis);
         chk_sahar = view.findViewById(R.id.chk_sahar);
         chk_No_system = view.findViewById(R.id.chk_No_system);
+        chk_its_necessary = view.findViewById(R.id.chk_its_necessary);
         No_system_registration = view.findViewById(R.id.No_system_registration);
         lbl_No_system_registrationTitle = view.findViewById(R.id.lbl_No_system_registrationTitle);
         txt_Audit_of_the_year = view.findViewById(R.id.txt_Audit_of_the_year);
+        radioGroup = view.findViewById(R.id.radioGroup);
     }
 
     @Override
@@ -274,6 +280,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             case R.id.chk_sahar:
             case R.id.chk_pardis:
             case R.id.chk_No_system:
+            case R.id.chk_its_necessary:
                 No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment));
                 lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
                 break;
@@ -409,8 +416,11 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             //در اینجا سامانه سحر ست می شود
             input.setSaharSystem(chk_sahar.isChecked());
 
-            //در اینجا نیاز به ثبت سامانه ای نیست ست می شود
+            //در اینجا لازم نیست ست می شود
             input.setNoSystem(chk_No_system.isChecked());
+
+            //در اینجا لازم است ست می شود
+            input.setIts_necessary(chk_its_necessary.isChecked());
 
             //در اینجا آدرس فایل ها ست می شود
             for (int i = 0; i < fileUrls.size(); i++) {
@@ -464,13 +474,17 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
+        }else {
+            if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
+                valid = false;
+            }
         }
 
         if (!Validation.Required(txt_ContractorName, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
         }
 
-        if (!chk_No_system.isChecked() && !chk_sahar.isChecked()) {
+        if (!chk_No_system.isChecked() && !chk_its_necessary.isChecked()) {
             valid = false;
             No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment_red));
             lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorError));
@@ -699,8 +713,11 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
             //در اینجا ثبت در سامانه پردیس گرفته می شود
             chk_pardis.setChecked(analiseInfo.isPardisSystem());
 
-            //در اینجا نیاز به سمت در سامانه نیست گرفته می شود
+            //در اینجا لازم نیست گرفته می شود
             chk_No_system.setChecked(analiseInfo.isNoSystem());
+
+            //در اینجا لازم نیست گرفته می شود
+            chk_its_necessary.setChecked(analiseInfo.isIts_necessary());
 
             //در اینجا فایل ها ست می شوند
             if (analiseInfo.getFileUrls() != null) {
@@ -949,11 +966,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
                 case "system_registration":
                     No_system_registration.setBackground(getResources().getDrawable(R.drawable.border_field_semi_wide_fragment));
                     lbl_No_system_registrationTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
-
-                    chk_No_system.setChecked(false);
-                    chk_pardis.setChecked(false);
-                    chk_sahar.setChecked(false);
-                    chk_jum.setChecked(false);
+                    radioGroup.clearCheck();
                     break;
                 case "txt_Audit_of_the_year":
                     txt_Audit_of_the_year.setError(null);

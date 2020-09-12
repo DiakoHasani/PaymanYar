@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.li_volley.Volleys.DeleteJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
@@ -47,6 +48,7 @@ public class Api_Tender extends Base_Api {
     PostJsonArrayVolley volley_getFavorites;
     PostJsonObject_And_GetJsonArrayVolley volley_getOrders;
     GetJsonObjectVolley volley_getOrderAnaliseInfo;
+    DeleteJsonObjectVolley volley_deleteOrder;
     boolean workingDownloadFile = true;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
@@ -579,6 +581,7 @@ public class Api_Tender extends Base_Api {
                         obj.put("RecordPardis", input.isPardisSystem());
                         obj.put("RecordSahar", input.isSaharSystem());
                         obj.put("NoRecord", input.isNoSystem());
+                        obj.put("Record", input.isIts_necessary());
                     } catch (Exception e) {
                     }
 
@@ -916,17 +919,20 @@ public class Api_Tender extends Base_Api {
                                 if (!object.getString("FileUrlOrder").equalsIgnoreCase("null"))
                                     analiseInfo.setFileName(object.getString("FileUrlOrder"));
 
-                                if (!object.getString("RecordJame").equalsIgnoreCase("null"))
-                                    analiseInfo.setJumSystem(object.getBoolean("RecordJame"));
-
-                                if (!object.getString("RecordPardis").equalsIgnoreCase("null"))
-                                    analiseInfo.setPardisSystem(object.getBoolean("RecordPardis"));
+//                                if (!object.getString("RecordJame").equalsIgnoreCase("null"))
+//                                    analiseInfo.setJumSystem(object.getBoolean("RecordJame"));
+//
+//                                if (!object.getString("RecordPardis").equalsIgnoreCase("null"))
+//                                    analiseInfo.setPardisSystem(object.getBoolean("RecordPardis"));
 
                                 if (!object.getString("NoRecord").equalsIgnoreCase("null"))
                                     analiseInfo.setNoSystem(object.getBoolean("NoRecord"));
 
-                                if (!object.getString("RecordSahar").equalsIgnoreCase("null"))
-                                    analiseInfo.setSaharSystem(object.getBoolean("RecordSahar"));
+                                if (!object.getString("Record").equalsIgnoreCase("null"))
+                                    analiseInfo.setIts_necessary(object.getBoolean("Record"));
+
+//                                if (!object.getString("RecordSahar").equalsIgnoreCase("null"))
+//                                    analiseInfo.setSaharSystem(object.getBoolean("RecordSahar"));
 
                                 if (!object.getString("DetailedSchedule").equalsIgnoreCase("null"))
                                     analiseInfo.setDetailedSchedule(object.getBoolean("DetailedSchedule"));
@@ -1083,6 +1089,33 @@ public class Api_Tender extends Base_Api {
         });
     }
 
+    /**
+     * در اینجا سفارش حذف می شود
+     **/
+    public Single<VM_Message> deleteOrder(int id) {
+        return Single.create(emitter -> {
+            new Thread(()->{
+                volley_deleteOrder = new DeleteJsonObjectVolley(ApiUrl + "Order/DeleteOrder?Id=" + id, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        JSONObject object = resault.getObject();
+                        VM_Message message = new VM_Message();
+                        try {
+                            message.setCode(object.getInt("Code"));
+                            message.setResult(object.getBoolean("Result"));
+                            message.setMessage(object.getString("MessageText"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        emitter.onSuccess(message);
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
     public void Cancel(String Tag, Context context) {
 
         isUploadedFile = false;
@@ -1135,6 +1168,10 @@ public class Api_Tender extends Base_Api {
 
         if (volley_postOrderDifference != null) {
             volley_postOrderDifference.Cancel(Tag, context);
+        }
+
+        if (volley_deleteOrder != null) {
+            volley_deleteOrder.Cancel(Tag, context);
         }
 
     }

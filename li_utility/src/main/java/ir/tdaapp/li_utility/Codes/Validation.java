@@ -132,4 +132,18 @@ public class Validation {
 
         return true;
     }
+
+    /**
+     * در اینجا ولیدیشن شماره موبایل چک می شود
+     **/
+    public static boolean ValidPhoneNumber(EditText txt, String message) {
+
+        String check = txt.getText().toString();
+        if (!check.matches("(\\+98|0)?9\\d{9}")) {
+            txt.setError(message);
+            return false;
+        }
+
+        return true;
+    }
 }

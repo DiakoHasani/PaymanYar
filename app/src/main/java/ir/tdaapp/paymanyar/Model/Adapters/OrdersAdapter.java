@@ -44,6 +44,24 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         notifyItemInserted(vals.size());
     }
 
+    /**
+     * در اینجا یک سفارش حذف می شود
+     * **/
+    public void removeOrder(int id) {
+        int pos = -1;
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId() == id) {
+                pos = i;
+                break;
+            }
+        }
+        if (pos != -1) {
+            notifyItemRemoved(pos);
+            vals.remove(pos);
+            notifyItemRangeChanged(pos, vals.size());
+        }
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,7 +75,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         holder.lbl_Title.setText(vals.get(position).getTitle());
 
         if (vals.get(position).getDate().equalsIgnoreCase("")) {
-            holder.lbl_Date.setText("----/--/--");
+            holder.lbl_Date.setText("--/--/----");
         } else {
             holder.lbl_Date.setText(vals.get(position).getDate());
         }
@@ -72,13 +90,19 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
         holder.layout.setOnClickListener(view -> {
             if (clickOrders != null) {
-                clickOrders.onClickItem(vals.get(position).getId(),vals.get(position).getOrderKind());
+                clickOrders.onClickItem(vals.get(position).getId(), vals.get(position).getOrderKind());
             }
         });
 
         holder.btn_Item.setOnClickListener(view -> {
             if (clickOrders != null) {
                 clickOrders.onClickButton(vals.get(position));
+            }
+        });
+
+        holder.btn_MoreVert.setOnClickListener(view -> {
+            if (clickOrders != null) {
+                clickOrders.onClickMenu(vals.get(position).getId(), holder.btn_MoreVert);
             }
         });
     }
@@ -93,7 +117,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         TextView lbl_Title, lbl_Date, lbl_Pay, lbl_Button;
         View step1, step2, step3, step4, step5, step6, step7;
         RelativeLayout btn_Item;
-        ImageView icon_button;
+        ImageView icon_button, btn_MoreVert;
         CardView layout;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -117,6 +141,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             lbl_Button = view.findViewById(R.id.lbl_Button);
             icon_button = view.findViewById(R.id.icon_button);
             layout = view.findViewById(R.id.layout);
+            btn_MoreVert = view.findViewById(R.id.btn_MoreVert);
         }
 
         //در اینجا عملیات مربوط به استپ بندی و آیکون دکمه آیتم ها انجام می شود

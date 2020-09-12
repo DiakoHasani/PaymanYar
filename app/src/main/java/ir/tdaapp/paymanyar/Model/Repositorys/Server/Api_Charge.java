@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
@@ -46,8 +47,8 @@ public class Api_Charge extends Base_Api {
                                 try {
 
                                     charge.setId(array.getJSONObject(i).getInt("Id"));
-                                    charge.setTitle(array.getJSONObject(i).getString("Title"));
-                                    charge.setSubTitle(array.getJSONObject(i).getString("Details"));
+                                    charge.setTitle(Replace.Number_en_To_fa(array.getJSONObject(i).getString("Title")));
+                                    charge.setSubTitle(Replace.Number_en_To_fa(array.getJSONObject(i).getString("Details")));
                                     charge.setSpecial(array.getJSONObject(i).getBoolean("IsSpecial"));
                                     charge.setTotalHour(array.getJSONObject(i).getInt("TotalHour"));
 

@@ -396,6 +396,10 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
+        }else {
+            if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
+                valid = false;
+            }
         }
 
         if (!Validation.Required(txt_Suggested, getString(R.string.ThisValueMust_be_Filled))) {
@@ -411,10 +415,6 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
         }
 
         if (!Validation.Required(txt_Equipping_the_ingot_workshop, getString(R.string.ThisValueMust_be_Filled))) {
-            valid = false;
-        }
-
-        if (!Validation.Required(txt_Timely, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
         }
 

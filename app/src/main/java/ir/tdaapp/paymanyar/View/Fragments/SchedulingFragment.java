@@ -125,7 +125,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     //اگر مقدار زیر ترو باشد یعنی کاربر به صفحه پرداخت رفته است
     boolean isPayment = false;
 
-    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     GetByCamera getByCamera;
     GetByGalery getByGalery;
     CompressImage compressImage;
@@ -478,6 +478,10 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
+        } else {
+            if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
+                valid = false;
+            }
         }
 
         if (!Validation.Required(txt_Delivery_time, getString(R.string.ThisValueMust_be_Filled))) {
@@ -700,7 +704,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
             }
 
             if (analiseInfo.getAmountPayable() != null) {
-                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null")&&!analiseInfo.getAmountPayable().equalsIgnoreCase(""))
+                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null") && !analiseInfo.getAmountPayable().equalsIgnoreCase(""))
                     lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.Toman));
             }
 

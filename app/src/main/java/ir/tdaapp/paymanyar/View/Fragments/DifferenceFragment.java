@@ -77,7 +77,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-//صفحه مابه التفاوت
+//صفحه تعدیل
 public class DifferenceFragment extends BaseFragment implements S_DifferenceFragment, View.OnClickListener {
 
     public final static String TAG = "DifferenceFragment";
@@ -393,6 +393,10 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
+        } else {
+            if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
+                valid = false;
+            }
         }
 
         if (!Validation.Required(txt_Month_allowed, getString(R.string.ThisValueMust_be_Filled))) {
@@ -761,7 +765,7 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setTitle(getContext().getResources().getString(R.string.Difference2));
+        toolbar.setTitle(getContext().getResources().getString(R.string.Adjustment_and_Difference));
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);

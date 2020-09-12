@@ -1,5 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Services;
 
+import android.view.View;
+
 import ir.tdaapp.paymanyar.Model.Enums.OrderKind;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
@@ -8,4 +10,5 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
 public interface onClickOrders {
     void onClickItem(int id, OrderKind orderKind);
     void onClickButton(VM_Orders order);
+    void onClickMenu(int id, View btn);
 }

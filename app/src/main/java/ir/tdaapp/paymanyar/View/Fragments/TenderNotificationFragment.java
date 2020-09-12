@@ -31,6 +31,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.TenderNotificationAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
@@ -237,7 +238,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
             filter.setIncludesTheWord(txt_IncludesTheWord.getText().toString());
 
             //در اینجا از تاریخ ست می شود
-            filter.setDate(txt_Date.getText().toString());
+            filter.setDate(Replace.Number_fn_To_en(txt_Date.getText().toString()));
 
             //در اینجا برآورد از ست می شود
             if (cmb_FromEstimate.getSelectedItem() != null) {

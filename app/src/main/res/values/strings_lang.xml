@@ -16,6 +16,7 @@
     <string name="YouHaveNotSMS">شما هیچ پیامی ندارید</string>
     <string name="YouHaveNotOrder">شما هیچ سفارشی ندارید</string>
     <string name="ThisValueMust_be_Filled">این مقدار باید پر شود</string>
+    <string name="phoneNumberIsNotValid">شماره موبایل ولید نیست</string>
     <string name="A_new_version_of_the_app_is_availableDo_you_want_to_update">نسخه جدید برنامه در دسترس است. آیا مایل به بروز رسانی هستید؟</string>
     <string name="Create_an_account_first">ابتدا یک حساب کاربری ایجاد کنید</string>
     <string name="There_are_no_tenders_for_you">هیچ مناقصه ای برای شما وجود ندارد</string>
@@ -40,10 +41,12 @@
     <string name="addedDescription">توضیحات را وارد کنید</string>
     <string name="Please_enter_full_values">لطفا مقادیر را کامل وارد نمایید</string>
     <string name="Registration_in_the_system">ثبت در سامانه</string>
-    <string name="No_system_registration_required">بدون نیاز به سمت سامانه ای</string>
+    <string name="No_system_registration_required">لازم نیست</string>
+    <string name="system_registration_required">لازم است</string>
     <string name="choseOneItem">یک از گزینه های زیر را انتخاب کنید</string>
     <string name="Download_the_PDF_first">ابتدا پی دی اف را دانلود کنید</string>
-    <string name="The_maximum_percentage_should_be_999">حداکثر درصد باید 999 باشد</string>
+    <string name="The_maximum_percentage_should_be_999">حداکثر درصد باید 350 باشد</string>
+    <string name="Do_you_want_to_delete">آیا مایل به حذف هستید؟</string>
 
 
     <string name="helpPrecentAnalizeTenderText">

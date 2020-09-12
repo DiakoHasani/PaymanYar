@@ -19,7 +19,7 @@ public class P_ChargeFragment {
     Context context;
     S_ChargeFragment s_chargeFragment;
     Api_Charge api_charge;
-    Disposable dispose_getCharges, dispose_setCharges,dispose_getInventoryUser;
+    Disposable dispose_getCharges, dispose_setCharges, dispose_getInventoryUser;
 
     public P_ChargeFragment(Context context, S_ChargeFragment s_chargeFragment) {
         this.context = context;
@@ -57,12 +57,12 @@ public class P_ChargeFragment {
     }
 
     //در اینجا موجودی کاربر گرفته می شود
-    void getInventoryUser(){
+    void getInventoryUser() {
 
         s_chargeFragment.onLoadingInventory(true);
-        Single<Integer> data=api_charge.getInventory(((MainActivity)context).getTbl_user().getUserId(context));
+        Single<Integer> data = api_charge.getInventory(((MainActivity) context).getTbl_user().getUserId(context));
 
-        dispose_getInventoryUser=data.subscribeWith(new DisposableSingleObserver<Integer>() {
+        dispose_getInventoryUser = data.subscribeWith(new DisposableSingleObserver<Integer>() {
             @Override
             public void onSuccess(Integer integer) {
                 s_chargeFragment.onLoadingInventory(false);

@@ -59,7 +59,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
 
         if (charges.get(position).isSpecial()) {
             holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_special_charge_store));
-            holder.anim.startShimmerAnimation();
+//            holder.anim.startShimmerAnimation();
 
             holder.specialLayout.setVisibility(View.VISIBLE);
 
@@ -75,14 +75,14 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
                     holder.dayLayout.setVisibility(View.GONE);
                 }
 
-                if (hour>0){
+                if (hour > 0) {
                     holder.hourLayout.setVisibility(View.VISIBLE);
                     holder.lbl_Hour.setText(String.valueOf(hour));
-                }else{
+                } else {
                     holder.hourLayout.setVisibility(View.GONE);
                 }
 
-            }else{
+            } else {
                 holder.dayLayout.setVisibility(View.GONE);
                 holder.hourLayout.setVisibility(View.GONE);
                 holder.lbl_LessThanAnHour.setVisibility(View.VISIBLE);
@@ -90,13 +90,13 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
 
         } else {
             holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_charge_store));
-            holder.anim.stopShimmerAnimation();
+//            holder.anim.stopShimmerAnimation();
 
             holder.specialLayout.setVisibility(View.GONE);
         }
 
         holder.layout.setOnClickListener(view -> {
-            if (onClickChargeItem!=null){
+            if (onClickChargeItem != null) {
                 onClickChargeItem.onClick(charges.get(position));
             }
         });
@@ -111,7 +111,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         CardView layout;
-        TextView lbl_Title, lbl_SubTitle, lbl_Day, lbl_Hour,lbl_LessThanAnHour;
+        TextView lbl_Title, lbl_SubTitle, lbl_Day, lbl_Hour, lbl_LessThanAnHour;
         ImageView img;
         ShimmerFrameLayout anim;
         LinearLayout specialLayout, hourLayout, dayLayout;

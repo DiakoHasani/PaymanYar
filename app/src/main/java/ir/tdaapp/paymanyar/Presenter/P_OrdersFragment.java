@@ -13,6 +13,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_OrdersFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
@@ -20,7 +21,7 @@ public class P_OrdersFragment {
     Context context;
     Api_Tender api_tender;
     S_OrdersFragment s_ordersFragment;
-    Disposable dispose_getOrders, dispose_setOrders, dispose_downloadFile;
+    Disposable dispose_getOrders, dispose_setOrders, dispose_downloadFile, dispose_removeOrder;
 
     public P_OrdersFragment(Context context, S_OrdersFragment s_ordersFragment) {
         this.context = context;
@@ -29,9 +30,7 @@ public class P_OrdersFragment {
     }
 
     public void start(int page) {
-
         s_ordersFragment.OnStart();
-
         getOrders(page);
     }
 
@@ -131,6 +130,27 @@ public class P_OrdersFragment {
 
     }
 
+    /**
+     * در اینجا یک سفارش حذف می شود
+     **/
+    public void removeOrder(int id) {
+        s_ordersFragment.onLoading_DownloadFile(true);
+        Single<VM_Message> val = api_tender.deleteOrder(id);
+        dispose_removeOrder = val.subscribeWith(new DisposableSingleObserver<VM_Message>() {
+            @Override
+            public void onSuccess(VM_Message message) {
+                s_ordersFragment.onLoading_DownloadFile(false);
+                s_ordersFragment.onResultRemoveOrder(message, id);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_ordersFragment.onLoading_DownloadFile(false);
+                s_ordersFragment.onErrorRemoveOrder(Error.GetErrorVolley(e.toString()));
+            }
+        });
+    }
+
     public void cancel(String tag) {
         api_tender.Cancel(tag, context);
 
@@ -144,6 +164,10 @@ public class P_OrdersFragment {
 
         if (dispose_downloadFile != null) {
             dispose_downloadFile.dispose();
+        }
+
+        if (dispose_removeOrder != null) {
+            dispose_removeOrder.dispose();
         }
     }
 }

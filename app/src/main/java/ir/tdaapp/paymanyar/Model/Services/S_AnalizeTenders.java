@@ -1,5 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Services;
 
+import android.widget.EditText;
+
 import java.io.File;
 import java.util.List;
 

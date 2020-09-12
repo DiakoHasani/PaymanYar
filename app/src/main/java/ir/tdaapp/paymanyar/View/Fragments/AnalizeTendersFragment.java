@@ -438,6 +438,10 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
+        } else {
+            if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
+                valid = false;
+            }
         }
 
         return valid;

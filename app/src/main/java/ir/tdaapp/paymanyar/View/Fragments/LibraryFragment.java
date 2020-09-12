@@ -244,13 +244,28 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
             }
 
             @Override
-            public void clickItem(int id) {
+            public void clickItem(VM_Library library) {
+
+                Dexter.withActivity(getActivity()).withPermissions(Permissions).withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        String fileName = library.getBookName().substring(11);
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                        if (file.exists()) {
+                            onShowPDF(fileName);
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                    }
+                }).check();
+
             }
 
             @Override
             public void clickShare(VM_Library library) {
-//                String a = getString(R.string.directedByPaymanyar) + "\n\n" + getString(R.string.Title) + ": " + title + "\n\n" + getString(R.string.see) + " " + url;
-//                openUrl.getApplicationsText(getString(R.string.PaymanYar), a, getContext());
                 p_libraryFragment.sharePDF(library);
             }
         });

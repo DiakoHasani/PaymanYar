@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator;
 import ir.tdaapp.paymanyar.Model.Enums.DisplaySize;
 import ir.tdaapp.paymanyar.Model.Services.S_LevelFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.DisplayPhone;
@@ -125,7 +126,11 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
 
     @Override
     public void onPositionBubble(int x, int y) {
-        img_bubble.animate().x((ActivityWidth - x) - xBubble).y(y - yBubble).setDuration(140);
+
+        AdditiveAnimator.animate(img_bubble).setDuration(600)
+                .x((ActivityWidth - x) - xBubble)
+                .y(y - yBubble)
+                .start();
     }
 
     @Override
@@ -183,7 +188,7 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
                     leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
 
                     center_level.setTag("t");
-                }, 150);
+                }, 350);
             }
         } else {
             if (center_level.getTag().equals("t")) {

@@ -72,6 +72,9 @@ public class VM_AnaliseInfo {
     //نیاز به ثبت سامانه نیست در بخش حسابرسی
     boolean noSystem;
 
+    //لازم است در بخش حسابرسی
+    boolean its_necessary;
+
     //حسابرسی سال در بخش حسابرسی
     String audit_of_the_year;
 
@@ -282,6 +285,14 @@ public class VM_AnaliseInfo {
 
     public void setNoSystem(boolean noSystem) {
         this.noSystem = noSystem;
+    }
+
+    public boolean isIts_necessary() {
+        return its_necessary;
+    }
+
+    public void setIts_necessary(boolean its_necessary) {
+        this.its_necessary = its_necessary;
     }
 
     public String getAudit_of_the_year() {

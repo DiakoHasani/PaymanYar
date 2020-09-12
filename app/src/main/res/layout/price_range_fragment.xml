@@ -62,7 +62,7 @@
                                     android:id="@+id/txt_Price"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:textColor="@color/colorTitle"
                                     android:hint="@string/AmountToToman"
@@ -109,7 +109,7 @@
                                     android:id="@+id/txt_Number_of_People"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:textColor="@color/colorTitle"
                                     android:hint="@string/Number_of_People"
@@ -176,7 +176,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -197,7 +197,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -240,7 +240,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -261,7 +261,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -304,7 +304,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -325,7 +325,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -368,7 +368,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -389,7 +389,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -432,7 +432,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -453,7 +453,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -496,7 +496,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -517,7 +517,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -560,7 +560,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -581,7 +581,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -624,7 +624,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -645,7 +645,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -688,7 +688,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -709,7 +709,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -752,7 +752,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -773,7 +773,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -816,7 +816,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -837,7 +837,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -880,7 +880,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/AmountToToman"
                                     android:gravity="center"
@@ -901,7 +901,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="14dp"
                                     android:hint="@string/Percentage"
                                     android:maxLength="6"
@@ -980,7 +980,7 @@
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:fontFamily="@font/vazir"
+                            android:fontFamily="@font/iran_sans"
                             android:textSize="14dp"
                             android:hint="@string/AmountToToman"
                             android:gravity="center"
@@ -1058,7 +1058,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/vazir"
+                                        android:fontFamily="@font/iran_sans"
                                         android:textSize="14dp"
                                         android:text="---"
                                         android:id="@+id/pricerange_winnerprice"
@@ -1089,7 +1089,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/vazir"
+                                        android:fontFamily="@font/iran_sans"
                                         android:textSize="14dp"
                                         android:text="---"
                                         android:id="@+id/pricerange_winnerNumber"
@@ -1157,7 +1157,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/vazir"
+                                        android:fontFamily="@font/iran_sans"
                                         android:textSize="14dp"
                                         android:text="---"
                                         android:id="@+id/lbl_upper_line"
@@ -1187,7 +1187,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/vazir"
+                                        android:fontFamily="@font/iran_sans"
                                         android:textSize="14dp"
                                         android:text="---"
                                         android:id="@+id/Low_limit"
@@ -1218,7 +1218,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/vazir"
+                                        android:fontFamily="@font/iran_sans"
                                         android:textSize="14dp"
                                         android:text="---"
                                         android:id="@+id/lbl_outOfRange"
@@ -1288,7 +1288,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="350"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1314,7 +1315,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="340"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1340,7 +1342,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="330"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1366,7 +1369,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="320"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1392,7 +1396,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="310"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1418,7 +1423,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="300"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1444,7 +1450,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="290"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1470,7 +1477,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="280"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1496,7 +1504,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="270"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1522,7 +1531,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="260"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1548,7 +1558,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="250"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1574,7 +1585,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="240"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1600,7 +1612,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="230"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1626,7 +1639,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="220"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1652,7 +1666,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="210"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1678,7 +1693,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="200"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1704,7 +1720,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="190"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1730,7 +1747,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="180"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1756,7 +1774,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="170"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1782,7 +1801,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="160"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1808,7 +1828,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="150"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1834,7 +1855,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="140"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1860,7 +1882,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="130"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1886,7 +1909,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="120"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1912,7 +1936,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="110"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1938,7 +1963,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="100"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1964,7 +1990,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="90"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -1990,7 +2017,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="80"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2016,7 +2044,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="70"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2042,7 +2071,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="60"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2068,7 +2098,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="50"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2094,7 +2125,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="40"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2120,7 +2152,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="30"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2146,7 +2179,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="20"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2172,7 +2206,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="10"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2198,7 +2233,8 @@
                                             android:textColor="@color/colorTitle"
                                             android:text="0"
                                             android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"/>
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
 
                                         <View
                                             android:layout_width="8dp"
@@ -2259,7 +2295,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="1"/>
@@ -2304,7 +2340,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="2"/>
@@ -2349,7 +2385,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="3"/>
@@ -2394,7 +2430,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="4"/>
@@ -2439,7 +2475,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="5"/>
@@ -2484,7 +2520,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="6"/>
@@ -2529,7 +2565,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="7"/>
@@ -2574,7 +2610,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="8"/>
@@ -2619,7 +2655,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="9"/>
@@ -2664,7 +2700,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="10"/>
@@ -2709,7 +2745,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="11"/>
@@ -2754,7 +2790,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginRight="5dp"
-                                                android:fontFamily="@font/vazir"
+                                                android:fontFamily="@font/iran_sans"
                                                 android:textSize="10dp"
                                                 android:textColor="@color/colorBlack"
                                                 android:text="12"/>
@@ -2786,871 +2822,6 @@
                         </androidx.cardview.widget.CardView>
 
                     </RelativeLayout>
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="12dp"-->
-<!--                        android:orientation="horizontal">-->
-
-
-<!--                        <androidx.cardview.widget.CardView-->
-<!--                            android:id="@+id/chart"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="260dp"-->
-<!--                            android:layout_marginLeft="8dp"-->
-<!--                            android:layout_marginTop="2dp"-->
-<!--                            android:layout_marginBottom="2dp"-->
-<!--                            android:layout_marginRight="8dp"-->
-<!--                            app:cardElevation="4dp">-->
-
-<!--                            <RelativeLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="match_parent">-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/chartNumbers"-->
-<!--                                    android:layout_width="35dp"-->
-<!--                                    android:layout_height="240dp"-->
-<!--                                    android:layout_centerVertical="true">-->
-
-<!--                                    <RelativeLayout-->
-<!--                                        android:id="@+id/line"-->
-<!--                                        android:layout_width="1dp"-->
-<!--                                        android:layout_height="220dp"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentLeft="true"-->
-<!--                                        android:layout_centerVertical="true"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view0"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="10dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl0"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="0"-->
-<!--                                        android:layout_marginBottom="4dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view1"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="30dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl1"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="20"-->
-<!--                                        android:layout_marginBottom="24dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view2"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="50dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl2"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="40"-->
-<!--                                        android:layout_marginBottom="44dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view3"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="70dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl3"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="60"-->
-<!--                                        android:layout_marginBottom="64dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view4"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="90dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl4"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="80"-->
-<!--                                        android:layout_marginBottom="84dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view5"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="110dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl5"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="100"-->
-<!--                                        android:layout_marginBottom="104dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view6"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="130dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl6"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="120"-->
-<!--                                        android:layout_marginBottom="124dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view7"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="150dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl7"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="140"-->
-<!--                                        android:layout_marginBottom="144dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view8"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="170dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl8"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="160"-->
-<!--                                        android:layout_marginBottom="164dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view9"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="190dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl9"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="180"-->
-<!--                                        android:layout_marginBottom="184dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view10"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="210dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl10"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="200"-->
-<!--                                        android:layout_marginBottom="204dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                    <View-->
-<!--                                        android:id="@+id/chart_view11"-->
-<!--                                        android:layout_width="8dp"-->
-<!--                                        android:layout_height="1dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:background="@color/colorGray"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:layout_marginBottom="229dp"/>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/chart_lbl11"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_alignParentBottom="true"-->
-<!--                                        android:textSize="8dp"-->
-<!--                                        android:textColor="@color/colorTitle"-->
-<!--                                        android:text="220"-->
-<!--                                        android:layout_marginBottom="224dp"-->
-<!--                                        android:layout_toRightOf="@id/line"-->
-<!--                                        android:layout_marginLeft="12dp"-->
-<!--                                        android:fontFamily="@font/vazir"/>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint1"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="40dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint1"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="1"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint2"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="60dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint2"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="2"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint3"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="80dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint3"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="3"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint4"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="100dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint4"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="4"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint5"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="120dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint5"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="5"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint6"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="140dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint6"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="6"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint7"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="160dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint7"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="7"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint8"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="180dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint8"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="8"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint9"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="200dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint9"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="9"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint10"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="220dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint10"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="10"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint11"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="280dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint11"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="11"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:id="@+id/pricerange_chartpoint12"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginBottom="0dp"-->
-<!--                                    android:layout_marginRight="325dp">-->
-
-<!--                                    <LinearLayout-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:orientation="horizontal">-->
-
-<!--                                        <RelativeLayout-->
-<!--                                            android:layout_width="6dp"-->
-<!--                                            android:layout_height="6dp"-->
-<!--                                            android:layout_marginBottom="4dp"-->
-<!--                                            android:layout_gravity="bottom">-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart2" />-->
-
-<!--                                            <RelativeLayout-->
-<!--                                                android:id="@+id/circle_pricerange_chartpoint12"-->
-<!--                                                android:layout_width="match_parent"-->
-<!--                                                android:layout_height="match_parent"-->
-<!--                                                android:background="@drawable/circle_chart" />-->
-
-<!--                                        </RelativeLayout>-->
-
-<!--                                        <TextView-->
-<!--                                            android:layout_width="wrap_content"-->
-<!--                                            android:layout_height="wrap_content"-->
-<!--                                            android:layout_marginRight="5dp"-->
-<!--                                            android:fontFamily="@font/vazir"-->
-<!--                                            android:textSize="10dp"-->
-<!--                                            android:textColor="@color/colorBlack"-->
-<!--                                            android:text="12"/>-->
-
-<!--                                    </LinearLayout>-->
-
-<!--                                </RelativeLayout>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="1dp"-->
-<!--                                    android:id="@+id/pricerange_chartUpLine"-->
-<!--                                    android:background="@color/colorPrimary"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginRight="35dp"-->
-<!--                                    android:layout_marginBottom="0dp"/>-->
-
-<!--                                <RelativeLayout-->
-<!--                                    android:layout_width="match_parent"-->
-<!--                                    android:layout_height="1dp"-->
-<!--                                    android:id="@+id/pricerange_chartDownLine"-->
-<!--                                    android:background="@color/colorYellow"-->
-<!--                                    android:layout_alignParentBottom="true"-->
-<!--                                    android:layout_marginRight="35dp"-->
-<!--                                    android:layout_marginBottom="0dp"/>-->
-
-<!--                            </RelativeLayout>-->
-
-<!--                        </androidx.cardview.widget.CardView>-->
-
-<!--                    </LinearLayout>-->
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_Home"

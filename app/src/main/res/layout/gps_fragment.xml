@@ -70,7 +70,8 @@
                         android:id="@+id/gps_lon"
                         android:textColor="@color/colorBlack"
                         android:maxLines="1"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp"
+                        android:fontFamily="@font/iran_sans"/>
 
                 </LinearLayout>
 
@@ -100,7 +101,7 @@
                         android:textColor="@color/colorGray"
                         android:text="@string/Length"
                         android:gravity="center"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginRight="5dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -109,7 +110,8 @@
                         android:textColor="@color/colorBlack"
                         android:maxLines="1"
                         android:id="@+id/gps_lat"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp"
+                        android:fontFamily="@font/iran_sans"/>
 
                 </LinearLayout>
 
