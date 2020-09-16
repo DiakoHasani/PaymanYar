@@ -14,7 +14,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
 public class Api_NewsPaper extends Base_Api {
 
     //در اینجا لیست روزنامه ها پاس داده می شود
-    public Single<List<VM_NewsPaper>> getNews() {
+    public Single<List<VM_NewsPaper>> getNews(Context context) {
         return Single.create(emitter -> {
 
             new Thread(() -> {
@@ -22,7 +22,7 @@ public class Api_NewsPaper extends Base_Api {
                 try {
 
                     HandleXML obj;
-                    obj = new HandleXML("https://www.pishkhan.com/pishkhaan.xml", new S_HandleXML() {
+                    obj = new HandleXML(context,"https://www.pishkhan.com/pishkhaan.xml", new S_HandleXML() {
                         @Override
                         public void onSuccess(List<VM_NewsPaper> newsPapers) {
                             emitter.onSuccess(newsPapers);

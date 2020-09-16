@@ -11,7 +11,7 @@ public class ProjectDirectory {
     public static String createDirectory(String directoryName) {
 
         if (!existsDirectory(directoryName)) {
-            File directory = new File(Environment.getExternalStorageDirectory() + "/" + directoryName);
+            File directory= new File(Environment.getExternalStorageDirectory(),directoryName);
             directory.mkdir();
         }
 

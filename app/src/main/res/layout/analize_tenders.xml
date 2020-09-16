@@ -703,9 +703,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
-                                android:textSize="12dp"
+                                android:gravity="center"
                                 android:textColor="@color/colorError"
-                                android:gravity="center"/>
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 
@@ -772,6 +772,7 @@
                             </RelativeLayout>
 
                             <TextView
+                                android:id="@+id/lbl_doing"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
@@ -924,7 +925,7 @@
 
 
                         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                           android:id="@+id/loadingButton"
+                            android:id="@+id/loadingButton"
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             android:layout_marginTop="6dp"

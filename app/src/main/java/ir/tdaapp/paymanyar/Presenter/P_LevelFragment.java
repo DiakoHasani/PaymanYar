@@ -26,7 +26,7 @@ public class P_LevelFragment {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        bubbleLevel = new BubbleLevel(context, width, height,marginCircular, this.s_levelFragment);
+        bubbleLevel = new BubbleLevel(context, width, height, marginCircular, this.s_levelFragment);
 
         sensorManager.registerListener(bubbleLevel, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -34,5 +34,9 @@ public class P_LevelFragment {
 
     public void start() {
         s_levelFragment.OnStart();
+    }
+
+    public void cancel() {
+        bubbleLevel.setSensorEnabled(false);
     }
 }

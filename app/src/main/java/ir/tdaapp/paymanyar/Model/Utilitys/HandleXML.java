@@ -1,5 +1,7 @@
 package ir.tdaapp.paymanyar.Model.Utilitys;
 
+import android.content.Context;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -9,22 +11,48 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_NewsPaper;
 import ir.tdaapp.paymanyar.Model.Services.S_HandleXML;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaper;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_NewsPaperFilter;
 
 //برای گرفتن داده از نوع آر اس اس در سرور
 public class HandleXML {
 
-    private String urlString = null;
+    private String urlString;
     private S_HandleXML s_handleXML;
     private XmlPullParserFactory xmlFactoryObject;
     public volatile boolean parsingComplete = true;
+    Context context;
+    Tbl_NewsPaper tbl_newsPaper;
+    List<VM_NewsPaperFilter> newsPaperFilter;
 
-    public HandleXML(String urlString, S_HandleXML s_handleXML) {
+    public HandleXML(Context context, String urlString, S_HandleXML s_handleXML) {
         this.urlString = urlString;
         this.s_handleXML = s_handleXML;
+        this.context = context;
+        tbl_newsPaper = new Tbl_NewsPaper(context);
+        newsPaperFilter = tbl_newsPaper.getNewsPaperFilters();
     }
 
+    boolean showNewsPaper(String title) {
+
+        VM_NewsPaperFilter paperFilter;
+
+        for (int i = 0; i < newsPaperFilter.size(); i++) {
+            try {
+
+                paperFilter = newsPaperFilter.get(i);
+
+                if (title.contains(paperFilter.getTitle()))
+                    return true;
+
+            } catch (Exception e) {
+            }
+        }
+
+        return false;
+    }
 
     public void parseXMLAndStoreIt(XmlPullParser myParser) {
 
@@ -88,7 +116,8 @@ public class HandleXML {
                             //زمانی که به پایان یک تگ برسیم اینجا فراخوانی می شود و اگر آن تگ آیتم باشد شی ساخته شده از خبر به لیست اخبار اضافه می شود
                             if (name != null) {
                                 if (name.equals("item")) {
-                                    newsPapers.add(newsPaper);
+                                    if (showNewsPaper(newsPaper.getTitle()))
+                                        newsPapers.add(newsPaper);
                                 }
                             }
 
@@ -110,6 +139,8 @@ public class HandleXML {
                                 newsPaper.setImage(array[index_src + 1]);
                             } else if (name.equals("link")) {
                                 newsPaper.setLink(text);
+                            } else if (name.equals("guid")) {
+                                newsPaper.setGuid(text);
                             }
                             break;
                     }

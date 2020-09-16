@@ -3,7 +3,7 @@ package ir.tdaapp.paymanyar.Model.ViewModels;
 //مربوط به روزنامه
 public class VM_NewsPaper {
 
-    private String title, image, link;
+    private String title, image, link, guid;
 
     public String getTitle() {
         return title;
@@ -27,5 +27,13 @@ public class VM_NewsPaper {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 }

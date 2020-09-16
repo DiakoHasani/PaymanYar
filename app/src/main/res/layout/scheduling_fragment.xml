@@ -452,7 +452,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="32dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:id="@+id/step_row1"
@@ -586,9 +586,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
-                                android:textSize="12dp"
+                                android:gravity="center"
                                 android:textColor="@color/colorError"
-                                android:gravity="center"/>
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 
@@ -655,6 +655,7 @@
                             </RelativeLayout>
 
                             <TextView
+                                android:id="@+id/lbl_doing"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"

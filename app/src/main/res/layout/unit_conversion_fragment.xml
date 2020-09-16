@@ -83,7 +83,8 @@
                                 android:textAlignment="center"
                                 android:maxLines="1"
                                 android:id="@+id/unit_value"
-                                android:inputType="number"/>
+                                android:inputType="number"
+                                android:textDirection="ltr"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,9 +148,10 @@
                                 android:textAlignment="center"
                                 android:maxLines="1"
                                 android:id="@+id/unit_answer"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:maxLength="12"
-                                android:enabled="false"/>
+                                android:enabled="false"
+                                android:textDirection="ltr"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
 

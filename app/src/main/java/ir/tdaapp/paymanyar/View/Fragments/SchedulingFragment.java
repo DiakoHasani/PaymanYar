@@ -57,6 +57,7 @@ import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
 import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -129,6 +130,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
     GetByCamera getByCamera;
     GetByGalery getByGalery;
     CompressImage compressImage;
+    TextView lbl_doing;
 
     @Nullable
     @Override
@@ -214,6 +216,7 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
         txt_Delivery_time = view.findViewById(R.id.txt_Delivery_time);
         txt_Project_duration = view.findViewById(R.id.txt_Project_duration);
         radioButtonsGroup = view.findViewById(R.id.radioButtonsGroup);
+        lbl_doing = view.findViewById(R.id.lbl_doing);
     }
 
     @Override
@@ -678,9 +681,9 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                     txt_NationalEstimate.setText(analiseInfo.getNationalEstimate());
             }
 
-            if (analiseInfo.getTenderName() != null) {
-                if (!analiseInfo.getTenderName().equalsIgnoreCase("null"))
-                    txt_TenderName.setText(analiseInfo.getTenderName());
+            if (analiseInfo.getProjectName() != null) {
+                if (!analiseInfo.getProjectName().equalsIgnoreCase("null"))
+                    txt_TenderName.setText(analiseInfo.getProjectName());
             }
 
             if (analiseInfo.getPhoneNumber() != null) {
@@ -785,6 +788,8 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
                 steps.setVisibility(View.VISIBLE);
 
+                lbl_doing.setTextColor(getResources().getColor(R.color.colorTitle));
+                lbl_doing.setText(getString(R.string.doing));
                 switch (analiseInfo.getStep()) {
                     case sendOrder:
                     case orderCheck:
@@ -821,6 +826,8 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
                         step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        lbl_doing.setTextColor(getResources().getColor(R.color.colorError));
+                        lbl_doing.setText(getString(R.string.Done));
 
                         loadingButton.setBackground(getActivity().getResources().getDrawable(R.drawable.circular_border_shape_enable));
                         loadingButton.setEnabled(true);
@@ -1094,15 +1101,15 @@ public class SchedulingFragment extends BaseFragment implements S_SchedulingFrag
 
                         //در اینجا زمان ها نمایش داده می شوند
                         doingTime = hh + " : " + mm + " : " + ss;
-                        chronometer.setText(doingTime);
+                        chronometer.setText(Replace.Number_en_To_fa(doingTime));
                     } else {
                         doingTime = "00 : 00 : 00";
-                        chronometer.setText(doingTime);
+                        chronometer.setText(getString(R.string.as_soon_as_possible));
                         timer.stop();
                     }
 
                 } catch (Exception e) {
-                    chronometer.setText(doingTime);
+                    chronometer.setText(Replace.Number_en_To_fa(doingTime));
                 }
             }
         });

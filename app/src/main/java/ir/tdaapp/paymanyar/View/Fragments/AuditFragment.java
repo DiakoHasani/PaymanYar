@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,6 +56,7 @@ import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
 import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -109,11 +111,12 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
     String doingTime = "";
     RelativeLayout step_pay_Background, step_orderCheck_Background, step_doing_Background;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-    RadioButton chk_jum, chk_pardis, chk_sahar, chk_No_system,chk_its_necessary;
+    RadioButton chk_jum, chk_pardis, chk_sahar, chk_No_system, chk_its_necessary;
     LinearLayout No_system_registration;
     TextView lbl_No_system_registrationTitle;
     EditText txt_Audit_of_the_year;
     RadioGroup radioGroup;
+    TextView lbl_doing;
 
     //آیدی سفارش
     int id = 0;
@@ -208,6 +211,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
         lbl_No_system_registrationTitle = view.findViewById(R.id.lbl_No_system_registrationTitle);
         txt_Audit_of_the_year = view.findViewById(R.id.txt_Audit_of_the_year);
         radioGroup = view.findViewById(R.id.radioGroup);
+        lbl_doing = view.findViewById(R.id.lbl_doing);
     }
 
     @Override
@@ -474,7 +478,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
-        }else {
+        } else {
             if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
                 valid = false;
             }
@@ -757,6 +761,8 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
 
                 steps.setVisibility(View.VISIBLE);
 
+                lbl_doing.setTextColor(getResources().getColor(R.color.colorTitle));
+                lbl_doing.setText(getString(R.string.doing));
                 switch (analiseInfo.getStep()) {
                     case sendOrder:
                     case orderCheck:
@@ -793,6 +799,8 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
                         step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        lbl_doing.setTextColor(getResources().getColor(R.color.colorError));
+                        lbl_doing.setText(getString(R.string.Done));
 
                         loadingButton.setBackground(getActivity().getResources().getDrawable(R.drawable.circular_border_shape_enable));
                         loadingButton.setEnabled(true);
@@ -1045,15 +1053,15 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
 
                         //در اینجا زمان ها نمایش داده می شوند
                         doingTime = hh + " : " + mm + " : " + ss;
-                        chronometer.setText(doingTime);
+                        chronometer.setText(Replace.Number_en_To_fa(doingTime));
                     } else {
                         doingTime = "00 : 00 : 00";
-                        chronometer.setText(doingTime);
+                        chronometer.setText(getString(R.string.as_soon_as_possible));
                         timer.stop();
                     }
 
                 } catch (Exception e) {
-                    chronometer.setText(doingTime);
+                    chronometer.setText(Replace.Number_en_To_fa(doingTime));
                 }
             }
         });

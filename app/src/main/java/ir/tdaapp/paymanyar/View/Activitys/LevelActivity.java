@@ -1,8 +1,6 @@
 package ir.tdaapp.paymanyar.View.Activitys;
 
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -14,7 +12,6 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import at.wirecube.additiveanimations.additive_animator.AdditiveAnimator;
 import ir.tdaapp.paymanyar.Model.Enums.DisplaySize;
 import ir.tdaapp.paymanyar.Model.Services.S_LevelFragment;
@@ -32,7 +29,7 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
     ImageView background;
     RelativeLayout img_bubble;
     DisplaySize displaySize;
-    float xBubble, yBubble = 0;
+    int xBubble, yBubble = 0;
     int backgroundSize = 0;
     DisplayMetrics displayMetrics;
     ImageView border_background;
@@ -94,15 +91,15 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
 
         p_levelFragment = new P_LevelFragment(this, this, backgroundSize, ActivityWidth, ActivityHeight);
 
-        background.getLayoutParams().height = ActivityWidth - backgroundSize;
-        background.getLayoutParams().width = ActivityWidth - backgroundSize;
-        border_background.getLayoutParams().height = ActivityWidth - backgroundSize + Math.round(onDpTopixel(8));
-        border_background.getLayoutParams().width = ActivityWidth - backgroundSize + Math.round(onDpTopixel(8));
+        background.getLayoutParams().height = (ActivityWidth - backgroundSize) + xBubble;
+        background.getLayoutParams().width = (ActivityWidth - backgroundSize) + xBubble;
+        border_background.getLayoutParams().height = (ActivityWidth - backgroundSize + Math.round(onDpTopixel(8))) + xBubble;
+        border_background.getLayoutParams().width = (ActivityWidth - backgroundSize + Math.round(onDpTopixel(8))) + xBubble;
 
-        topLine.getLayoutParams().height = (ActivityWidth - backgroundSize) / 2 - Math.round(yBubble);
-        bottomLine.getLayoutParams().height = (ActivityWidth - backgroundSize) / 2 - Math.round(yBubble);
-        rightLine.getLayoutParams().width = (ActivityWidth - backgroundSize) / 2 - Math.round(yBubble);
-        leftLine.getLayoutParams().width = (ActivityWidth - backgroundSize) / 2 - Math.round(yBubble);
+        topLine.getLayoutParams().height = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
+        bottomLine.getLayoutParams().height = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
+        rightLine.getLayoutParams().width = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
+        leftLine.getLayoutParams().width = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -125,7 +122,7 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
     }
 
     @Override
-    public void onPositionBubble(int x, int y) {
+    public void onPositionBubble(float x, float y) {
 
         AdditiveAnimator.animate(img_bubble).setDuration(600)
                 .x((ActivityWidth - x) - xBubble)
@@ -179,16 +176,24 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
     void changeColorBorderLevel(boolean isChange) {
         if (isChange) {
             if (center_level.getTag().equals("f")) {
-                new Handler().postDelayed(() -> {
-                    center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
-                    border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
-                    bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                    topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                    rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                    leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                new Handler().postDelayed(() -> {
+//                    center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
+//                    border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
+//                    bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                    topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                    rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                    leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//
+//                    center_level.setTag("t");
+//                }, 350);
+                center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
+                border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
+                bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
 
-                    center_level.setTag("t");
-                }, 350);
+                center_level.setTag("t");
             }
         } else {
             if (center_level.getTag().equals("t")) {
@@ -203,5 +208,11 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
                 center_level.setTag("f");
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        p_levelFragment.cancel();
     }
 }

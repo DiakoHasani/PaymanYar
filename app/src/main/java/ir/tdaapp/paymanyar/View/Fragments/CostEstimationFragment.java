@@ -52,6 +52,7 @@ import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
 import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -109,6 +110,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
     EditText txt_Suggested, txt_Above, txt_zone, txt_Equipping_the_ingot_workshop, txt_Timely;
+    TextView lbl_doing;
 
     //آیدی سفارش
     int id = 0;
@@ -198,6 +200,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
         txt_zone = view.findViewById(R.id.txt_zone);
         txt_Equipping_the_ingot_workshop = view.findViewById(R.id.txt_Equipping_the_ingot_workshop);
         txt_Timely = view.findViewById(R.id.txt_Timely);
+        lbl_doing = view.findViewById(R.id.lbl_doing);
     }
 
     @Override
@@ -695,6 +698,8 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
 
                 steps.setVisibility(View.VISIBLE);
 
+                lbl_doing.setTextColor(getResources().getColor(R.color.colorTitle));
+                lbl_doing.setText(getString(R.string.doing));
                 switch (analiseInfo.getStep()) {
                     case sendOrder:
                     case orderCheck:
@@ -731,6 +736,8 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
                         step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        lbl_doing.setTextColor(getResources().getColor(R.color.colorError));
+                        lbl_doing.setText(getString(R.string.Done));
 
                         loadingButton.setBackground(getActivity().getResources().getDrawable(R.drawable.circular_border_shape_enable));
                         loadingButton.setEnabled(true);
@@ -1091,15 +1098,15 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
 
                         //در اینجا زمان ها نمایش داده می شوند
                         doingTime = hh + " : " + mm + " : " + ss;
-                        chronometer.setText(doingTime);
+                        chronometer.setText(Replace.Number_en_To_fa(doingTime));
                     } else {
                         doingTime = "00 : 00 : 00";
-                        chronometer.setText(doingTime);
+                        chronometer.setText(getString(R.string.as_soon_as_possible));
                         timer.stop();
                     }
 
                 } catch (Exception e) {
-                    chronometer.setText(doingTime);
+                    chronometer.setText(Replace.Number_en_To_fa(doingTime));
                 }
             }
         });

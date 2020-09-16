@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
     CardView btnConvert, btnDistance, btnArea, btnVolume, btnPressure, btnMass, btnDenisty, btnPower, btnEnergy, btnTime, btnAcceleration, btnSpeed, btnFerequence, btnAngel, btnForce, btnTorque, btnLight;
     int mode = 5;
     CardView btn_Home;
+    NumberFormat formatter;
 
     @Nullable
     @Override
@@ -81,6 +84,8 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
     void implement() {
 
         p_unitConversionFragment = new P_UnitConversionFragment(this.getContext(), this);
+
+        formatter = new DecimalFormat("0.######E0");
 
         //نمایش اولیه مقادیر گزینه فاصله
         p_unitConversionFragment.ShowItemsFor(5);
@@ -273,6 +278,10 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
 
     @Override
     public void ConvertedValue(String answer) {
-        this.answer.setText(answer);
+        if (answer.length() >= 7) {
+            this.answer.setText(String.valueOf(formatter.format(Double.valueOf(answer))));
+        } else {
+            this.answer.setText(answer);
+        }
     }
 }

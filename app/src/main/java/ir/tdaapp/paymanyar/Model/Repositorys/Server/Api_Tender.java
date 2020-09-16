@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.DeleteJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
@@ -103,7 +104,7 @@ public class Api_Tender extends Base_Api {
                                     JSONObject object = array.getJSONObject(i);
 
                                     n.setId(object.getString("TenderId"));
-                                    n.setTitle(object.getString("Title"));
+                                    n.setTitle(Replace.Number_en_To_fa(object.getString("Title")));
                                     n.setFree(object.getBoolean("Free"));
                                     n.setStar(tbl_tender.isFavoritTender(object.getString("TenderId")));
 
@@ -506,7 +507,7 @@ public class Api_Tender extends Base_Api {
                     obj.put("Fee", input.getFee());
                     obj.put("ContractorName", input.getContractorName());
                     obj.put("CellPhone", input.getCellPhone());
-                    obj.put("TenderName", input.getTenderName());
+                    obj.put("ProjectName", input.getTenderName());
                     obj.put("Description", input.getDescription());
                     obj.put("FileUrl1", input.getFileUrl1());
                     obj.put("FileUrl2", input.getFileUrl2());
@@ -818,6 +819,12 @@ public class Api_Tender extends Base_Api {
                                             order.setOrderKind(OrderKind.Analiz);
                                             break;
                                         case "ZamanBandi":
+                                            try {
+                                                if (!object.getString("ProjectName").equalsIgnoreCase("null")) {
+                                                    order.setTitle(object.getString("ProjectName"));
+                                                }
+                                            } catch (Exception e) {
+                                            }
                                             order.setOrderKind(OrderKind.ZamanBandi);
                                             break;
                                         case "MetehVaBaravard":
@@ -904,17 +911,40 @@ public class Api_Tender extends Base_Api {
                                 if (!object.getString("Description").equalsIgnoreCase("null"))
                                     analiseInfo.setDescription(object.getString("Description"));
 
-                                if (!object.getString("AmountPayable").equalsIgnoreCase("null"))
-                                    analiseInfo.setAmountPayable(object.getString("AmountPayable"));
+                                if (!object.getString("AmountPayable").equalsIgnoreCase("null")) {
+                                    if (!object.getString("AmountPayable").equalsIgnoreCase("")) {
+                                        try {
+
+                                            String[] amountPayableArray = object.getString("AmountPayable").split("\\.");
+                                            if (amountPayableArray.length != 0) {
+                                                if (amountPayableArray.length == 2) {
+                                                    analiseInfo.setAmountPayable(Replace.Number_en_To_fa(amountPayableArray[0]));
+                                                } else {
+                                                    analiseInfo.setAmountPayable(Replace.Number_en_To_fa(object.getString("AmountPayable")));
+                                                }
+                                            }
+
+                                        } catch (Exception e) {
+                                        }
+                                    }
+                                }
 
                                 if (!object.getString("TimePay").equalsIgnoreCase("null"))
-                                    analiseInfo.setTimePay(object.getString("TimePay"));
+                                    analiseInfo.setTimePay(Replace.Number_en_To_fa(object.getString("TimePay")));
 
                                 if (!object.getString("Time").equalsIgnoreCase("null"))
-                                    analiseInfo.setDoingTime(object.getString("Time"));
+                                    analiseInfo.setDoingTime(Replace.Number_en_To_fa(object.getString("Time")));
 
-                                if (!object.getString("TimeForTimer").equalsIgnoreCase("null"))
-                                    analiseInfo.setTimer(object.getString("TimeForTimer"));
+                                if (!object.getString("TimeForTimer").equalsIgnoreCase("null")) {
+                                    if (!object.getString("TimeForTimer").equalsIgnoreCase("")) {
+                                        analiseInfo.setTimer(object.getString("TimeForTimer"));
+                                    } else {
+                                        analiseInfo.setTimer("00:00:00");
+                                    }
+
+                                } else {
+                                    analiseInfo.setTimer("");
+                                }
 
                                 if (!object.getString("FileUrlOrder").equalsIgnoreCase("null"))
                                     analiseInfo.setFileName(object.getString("FileUrlOrder"));
@@ -1094,7 +1124,7 @@ public class Api_Tender extends Base_Api {
      **/
     public Single<VM_Message> deleteOrder(int id) {
         return Single.create(emitter -> {
-            new Thread(()->{
+            new Thread(() -> {
                 volley_deleteOrder = new DeleteJsonObjectVolley(ApiUrl + "Order/DeleteOrder?Id=" + id, resault -> {
                     if (resault.getResault() == ResaultCode.Success) {
 

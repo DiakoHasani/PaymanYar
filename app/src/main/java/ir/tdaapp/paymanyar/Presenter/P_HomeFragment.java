@@ -192,32 +192,35 @@ public class P_HomeFragment {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            try {
 
-            //در اینجا معلوم می شود که اسلایدر در کدام پیج است
-            int PagingSliderPosition = s_homeFragment.onGetCurrentSlider();
+                //در اینجا معلوم می شود که اسلایدر در کدام پیج است
+                int PagingSliderPosition = s_homeFragment.onGetCurrentSlider();
 
-            //در اینجا چک می شود که اسلایدر در صفحه اول است اگر شرط درست باشد به صفحه بعد می رود
-            if (PagingSliderPosition == 0) {
-                s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(+1), true);
-                SliderNext = true;
-            }
-            //در اینجا چک می شود که اگر اسلایدر در صفحه آخر است به صفحه قبل بر می گردد
-            else if (PagingSliderPosition == s_homeFragment.onGetCountSlider() - 1) {
-                s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(-1), true);
-                SliderNext = false;
-            } else {
-                //در اینجا اسلایدر به صفحه بعد می رود
-                if (SliderNext == true) {
+                //در اینجا چک می شود که اسلایدر در صفحه اول است اگر شرط درست باشد به صفحه بعد می رود
+                if (PagingSliderPosition == 0) {
                     s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(+1), true);
+                    SliderNext = true;
                 }
-                //در اینجا اسلایدر به صفحه قبل می رود
-                else {
+                //در اینجا چک می شود که اگر اسلایدر در صفحه آخر است به صفحه قبل بر می گردد
+                else if (PagingSliderPosition == s_homeFragment.onGetCountSlider() - 1) {
                     s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(-1), true);
+                    SliderNext = false;
+                } else {
+                    //در اینجا اسلایدر به صفحه بعد می رود
+                    if (SliderNext == true) {
+                        s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(+1), true);
+                    }
+                    //در اینجا اسلایدر به صفحه قبل می رود
+                    else {
+                        s_homeFragment.onSetCurrentSlider(s_homeFragment.onGetItem(-1), true);
+                    }
                 }
-            }
-            if (started) {
-                startSlider();
-            }
+                if (started) {
+                    startSlider();
+                }
+
+            }catch (Exception e){}
         }
     };
 

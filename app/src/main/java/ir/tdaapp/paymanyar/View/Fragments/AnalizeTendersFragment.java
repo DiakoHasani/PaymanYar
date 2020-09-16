@@ -68,6 +68,7 @@ import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
 import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -132,6 +133,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     GetByGalery getByGalery;
     CompressImage compressImage;
     ImageView img_help;
+    TextView lbl_doing;
 
     //آیدی سفارش
     int id = 0;
@@ -225,6 +227,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         step_orderCheck_Background = view.findViewById(R.id.step_orderCheck_Background);
         step_doing_Background = view.findViewById(R.id.step_doing_Background);
         img_help = view.findViewById(R.id.img_help);
+        lbl_doing = view.findViewById(R.id.lbl_doing);
     }
 
     @Override
@@ -554,7 +557,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
         }
     }
 
-    //در اینجا آیدی آیتم پاس برگشت داده می شود
+    //در اینجا آیدی آیتم برگشت داده می شود
     @Override
     public int onItemId() {
         return id;
@@ -759,6 +762,8 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
                 steps.setVisibility(View.VISIBLE);
 
+                lbl_doing.setTextColor(getResources().getColor(R.color.colorTitle));
+                lbl_doing.setText(getString(R.string.doing));
                 switch (analiseInfo.getStep()) {
                     case sendOrder:
                     case orderCheck:
@@ -795,6 +800,8 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                         step_orderCost.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_pay_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_doing_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
+                        lbl_doing.setTextColor(getResources().getColor(R.color.colorError));
+                        lbl_doing.setText(getString(R.string.Done));
 
                         loadingButton.setBackground(getActivity().getResources().getDrawable(R.drawable.circular_border_shape_enable));
                         loadingButton.setEnabled(true);
@@ -804,8 +811,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             }
 
         } catch (Exception e) {
-            int a = 1;
-            a++;
         }
 
     }
@@ -1184,15 +1189,15 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
                     //در اینجا زمان ها نمایش داده می شوند
                     doingTime = hh + " : " + mm + " : " + ss;
-                    chronometer.setText(doingTime);
+                    chronometer.setText(Replace.Number_en_To_fa(doingTime));
                 } else {
                     doingTime = "00 : 00 : 00";
-                    chronometer.setText(doingTime);
+                    chronometer.setText(getString(R.string.as_soon_as_possible));
                     timer.stop();
                 }
 
             } catch (Exception e) {
-                chronometer.setText(doingTime);
+                chronometer.setText(Replace.Number_en_To_fa(doingTime));
             }
         });
         timer.start();

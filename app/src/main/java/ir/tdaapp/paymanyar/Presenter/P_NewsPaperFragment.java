@@ -41,7 +41,7 @@ public class P_NewsPaperFragment {
     //در اینجا روزنامه ها گرفته می شوند
     void getNewsPapers(String title) {
 
-        Single<List<VM_NewsPaper>> data = api_newsPaper.getNews();
+        Single<List<VM_NewsPaper>> data = api_newsPaper.getNews(context);
 
         dispose_getNewsPapers = data.subscribeWith(new DisposableSingleObserver<List<VM_NewsPaper>>() {
             @Override

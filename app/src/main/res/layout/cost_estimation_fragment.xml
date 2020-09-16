@@ -717,9 +717,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
-                                android:textSize="12dp"
+                                android:gravity="center"
                                 android:textColor="@color/colorError"
-                                android:gravity="center"/>
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 
@@ -786,6 +786,7 @@
                             </RelativeLayout>
 
                             <TextView
+                                android:id="@+id/lbl_doing"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"

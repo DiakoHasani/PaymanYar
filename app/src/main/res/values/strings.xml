@@ -99,7 +99,7 @@
     <string name="SendSuggestionsUp">ارسال پیشنهاد تا:</string>
     <string name="GetDocumentsUp">دریافت اسناد تا:</string>
     <string name="Place_of_Receipt_of_Documents">محل دریافت اسناد:</string>
-    <string name="CityName">نام استان:</string>
+    <string name="CityName">استان:</string>
     <string name="TenderDevice">دستگاه مناقصه گذار:</string>
     <string name="Major">رشته:</string>
     <string name="website">سایت اینترنتی:</string>
@@ -204,5 +204,7 @@
     <string name="help">راهنما</string>
     <string name="delete">حذف</string>
     <string name="Adjustment_and_etc">تعدیل و ...</string>
+    <string name="as_soon_as_possible">در اسرع وقت</string>
+    <string name="Done">انجام شد</string>
 
 </resources>

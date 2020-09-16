@@ -6,6 +6,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import ir.tdaapp.paymanyar.Model.Enums.DisplaySize;
 import ir.tdaapp.paymanyar.Model.Services.S_LevelFragment;
 import ir.tdaapp.paymanyar.View.Activitys.LevelActivity;
@@ -25,17 +28,21 @@ public class BubbleLevel implements SensorEventListener {
     Context context;
     DisplaySize displaySize;
     int sensorNumber = 0;
-    int x, y;
+    float x, y;
     int centralWidth, centralHeight;
 
     //در اینجا نقطه مرکزی دایره نگهداری می شوند
-    int xa, ya;
+    float xa, ya;
 
     double powX, powY;
 
     double c, radius;
 
     int marginCircular;
+
+    boolean isSensorEnabled = true;
+
+    DecimalFormat df;
 
     public BubbleLevel(Context context, int width, int height, int marginCircular, S_LevelFragment s_levelFragment) {
         this.s_levelFragment = s_levelFragment;
@@ -64,41 +71,50 @@ public class BubbleLevel implements SensorEventListener {
         xa = centralWidth / 2;
         ya = centralHeight / 2;
 
-        radius = ((screenWidth / 2) - sensorNumber - (marginCircular / 2));
+        radius = ((screenWidth / 2) - sensorNumber - (marginCircular / 2)) + sensorNumber;
+
+        df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        x = (((this.screenWidth * 50 / 100)) - ((int) sensorEvent.values[0] * sensorNumber));
-        y = (((this.screenHeight * 50 / 100)) - ((int) sensorEvent.values[1] * sensorNumber));
+        if (isSensorEnabled) {
+            x = ((this.screenWidth * 50 / 100) - (sensorEvent.values[0] * sensorNumber));
+            y = ((this.screenHeight * 50 / 100) - (sensorEvent.values[1] * sensorNumber));
 
-        powX = Math.pow(xa - x, 2);
-        powY = Math.pow(ya - y, 2);
+            powX = Math.pow(xa - x, 2);
+            powY = Math.pow(ya - y, 2);
 
-        c = Math.sqrt(powX + powY);
+            c = Math.sqrt(powX + powY);
+            c = ((int) c) + 1;
 
-//        Log.e("ffgfgf", "x: " + x + " y: " + y + " c: " + c + " radius:" + radius);
+//            Log.e("ffgfgf", "x: " + x + " y: " + y + " c: " + c + " radius:" + radius + " xa:" + xa + " ya:" + ya + " marginCircular:" + marginCircular);
+//
+//            Log.e("tyrtuyu", "powX:" + powX + " powY:" + powY);
 
-        if (c <= radius) {
-            s_levelFragment.onPositionBubble(x, y);
-        }
 
-        //در اینجا چک می کند که حباب به وسط صفحه رسیده است یا خیر
-        if (x == xa && y == ya) {
-            s_levelFragment.onCenterBubble(true);
-        }
-        //در اینجا چک می کند که حباب به بالا یا پایین صفحه رسیده است یا خیر
-        else if (x == xa && c >= radius) {
-            s_levelFragment.on_Y_Bubble(true);
-        }
-        //در اینجا چک می کند که حباب به راست یا چپ صفحه رسیده است یا خیر
-        else if (y == ya && c >= radius) {
-            s_levelFragment.on_X_Bubble(true);
-        }
-        //اگر هیچکدام از شرط ها درست نباشد رنگ تراز به حالت عادی بر می گردد
-        else {
-            s_levelFragment.onCenterBubble(false);
+            if (c <= radius) {
+                s_levelFragment.onPositionBubble(x, y);
+            }
+
+            //در اینجا چک می کند که حباب به وسط صفحه رسیده است یا خیر
+            if (df.format(x).equalsIgnoreCase(df.format(xa)) && df.format(y).equalsIgnoreCase(df.format(ya))) {
+                s_levelFragment.onCenterBubble(true);
+            }
+            //در اینجا چک می کند که حباب به بالا یا پایین صفحه رسیده است یا خیر
+            else if (df.format(x).equalsIgnoreCase(df.format(xa)) && c >= radius) {
+                s_levelFragment.on_Y_Bubble(true);
+            }
+            //در اینجا چک می کند که حباب به راست یا چپ صفحه رسیده است یا خیر
+            else if (df.format(y).equalsIgnoreCase(df.format(ya)) && c >= radius) {
+                s_levelFragment.on_X_Bubble(true);
+            }
+            //اگر هیچکدام از شرط ها درست نباشد رنگ تراز به حالت عادی بر می گردد
+            else {
+                s_levelFragment.onCenterBubble(false);
+            }
         }
 
     }
@@ -108,4 +124,7 @@ public class BubbleLevel implements SensorEventListener {
 
     }
 
+    public void setSensorEnabled(boolean sensorEnabled) {
+        isSensorEnabled = sensorEnabled;
+    }
 }

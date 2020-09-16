@@ -1,7 +1,9 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.graphics.ImageFormat;
 import android.hardware.Camera;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
@@ -61,7 +63,7 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
             /** Handles data for jpeg picture */
             shutterCallback = () -> Log.i("Log", "onShutter'd");
             jpegCallback = (data, camera) -> {
-                FileOutputStream outStream = null;
+                FileOutputStream outStream;
                 try {
 
                     ProjectDirectory.createDirectory("paymanyar");
@@ -76,22 +78,34 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
                     outStream = new FileOutputStream(path);
                     outStream.write(data);
                     outStream.close();
+
+                    MediaScannerConnection.scanFile(context, new String[]{path}, new String[]{"image/jpeg"}, null);
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
                 }
-                camera.startPreview();
+                refreshCamera();
             };
         }
     };
 
     public void captureImage() {
         try {
+            Camera.Parameters params = camera.getParameters();
+            params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+            params.setPictureFormat(ImageFormat.JPEG);
+
+//            List<Camera.Size> sizes = params.getSupportedPreviewSizes();
+//            Camera.Size selected = sizes.get(0);
+//            params.setPreviewSize(selected.width,selected.height);
+
+            camera.setParameters(params);
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
-            camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+            camera.takePicture(null, null, null, jpegCallback);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -245,5 +259,28 @@ public class P_MagnifierFragment implements SurfaceHolder.Callback {
     public void ZoomOut(int val) {
         zoom--;
         ChangeZoom(val);
+    }
+
+    public void refreshCamera() {
+        if (surfaceHolder.getSurface() == null) {
+            // preview surface does not exist
+            return;
+        }
+        // stop preview before making changes
+        try {
+            camera.stopPreview();
+        } catch (Exception e) {
+            // ignore: tried to stop a non-existent preview
+        }
+
+        // set preview size and make any resize, rotate or
+        // reformatting changes here
+        // start preview with new settings
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+        } catch (Exception e) {
+
+        }
     }
 }
