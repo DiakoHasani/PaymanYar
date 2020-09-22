@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/colorWhite"
+    android:clipToPadding="false"
+    app:cardUseCompatPadding="false"
+    android:foreground="?attr/selectableItemBackground"
+    android:layoutDirection="rtl"
+    android:textDirection="rtl"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_job"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="@font/vazir"
+                android:textSize="18dp"
+                android:textColor="@color/colorTitle2"
+                android:gravity="bottom"
+                android:paddingRight="16dp"
+                android:textStyle="bold"
+                android:paddingLeft="8dp"
+                android:singleLine="true"/>
+
+            <TextView
+                android:id="@+id/lbl_name"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:fontFamily="@font/vazir"
+                android:textSize="14dp"
+                android:textColor="@color/colorTitle2"
+                android:gravity="bottom"
+                android:paddingRight="16dp"
+                android:paddingLeft="8dp"
+                android:singleLine="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/lbl_work_experience"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorTitle2"
+                    android:gravity="bottom"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:id="@+id/lbl_cellPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorTitle2"
+                    android:gravity="bottom"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/lbl_City"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorTitle2"
+                    android:gravity="bottom"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:id="@+id/lbl_Date"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorTitle2"
+                    android:gravity="bottom"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:singleLine="true"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/power_supply_network"
+                android:scaleType="fitXY"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

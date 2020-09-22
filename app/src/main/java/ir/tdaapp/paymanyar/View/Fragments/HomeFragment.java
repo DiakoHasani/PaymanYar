@@ -448,6 +448,8 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 ((MainActivity) getActivity()).onAddFragment(new DifferenceFragment(), R.anim.fadein, R.anim.fadeout, true, DifferenceFragment.TAG);
                 break;
             case R.id.btn_WorkForce:
+                ((MainActivity) getActivity()).onAddFragment(new PowerSupplyNetworkFragment(), R.anim.fadein, R.anim.fadeout, true, PowerSupplyNetworkFragment.TAG);
+                break;
             case R.id.btn_Machinery:
             case R.id.btn_Materials:
 

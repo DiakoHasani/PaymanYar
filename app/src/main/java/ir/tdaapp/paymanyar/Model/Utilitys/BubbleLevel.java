@@ -71,7 +71,7 @@ public class BubbleLevel implements SensorEventListener {
         xa = centralWidth / 2;
         ya = centralHeight / 2;
 
-        radius = ((screenWidth / 2) - sensorNumber - (marginCircular / 2)) + sensorNumber;
+        radius = screenWidth / 2 - marginCircular / 2;
 
         df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
@@ -100,17 +100,17 @@ public class BubbleLevel implements SensorEventListener {
             }
 
             //در اینجا چک می کند که حباب به وسط صفحه رسیده است یا خیر
-            if (df.format(x).equalsIgnoreCase(df.format(xa)) && df.format(y).equalsIgnoreCase(df.format(ya))) {
+            if (((int) x) == ((int) xa) && ((int) y) == ((int) ya)) {
                 s_levelFragment.onCenterBubble(true);
             }
-            //در اینجا چک می کند که حباب به بالا یا پایین صفحه رسیده است یا خیر
-            else if (df.format(x).equalsIgnoreCase(df.format(xa)) && c >= radius) {
-                s_levelFragment.on_Y_Bubble(true);
-            }
-            //در اینجا چک می کند که حباب به راست یا چپ صفحه رسیده است یا خیر
-            else if (df.format(y).equalsIgnoreCase(df.format(ya)) && c >= radius) {
-                s_levelFragment.on_X_Bubble(true);
-            }
+//            //در اینجا چک می کند که حباب به بالا یا پایین صفحه رسیده است یا خیر
+//            else if (df.format(x).equalsIgnoreCase(df.format(xa)) && c >= radius) {
+//                s_levelFragment.on_Y_Bubble(true);
+//            }
+//            //در اینجا چک می کند که حباب به راست یا چپ صفحه رسیده است یا خیر
+//            else if (df.format(y).equalsIgnoreCase(df.format(ya)) && c >= radius) {
+//                s_levelFragment.on_X_Bubble(true);
+//            }
             //اگر هیچکدام از شرط ها درست نباشد رنگ تراز به حالت عادی بر می گردد
             else {
                 s_levelFragment.onCenterBubble(false);

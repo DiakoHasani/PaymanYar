@@ -91,15 +91,15 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
 
         p_levelFragment = new P_LevelFragment(this, this, backgroundSize, ActivityWidth, ActivityHeight);
 
-        background.getLayoutParams().height = (ActivityWidth - backgroundSize) + xBubble;
+        background.getLayoutParams().height = (ActivityWidth - backgroundSize) + yBubble;
         background.getLayoutParams().width = (ActivityWidth - backgroundSize) + xBubble;
-        border_background.getLayoutParams().height = (ActivityWidth - backgroundSize + Math.round(onDpTopixel(8))) + xBubble;
+        border_background.getLayoutParams().height = (ActivityWidth - backgroundSize + Math.round(onDpTopixel(8))) + yBubble;
         border_background.getLayoutParams().width = (ActivityWidth - backgroundSize + Math.round(onDpTopixel(8))) + xBubble;
 
-        topLine.getLayoutParams().height = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
-        bottomLine.getLayoutParams().height = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
-        rightLine.getLayoutParams().width = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
-        leftLine.getLayoutParams().width = ((ActivityWidth - backgroundSize) / 2 - Math.round(yBubble)) + xBubble / 2;
+        topLine.getLayoutParams().height = ((ActivityWidth - backgroundSize) / 2 - yBubble) + yBubble / 2;
+        bottomLine.getLayoutParams().height = ((ActivityWidth - backgroundSize) / 2 - yBubble) + yBubble / 2;
+        rightLine.getLayoutParams().width = ((ActivityWidth - backgroundSize) / 2 - yBubble) + xBubble / 2;
+        leftLine.getLayoutParams().width = ((ActivityWidth - backgroundSize) / 2 - yBubble) + xBubble / 2;
     }
 
     //در اینجا تنظیمات تولبار ست می شود
@@ -176,24 +176,24 @@ public class LevelActivity extends AppCompatActivity implements S_LevelFragment 
     void changeColorBorderLevel(boolean isChange) {
         if (isChange) {
             if (center_level.getTag().equals("f")) {
-//                new Handler().postDelayed(() -> {
-//                    center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
-//                    border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
-//                    bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-//                    topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-//                    rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-//                    leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-//
-//                    center_level.setTag("t");
-//                }, 350);
-                center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
-                border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
-                bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
-                leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                new Handler().postDelayed(() -> {
+                    center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
+                    border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
+                    bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                    leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
 
-                center_level.setTag("t");
+                    center_level.setTag("t");
+                }, 600);
+//                center_level.setImageDrawable(getResources().getDrawable(R.drawable.border_center_level2));
+//                border_background.setImageDrawable(getResources().getDrawable(R.drawable.border_level_background2));
+//                bottomLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                topLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                rightLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//                leftLine.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+//
+//                center_level.setTag("t");
             }
         } else {
             if (center_level.getTag().equals("t")) {

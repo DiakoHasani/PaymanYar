@@ -14,6 +14,7 @@
     <string name="TheAmount_of_the_Guarantee_in_the_Tender">مبلغ تضمین در مناقصه:</string>
     <string name="ThereAreNoResults">موردی یافت نشد</string>
     <string name="YouHaveNotSMS">شما هیچ پیامی ندارید</string>
+    <string name="NotFoundData">داده ای یافت نشد</string>
     <string name="YouHaveNotOrder">شما هیچ سفارشی ندارید</string>
     <string name="ThisValueMust_be_Filled">این مقدار باید پر شود</string>
     <string name="phoneNumberIsNotValid">شماره موبایل معتبر نیست</string>
@@ -47,6 +48,7 @@
     <string name="Download_the_PDF_first">ابتدا پی دی اف را دانلود کنید</string>
     <string name="The_maximum_percentage_should_be_999">حداکثر درصد باید 350 باشد</string>
     <string name="Do_you_want_to_delete">آیا مایل به حذف هستید؟</string>
+    <string name="Fewer_filters_show_more_results">تعداد فیلترهای کمتر نتایج بیشتری نشان میدهد</string>
 
 
     <string name="helpPrecentAnalizeTenderText">
