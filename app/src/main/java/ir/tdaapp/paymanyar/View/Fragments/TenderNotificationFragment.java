@@ -39,12 +39,13 @@ import ir.tdaapp.paymanyar.Model.Services.addTender;
 import ir.tdaapp.paymanyar.Model.Services.onClickTenderNotification;
 import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_ProvincesAndCities;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_ProvincesAndCities;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.Presenter.P_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.R;
@@ -224,7 +225,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
             //در اینجا آیدی استان گرفته می شود
             if (cmb_City.getSelectedItem() != null) {
-                filter.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+                filter.setCityId(((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId());
             }
 
 
@@ -265,7 +266,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
         VM_Let_me_know vm = new VM_Let_me_know();
 
-        vm.setCityId(((VM_City) cmb_City.getSelectedItem()).getId());
+        vm.setCityId(((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId());
         vm.setMajorId(((VM_Major) cmb_Major.getSelectedItem()).getId());
         vm.setFromEstimateId(((VM_Estimate) cmb_FromEstimate.getSelectedItem()).getId());
         vm.setUntilEstimateId(((VM_Estimate) cmb_UntilEstimate.getSelectedItem()).getId());
@@ -431,7 +432,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
 
     //در اینجا داده های اسپینر شهر ست می شود
     @Override
-    public void onItemCitySpinner(ArrayAdapter<VM_City> adapter) {
+    public void onItemCitySpinner(ArrayAdapter<VM_ProvincesAndCities> adapter) {
         cmb_City.setAdapter(adapter);
     }
 
@@ -585,7 +586,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
         boolean isValid = true;
 
         if (cmb_City.getAdapter() != null) {
-            if (((VM_City) cmb_City.getSelectedItem()).getId() == 0) {
+            if (((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId() == 0) {
                 isValid = false;
                 ((TextView) cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
             }

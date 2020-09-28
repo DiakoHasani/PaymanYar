@@ -13,22 +13,21 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_City;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Estimate;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Major;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_States;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_TenderNotificationFragment;
 import ir.tdaapp.paymanyar.Model.Services.addTender;
 import ir.tdaapp.paymanyar.Model.Services.removeTender;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterTenderNotification;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Let_me_know;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_ProvincesAndCities;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotification;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 import ir.tdaapp.paymanyar.R;
@@ -38,10 +37,10 @@ public class P_TenderNotificationFragment {
     private Context context;
     private S_TenderNotificationFragment s_tenderNotificationFragment;
     Api_Tender api_tender;
-    Disposable dispose_getTenderNotification, dispose_setTenders, dispose_getSpinnerDatas, dispose_getMajors;
+    Disposable dispose_getTenderNotification, dispose_setTenders, dispose_getMajors;
     Disposable dispose_LetMeKnow;
     Disposable dispose_getFromEstimate, dispose_getUntilEstimate;
-    Tbl_City tbl_city;
+    Tbl_States tbl_states;
     Tbl_Major tbl_major;
     Tbl_Estimate tbl_estimate;
     Tbl_Tender tbl_tender;
@@ -51,8 +50,8 @@ public class P_TenderNotificationFragment {
         this.context = context;
         this.s_tenderNotificationFragment = s_tenderNotificationFragment;
         api_tender = new Api_Tender();
-        tbl_city = new Tbl_City(context);
         tbl_major = new Tbl_Major(context);
+        tbl_states=new Tbl_States(context);
         tbl_estimate = new Tbl_Estimate(context);
         tbl_tender = new Tbl_Tender(context);
         initDate = new PersianCalendar();
@@ -142,24 +141,10 @@ public class P_TenderNotificationFragment {
     //در اینجا داده اسپینر استان ست می شود
     void getCitiesSpinner() {
 
-        Single<List<VM_City>> cities = tbl_city.getCitys();
+        List<VM_ProvincesAndCities> provinces=tbl_states.getProvincesOrCities(0);
 
-        dispose_getSpinnerDatas = cities.subscribeWith(new DisposableSingleObserver<List<VM_City>>() {
-            @Override
-            public void onSuccess(List<VM_City> vm_cities) {
-                ArrayAdapter<VM_City> adapter_City = new ArrayAdapter<>(context, R.layout.spinner_item2, vm_cities);
-                s_tenderNotificationFragment.onItemCitySpinner(adapter_City);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                //اگر خطای در فراخوانی استانها رخ دهد کد زیر فراخوانی می شود و یک سطر بامتن خطا و آی دی صفر به اسپینر اضافه می شود
-                List<VM_City> c = new ArrayList<>();
-                c.add(new VM_City(0, context.getResources().getString(R.string.Error)));
-                ArrayAdapter<VM_City> adapter_City = new ArrayAdapter<>(context, R.layout.spinner_item2, c);
-                s_tenderNotificationFragment.onItemCitySpinner(adapter_City);
-            }
-        });
+        ArrayAdapter<VM_ProvincesAndCities> adapter_City = new ArrayAdapter<>(context, R.layout.spinner_item2, provinces);
+        s_tenderNotificationFragment.onItemCitySpinner(adapter_City);
     }
 
     //در اینجا داده های اسپینر رشته تحصیلی گرفته می شوند
@@ -283,10 +268,6 @@ public class P_TenderNotificationFragment {
 
         if (dispose_setTenders != null) {
             dispose_setTenders.dispose();
-        }
-
-        if (dispose_getSpinnerDatas != null) {
-            dispose_getSpinnerDatas.dispose();
         }
 
         if (dispose_getMajors != null) {

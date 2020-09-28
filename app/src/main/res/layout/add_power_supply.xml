@@ -52,20 +52,22 @@
                             android:layout_marginTop="8dp">
 
                             <Spinner
-                                android:id="@+id/cmb_Province"
+                                android:id="@+id/cmb_AdType"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginLeft="4dp"
-                                android:layout_marginRight="8dp" />
+                                android:layout_marginRight="8dp"
+                                android:spinnerMode="dialog"/>
 
                             <Spinner
-                                android:id="@+id/cmb_City"
+                                android:id="@+id/cmb_WorkExperiences"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginRight="4dp"
-                                android:layout_marginLeft="8dp"/>
+                                android:layout_marginLeft="8dp"
+                                android:spinnerMode="dialog"/>
 
                         </LinearLayout>
 
@@ -77,20 +79,34 @@
                             android:layout_marginTop="8dp">
 
                             <Spinner
+                                android:id="@+id/cmb_Provinces"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginLeft="4dp"
-                                android:layout_marginRight="8dp"/>
+                                android:layout_marginRight="8dp"
+                                android:spinnerMode="dialog"/>
 
                             <Spinner
+                                android:id="@+id/cmb_City"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginRight="4dp"
-                                android:layout_marginLeft="8dp"/>
+                                android:layout_marginLeft="8dp"
+                                android:spinnerMode="dialog"/>
 
                         </LinearLayout>
+
+                        <Spinner
+                            android:id="@+id/cmb_Job"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:spinnerMode="dialog"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -110,6 +126,7 @@
                                 android:layout_marginLeft="4dp">
 
                                 <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt_Name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/vazir"
@@ -133,6 +150,7 @@
                                 android:layout_marginLeft="8dp">
 
                                 <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt_CellPhone"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/vazir"
@@ -159,6 +177,7 @@
                             android:layout_marginBottom="8dp">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_Description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/vazir"
@@ -181,7 +200,7 @@
                     android:fontFamily="@font/vazir"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14dp"
-                    android:text="@string/filterSearch"
+                    android:text="@string/DetailAd"
                     android:background="@color/colorWhite"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
@@ -399,7 +418,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"/>
+                android:layout_height="60dp"/>
 
         </LinearLayout>
 

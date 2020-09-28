@@ -8,6 +8,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Estimate;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_IncludesTheWord;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Major;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_ProvincesAndCities;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_TenderNotifications;
 
 public interface S_TenderNotificationFragment {
@@ -21,7 +22,7 @@ public interface S_TenderNotificationFragment {
     void onError(ResaultCode result);
     void onShowRecycler();
     void onItemTender(VM_TenderNotifications notification);
-    void onItemCitySpinner(ArrayAdapter<VM_City> adapter);
+    void onItemCitySpinner(ArrayAdapter<VM_ProvincesAndCities> adapter);
     void onItemMajorSpinner(ArrayAdapter<VM_Major> adapter);
     void onItemFromEstimateSpinner(ArrayAdapter<VM_Estimate> adapter);
     void onItemUntilEstimateSpinner(ArrayAdapter<VM_Estimate> adapter);

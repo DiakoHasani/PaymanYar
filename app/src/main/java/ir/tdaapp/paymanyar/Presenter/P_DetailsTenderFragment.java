@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 
 import com.karumi.dexter.Dexter;
@@ -24,8 +22,8 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.li_image.ImagesCodes.SaveImageToMob;
-import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_City;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Major;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_States;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Tender;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Tender;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailsTenderFragment;
@@ -43,7 +41,7 @@ public class P_DetailsTenderFragment {
     Api_Tender api_tender;
     Disposable dispose_getDetails;
     Tbl_Tender tbl_tender;
-    Tbl_City tbl_city;
+    Tbl_States tbl_states;
     Tbl_Major tbl_major;
 
     public P_DetailsTenderFragment(Context context, S_DetailsTenderFragment s_detailsTenderDialog) {
@@ -51,7 +49,7 @@ public class P_DetailsTenderFragment {
         this.s_detailsTenderDialog = s_detailsTenderDialog;
         api_tender = new Api_Tender();
         tbl_tender = new Tbl_Tender(context);
-        tbl_city = new Tbl_City(context);
+        tbl_states = new Tbl_States(context);
         tbl_major = new Tbl_Major(context);
     }
 
@@ -125,7 +123,7 @@ public class P_DetailsTenderFragment {
 
     //ر اینجا نام شهر براساس آیدی گرفته می شود
     public String getCityTitle(int id) {
-        return tbl_city.getTitleById(id);
+        return tbl_states.getTitleById(id);
     }
 
     //ر اینجا نام رشته تحصیلی براساس آیدی گرفته می شود

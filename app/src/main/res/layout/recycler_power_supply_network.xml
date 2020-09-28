@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="6.5"
             android:orientation="vertical">
 
             <TextView
@@ -32,10 +32,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:fontFamily="@font/vazir"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textColor="@color/colorTitle2"
                 android:gravity="bottom"
-                android:paddingRight="16dp"
+                android:paddingRight="8dp"
                 android:textStyle="bold"
                 android:paddingLeft="8dp"
                 android:singleLine="true"/>
@@ -45,10 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:fontFamily="@font/vazir"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 android:textColor="@color/colorTitle2"
                 android:gravity="bottom"
-                android:paddingRight="16dp"
+                android:paddingRight="8dp"
                 android:paddingLeft="8dp"
                 android:singleLine="true"/>
 
@@ -64,11 +64,11 @@
                     android:layout_height="28dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/vazir"
-                    android:textSize="14dp"
+                    android:textSize="12dp"
                     android:textColor="@color/colorTitle2"
                     android:gravity="bottom"
-                    android:paddingRight="16dp"
-                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="4dp"
                     android:singleLine="true"/>
 
                 <TextView
@@ -77,10 +77,10 @@
                     android:layout_height="28dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/vazir"
-                    android:textSize="14dp"
+                    android:textSize="12dp"
                     android:textColor="@color/colorTitle2"
                     android:gravity="bottom"
-                    android:paddingRight="8dp"
+                    android:paddingRight="4dp"
                     android:paddingLeft="8dp"
                     android:singleLine="true"/>
 
@@ -90,7 +90,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:id="@+id/lbl_City"
@@ -98,11 +99,11 @@
                     android:layout_height="28dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/vazir"
-                    android:textSize="14dp"
+                    android:textSize="12dp"
                     android:textColor="@color/colorTitle2"
                     android:gravity="bottom"
-                    android:paddingRight="16dp"
-                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="4dp"
                     android:singleLine="true"/>
 
                 <TextView
@@ -111,10 +112,10 @@
                     android:layout_height="28dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/vazir"
-                    android:textSize="14dp"
+                    android:textSize="12dp"
                     android:textColor="@color/colorTitle2"
                     android:gravity="bottom"
-                    android:paddingRight="8dp"
+                    android:paddingRight="4dp"
                     android:paddingLeft="8dp"
                     android:singleLine="true"/>
 
@@ -125,7 +126,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="3.5">
 
             <ImageView
                 android:id="@+id/img"
