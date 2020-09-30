@@ -200,6 +200,16 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
         if (getPage() == 0) {
             powerSupplyNetworkAdapter = new PowerSupplyNetworkAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+            powerSupplyNetworkAdapter.setClickPowerSupplyNetwork(id -> {
+
+                DetailPowerSupplyFragment detailPowerSupplyFragment = new DetailPowerSupplyFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", id);
+
+                detailPowerSupplyFragment.setArguments(bundle);
+                ((MainActivity) getActivity()).onAddFragment(detailPowerSupplyFragment, R.anim.slide_in_left, R.anim.short_fadeout, true, DetailPowerSupplyFragment.TAG);
+            });
 
             recycler.setAdapter(powerSupplyNetworkAdapter);
             recycler.setLayoutManager(layoutManager);

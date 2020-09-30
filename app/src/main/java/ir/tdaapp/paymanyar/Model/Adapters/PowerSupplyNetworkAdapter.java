@@ -15,6 +15,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.paymanyar.Model.Services.onClickPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PowerSupplyNetwork;
 import ir.tdaapp.paymanyar.R;
 
@@ -25,10 +26,15 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
 
     Context context;
     List<VM_PowerSupplyNetwork> powerSupplyNetworks;
+    onClickPowerSupplyNetwork clickPowerSupplyNetwork;
 
     public PowerSupplyNetworkAdapter(Context context) {
         this.context = context;
         powerSupplyNetworks = new ArrayList<>();
+    }
+
+    public void setClickPowerSupplyNetwork(onClickPowerSupplyNetwork clickPowerSupplyNetwork) {
+        this.clickPowerSupplyNetwork = clickPowerSupplyNetwork;
     }
 
     public void add(VM_PowerSupplyNetwork item) {
@@ -59,6 +65,10 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
                     .load(powerSupplyNetworks.get(position).getImage())
                     .error(R.drawable.power_supply_network)
                     .into(holder.img);
+
+            holder.layout.setOnClickListener(view -> {
+                clickPowerSupplyNetwork.click(powerSupplyNetworks.get(position).getId());
+            });
 
         } catch (Exception e) {
         }
