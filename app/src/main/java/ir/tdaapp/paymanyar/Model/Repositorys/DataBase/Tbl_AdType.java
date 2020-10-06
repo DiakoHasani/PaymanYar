@@ -19,9 +19,10 @@ public class Tbl_AdType {
     public Tbl_AdType(Context context) {
         this.context = context;
 
-        adTypes=new ArrayList<>();
+        adTypes = new ArrayList<>();
 
         //در اینجا می توانیم نوع آگهی جدید اضافه کنیم
+        adTypes.add(new VM_AdType(AdType.title, context.getString(R.string.AdType)));
         adTypes.add(new VM_AdType(AdType.request, context.getString(R.string.Request)));
         adTypes.add(new VM_AdType(AdType.presentation, context.getString(R.string.Presentation)));
     }

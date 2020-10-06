@@ -15,7 +15,7 @@ import ir.tdaapp.paymanyar.R;
 //مربوط به راهنمای بخش درصدها در صفحه آنالیز مناقصات
 public class HelpPrecentAnalizeTenderDialog extends BaseDialogFragment {
 
-    public static final String TAG="HelpPrecentAnalizeTenderDialog";
+    public static final String TAG = "HelpPrecentAnalizeTenderDialog";
 
     TextView btn_ok;
 
@@ -25,7 +25,7 @@ public class HelpPrecentAnalizeTenderDialog extends BaseDialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.help_precent_analize_tender_dialog, container, false);
 
-        btn_ok=view.findViewById(R.id.btn_ok);
+        btn_ok = view.findViewById(R.id.btn_ok);
         btn_ok.setOnClickListener(view1 -> {
             dismiss();
         });

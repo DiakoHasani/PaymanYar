@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/vazir"
+            android:textSize="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/choseOneItem"
+            android:textColor="@color/colorTitle"
+            android:singleLine="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorUnderline"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_Camera"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="@font/vazir"
+            android:textColor="@color/colorTitle"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:paddingRight="24dp"
+            android:text="@string/camera"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/btn_Gallery"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="@font/vazir"
+            android:textColor="@color/colorTitle"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:paddingRight="24dp"
+            android:text="@string/gallery"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"/>
+
+    </LinearLayout>
+
+</LinearLayout>

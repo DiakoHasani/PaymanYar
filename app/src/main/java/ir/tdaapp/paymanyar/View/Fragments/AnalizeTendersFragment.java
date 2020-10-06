@@ -498,7 +498,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
             step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
             step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
-            onAnimation_Step_pay(StepsAnalizeTender.orderCheck, true);
+            onAnimation_Step_pay(StepsAnalizeTender.orderCheck,true);
 
             step_pay.setEnabled(false);
             fileUploadAdapter.setEnabled(false);

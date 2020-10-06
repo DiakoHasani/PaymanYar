@@ -407,7 +407,7 @@ public class Api_Tender extends Base_Api {
 
         isUploadedFile = true;
 
-        String url = ApiUrl + "PostFileOrder";
+        String url = ApiUrl + "PostFile/PostFileOrder";
         FileManger fileManger = new FileManger(url);
 
         new Thread(() -> {

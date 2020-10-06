@@ -15,6 +15,7 @@
         android:background="@color/colorPrimary"/>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
@@ -134,7 +135,6 @@
                                     android:textColor="@color/colorEditText"
                                     android:textAlignment="center"
                                     android:maxLines="1"
-                                    android:inputType="number"
                                     android:textDirection="ltr"/>
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -165,30 +165,51 @@
 
                         </LinearLayout>
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/description"
-                            style="@style/LoginTextInputLayoutStyle"
-                            android:layout_centerInParent="true"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginTop="8dp">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/txt_Description"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/vazir"
-                                android:textSize="16dp"
-                                android:textColor="@color/colorEditText"
-                                android:textAlignment="center"
-                                android:maxLines="1"
-                                android:inputType="number"
-                                android:textDirection="ltr"/>
+                                android:background="@drawable/border_field_semi_wide_fragment2"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginBottom="12dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:padding="2dp">
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                                <EditText
+                                    android:id="@+id/txt_Description"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iran_sans"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/colorTitle"
+                                    android:hint="@string/InputDescription"
+                                    android:gravity="right|center_vertical"
+                                    android:backgroundTint="@color/colorWhite"
+                                    app:backgroundTint="@color/colorWhite"
+                                    android:lines="2"
+                                    android:paddingRight="8dp"/>
+
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/vazir"
+                                android:textColor="@color/colorGray"
+                                android:textSize="14dp"
+                                android:text="@string/description"
+                                android:background="@color/colorWhite"
+                                android:paddingRight="5dp"
+                                android:paddingLeft="5dp"
+                                android:layout_marginRight="18dp"/>
+
+                        </RelativeLayout>
 
                     </LinearLayout>
 
@@ -219,6 +240,7 @@
                 android:paddingRight="16dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
@@ -227,7 +249,7 @@
                 android:id="@+id/btn_ShowSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 app:spinning_bar_width="3dp"
@@ -259,23 +281,38 @@
                     android:layout_marginTop="24dp"/>
 
                 <LinearLayout
-                    android:id="@+id/step_RegistrationRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginRight="12dp">
 
                     <RelativeLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/background_enable_step"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/ic_registration_request"/>
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_central_step" />
+
+                        <RelativeLayout
+                            android:id="@+id/step_RegistrationRequest"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_enable_step"/>
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_registration_request"
+                                android:layout_centerInParent="true"/>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
@@ -290,23 +327,38 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/step_Check_the_ad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerHorizontal="true">
 
                     <RelativeLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/background_enable_step"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/ic_order_check"/>
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_central_step" />
+
+                        <RelativeLayout
+                            android:id="@+id/step_Check_the_ad"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_enable_step"/>
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_order_check"/>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
@@ -328,16 +380,32 @@
                     android:layout_marginLeft="12dp">
 
                     <RelativeLayout
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/background_enable_step"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/ic_post_an_ad"/>
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_central_step" />
+
+                        <RelativeLayout
+                            android:id="@+id/step_Post_an_ad"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_disable_step"/>
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_post_an_ad"/>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 

@@ -229,6 +229,8 @@
     <string name="DetailAd">جزئیات آگهی</string>
     <string name="Request">درخواست</string>
     <string name="Presentation">ارائه</string>
+    <string name="neverMind">بی خیال</string>
     <string name="DetailPowerSupply">جزئیات نیروکار</string>
+    <string name="InputDescription">توضیحات خود را بنویسید</string>
 
 </resources>
