@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
     ErrorAplicationDialog errorAplicationDialog;
     int id;
     RelativeLayout rightSlider, leftSlider;
+    LinearLayout btn_Support, btn_Home;
 
     @Nullable
     @Override
@@ -79,6 +81,8 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
         lbl_Description = view.findViewById(R.id.lbl_Description);
         leftSlider = view.findViewById(R.id.leftSlider);
         rightSlider = view.findViewById(R.id.rightSlider);
+        btn_Support = view.findViewById(R.id.btn_Support);
+        btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
@@ -86,6 +90,8 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
         leftSlider.setOnClickListener(this);
         rightSlider.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
+        btn_Support.setOnClickListener(this);
 
         try {
             id = getArguments().getInt("id");
@@ -290,6 +296,12 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
                 break;
             case R.id.btn_reload:
                 p_detailPowerSupplyFragment.start();
+                break;
+            case R.id.btn_Support:
+                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.short_fadeout, true, SupportFragment.TAG);
+                break;
+            case R.id.btn_Home:
+                ((MainActivity) getActivity()).backToHome();
                 break;
         }
     }

@@ -61,6 +61,12 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
             holder.lbl_City.setText(powerSupplyNetworks.get(position).getProvinceAndCity());
             holder.lbl_Date.setText(powerSupplyNetworks.get(position).getDate());
 
+            if (powerSupplyNetworks.get(position).isSpecial()) {
+                holder.layout.setCardBackgroundColor(context.getResources().getColor(R.color.colorMySMS));
+            }else{
+                holder.layout.setCardBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+            }
+
             Glide.with(context)
                     .load(powerSupplyNetworks.get(position).getImage())
                     .error(R.drawable.power_supply_network)

@@ -27,6 +27,9 @@ public class VM_PowerSupplyNetwork {
     //عکس
     String image;
 
+    //برای ویژه بودن
+    boolean special;
+
     public int getId() {
         return id;
     }
@@ -89,5 +92,13 @@ public class VM_PowerSupplyNetwork {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isSpecial() {
+        return special;
+    }
+
+    public void setSpecial(boolean special) {
+        this.special = special;
     }
 }

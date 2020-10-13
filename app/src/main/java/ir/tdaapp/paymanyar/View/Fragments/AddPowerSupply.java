@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -116,6 +117,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     int positionCitySpinner = 0;
     int countSetAdapterCitySpinner = 0;
     boolean enableBankingPortal = false;
+    LinearLayout btn_Support, btn_Home;
 
     @Nullable
     @Override
@@ -155,6 +157,8 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
         loading_GetDetail = view.findViewById(R.id.loading_GetDetail);
         btn_Refresh_Loading_GetDetail = view.findViewById(R.id.btn_Refresh_Loading_GetDetail);
         progress_Loading_GetDetail = view.findViewById(R.id.progress_Loading_GetDetail);
+        btn_Support = view.findViewById(R.id.btn_Support);
+        btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
@@ -165,6 +169,8 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
         btn_ShowSteps.setOnClickListener(this);
         btn_UpgradeOrder.setOnClickListener(this);
         btn_Refresh_Loading_GetDetail.setOnClickListener(this);
+        btn_Support.setOnClickListener(this);
+        btn_Home.setOnClickListener(this);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
 
@@ -922,6 +928,12 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
                 break;
             case R.id.btn_Refresh_Loading_GetDetail:
                 p_addPowerSupply.start();
+                break;
+            case R.id.btn_Home:
+                ((MainActivity) getActivity()).backToHome();
+                break;
+            case R.id.btn_Support:
+                ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.short_fadeout, true, SupportFragment.TAG);
                 break;
         }
     }

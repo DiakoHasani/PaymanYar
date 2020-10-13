@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Presenter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
@@ -85,7 +86,9 @@ public class P_PowerSupplyNetworkFragment {
                         s_powerSupplyNetworkFragment.onHideAll();
                         s_powerSupplyNetworkFragment.onEmpty();
                     } else {
-                        s_powerSupplyNetworkFragment.onLoadingPaging(false);
+                        new Handler().postDelayed(() -> {
+                            s_powerSupplyNetworkFragment.onLoadingPaging(false);
+                        },1500);
                     }
 
                     s_powerSupplyNetworkFragment.onFinish();

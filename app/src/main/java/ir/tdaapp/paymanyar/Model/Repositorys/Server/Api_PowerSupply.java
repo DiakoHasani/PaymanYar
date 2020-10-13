@@ -81,8 +81,9 @@ public class Api_PowerSupply extends Base_Api {
 
                                     supplyNetwork.setId(object.getInt("Id"));
                                     supplyNetwork.setCellPhone(object.getString("Phone"));
-                                    supplyNetwork.setImage(object.getString("PicsAd"));
+                                    supplyNetwork.setImage(ImageAd + object.getString("PicsAd"));
                                     supplyNetwork.setDate(object.getString("DateInsert"));
+                                    supplyNetwork.setSpecial(object.getBoolean("Special"));
 
                                     if (object.getInt("Job") != 0) {
                                         int jobId = object.getInt("Job");
@@ -202,7 +203,7 @@ public class Api_PowerSupply extends Base_Api {
 
                             for (int i = 0; i < images.length(); i++) {
                                 try {
-                                    String url = images.get(i).toString();
+                                    String url = ImageAd + images.get(i).toString();
                                     detailPowerSupply.getImages().add(url);
                                 } catch (Exception e) {
                                 }
@@ -393,8 +394,9 @@ public class Api_PowerSupply extends Base_Api {
 
                                     supplyNetwork.setId(object.getInt("Id"));
                                     supplyNetwork.setCellPhone(object.getString("Phone"));
-                                    supplyNetwork.setImage(object.getString("PicsAd"));
+                                    supplyNetwork.setImage(ImageAd + object.getString("PicsAd"));
                                     supplyNetwork.setDate(object.getString("DateInsert"));
+                                    supplyNetwork.setSpecial(object.getBoolean("Special"));
 
                                     if (object.getInt("Job") != 0) {
                                         int jobId = object.getInt("Job");
@@ -510,7 +512,7 @@ public class Api_PowerSupply extends Base_Api {
                             JSONArray images = object.getJSONArray("AllPicsAd");
                             for (int i = 0; i < images.length(); i++) {
                                 try {
-                                    String url = images.get(i).toString();
+                                    String url = ImageAd + images.get(i).toString();
                                     model.getImages().add(url);
                                 } catch (Exception e) {
                                 }
