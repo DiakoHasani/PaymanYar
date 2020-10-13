@@ -4,6 +4,9 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -444,6 +447,25 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
                 p_powerSupplyNetworkFragment.start();
                 break;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.my_ad_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.myAd:
+                ((MainActivity) getActivity()).onAddFragment(new MyPowerSupplyNetworkFragment(), R.anim.fadein, R.anim.short_fadeout, true, MyPowerSupplyNetworkFragment.TAG);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

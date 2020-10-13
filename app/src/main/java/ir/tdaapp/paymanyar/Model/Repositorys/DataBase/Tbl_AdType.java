@@ -30,4 +30,18 @@ public class Tbl_AdType {
     public List<VM_AdType> getAdTypes() {
         return adTypes;
     }
+
+    /**
+     * در اینجا پوزیشن نوع آگهی بر اساس نام آن برگشت داده می شود
+     * **/
+    public int getPositionByName(AdType adType) {
+        int position = 0;
+        for (int i = 0; i < adTypes.size(); i++) {
+            if (adType == adTypes.get(i).getAdType()) {
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
 }

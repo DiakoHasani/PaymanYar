@@ -361,7 +361,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                 break;
 
             case R.id.btn_Share:
-                String url = "http://tiptop.tdaapp.ir/Home/Index?TenderId=";
+                String url = paymentUrl+"Home/Index?TenderId=";
                 if (filter.getTenderId() != null) {
                     url += filter.getTenderId();
                 }

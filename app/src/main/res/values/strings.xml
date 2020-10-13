@@ -208,6 +208,7 @@
     <string name="Done">انجام شد</string>
     <string name="filterSearch">فیلتر جستجو</string>
     <string name="PowerSupplyNetwork">شبکه تامین نیروی کار</string>
+    <string name="MyPowerSupplyNetwork">نیروکارهای من</string>
     <string name="Province">استان</string>
     <string name="City">شهر</string>
     <string name="AdType">نوع آگهی</string>
@@ -232,5 +233,6 @@
     <string name="neverMind">بی خیال</string>
     <string name="DetailPowerSupply">جزئیات نیروکار</string>
     <string name="InputDescription">توضیحات خود را بنویسید</string>
+    <string name="MyAd">آگهی من</string>
 
 </resources>

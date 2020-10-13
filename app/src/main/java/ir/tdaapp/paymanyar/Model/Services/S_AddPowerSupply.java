@@ -57,4 +57,16 @@ public interface S_AddPowerSupply {
     void onAnimationStep(StepsAddPower stepsAddPower, boolean isAnimation);
 
     void disableAnimationAllSteps();
+
+    int getIdItem();
+
+    void enableUpgradeOrder(boolean enable);
+
+    void enableShowSteps(boolean enable);
+
+    void onLoadingGetDetail(boolean load);
+
+    void onErrorGetDetail(ResaultCode result);
+
+    void onDetailData(VM_PostPowerSupply model);
 }

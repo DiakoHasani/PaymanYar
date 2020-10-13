@@ -54,6 +54,8 @@
     <string name="Do_you_want_to_delete">آیا مایل به حذف هستید؟</string>
     <string name="Fewer_filters_show_more_results">تعداد فیلترهای کمتر نتایج بیشتری نشان میدهد</string>
     <string name="firstCreateAnAccount">ابتدا یک حساب کاربری ایجاد کنید</string>
+    <string name="AdUpgradeTo">ارتقا آگهی به</string>
+    <string name="You_have_not_registered_any_employees">شما هیچ نیروکاری ثبت نکرده اید</string>
 
 
     <string name="helpPrecentAnalizeTenderText">

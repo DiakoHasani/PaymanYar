@@ -10,8 +10,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activitys.LevelActivity"></activity>
-        <activity android:name=".View.Activitys.MagnifierActivity" />
+        <activity android:name=".View.Activitys.PaymentAdActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="homead"
+                    android:scheme="paymanyar" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".View.Activitys.LevelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".View.Activitys.MagnifierActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".View.Activitys.PaymentOrderActivity"
             android:screenOrientation="portrait">

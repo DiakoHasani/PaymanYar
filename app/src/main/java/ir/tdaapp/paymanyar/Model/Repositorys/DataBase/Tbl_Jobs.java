@@ -59,18 +59,34 @@ public class Tbl_Jobs {
 
     /**
      * در اینجا نام شغل بر اساس آیدی آن برگشت می دهد
-     * **/
+     **/
     public String getTitleById(int id) {
         try {
 
             String title;
             Cursor q = db.ExecuteQ("select Name from TblJobs where Id=" + id);
-            title=q.getString(0);
+            title = q.getString(0);
 
             return title;
 
         } catch (Exception e) {
             return "";
         }
+    }
+
+    /**
+     * در اینجا پوزیشن شغل براساس آیدی آن برگشت داده می شود
+     * **/
+    public int getPositionById(int id) {
+        int position = 0;
+        List<VM_Job> vals = getJobs();
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId() == id) {
+                position = i;
+                break;
+            }
+        }
+        return position;
     }
 }

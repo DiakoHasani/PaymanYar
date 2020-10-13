@@ -88,7 +88,7 @@ public class BuyChargeDialog extends BaseDialogFragment implements View.OnClickL
 
     void gotoBuy() {
         String api_key = ((MainActivity) getActivity()).getTbl_notification().getToken(getContext());
-        String url = "http://tiptop.tdaapp.ir/Payment/Index?ChargeId=" + charge.getId() + "&ApiKey=" + api_key;
-        openUrl.getWeb(url,getContext());
+        String url = paymentUrl + "Payment/Index?ChargeId=" + charge.getId() + "&ApiKey=" + api_key;
+        openUrl.getWeb(url, getContext());
     }
 }

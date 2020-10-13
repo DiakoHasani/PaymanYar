@@ -20,12 +20,13 @@ import ir.tdaapp.paymanyar.R;
 
 /**
  * مربوط به فایل آپلود آگهی نیروکار و مصالح و ماشین آلات
- * **/
+ **/
 public class FileUploadItemAdapter extends RecyclerView.Adapter<FileUploadItemAdapter.MyViewHolder> {
 
     Context context;
     List<VM_FileUploadAnalizeTender> vals;
     onClickFileUpload_AnalizeTender clickFileUpload_analizeTender;
+    boolean enableUpload = true;
 
     public FileUploadItemAdapter(Context context, List<VM_FileUploadAnalizeTender> vals) {
         this.context = context;
@@ -44,8 +45,19 @@ public class FileUploadItemAdapter extends RecyclerView.Adapter<FileUploadItemAd
         notifyItemChanged(position);
     }
 
+    /**
+     * در اینجا فایل براساس پوزیشن آن برگشت داده می شود
+     * **/
+    public VM_FileUploadAnalizeTender getItemByPosition(int position){
+        return vals.get(position);
+    }
+
     public void setClickFileUpload_analizeTender(onClickFileUpload_AnalizeTender clickFileUpload_analizeTender) {
         this.clickFileUpload_analizeTender = clickFileUpload_analizeTender;
+    }
+
+    public void setEnableUpload(boolean enableUpload) {
+        this.enableUpload = enableUpload;
     }
 
     //در اینجا یک فایل را پاک می کند
@@ -78,7 +90,7 @@ public class FileUploadItemAdapter extends RecyclerView.Adapter<FileUploadItemAd
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.recycler_file_upload_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_file_upload_item, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -89,14 +101,16 @@ public class FileUploadItemAdapter extends RecyclerView.Adapter<FileUploadItemAd
         if (clickFileUpload_analizeTender != null) {
 
             holder.layout.setOnClickListener(view -> {
-                clickFileUpload_analizeTender.onClickFile(vals.get(position));
+                if (enableUpload)
+                    clickFileUpload_analizeTender.onClickFile(vals.get(position));
             });
 
             holder.close.setOnClickListener(view -> {
-                clearFile(vals.get(position));
-                clickFileUpload_analizeTender.onClickClose(vals.get(position));
+                if (enableUpload) {
+                    clearFile(vals.get(position));
+                    clickFileUpload_analizeTender.onClickClose(vals.get(position));
+                }
             });
-
         }
     }
 

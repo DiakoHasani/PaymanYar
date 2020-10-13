@@ -2,6 +2,8 @@ package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
 import android.content.Context;
 
+import com.google.android.gms.common.api.Api;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,13 +13,16 @@ import java.util.List;
 
 import io.reactivex.Single;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
 import ir.tdaapp.paymanyar.Model.Enums.AdType;
+import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdUpgrade;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailPowerSupply;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Job;
@@ -33,8 +38,10 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_WorkExperience;
 public class Api_PowerSupply extends Base_Api {
 
     PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply;
-    GetJsonObjectVolley volley_getDetailPowerSupply;
+    GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply;
     PostJsonObjectVolley volley_addPowerSupply;
+    GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork;
+
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
 
@@ -222,7 +229,7 @@ public class Api_PowerSupply extends Base_Api {
 
     /**
      * در اینجا یک نیروکار اضافه می شود
-     * **/
+     **/
     public Single<VM_Message> addPowerSupply(VM_PostPowerSupply powerSupply) {
         return Single.create(emitter -> {
             new Thread(() -> {
@@ -236,9 +243,9 @@ public class Api_PowerSupply extends Base_Api {
 
                     //در اینجا نوع آگهی ست می شود
                     if (powerSupply.getAdType() == AdType.request) {
-                        input.put("AdType", true);
-                    } else {
                         input.put("AdType", false);
+                    } else {
+                        input.put("AdType", true);
                     }
 
                     input.put("Job", powerSupply.getJob());
@@ -291,7 +298,7 @@ public class Api_PowerSupply extends Base_Api {
 
     /**
      * در اینجا فایل آگهی ها آپلود می شود
-     * **/
+     **/
     public void uploadFile(List<String> urlfiles, onUploadFiles uploadFiles) {
 
         isUploadedFile = true;
@@ -318,6 +325,210 @@ public class Api_PowerSupply extends Base_Api {
 
     }
 
+    /**
+     * در اینجا لیست آیتم ها برای ارتقا آگهی از سرور گرفته می شود
+     **/
+    public Single<List<VM_AdUpgrade>> getUpgrades() {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getUpgrades = new GetJsonArrayVolley(ApiUrl + "Advertising/GetUpgradeAd", resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_AdUpgrade> adUpgrades = new ArrayList<>();
+
+                        try {
+
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+
+                                JSONObject object = array.getJSONObject(i);
+                                VM_AdUpgrade adUpgrade = new VM_AdUpgrade();
+
+                                try {
+                                    adUpgrade.setId(object.getInt("Id"));
+                                    adUpgrade.setDescription(object.getString("Description"));
+                                    adUpgrade.setPrice(object.getString("Price"));
+                                } catch (Exception e) {
+                                } finally {
+                                    adUpgrades.add(adUpgrade);
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(adUpgrades);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست نیروکارهای من برگشت داده می شود
+     **/
+    public Single<List<VM_PowerSupplyNetwork>> getMyPowerSupplyNetwork(int userId, List<VM_Job> jobs, List<VM_ProvincesAndCities> provincesAndCities, List<VM_WorkExperience> workExperiences) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                try {
+                    volley_getMyPowerSupplyNetwork = new GetJsonArrayVolley(ApiUrl + "Advertising/GetAdMeList?UserId=" + userId, resault -> {
+
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            List<VM_PowerSupplyNetwork> supplyNetworks = new ArrayList<>();
+
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+
+                                    JSONObject object = array.getJSONObject(i);
+                                    VM_PowerSupplyNetwork supplyNetwork = new VM_PowerSupplyNetwork();
+
+                                    supplyNetwork.setId(object.getInt("Id"));
+                                    supplyNetwork.setCellPhone(object.getString("Phone"));
+                                    supplyNetwork.setImage(object.getString("PicsAd"));
+                                    supplyNetwork.setDate(object.getString("DateInsert"));
+
+                                    if (object.getInt("Job") != 0) {
+                                        int jobId = object.getInt("Job");
+
+                                        for (int j = 0; j < jobs.size(); j++) {
+                                            if (jobs.get(j).getId() == jobId) {
+                                                supplyNetwork.setJobTitle(jobs.get(j).getTitle());
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (object.getInt("State") != 0) {
+                                        int stateId = object.getInt("State");
+
+                                        for (int j = 0; j < provincesAndCities.size(); j++) {
+                                            if (provincesAndCities.get(j).getId() == stateId) {
+                                                supplyNetwork.setProvinceAndCity(provincesAndCities.get(j).getTitle());
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (object.getInt("WorkExperience") != 0) {
+                                        int workExperience = object.getInt("WorkExperience");
+
+                                        for (int j = 0; j < workExperiences.size(); j++) {
+                                            if (workExperiences.get(j).getId() == workExperience) {
+                                                supplyNetwork.setWorkExperience(workExperiences.get(j).getTitle());
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    supplyNetwork.setName(object.getString("Name"));
+
+                                    supplyNetworks.add(supplyNetwork);
+
+                                } catch (Exception e) {
+                                }
+                            }
+
+                            emitter.onSuccess(supplyNetworks);
+
+                        } else {
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_PowerSupply->getPowerSupply", resault.getMessage());
+                            }
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+
+                    });
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا جزئیات نیروکار برای ویرایش گرفته می شود
+     **/
+    public Single<VM_PostPowerSupply> getDetailMyPowerSupply(int id) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getDetailMyPowerSupply = new GetJsonObjectVolley(ApiUrl + "Advertising/GetAdInfo?Id=" + id, resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_PostPowerSupply model = new VM_PostPowerSupply();
+                        try {
+                            JSONObject object = resault.getObject();
+
+                            //نوع آگهی
+                            if (!object.getString("AdType").equalsIgnoreCase("null")) {
+                                if (object.getBoolean("AdType")) {
+                                    model.setAdType(AdType.presentation);
+                                } else {
+                                    model.setAdType(AdType.request);
+                                }
+                            }
+
+                            //سابقه کاری
+                            model.setWorkExperiences(object.getInt("WorkExperience"));
+
+                            //استان
+                            model.setState(object.getInt("State"));
+
+                            //شهر
+                            model.setCity(object.getInt("City"));
+
+                            //شغل
+                            model.setJob(object.getInt("Job"));
+
+                            //نام
+                            model.setName(object.getString("Name"));
+
+                            //شماره تماس
+                            model.setCellPhone(object.getString("Phone"));
+
+                            //توضیحات
+                            model.setDescription(object.getString("Description"));
+
+                            //ویژه
+                            model.setSpecial(object.getBoolean("Special"));
+
+                            //در اینجا وضعیت سفارش گرفته می شود
+                            if (!object.getString("IsActive").equalsIgnoreCase("null")) {
+                                model.setStepPower(object.getBoolean("IsActive") ? StepsAddPower.Post_an_Ad : StepsAddPower.Check_The_Ad);
+                            }
+
+                            //مربوط به عکس
+                            JSONArray images = object.getJSONArray("AllPicsAd");
+                            for (int i = 0; i < images.length(); i++) {
+                                try {
+                                    String url = images.get(i).toString();
+                                    model.getImages().add(url);
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(model);
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+            }).start();
+        });
+    }
+
     public void cancel(String tag, Context context) {
 
         isUploadedFile = false;
@@ -332,6 +543,18 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_addPowerSupply != null) {
             volley_addPowerSupply.Cancel(tag, context);
+        }
+
+        if (volley_getUpgrades != null) {
+            volley_getUpgrades.Cancel(tag, context);
+        }
+
+        if (volley_getMyPowerSupplyNetwork != null) {
+            volley_getMyPowerSupplyNetwork.Cancel(tag, context);
+        }
+
+        if (volley_getDetailMyPowerSupply != null) {
+            volley_getDetailMyPowerSupply.Cancel(tag, context);
         }
     }
 

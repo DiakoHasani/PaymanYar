@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -19,6 +21,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,6 +63,7 @@ import ir.tdaapp.paymanyar.Model.Services.onClickFileUpload_AnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.onClickGoToLoginDialog;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.ProjectDirectory;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdType;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_City;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FileUploadAnalizeTender;
@@ -69,6 +74,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_WorkExperience;
 import ir.tdaapp.paymanyar.Presenter.P_AddPowerSupply;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.AdUpgradeDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.FileTypeItemDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.GoToLoginDialog;
@@ -99,10 +105,17 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     CircularProgressButton btn_ShowSteps;
     RelativeLayout step;
     NestedScrollView nestedScroll;
-    CardView btn_Previous_Orders;
+    CardView btn_Previous_Orders, btn_UpgradeOrder;
     ErrorAplicationDialog errorAplicationDialog;
     Animation aniFadeOut, aniSlide_up;
     RelativeLayout step_RegistrationRequest, step_Check_the_ad, step_Post_an_ad;
+    int id = 0;
+    RelativeLayout loading_GetDetail;
+    ProgressBar progress_Loading_GetDetail;
+    ImageView btn_Refresh_Loading_GetDetail;
+    int positionCitySpinner = 0;
+    int countSetAdapterCitySpinner = 0;
+    boolean enableBankingPortal = false;
 
     @Nullable
     @Override
@@ -114,6 +127,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
 
         setToolbar();
 
+        positionCitySpinner = countSetAdapterCitySpinner = 0;
         p_addPowerSupply.start();
 
         return view;
@@ -137,6 +151,10 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
         step_RegistrationRequest = view.findViewById(R.id.step_RegistrationRequest);
         step_Check_the_ad = view.findViewById(R.id.step_Check_the_ad);
         step_Post_an_ad = view.findViewById(R.id.step_Post_an_ad);
+        btn_UpgradeOrder = view.findViewById(R.id.btn_UpgradeOrder);
+        loading_GetDetail = view.findViewById(R.id.loading_GetDetail);
+        btn_Refresh_Loading_GetDetail = view.findViewById(R.id.btn_Refresh_Loading_GetDetail);
+        progress_Loading_GetDetail = view.findViewById(R.id.progress_Loading_GetDetail);
     }
 
     void implement() {
@@ -145,6 +163,8 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
         handler_clear = new Handler(Looper.getMainLooper());
         btn_Previous_Orders.setOnClickListener(this);
         btn_ShowSteps.setOnClickListener(this);
+        btn_UpgradeOrder.setOnClickListener(this);
+        btn_Refresh_Loading_GetDetail.setOnClickListener(this);
         aniFadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.long_fadeout);
         aniSlide_up = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
 
@@ -169,6 +189,13 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
 
             }
         });
+
+        try {
+            if (getArguments() != null) {
+                id = getArguments().getInt("id");
+            }
+        } catch (Exception e) {
+        }
     }
 
     void setToolbar() {
@@ -182,6 +209,15 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
             getActivity().onBackPressed();
         });
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (enableBankingPortal) {
+            enableBankingPortal = false;
+            p_addPowerSupply.getDetailItem();
+        }
     }
 
     @Override
@@ -224,6 +260,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     @Override
     public void onSuccess() {
         btn_ShowSteps.revertAnimation(() -> {
+            enableUpgradeOrder(false);
             btn_ShowSteps.setAnimation(aniFadeOut);
             btn_ShowSteps.setVisibility(View.GONE);
 
@@ -246,6 +283,13 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     @Override
     public void getCities(ArrayAdapter<VM_ProvincesAndCities> cities) {
         cmb_City.setAdapter(cities);
+        if (positionCitySpinner != 0) {
+            if (countSetAdapterCitySpinner == 1) {
+                cmb_City.setSelection(positionCitySpinner);
+                positionCitySpinner = 0;
+            }
+        }
+        countSetAdapterCitySpinner++;
     }
 
     /**
@@ -310,6 +354,9 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
 
         recycler.setAdapter(fileUploadItemAdapter);
         recycler.setLayoutManager(layoutManager);
+
+        //در اینجا کلیک آیتم های آداپتر فعال یا غیرفعال می شوند
+        fileUploadItemAdapter.setEnableUpload(getIdItem() == 0);
     }
 
     /**
@@ -492,14 +539,24 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
             anim.setRepeatMode(Animation.REVERSE);
             anim.setRepeatCount(Animation.INFINITE);
 
+            step_RegistrationRequest.setBackground(getContext().getResources().getDrawable(R.drawable.background_disable_step));
+            step_Check_the_ad.setBackground(getContext().getResources().getDrawable(R.drawable.background_disable_step));
+            step_Post_an_ad.setBackground(getContext().getResources().getDrawable(R.drawable.background_disable_step));
+
             switch (stepsAddPower) {
                 case RegistrationRequest:
+                    step_RegistrationRequest.setBackground(getContext().getResources().getDrawable(R.drawable.background_enable_step));
                     step_RegistrationRequest.startAnimation(anim);
                     break;
                 case Check_The_Ad:
+                    step_RegistrationRequest.setBackground(getContext().getResources().getDrawable(R.drawable.background_enable_step));
+                    step_Check_the_ad.setBackground(getContext().getResources().getDrawable(R.drawable.background_enable_step));
                     step_Check_the_ad.startAnimation(anim);
                     break;
                 case Post_an_Ad:
+                    step_RegistrationRequest.setBackground(getContext().getResources().getDrawable(R.drawable.background_enable_step));
+                    step_Check_the_ad.setBackground(getContext().getResources().getDrawable(R.drawable.background_enable_step));
+                    step_Post_an_ad.setBackground(getContext().getResources().getDrawable(R.drawable.background_enable_step));
                     step_Post_an_ad.startAnimation(anim);
                     break;
             }
@@ -520,12 +577,156 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
 
     /**
      * در اینجا انیمیشن استپ ها غیر فعال می شوند
-     * **/
+     **/
     @Override
     public void disableAnimationAllSteps() {
         step_RegistrationRequest.setAnimation(null);
         step_Check_the_ad.setAnimation(null);
         step_Post_an_ad.setAnimation(null);
+    }
+
+    /**
+     * در اینجا آیدی سفارش برگشت داده می شود
+     **/
+    @Override
+    public int getIdItem() {
+        return id;
+    }
+
+    /**
+     * در اینجا دکمه ارتقا آگهی فعال یا غیر فعال می شود
+     **/
+    @Override
+    public void enableUpgradeOrder(boolean enable) {
+        if (enable) {
+            btn_UpgradeOrder.setEnabled(true);
+            btn_UpgradeOrder.setCardBackgroundColor(getResources().getColor(R.color.colorPDF));
+        } else {
+            btn_UpgradeOrder.setEnabled(false);
+            btn_UpgradeOrder.setCardBackgroundColor(getResources().getColor(R.color.colorDisable));
+        }
+    }
+
+    /**
+     * در اینجا دکمه افزودن آگهی فعال یا غیر فعال می شود
+     **/
+    @Override
+    public void enableShowSteps(boolean enable) {
+        if (enable) {
+            btn_ShowSteps.setEnabled(true);
+            btn_ShowSteps.setBackground(getResources().getDrawable(R.drawable.border_button_show_steps));
+        } else {
+            btn_ShowSteps.setEnabled(false);
+            btn_ShowSteps.setBackground(getResources().getDrawable(R.drawable.border_button_show_steps_disable));
+        }
+    }
+
+    /**
+     * مربوط به لودینگ گرفتن جزئیات آگهی
+     **/
+    @Override
+    public void onLoadingGetDetail(boolean load) {
+        if (load) {
+            loading_GetDetail.setVisibility(View.VISIBLE);
+            progress_Loading_GetDetail.setVisibility(View.VISIBLE);
+            btn_Refresh_Loading_GetDetail.setVisibility(View.GONE);
+        } else {
+            loading_GetDetail.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * مربوط به ارور گرفتن جزئیات آگهی
+     **/
+    @Override
+    public void onErrorGetDetail(ResaultCode result) {
+        String text = "";
+
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+
+        progress_Loading_GetDetail.setVisibility(View.GONE);
+        btn_Refresh_Loading_GetDetail.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * در اینجا جزئیات آگهی ست می شود
+     **/
+    @Override
+    public void onDetailData(VM_PostPowerSupply model) {
+        try {
+
+            //نوع آگهی
+            if (model.getAdType() != null) {
+                cmb_AdType.setSelection(p_addPowerSupply.getPositionAdType(model.getAdType()));
+            }
+
+            //سابقه کار
+            cmb_WorkExperiences.setSelection(p_addPowerSupply.getPositionWorkExperience(model.getWorkExperiences()));
+
+            //استان
+            cmb_Provinces.setSelection(p_addPowerSupply.getPositionState(model.getState()));
+
+            //شهر
+//            cmb_City.setSelection(p_addPowerSupply.getPositionCity(model.getCity(), model.getState()));
+            positionCitySpinner = p_addPowerSupply.getPositionCity(model.getCity(), model.getState());
+
+            //شغل
+            cmb_Job.setSelection(p_addPowerSupply.getPositionJob(model.getJob()));
+
+            //نام
+            txt_Name.setText(model.getName());
+
+            //شماره تماس
+            txt_CellPhone.setText(model.getCellPhone());
+
+            //توضیحات
+            txt_Description.setText(model.getDescription());
+
+            //اگر آگهی در وضعیت انتشار باشد کاربر می تواند آن را ارتقا دهد
+            if (model.getStepPower() == StepsAddPower.Post_an_Ad) {
+                enableUpgradeOrder(true);
+            } else {
+                enableUpgradeOrder(false);
+            }
+
+            //اگر آگهی ویژه باشد یعنی قبلا ارتقا داده شده و دکمه ارتقا غیرفعال می شود
+            if (model.isSpecial()) {
+                enableUpgradeOrder(false);
+            }
+
+            List<String> paths = model.getImages();
+            for (int i = 0; i < paths.size(); i++) {
+                try {
+                    VM_FileUploadAnalizeTender tender = fileUploadItemAdapter.getItemByPosition(i);
+                    tender.setPath(paths.get(i));
+                    tender.setType(FileUploadAnalizeTenderType.jpg);
+                    fileUploadItemAdapter.addFile(tender);
+                } catch (Exception e) {
+                }
+            }
+
+            btn_ShowSteps.setVisibility(View.GONE);
+            step.setVisibility(View.VISIBLE);
+            disableAnimationAllSteps();
+            onAnimationStep(model.getStepPower(), true);
+
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -577,6 +778,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
         new Thread(() -> {
             try {
 
+                id = 0;
 
                 Thread.sleep(100);
                 clear2("recycler");
@@ -654,7 +856,8 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
                     disableAnimationAllSteps();
                     step.setVisibility(View.GONE);
                     btn_ShowSteps.setVisibility(View.VISIBLE);
-                    btn_ShowSteps.setEnabled(true);
+                    enableShowSteps(true);
+                    enableUpgradeOrder(false);
                     break;
             }
         });
@@ -703,7 +906,22 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
                 clear();
                 break;
             case R.id.btn_ShowSteps:
-                p_addPowerSupply.addItem();
+                if (getIdItem() == 0) {
+                    p_addPowerSupply.addItem();
+                }
+                break;
+            case R.id.btn_UpgradeOrder:
+                if (getIdItem() != 0) {
+                    AdUpgradeDialog adUpgradeDialog = new AdUpgradeDialog(id -> {
+                        enableBankingPortal = true;
+                        String url = paymentUrl + "PaymentAd/Index?Parmetr=" + getIdItem() + ":" + id + ":1";
+                        openUrl.getWeb(url, getContext());
+                    });
+                    adUpgradeDialog.show(getActivity().getSupportFragmentManager(), AdUpgradeDialog.TAG);
+                }
+                break;
+            case R.id.btn_Refresh_Loading_GetDetail:
+                p_addPowerSupply.start();
                 break;
         }
     }
@@ -712,5 +930,11 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     public void onDestroy() {
         super.onDestroy();
         p_addPowerSupply.cancel(TAG);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

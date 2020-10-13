@@ -41,4 +41,7 @@
     <color name="colorLowGreenMagnifier">#CFF55B</color>
     <color name="colorDisable">#dedede</color>
     <color name="colorRed400">#ff1744</color>
+    <color name="colorBronze">#A8623E</color>
+    <color name="colorSilver">#CABC9F</color>
+    <color name="colorGolden">#E0BC4E</color>
 </resources>

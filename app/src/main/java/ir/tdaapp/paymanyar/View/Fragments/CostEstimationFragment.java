@@ -121,7 +121,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
     //اگر مقدار زیر ترو باشد یعنی کاربر به صفحه پرداخت رفته است
     boolean isPayment = false;
 
-    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+    String[] imagePermissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
     GetByCamera getByCamera;
     GetByGalery getByGalery;
     CompressImage compressImage;
@@ -399,7 +399,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
 
         if (!Validation.Required(txt_CellPhone, getString(R.string.ThisValueMust_be_Filled))) {
             valid = false;
-        }else {
+        } else {
             if (!Validation.ValidPhoneNumber(txt_CellPhone, getString(R.string.phoneNumberIsNotValid))) {
                 valid = false;
             }
@@ -633,7 +633,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
             }
 
             if (analiseInfo.getAmountPayable() != null) {
-                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null")&&!analiseInfo.getAmountPayable().equalsIgnoreCase(""))
+                if (!analiseInfo.getAmountPayable().equalsIgnoreCase("null") && !analiseInfo.getAmountPayable().equalsIgnoreCase(""))
                     lbl_price_order_cost.setText(analiseInfo.getAmountPayable() + " " + getString(R.string.Toman));
             }
 
@@ -822,7 +822,7 @@ public class CostEstimationFragment extends BaseFragment implements S_CostEstima
                 step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
                 isPayment = true;
                 if (id != 0) {
-                    String url = "http://tiptop.tdaapp.ir/PaymentOrder/Index?OrderId=" + id;
+                    String url = paymentUrl + "PaymentOrder/Index?OrderId=" + id;
                     openUrl.getWeb(url, getContext());
                 }
                 break;

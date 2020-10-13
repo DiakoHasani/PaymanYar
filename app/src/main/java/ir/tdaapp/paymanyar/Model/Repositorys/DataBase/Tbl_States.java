@@ -11,7 +11,7 @@ import ir.tdaapp.paymanyar.R;
 
 /**
  * مربوط به جدول استان و شهرها
- * **/
+ **/
 public class Tbl_States {
     Context context;
     DBAdapter db;
@@ -23,8 +23,8 @@ public class Tbl_States {
 
     /**
      * در اینجا لیست شهر یا استان ها را پاس می دهد
-     * **/
-    public List<VM_ProvincesAndCities> getProvincesOrCities(int parentId){
+     **/
+    public List<VM_ProvincesAndCities> getProvincesOrCities(int parentId) {
 
         List<VM_ProvincesAndCities> provincesAndCities = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class Tbl_States {
 
     /**
      * در اینجا نام شهر یا استان بر اساس آیدی پاس می دهد
-     * **/
+     **/
     public String getTitleById(int id) {
         String name = "";
 
@@ -72,5 +72,39 @@ public class Tbl_States {
         }
 
         return name;
+    }
+
+    /**
+     * در اینجا پوزیشن استان براساس آیدی آن برگشت داده می شود
+     **/
+    public int getPositionByIdState(int id) {
+        int position = 0;
+        List<VM_ProvincesAndCities> vals = getProvincesOrCities(0);
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId() == id) {
+                position = i;
+                break;
+            }
+        }
+
+        return position;
+    }
+
+    /**
+     * در اینجا پوزیشن شهر براساس آیدی آن برگشت داده می شود
+     **/
+    public int getPositionByIdCity(int id, int parent) {
+        int position = 0;
+        List<VM_ProvincesAndCities> vals = getProvincesOrCities(parent);
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId()==id){
+                position=i;
+                break;
+            }
+        }
+
+        return position;
     }
 }

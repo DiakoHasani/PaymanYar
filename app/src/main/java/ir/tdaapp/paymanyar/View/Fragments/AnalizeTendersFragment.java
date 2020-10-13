@@ -883,7 +883,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 step_pay.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.click_item));
                 isPayment = true;
                 if (id != 0) {
-                    String url = "http://tiptop.tdaapp.ir/PaymentOrder/Index?OrderId=" + id;
+                    String url = paymentUrl+"PaymentOrder/Index?OrderId=" + id;
                     openUrl.getWeb(url, getContext());
                 }
                 break;

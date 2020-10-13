@@ -14,6 +14,7 @@ import java.util.List;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
+import ir.tdaapp.paymanyar.Model.Enums.AdType;
 import ir.tdaapp.paymanyar.Model.Enums.FileUploadAnalizeTenderType;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_AdType;
@@ -45,7 +46,10 @@ public class P_AddPowerSupply {
     Tbl_Jobs tbl_jobs;
     Tbl_AdType tbl_adType;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_addItem;
+    Disposable dispose_addItem, dispose_getDetailItem;
+    List<VM_ProvincesAndCities> states;
+    List<VM_WorkExperience> workExperiences;
+    List<VM_Job> jobs;
 
     public P_AddPowerSupply(Context context, S_AddPowerSupply s_addPowerSupply) {
         this.context = context;
@@ -57,6 +61,9 @@ public class P_AddPowerSupply {
         tbl_adType = new Tbl_AdType(context);
 
         api_powerSupply = new Api_PowerSupply();
+        states = tbl_states.getProvincesOrCities(0);
+        workExperiences = tbl_workExperiences.getWorkExperiences();
+        jobs = tbl_jobs.getJobs();
     }
 
     public void start() {
@@ -65,13 +72,23 @@ public class P_AddPowerSupply {
         getJobs();
         getWorkExperiences();
         getDefaultFileUploadValues();
+
+        //در اینجا دکمه ارتقا آگهی فعال یا غیر فعال می شود
+        s_addPowerSupply.enableUpgradeOrder(s_addPowerSupply.getIdItem() != 0);
+
+        //در اینجا دکمه افزودن فعال یا غیر فعال می شود
+        s_addPowerSupply.enableShowSteps(s_addPowerSupply.getIdItem() == 0);
+
+        if (s_addPowerSupply.getIdItem() != 0) {
+            getDetailItem();
+        }
     }
 
     /**
      * در اینجا لیست استان ها گرفته می شود
      **/
     public void getProvinces() {
-        ArrayAdapter<VM_ProvincesAndCities> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, tbl_states.getProvincesOrCities(0));
+        ArrayAdapter<VM_ProvincesAndCities> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, states);
         s_addPowerSupply.getProvinces(adapter);
     }
 
@@ -94,7 +111,7 @@ public class P_AddPowerSupply {
      * در اینجا لیست سابقه کار گرفته می شود
      **/
     public void getWorkExperiences() {
-        ArrayAdapter<VM_WorkExperience> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, tbl_workExperiences.getWorkExperiences());
+        ArrayAdapter<VM_WorkExperience> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, workExperiences);
         s_addPowerSupply.getWorkExperiences(adapter);
     }
 
@@ -102,7 +119,7 @@ public class P_AddPowerSupply {
      * در اینجا لیست شغل ها گرفته می شود
      **/
     public void getJobs() {
-        ArrayAdapter<VM_Job> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, tbl_jobs.getJobs());
+        ArrayAdapter<VM_Job> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, jobs);
         s_addPowerSupply.getJobs(adapter);
     }
 
@@ -190,7 +207,7 @@ public class P_AddPowerSupply {
 
     /**
      * در اینجا آیتم اضافه می شود
-     * **/
+     **/
     public void addItem() {
 
         if (s_addPowerSupply.checkValidation()) {
@@ -212,7 +229,7 @@ public class P_AddPowerSupply {
                         @Override
                         public void onSuccess(VM_Message message) {
                             if (message.isResult()) {
-                                s_addPowerSupply.onAnimationStep(StepsAddPower.Check_The_Ad,true);
+                                s_addPowerSupply.onAnimationStep(StepsAddPower.Check_The_Ad, true);
                                 s_addPowerSupply.onSuccess();
                             } else {
                                 Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
@@ -238,11 +255,103 @@ public class P_AddPowerSupply {
 
     }
 
+    /**
+     * در اینجا جزئیات آگهی گرفته می شود
+     **/
+    public void getDetailItem() {
+        s_addPowerSupply.onLoadingGetDetail(true);
+
+        Single<VM_PostPowerSupply> data = api_powerSupply.getDetailMyPowerSupply(s_addPowerSupply.getIdItem());
+        dispose_getDetailItem = data.subscribeWith(new DisposableSingleObserver<VM_PostPowerSupply>() {
+            @Override
+            public void onSuccess(VM_PostPowerSupply powerSupply) {
+                s_addPowerSupply.onDetailData(powerSupply);
+                s_addPowerSupply.onLoadingGetDetail(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_addPowerSupply.onErrorGetDetail(Error.GetErrorVolley(e.toString()));
+            }
+        });
+    }
+
+    /**
+     * در اینجا پوزیشن نوع آگهی برگشت داده می شود
+     **/
+    public int getPositionAdType(AdType adType) {
+        return tbl_adType.getPositionByName(adType);
+    }
+
+    /**
+     * در اینجا پوزیشن سابقه کار برگشت داده می شود
+     **/
+    public int getPositionWorkExperience(int id) {
+
+        int position = 0;
+        for (int i = 0; i < workExperiences.size(); i++) {
+            if (workExperiences.get(i).getId() == id) {
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+
+    /**
+     * در اینجا پوزیشن استان برگشت داده می شود
+     **/
+    public int getPositionState(int id) {
+
+        int position = 0;
+
+        for (int i = 0; i < states.size(); i++) {
+            if (states.get(i).getId() == id) {
+                position = i;
+                break;
+            }
+        }
+
+        return position;
+    }
+
+    /**
+     * در اینجا پوزیشن شهر برگشت داده می شود
+     **/
+    public int getPositionCity(int id, int parent) {
+        return tbl_states.getPositionByIdCity(id, parent);
+    }
+
+    /**
+     * در اینجا پوزیشن شغل برگشت داده می شود
+     **/
+    public int getPositionJob(int id) {
+
+        int position = 0;
+
+        for (int i = 0; i < jobs.size(); i++) {
+            if (jobs.get(i).getId() == id) {
+                position = i;
+                break;
+            }
+        }
+
+        return position;
+    }
+
     public void cancel(String tag) {
+        states = null;
+        workExperiences = null;
+        jobs = null;
+
         api_powerSupply.cancel(tag, context);
 
         if (dispose_addItem != null) {
             dispose_addItem.dispose();
+        }
+
+        if (dispose_getDetailItem != null) {
+            dispose_getDetailItem.dispose();
         }
     }
 }

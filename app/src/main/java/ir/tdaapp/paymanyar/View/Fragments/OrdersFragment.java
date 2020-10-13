@@ -286,7 +286,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                         case orderCost:
                         case pay:
                             isPayment = true;
-                            String url = "http://tiptop.tdaapp.ir/PaymentOrder/Index?OrderId=" + order.getId();
+                            String url = paymentUrl+"PaymentOrder/Index?OrderId=" + order.getId();
                             openUrl.getWeb(url, getContext());
                             break;
                         case takingOrders:

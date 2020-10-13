@@ -52,18 +52,34 @@ public class Tbl_WorkExperiences {
 
     /**
      * در اینجا نام سابقه کار براساس آیدی آن برگشت داده می شود
-     * **/
+     **/
     public String getTitleById(int id) {
         try {
 
             String title;
             Cursor q = db.ExecuteQ("select Title from TblWorkExperiences where Id=" + id);
-            title=q.getString(0);
+            title = q.getString(0);
 
             return title;
 
         } catch (Exception e) {
             return "";
         }
+    }
+
+    /**
+     * اینجا براساس آیدی پوزیشن سابقه کار را برگشت می دهد
+     * **/
+    public int getPositionById(int id) {
+        List<VM_WorkExperience> workExperiences = getWorkExperiences();
+        int position = 0;
+
+        for (int i = 0; i < workExperiences.size(); i++) {
+            if (workExperiences.get(i).getId() == id) {
+                position = i;
+                break;
+            }
+        }
+        return position;
     }
 }
