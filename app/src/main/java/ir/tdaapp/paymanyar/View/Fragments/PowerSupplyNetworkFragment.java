@@ -182,7 +182,6 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
     }
 
     void setToolbar() {
-
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toolbar.setTitle(getContext().getResources().getString(R.string.PowerSupplyNetwork));
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);

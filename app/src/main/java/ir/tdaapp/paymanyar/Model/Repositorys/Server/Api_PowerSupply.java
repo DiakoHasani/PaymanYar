@@ -18,14 +18,18 @@ import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
 import ir.tdaapp.paymanyar.Model.Enums.AdType;
+import ir.tdaapp.paymanyar.Model.Enums.AdTypeCondition;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdUpgrade;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailPowerSupply;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Job;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Machinery;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_MachinerySpinner;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostPowerSupply;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PowerSupplyNetwork;
@@ -37,7 +41,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_WorkExperience;
  **/
 public class Api_PowerSupply extends Base_Api {
 
-    PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply;
+    PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply, volley_getMachineries;
     GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply;
     PostJsonObjectVolley volley_addPowerSupply;
     GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork;
@@ -141,6 +145,117 @@ public class Api_PowerSupply extends Base_Api {
                     emitter.onError(e);
                 }
 
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست ماشین آلات گرفته می شود
+     **/
+    public Single<List<VM_Machinery>> getMachineries(VM_FilterMachinery filter, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MachinerySpinner> machinerySpinners) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                try {
+                    JSONObject input = new JSONObject();
+                    try {
+                        input.put("State", filter.getStateId());
+                        input.put("City", filter.getCityId());
+                        input.put("Machinery", filter.getMachineryId());
+                        input.put("Paging", filter.getPaging());
+                    } catch (Exception e) {
+                    }
+
+                    volley_getMachineries = new PostJsonObject_And_GetJsonArrayVolley(ApiUrl + "Advertising/PostAdMachinery", input, resault -> {
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            List<VM_Machinery> vals = new ArrayList<>();
+                            JSONArray array = resault.getJsonArray();
+
+                            try {
+
+                                for (int i = 0; i < array.length(); i++) {
+
+                                    VM_Machinery machinery = new VM_Machinery();
+
+                                    try {
+                                        JSONObject object = array.getJSONObject(i);
+
+                                        machinery.setId(object.getInt("Id"));
+
+                                        //در اینجا تایتل ماشین آلات ست می شود
+                                        if (!object.getString("Machinery").equalsIgnoreCase("null")) {
+                                            int machineryId = object.getInt("Machinery");
+                                            for (int j = 0; j < machinerySpinners.size(); j++) {
+                                                if (machinerySpinners.get(j).getId() == machineryId) {
+                                                    machinery.setMachineryTitle(machinerySpinners.get(j).getTitle());
+                                                }
+                                            }
+                                        }
+
+                                        //در اینجا وضعیت آگهی فروش یا اجاره ای بودن ست می شود
+                                        if (!object.getString("AdType").equalsIgnoreCase("null")) {
+                                            int adType = object.getInt("AdType");
+                                            if (adType == 1) {
+                                                machinery.setAdTypeCondition(AdTypeCondition.Buy);
+                                            } else if (adType == 2) {
+                                                machinery.setAdTypeCondition(AdTypeCondition.Sales);
+                                            } else if (adType == 3) {
+                                                machinery.setAdTypeCondition(AdTypeCondition.RentGive);
+                                            } else {
+                                                machinery.setAdTypeCondition(AdTypeCondition.RentTake);
+                                            }
+                                        }
+
+                                        //در اینجا قیمت ست می شود
+                                        if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                            machinery.setPrice(object.getString("Price"));
+                                        }
+
+                                        //شماره موبایل
+                                        if (!object.getString("Phone").equalsIgnoreCase("null")){
+                                            machinery.setCellPhone(object.getString("Phone"));
+                                        }
+
+                                        //استان
+                                        if (object.getInt("State") != 0) {
+                                            int stateId = object.getInt("State");
+
+                                            for (int j = 0; j < provincesAndCities.size(); j++) {
+                                                if (provincesAndCities.get(j).getId() == stateId) {
+                                                    machinery.setProvinceAndCity(provincesAndCities.get(j).getTitle());
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        //زمان
+                                        if (!object.getString("DateInsert").equalsIgnoreCase("null")){
+                                            machinery.setDate(object.getString("DateInsert"));
+                                        }
+
+                                    } catch (Exception e) {
+                                    } finally {
+                                        vals.add(machinery);
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                            }
+
+                            emitter.onSuccess(vals);
+
+                        } else {
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_PowerSupply->getMachineries", resault.getMessage());
+                            }
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+                    });
+
+                } catch (Exception e) {
+                    postError("Api_PowerSupply->getMachineries", e.toString());
+                    emitter.onError(e);
+                }
             }).start();
         });
     }
@@ -557,6 +672,10 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_getDetailMyPowerSupply != null) {
             volley_getDetailMyPowerSupply.Cancel(tag, context);
+        }
+
+        if (volley_getMachineries != null) {
+            volley_getMachineries.Cancel(tag, context);
         }
     }
 

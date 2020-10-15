@@ -85,13 +85,13 @@ public class P_PowerSupplyNetworkFragment {
                     if (s_powerSupplyNetworkFragment.getPage() == 0) {
                         s_powerSupplyNetworkFragment.onHideAll();
                         s_powerSupplyNetworkFragment.onEmpty();
+                        s_powerSupplyNetworkFragment.onFinish();
                     } else {
                         new Handler().postDelayed(() -> {
                             s_powerSupplyNetworkFragment.onLoadingPaging(false);
+                            s_powerSupplyNetworkFragment.onFinish();
                         },1500);
                     }
-
-                    s_powerSupplyNetworkFragment.onFinish();
                 }
             }
 
