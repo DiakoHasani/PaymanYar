@@ -210,7 +210,7 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
                 bundle.putInt("id", id);
 
                 detailPowerSupplyFragment.setArguments(bundle);
-                ((MainActivity) getActivity()).onAddFragment(detailPowerSupplyFragment, R.anim.slide_in_left, R.anim.short_fadeout, true, DetailPowerSupplyFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(detailPowerSupplyFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailPowerSupplyFragment.TAG);
             });
 
             recycler.setAdapter(powerSupplyNetworkAdapter);

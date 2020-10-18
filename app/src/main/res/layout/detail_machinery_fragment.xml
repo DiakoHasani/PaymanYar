@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/sliderItems"
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/ic_loading_slider"
+                        android:layout_gravity="center"/>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <ImageView
+                    android:id="@+id/btn_reload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_refresh"
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <RelativeLayout
+                    android:id="@+id/rightSlider"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_right_slider" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/leftSlider"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/ic_left_slider"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_field_semi_wide_fragment"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingRight="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/lbl_AdType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:fontFamily="@font/vazir"
+                            android:textSize="14dp"
+                            android:textColor="@color/colorTitle"
+                            android:text="-"
+                            android:singleLine="true"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14dp"
+                        android:text="@string/AdType"
+                        android:background="@color/colorWhite"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginRight="18dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_field_semi_wide_fragment"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingRight="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/lbl_Price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:fontFamily="@font/vazir"
+                            android:textSize="14dp"
+                            android:textColor="@color/colorTitle"
+                            android:text="-"
+                            android:singleLine="true"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14dp"
+                        android:text="@string/Price"
+                        android:background="@color/colorWhite"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginRight="18dp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_field_semi_wide_fragment"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingRight="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/lbl_Call"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:fontFamily="@font/vazir"
+                            android:textSize="14dp"
+                            android:textColor="@color/colorTitle"
+                            android:text="-"
+                            android:singleLine="true"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14dp"
+                        android:text="@string/call"
+                        android:background="@color/colorWhite"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginRight="18dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_field_semi_wide_fragment"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingRight="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/lbl_MachineryCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:fontFamily="@font/vazir"
+                            android:textSize="14dp"
+                            android:textColor="@color/colorTitle"
+                            android:text="-"
+                            android:singleLine="true"/>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14dp"
+                        android:text="@string/MachineryCategory"
+                        android:background="@color/colorWhite"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:layout_marginRight="18dp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_field_semi_wide_fragment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/lbl_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="14dp"
+                        android:textColor="@color/colorTitle"
+                        android:text="-"
+                        android:singleLine="true"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:text="@string/Title"
+                    android:background="@color/colorWhite"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:layout_marginRight="18dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_field_semi_wide_fragment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/lbl_Province"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="14dp"
+                        android:textColor="@color/colorTitle"
+                        android:text="-"
+                        android:singleLine="true"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:text="@string/Province"
+                    android:background="@color/colorWhite"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:layout_marginRight="18dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_field_semi_wide_fragment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/lbl_Description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="14dp"
+                        android:textColor="@color/colorTitle"
+                        android:text="-"
+                        android:minLines="2"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:text="@string/description"
+                    android:background="@color/colorWhite"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:layout_marginRight="18dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/border_bottombar_navigation"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="4.1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btn_Support"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:clickable="true"
+                android:background="@drawable/backgoround_item_right_bottombar">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_support"
+                    android:padding="2dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/Support"
+                    android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1">
+
+                <View
+                    android:id="@+id/lineBottomBar"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorWhite"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_Home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:clickable="true"
+                android:background="@drawable/background_item_left_bottombar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/Return"
+                    android:layout_marginLeft="10dp"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

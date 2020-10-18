@@ -23,7 +23,7 @@ public class Tbl_Machineries {
 
     /**
      * در اینجا لیست ماشین آلات گرفته می شود
-     * **/
+     **/
     public List<VM_MachinerySpinner> getMachineries() {
 
         List<VM_MachinerySpinner> vals = new ArrayList<>();
@@ -57,5 +57,22 @@ public class Tbl_Machineries {
         }
 
         return vals;
+    }
+
+    /**
+     * در اینجا تایتل براساس آیدی برگشت داده می شود
+     * **/
+    public String getTitleById(int id) {
+        String title = "";
+        List<VM_MachinerySpinner> vals = getMachineries();
+
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId() == id) {
+                title = vals.get(i).getTitle();
+                break;
+            }
+        }
+
+        return title;
     }
 }

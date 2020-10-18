@@ -202,7 +202,12 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
             machineryAdapter = new MachineryAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
             machineryAdapter.setClickPowerSupplyNetwork(id -> {
+                DetailMachineryFragment detailMachineryFragment = new DetailMachineryFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", id);
+                detailMachineryFragment.setArguments(bundle);
 
+                ((MainActivity)getActivity()).onAddFragment(detailMachineryFragment,R.anim.fadein,R.anim.short_fadeout,true,DetailMachineryFragment.TAG);
             });
 
             recycler.setAdapter(machineryAdapter);
@@ -439,7 +444,7 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
 
         switch (item.getItemId()) {
             case R.id.myAd:
-//                ((MainActivity) getActivity()).onAddFragment(new MyPowerSupplyNetworkFragment(), R.anim.fadein, R.anim.short_fadeout, true, MyPowerSupplyNetworkFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(new MyMachineriesFragment(), R.anim.fadein, R.anim.short_fadeout, true, MyMachineriesFragment.TAG);
                 break;
         }
 

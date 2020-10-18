@@ -210,6 +210,7 @@
     <string name="PowerSupplyNetwork">شبکه تامین نیروی کار</string>
     <string name="MachineryNetwork">شبکه تامین ماشین آلات</string>
     <string name="MyPowerSupplyNetwork">نیروکارهای من</string>
+    <string name="MyMachinery">ماشین آلات من</string>
     <string name="Province">استان</string>
     <string name="City">شهر</string>
     <string name="AdType">نوع آگهی</string>
@@ -233,6 +234,7 @@
     <string name="Presentation">ارائه</string>
     <string name="neverMind">بی خیال</string>
     <string name="DetailPowerSupply">جزئیات نیروکار</string>
+    <string name="DetailMachinery">جزئیات ماشین آلات</string>
     <string name="InputDescription">توضیحات خود را بنویسید</string>
     <string name="MyAd">آگهی من</string>
     <string name="Machinery2">دسته ماشین آلات</string>
