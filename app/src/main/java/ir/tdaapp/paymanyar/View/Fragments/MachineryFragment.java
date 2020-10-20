@@ -422,7 +422,7 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_PowerSupply:
-                ((MainActivity) getActivity()).onAddFragment(new AddPowerSupply(), R.anim.fadein, R.anim.short_fadeout, true, AddPowerSupply.TAG);
+                ((MainActivity) getActivity()).onAddFragment(new AddMachineryFragment(), R.anim.fadein, R.anim.short_fadeout, true, AddMachineryFragment.TAG);
                 break;
             case R.id.btn_Search:
             case R.id.reload:

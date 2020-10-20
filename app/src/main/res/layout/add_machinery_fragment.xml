@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:layoutDirection="rtl"
+    android:textDirection="rtl">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_field_semi_wide_fragment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginTop="8dp">
+
+                            <Spinner
+                                android:id="@+id/cmb_AdType"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginRight="8dp"
+                                android:spinnerMode="dialog"/>
+
+                            <Spinner
+                                android:id="@+id/cmb_Machinery"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginRight="4dp"
+                                android:layout_marginLeft="8dp"
+                                android:spinnerMode="dialog"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginTop="8dp">
+
+                            <Spinner
+                                android:id="@+id/cmb_Provinces"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginRight="8dp"
+                                android:spinnerMode="dialog"/>
+
+                            <Spinner
+                                android:id="@+id/cmb_City"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginRight="4dp"
+                                android:layout_marginLeft="8dp"
+                                android:spinnerMode="dialog"/>
+
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Title"
+                            style="@style/LoginTextInputLayoutStyle"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="16dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_Title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/vazir"
+                                android:textSize="16dp"
+                                android:textColor="@color/colorEditText"
+                                android:textAlignment="center"
+                                android:maxLines="1"
+                                android:textDirection="ltr"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginTop="16dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Price"
+                                style="@style/LoginTextInputLayoutStyle"
+                                android:layout_centerInParent="true"
+                                android:layout_weight="1"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginLeft="4dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt_Price"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/colorEditText"
+                                    android:textAlignment="center"
+                                    android:maxLines="1"
+                                    android:textDirection="ltr"
+                                    android:inputType="number"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/cellPhoneNumber"
+                                style="@style/LoginTextInputLayoutStyle"
+                                android:layout_centerInParent="true"
+                                android:layout_weight="1"
+                                android:layout_marginRight="4dp"
+                                android:layout_marginLeft="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/txt_CellPhone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/vazir"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/colorEditText"
+                                    android:textAlignment="center"
+                                    android:maxLines="1"
+                                    android:inputType="number"
+                                    android:textDirection="ltr"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/border_field_semi_wide_fragment2"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginBottom="12dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:padding="2dp">
+
+                                <EditText
+                                    android:id="@+id/txt_Description"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/iran_sans"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/colorTitle"
+                                    android:hint="@string/InputDescription"
+                                    android:gravity="right|center_vertical"
+                                    android:backgroundTint="@color/colorWhite"
+                                    app:backgroundTint="@color/colorWhite"
+                                    android:lines="2"
+                                    android:paddingRight="8dp"/>
+
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/vazir"
+                                android:textColor="@color/colorGray"
+                                android:textSize="14dp"
+                                android:text="@string/description"
+                                android:background="@color/colorWhite"
+                                android:paddingRight="5dp"
+                                android:paddingLeft="5dp"
+                                android:layout_marginRight="18dp"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:text="@string/DetailAd"
+                    android:background="@color/colorWhite"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:layout_marginRight="18dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/vazir"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/addImage"
+                android:paddingRight="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/btn_ShowSteps"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                app:spinning_bar_width="3dp"
+                app:spinning_bar_color="@color/colorWhite"
+                app:spinning_bar_padding="8dp"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/border_button_show_steps"
+                android:text="@string/add"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:textSize="14dp"
+                android:fontFamily="@font/vazir"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"/>
+
+            <RelativeLayout
+                android:id="@+id/step"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorTitle"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginTop="24dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="12dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_central_step" />
+
+                        <RelativeLayout
+                            android:id="@+id/step_RegistrationRequest"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_enable_step"/>
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_registration_request"
+                                android:layout_centerInParent="true"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="12dp"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/RegistrationRequest"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_central_step" />
+
+                        <RelativeLayout
+                            android:id="@+id/step_Check_the_ad"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_enable_step"/>
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_order_check"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="12dp"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/Check_the_ad"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="12dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_central_step" />
+
+                        <RelativeLayout
+                            android:id="@+id/step_Post_an_ad"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/background_disable_step"/>
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_post_an_ad"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vazir"
+                        android:textSize="12dp"
+                        android:textColor="@color/colorTitle"
+                        android:text="@string/Post_an_ad"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Previous_Orders"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    app:cardCornerRadius="4dp"
+                    android:clipToPadding="false"
+                    app:cardUseCompatPadding="false"
+                    android:clickable="true"
+                    android:theme="@style/AppTheme.MyRipple">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/vazir"
+                        android:gravity="center"
+                        android:text="@string/New_Ad"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_UpgradeOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorPDF"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    app:cardCornerRadius="4dp"
+                    android:clipToPadding="false"
+                    app:cardUseCompatPadding="false"
+                    android:clickable="true"
+                    android:theme="@style/AppTheme.MyRipple3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/vazir"
+                        android:gravity="center"
+                        android:text="@string/Ad_upgrade"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/border_bottombar_navigation"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="4.1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btn_Support"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:clickable="true"
+                android:background="@drawable/backgoround_item_right_bottombar">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_support"
+                    android:padding="2dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/Support"
+                    android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1">
+
+                <View
+                    android:id="@+id/lineBottomBar"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorWhite"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_Home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:clickable="true"
+                android:background="@drawable/background_item_left_bottombar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vazir"
+                    android:textSize="12dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/Return"
+                    android:layout_marginLeft="10dp"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_home"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loading_GetDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDialog"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="false"
+            android:clipToPadding="false">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/progress_Loading_GetDetail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/btn_Refresh_Loading_GetDetail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_refresh"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -103,13 +103,20 @@ public class MyMachineriesFragment extends BaseFragment implements S_MyMachineri
 
     @Override
     public void OnStart() {
-        machineryAdapter=new MachineryAdapter(getContext());
+        machineryAdapter = new MachineryAdapter(getContext());
         layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
         recycler.setAdapter(machineryAdapter);
         recycler.setLayoutManager(layoutManager);
 
         machineryAdapter.setClickPowerSupplyNetwork(id -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", id);
+
+            AddMachineryFragment addMachineryFragment = new AddMachineryFragment();
+            addMachineryFragment.setArguments(bundle);
+
+            ((MainActivity) getActivity()).onAddFragment(addMachineryFragment, R.anim.fadein, R.anim.short_fadeout, true, AddMachineryFragment.TAG);
         });
     }
 

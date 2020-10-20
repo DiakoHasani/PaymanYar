@@ -23,6 +23,7 @@ import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdTypeMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdUpgrade;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailPowerSupply;
@@ -32,10 +33,12 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Job;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Machinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_MachinerySpinner;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostPowerSupply;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_ProvincesAndCities;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_WorkExperience;
+import ir.tdaapp.paymanyar.R;
 
 /**
  * مربوط به نیروکار
@@ -43,8 +46,8 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_WorkExperience;
 public class Api_PowerSupply extends Base_Api {
 
     PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply, volley_getMachineries;
-    GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply, volley_getDetailMachinery;
-    PostJsonObjectVolley volley_addPowerSupply;
+    GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply, volley_getDetailMachinery, volley_getDetailMyMachinery;
+    PostJsonObjectVolley volley_addPowerSupply, volley_addMachinery;
     GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork, volley_getMyMachineries;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
@@ -183,7 +186,7 @@ public class Api_PowerSupply extends Base_Api {
 
                                         machinery.setId(object.getInt("Id"));
 
-                                        machinery.setImage(ImageAd +object.getString("PicsAd"));
+                                        machinery.setImage(ImageAd + object.getString("PicsAd"));
 
                                         //در اینجا تایتل ماشین آلات ست می شود
                                         if (!object.getString("Machinery").equalsIgnoreCase("null")) {
@@ -497,10 +500,106 @@ public class Api_PowerSupply extends Base_Api {
                         emitter.onSuccess(message);
 
                     } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->addPowerSupply", resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
                 });
 
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا ماشین آلات اضافه می شود
+     **/
+    public Single<VM_Message> addMachinery(VM_PostMachinery machinery) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+
+                JSONObject input = new JSONObject();
+
+                try {
+
+                    //آیدی کاربر
+                    input.put("UserId", machinery.getUserId());
+
+                    //عنوان
+                    input.put("Title", machinery.getTitle());
+
+                    //نوع آگهی
+                    switch (machinery.getAdType().getAdTypeCondition()) {
+                        case Buy:
+                            input.put("AdType", 1);
+                            break;
+                        case Sales:
+                            input.put("AdType", 2);
+                            break;
+                        case RentGive:
+                            input.put("AdType", 3);
+                            break;
+                        case RentTake:
+                            input.put("AdType", 4);
+                            break;
+                    }
+
+                    //آیدی دسته ماشین آلات
+                    input.put("Machinery", machinery.getMachineryId());
+
+                    //قیمت
+                    input.put("Price", machinery.getPrice().replace(",", "").replace("٬", ""));
+
+                    //استان
+                    input.put("State", machinery.getState());
+
+                    //شهر
+                    input.put("City", machinery.getCity());
+
+                    //شماره موبایل
+                    input.put("Phone", machinery.getCellPhone());
+
+                    //توضیحات
+                    input.put("Description", machinery.getDescription());
+
+                    //در اینجا عکس ها ست می شوند
+                    JSONArray imagesArray = new JSONArray();
+                    if (machinery.getImages().size() > 0) {
+                        List<String> array = machinery.getImages();
+                        for (int i = 0; i < array.size(); i++) {
+                            imagesArray.put(array.get(i));
+                        }
+                    } else {
+                        imagesArray.put("1");
+                    }
+                    input.put("PicsAd", imagesArray);
+
+
+                } catch (Exception e) {
+                }
+                volley_addMachinery = new PostJsonObjectVolley(ApiUrl + "Advertising/PostAdAddMachinery", input, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_Message message = new VM_Message();
+
+                        try {
+                            JSONObject object = resault.getObject();
+
+                            message.setResult(object.getBoolean("Result"));
+                            message.setCode(object.getInt("Code"));
+                            message.setMessage(object.getString("MessageText"));
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(message);
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->addMachinery", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
             }).start();
         });
     }
@@ -684,7 +783,7 @@ public class Api_PowerSupply extends Base_Api {
 
                                     machinery.setId(object.getInt("Id"));
 
-                                    machinery.setImage(ImageAd +object.getString("PicsAd"));
+                                    machinery.setImage(ImageAd + object.getString("PicsAd"));
 
                                     //در اینجا تایتل ماشین آلات ست می شود
                                     if (!object.getString("Machinery").equalsIgnoreCase("null")) {
@@ -826,9 +925,95 @@ public class Api_PowerSupply extends Base_Api {
 
                         emitter.onSuccess(model);
                     } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->getDetailMyPowerSupply", resault.getMessage());
+                        }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
 
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا جزئیات ماشین آلات برای ویرایش گرفته می شود
+     **/
+    public Single<VM_PostMachinery> getDetailMyMachinery(int id, Context context) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getDetailMyMachinery = new GetJsonObjectVolley(ApiUrl + "Advertising/GetAdMachineryInfo?Id=" + id, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_PostMachinery model = new VM_PostMachinery();
+                        JSONObject object = resault.getObject();
+
+                        try {
+                            //در اینجا وضعیت آگهی فروش یا اجاره ای بودن ست می شود
+                            if (!object.getString("AdType").equalsIgnoreCase("null")) {
+                                int adType = object.getInt("AdType");
+                                if (adType == 1) {
+                                    model.setAdType(new VM_AdTypeMachinery(AdTypeCondition.Buy, context.getString(R.string.Buy)));
+                                } else if (adType == 2) {
+                                    model.setAdType(new VM_AdTypeMachinery(AdTypeCondition.Sales, context.getString(R.string.Sales)));
+                                } else if (adType == 3) {
+                                    model.setAdType(new VM_AdTypeMachinery(AdTypeCondition.RentGive, context.getString(R.string.RentGive)));
+                                } else {
+                                    model.setAdType(new VM_AdTypeMachinery(AdTypeCondition.RentTake, context.getString(R.string.RentTake)));
+                                }
+                            }
+
+                            //آیدی دسته ماشین آلات
+                            model.setMachineryId(object.getInt("Machinery"));
+
+                            //استان
+                            model.setState(object.getInt("State"));
+
+                            //شهر
+                            model.setCity(object.getInt("City"));
+
+                            //قیمت
+                            model.setPrice(object.getString("Price").replace(context.getString(R.string.Toman), "")
+                                    .replace(",", "").replace("٬", "").trim());
+
+                            //شماره تماس
+                            model.setCellPhone(object.getString("Phone"));
+
+                            //توضیحات
+                            model.setDescription(object.getString("Description"));
+
+                            //ویژه
+                            model.setSpecial(object.getBoolean("Special"));
+
+                            //عنوان
+                            model.setTitle(object.getString("Title"));
+
+                            //در اینجا وضعیت سفارش گرفته می شود
+                            if (!object.getString("IsActive").equalsIgnoreCase("null")) {
+                                model.setStepPower(object.getBoolean("IsActive") ? StepsAddPower.Post_an_Ad : StepsAddPower.Check_The_Ad);
+                            }
+
+                            //مربوط به عکس
+                            JSONArray images = object.getJSONArray("AllPicsAd");
+                            for (int i = 0; i < images.length(); i++) {
+                                try {
+                                    String url = ImageAd + images.get(i).toString();
+                                    model.getImages().add(url);
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(model);
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->getDetailMyMachinery", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
                 });
             }).start();
         });
@@ -872,6 +1057,14 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_getMyMachineries != null) {
             volley_getMyMachineries.Cancel(tag, context);
+        }
+
+        if (volley_getDetailMyMachinery != null) {
+            volley_getDetailMyMachinery.Cancel(tag, context);
+        }
+
+        if (volley_addMachinery != null) {
+            volley_addMachinery.Cancel(tag, context);
         }
     }
 
