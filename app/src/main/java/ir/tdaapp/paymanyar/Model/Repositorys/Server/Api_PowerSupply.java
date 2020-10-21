@@ -19,6 +19,7 @@ import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
 import ir.tdaapp.paymanyar.Model.Enums.AdType;
 import ir.tdaapp.paymanyar.Model.Enums.AdTypeCondition;
+import ir.tdaapp.paymanyar.Model.Enums.AdTypeMaterial;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
@@ -28,10 +29,13 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdUpgrade;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailPowerSupply;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMachinery;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMaterial;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Job;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Machinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_MachinerySpinner;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Material;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_MaterialSpinner;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostPowerSupply;
@@ -45,7 +49,7 @@ import ir.tdaapp.paymanyar.R;
  **/
 public class Api_PowerSupply extends Base_Api {
 
-    PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply, volley_getMachineries;
+    PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply, volley_getMachineries, volley_getMaterials;
     GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply, volley_getDetailMachinery, volley_getDetailMyMachinery;
     PostJsonObjectVolley volley_addPowerSupply, volley_addMachinery;
     GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork, volley_getMyMachineries;
@@ -260,6 +264,111 @@ public class Api_PowerSupply extends Base_Api {
 
                 } catch (Exception e) {
                     postError("Api_PowerSupply->getMachineries", e.toString());
+                    emitter.onError(e);
+                }
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست مصالح گرفته می شود
+     * **/
+    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MaterialSpinner> materials) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                try {
+
+                    JSONObject input = new JSONObject();
+                    try {
+                        input.put("State", filter.getStateId());
+                        input.put("City", filter.getCityId());
+                        input.put("Materials", filter.getMaterialId());
+                        input.put("Paging", filter.getPaging());
+                    } catch (Exception e) {
+                    }
+
+                    volley_getMaterials = new PostJsonObject_And_GetJsonArrayVolley(ApiUrl + "Advertising/PostAdMaterials", input, resault -> {
+                        if (resault.getResault() == ResaultCode.Success) {
+
+                            List<VM_Material> vals = new ArrayList<>();
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+                                VM_Material material = new VM_Material();
+
+                                try {
+
+                                    JSONObject object = array.getJSONObject(i);
+
+                                    //آیدی
+                                    material.setId(object.getInt("Id"));
+
+                                    //عکس
+                                    material.setImage(ImageAd + object.getString("PicsAd"));
+
+                                    //تایتل مصالح گرفته می شود
+                                    if (object.getInt("Materials") != 0) {
+                                        int materialId = object.getInt("Materials");
+                                        for (VM_MaterialSpinner j : materials) {
+
+                                            if (j.getId() == materialId) {
+                                                material.setMaterial(j.getTitle());
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    //نوع آگهی
+                                    if (object.getBoolean("AdType")) {
+                                        material.setAdType(AdTypeMaterial.Sales);
+                                    } else {
+                                        material.setAdType(AdTypeMaterial.Buy);
+                                    }
+
+                                    //در اینجا قیمت ست می شود
+                                    if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                        material.setPrice(object.getString("Price"));
+                                    }
+
+                                    //شماره موبایل
+                                    if (!object.getString("Phone").equalsIgnoreCase("null")) {
+                                        material.setCellPhone(object.getString("Phone"));
+                                    }
+
+                                    //استان
+                                    if (object.getInt("State") != 0) {
+                                        int stateId = object.getInt("State");
+                                        for (VM_ProvincesAndCities j : provincesAndCities) {
+                                            if (j.getId() == stateId) {
+                                                material.setProvinceAndCity(j.getTitle());
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    //زمان
+                                    if (!object.getString("DateInsert").equalsIgnoreCase("null")) {
+                                        material.setDate(object.getString("DateInsert"));
+                                    }
+
+                                } catch (Exception e) {
+                                } finally {
+                                    vals.add(material);
+                                }
+                            }
+
+                            emitter.onSuccess(vals);
+
+                        } else {
+                            if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                                postError("Api_PowerSupply->getMaterials", resault.getMessage());
+                            }
+                            emitter.onError(new IOException(resault.getResault().toString()));
+                        }
+                    });
+
+                } catch (Exception e) {
+                    postError("Api_PowerSupply->getMaterials", e.toString());
                     emitter.onError(e);
                 }
             }).start();
@@ -1065,6 +1174,10 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_addMachinery != null) {
             volley_addMachinery.Cancel(tag, context);
+        }
+
+        if (volley_getMaterials != null) {
+            volley_getMaterials.Cancel(tag, context);
         }
     }
 

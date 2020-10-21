@@ -454,10 +454,11 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 ((MainActivity) getActivity()).onAddFragment(new MachineryFragment(), R.anim.fadein, R.anim.fadeout, true, MachineryFragment.TAG);
                 break;
             case R.id.btn_Materials:
-                soonAdded = new ErrorAplicationDialog(getString(R.string.Soon), getString(R.string.It_will_be_presented_in_the_next_version), getString(R.string.ok), R.drawable.ic_error, R.color.colorError, () -> {
-                    soonAdded.dismiss();
-                });
-                soonAdded.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
+                ((MainActivity) getActivity()).onAddFragment(new MaterialFragment(), R.anim.fadein, R.anim.fadeout, true, MaterialFragment.TAG);
+//                soonAdded = new ErrorAplicationDialog(getString(R.string.Soon), getString(R.string.It_will_be_presented_in_the_next_version), getString(R.string.ok), R.drawable.ic_error, R.color.colorError, () -> {
+//                    soonAdded.dismiss();
+//                });
+//                soonAdded.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
                 break;
         }
     }

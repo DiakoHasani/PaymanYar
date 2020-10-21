@@ -209,6 +209,7 @@
     <string name="filterSearch">فیلتر جستجو</string>
     <string name="PowerSupplyNetwork">شبکه تامین نیروی کار</string>
     <string name="MachineryNetwork">شبکه تامین ماشین آلات</string>
+    <string name="MaterialNetwork">شبکه تامین مصالح</string>
     <string name="MyPowerSupplyNetwork">نیروکارهای من</string>
     <string name="MyMachinery">ماشین آلات من</string>
     <string name="Province">استان</string>
@@ -242,5 +243,6 @@
     <string name="RentTake">اجاره گرفتن</string>
     <string name="RentGive">اجاره دادن</string>
     <string name="Sales">فروش</string>
+    <string name="Material">مصالح</string>
 
 </resources>
