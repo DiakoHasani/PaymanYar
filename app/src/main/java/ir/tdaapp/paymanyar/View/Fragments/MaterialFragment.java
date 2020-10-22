@@ -200,12 +200,12 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
             materialAdapter=new MaterialAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
             materialAdapter.setClickPowerSupplyNetwork(id -> {
-                DetailMachineryFragment detailMachineryFragment = new DetailMachineryFragment();
+                DetailMaterialFragment detailMaterialFragment=new DetailMaterialFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", id);
-                detailMachineryFragment.setArguments(bundle);
+                detailMaterialFragment.setArguments(bundle);
 
-                ((MainActivity)getActivity()).onAddFragment(detailMachineryFragment,R.anim.fadein,R.anim.short_fadeout,true,DetailMachineryFragment.TAG);
+                ((MainActivity)getActivity()).onAddFragment(detailMaterialFragment,R.anim.fadein,R.anim.short_fadeout,true,DetailMaterialFragment.TAG);
             });
 
             recycler.setAdapter(materialAdapter);
@@ -420,7 +420,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_PowerSupply:
-//                ((MainActivity) getActivity()).onAddFragment(new AddMachineryFragment(), R.anim.fadein, R.anim.short_fadeout, true, AddMachineryFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(new AddMaterialFragment(), R.anim.fadein, R.anim.short_fadeout, true, AddMaterialFragment.TAG);
                 break;
             case R.id.btn_Search:
             case R.id.reload:
@@ -442,7 +442,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
 
         switch (item.getItemId()) {
             case R.id.myAd:
-//                ((MainActivity) getActivity()).onAddFragment(new MyMachineriesFragment(), R.anim.fadein, R.anim.short_fadeout, true, MyMachineriesFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(new MyMaterialFragment(), R.anim.fadein, R.anim.short_fadeout, true, MyMaterialFragment.TAG);
                 break;
         }
 

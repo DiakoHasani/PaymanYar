@@ -65,4 +65,19 @@ public class Tbl_Material {
 
         return position;
     }
+
+    /**
+     * در اینجا تایتل مصالح را براساس آیدی پاس می دهد
+     * **/
+    public String getTitleById(int id) {
+        String title = "";
+
+        try {
+            Cursor q = db.ExecuteQ("select * from TblMaterials where id=" + id);
+            title = q.getString(q.getColumnIndex("Title"));
+        } catch (Exception e) {
+        }
+
+        return title;
+    }
 }

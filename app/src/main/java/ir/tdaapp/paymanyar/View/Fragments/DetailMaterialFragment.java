@@ -24,30 +24,29 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderDetailPowerSupplyAdapter;
-import ir.tdaapp.paymanyar.Model.Enums.AdType;
-import ir.tdaapp.paymanyar.Model.Services.S_DetailPowerSupplyFragment;
+import ir.tdaapp.paymanyar.Model.Enums.AdTypeMaterial;
+import ir.tdaapp.paymanyar.Model.Services.S_DetailMaterialFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.ZoomOutPageTransformer;
-import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailPowerSupply;
-import ir.tdaapp.paymanyar.Presenter.P_DetailPowerSupplyFragment;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailMaterial;
+import ir.tdaapp.paymanyar.Presenter.P_DetailMaterialFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
 /**
- * در اینجا جزئیات نیروکار نمایش داده می شود
+ * مربوط به جزئیات مصالح
  **/
-public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailPowerSupplyFragment, View.OnClickListener {
+public class DetailMaterialFragment extends BaseFragment implements S_DetailMaterialFragment, View.OnClickListener {
 
-    public final static String TAG = "DetailPowerSupplyFragment";
-
-    P_DetailPowerSupplyFragment p_detailPowerSupplyFragment;
+    public final static String TAG = "DetailMaterialFragment";
+    P_DetailMaterialFragment p_detailMaterialFragment;
     SliderDetailPowerSupplyAdapter sliderDetailPowerSupplyAdapter;
     Toolbar toolbar;
     ViewPager2 slider;
     ShimmerFrameLayout loading;
     ImageView btn_reload;
-    TextView lbl_AdType, lbl_Name, lbl_Call, lbl_WorkExperience, lbl_Job, lbl_Province, lbl_Description;
+    TextView lbl_AdType, lbl_Price, lbl_MaterialCategory, lbl_Title, lbl_Call, lbl_Province, lbl_Description;
     ErrorAplicationDialog errorAplicationDialog;
     int id;
     RelativeLayout rightSlider, leftSlider;
@@ -56,14 +55,14 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.detail_power_supply, container, false);
+        View view = inflater.inflate(R.layout.detail_material_fragment, container, false);
 
         findItem(view);
         implement();
         setToolbar();
 
         new Handler().postDelayed(() -> {
-            p_detailPowerSupplyFragment.start();
+            p_detailMaterialFragment.start();
         }, 300);
 
         return view;
@@ -75,20 +74,20 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
         loading = view.findViewById(R.id.loading);
         btn_reload = view.findViewById(R.id.btn_reload);
         lbl_AdType = view.findViewById(R.id.lbl_AdType);
-        lbl_Name = view.findViewById(R.id.lbl_Name);
+        lbl_Price = view.findViewById(R.id.lbl_Price);
+        lbl_MaterialCategory = view.findViewById(R.id.lbl_MaterialCategory);
+        lbl_Title = view.findViewById(R.id.lbl_Title);
         lbl_Call = view.findViewById(R.id.lbl_Call);
-        lbl_WorkExperience = view.findViewById(R.id.lbl_WorkExperience);
-        lbl_Job = view.findViewById(R.id.lbl_Job);
         lbl_Province = view.findViewById(R.id.lbl_Province);
         lbl_Description = view.findViewById(R.id.lbl_Description);
-        leftSlider = view.findViewById(R.id.leftSlider);
         rightSlider = view.findViewById(R.id.rightSlider);
+        leftSlider = view.findViewById(R.id.leftSlider);
         btn_Support = view.findViewById(R.id.btn_Support);
         btn_Home = view.findViewById(R.id.btn_Home);
     }
 
     void implement() {
-        p_detailPowerSupplyFragment = new P_DetailPowerSupplyFragment(getContext(), this);
+        p_detailMaterialFragment=new P_DetailMaterialFragment(getContext(),this);
         leftSlider.setOnClickListener(this);
         rightSlider.setOnClickListener(this);
         btn_reload.setOnClickListener(this);
@@ -105,7 +104,7 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
     //در اینجا تنظیمات تولبار ست می شود
     void setToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setTitle(getContext().getResources().getString(R.string.DetailPowerSupply));
+        toolbar.setTitle(getContext().getResources().getString(R.string.DetailMaterial));
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
@@ -155,7 +154,7 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
         btn_reload.setVisibility(View.VISIBLE);
 
         errorAplicationDialog = new ErrorAplicationDialog(getString(R.string.Error), text, getString(R.string.Again), R.drawable.ic_error, R.color.colorError, () -> {
-            p_detailPowerSupplyFragment.start();
+            p_detailMaterialFragment.start();
             errorAplicationDialog.dismiss();
         });
         errorAplicationDialog.show(getActivity().getSupportFragmentManager(), ErrorAplicationDialog.TAG);
@@ -176,70 +175,76 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
      * در اینجا جزئیات آگهی ست می شوند
      **/
     @Override
-    public void onItem(VM_DetailPowerSupply detailPowerSupply) {
+    public void onItem(VM_DetailMaterial detailMaterial) {
         try {
 
-            //در اینجا نوع آگهی ست می شود
-            if (detailPowerSupply.getAdType() == AdType.presentation) {
-                lbl_AdType.setText(getString(R.string.Presentation));
-            } else {
-                lbl_AdType.setText(getString(R.string.Request));
+            //نوع آگهی
+            if (detailMaterial.getAdTypeMaterial()== AdTypeMaterial.Sales){
+                lbl_AdType.setText(getString(R.string.Sales));
+            }else{
+                lbl_AdType.setText(getString(R.string.Buy));
             }
 
-            //در اینجا نام ست می شود
-            if (!detailPowerSupply.getName().equalsIgnoreCase("")) {
-                lbl_Name.setText(detailPowerSupply.getName());
+            //قیمت
+            if (!detailMaterial.getPrice().equalsIgnoreCase("")) {
+                lbl_Price.setText(detailMaterial.getPrice());
             } else {
-                lbl_Name.setText("-");
+                lbl_Price.setText("-");
             }
 
-            //در اینجا شماره تماس ست می شود
-            if (!detailPowerSupply.getPhone().equalsIgnoreCase("")) {
-                lbl_Call.setText(detailPowerSupply.getPhone());
+            //دسته مصالح
+            if (detailMaterial.getMaterialId() != 0) {
+                lbl_MaterialCategory.setText(p_detailMaterialFragment.getTitleMaterialById(detailMaterial.getMaterialId()));
+            } else {
+                lbl_MaterialCategory.setText("-");
+            }
+
+            //در اینجا عنوان ست می شود
+            if (!detailMaterial.getTitle().equalsIgnoreCase("")) {
+                lbl_Title.setText(detailMaterial.getTitle());
+            } else {
+                lbl_Title.setText("-");
+            }
+
+            //شماره تماس
+            if (!detailMaterial.getCellPhone().equalsIgnoreCase("")) {
+                lbl_Call.setText(detailMaterial.getCellPhone());
             } else {
                 lbl_Call.setText("-");
             }
 
-            //در اینجا سابقه کار ست می شود
-            if (detailPowerSupply.getWorkExperienceId() != 0) {
-                lbl_WorkExperience.setText(p_detailPowerSupplyFragment.getTitleWorkExperiencesById(detailPowerSupply.getWorkExperienceId()));
-            } else {
-                lbl_WorkExperience.setText("-");
-            }
+            //استان و شهر
+            if (detailMaterial.getStateId() != 0 || detailMaterial.getCityId() != 0) {
 
-            //در اینجا شغل ست می شود
-            if (detailPowerSupply.getJobId() != 0) {
-                lbl_Job.setText(p_detailPowerSupplyFragment.getTitleJobById(detailPowerSupply.getJobId()));
-            } else {
-                lbl_Job.setText("-");
-            }
+                String cityName = p_detailMaterialFragment.getTitleStateById(detailMaterial.getCityId());
+                String stateName = p_detailMaterialFragment.getTitleStateById(detailMaterial.getStateId());
 
-            //در اینجا استان ست می شود
-            if (detailPowerSupply.getStateId() != 0) {
-                lbl_Province.setText(p_detailPowerSupplyFragment.getTitleStateById(detailPowerSupply.getStateId()));
-            }
-
-            //در اینجا شهر ست می شود
-            if (detailPowerSupply.getCityId() != 0) {
-                String text = "";
-
-                if (lbl_Province.getText().length() > 0) {
-                    text = lbl_Province.getText().toString() + " - ";
+                if (!stateName.equalsIgnoreCase("")) {
+                    lbl_Province.setText(stateName);
                 }
 
-                text += p_detailPowerSupplyFragment.getTitleStateById(detailPowerSupply.getCityId());
-                lbl_Province.setText(text);
+                if (!cityName.equalsIgnoreCase("")) {
+                    if (!stateName.equalsIgnoreCase("")) {
+                        String val = stateName + " - " + cityName;
+                        lbl_Province.setText(val);
+                    } else {
+                        lbl_Province.setText(cityName);
+                    }
+                }
+
+            } else {
+                lbl_Province.setText("-");
             }
 
-            //در اینجا توضیحات ست می شود
-            if (!detailPowerSupply.getDescription().equalsIgnoreCase("")) {
-                lbl_Description.setText(detailPowerSupply.getDescription());
+            //توضیحات
+            if (!detailMaterial.getDescription().equalsIgnoreCase("")) {
+                lbl_Description.setText(detailMaterial.getDescription());
             } else {
                 lbl_Description.setText("-");
             }
 
-            if (detailPowerSupply.getImages().size() > 0) {
-                sliderDetailPowerSupplyAdapter = new SliderDetailPowerSupplyAdapter(getContext(), detailPowerSupply.getImages());
+            if (detailMaterial.getImages().size() > 0) {
+                sliderDetailPowerSupplyAdapter = new SliderDetailPowerSupplyAdapter(getContext(), detailMaterial.getImages());
             } else {
                 List<String> urls = new ArrayList<>();
                 urls.add("noImage");
@@ -250,8 +255,7 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
             slider.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
             slider.setPageTransformer(new ZoomOutPageTransformer());
 
-        } catch (Exception e) {
-        }
+        }catch (Exception e){}
     }
 
     /**
@@ -275,7 +279,7 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
     @Override
     public void onDestroy() {
         super.onDestroy();
-        p_detailPowerSupplyFragment.cancel(TAG);
+        p_detailMaterialFragment.cancel(TAG);
     }
 
     @Override
@@ -297,7 +301,7 @@ public class DetailPowerSupplyFragment extends BaseFragment implements S_DetailP
                 }
                 break;
             case R.id.btn_reload:
-                p_detailPowerSupplyFragment.start();
+                p_detailMaterialFragment.start();
                 break;
             case R.id.btn_Support:
                 ((MainActivity) getActivity()).onAddFragment(new SupportFragment(), R.anim.fadein, R.anim.short_fadeout, true, SupportFragment.TAG);

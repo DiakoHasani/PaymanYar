@@ -25,8 +25,10 @@ import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
 import ir.tdaapp.paymanyar.Model.Utilitys.FileManger;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdTypeMachinery;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdTypeMaterial;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdUpgrade;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailMachinery;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailMaterial;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailPowerSupply;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMaterial;
@@ -38,6 +40,7 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_Material;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_MaterialSpinner;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostMachinery;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostMaterial;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PostPowerSupply;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_ProvincesAndCities;
@@ -50,9 +53,9 @@ import ir.tdaapp.paymanyar.R;
 public class Api_PowerSupply extends Base_Api {
 
     PostJsonObject_And_GetJsonArrayVolley volley_getPowerSupply, volley_getMachineries, volley_getMaterials;
-    GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply, volley_getDetailMachinery, volley_getDetailMyMachinery;
-    PostJsonObjectVolley volley_addPowerSupply, volley_addMachinery;
-    GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork, volley_getMyMachineries;
+    GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply, volley_getDetailMachinery, volley_getDetailMyMachinery, volley_getDetailMaterial, volley_getDetailMyMaterial;
+    PostJsonObjectVolley volley_addPowerSupply, volley_addMachinery, volley_addMaterial;
+    GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork, volley_getMyMachineries, volley_getMyMaterials;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
@@ -272,7 +275,7 @@ public class Api_PowerSupply extends Base_Api {
 
     /**
      * در اینجا لیست مصالح گرفته می شود
-     * **/
+     **/
     public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MaterialSpinner> materials) {
         return Single.create(emitter -> {
             new Thread(() -> {
@@ -549,6 +552,93 @@ public class Api_PowerSupply extends Base_Api {
     }
 
     /**
+     * در اینجا جزئیات مصالح برگشت داده می شود
+     **/
+    public Single<VM_DetailMaterial> getDetailMaterial(int id) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getDetailMaterial = new GetJsonObjectVolley(ApiUrl + "Advertising/GetAdMaterialsInfo?Id=" + id, resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_DetailMaterial material = new VM_DetailMaterial();
+                        JSONObject object = resault.getObject();
+
+                        try {
+
+                            material.setId(id);
+
+                            //تایتل
+                            if (!object.getString("Title").equalsIgnoreCase("null")) {
+                                material.setTitle(object.getString("Title"));
+                            }
+
+                            //نوع آگهی
+                            if (object.getBoolean("AdType")) {
+                                material.setAdTypeMaterial(AdTypeMaterial.Sales);
+                            } else {
+                                material.setAdTypeMaterial(AdTypeMaterial.Buy);
+                            }
+
+                            //آیدی مصالح
+                            if (!object.getString("Materials").equalsIgnoreCase("null")) {
+                                material.setMaterialId(object.getInt("Materials"));
+                            }
+
+                            //قیمت
+                            if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                material.setPrice(object.getString("Price"));
+                            }
+
+                            //استان
+                            if (!object.getString("State").equalsIgnoreCase("null")) {
+                                material.setStateId(object.getInt("State"));
+                            }
+
+                            //شهر
+                            if (!object.getString("City").equalsIgnoreCase("null")) {
+                                material.setCityId(object.getInt("City"));
+                            }
+
+                            //شماره موبایل
+                            if (!object.getString("Phone").equalsIgnoreCase("null")) {
+                                material.setCellPhone(object.getString("Phone"));
+                            }
+
+                            //توضیحات
+                            if (!object.getString("Description").equalsIgnoreCase("null")) {
+                                material.setDescription(object.getString("Description"));
+                            }
+
+                            //در اینجا عکس ها گرفته می شود
+                            JSONArray array = object.getJSONArray("AllPicsAd");
+                            List<String> images = new ArrayList<>();
+                            if (array.length() > 0) {
+                                for (int i = 0; i < array.length(); i++) {
+                                    String image = ImageAd + array.get(i).toString();
+                                    images.add(image);
+                                }
+                            }
+                            material.setImages(images);
+
+                        } catch (Exception e) {
+                        } finally {
+                            emitter.onSuccess(material);
+                        }
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->getDetailMaterial", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+            }).start();
+        });
+    }
+
+    /**
      * در اینجا یک نیروکار اضافه می شود
      **/
     public Single<VM_Message> addPowerSupply(VM_PostPowerSupply powerSupply) {
@@ -709,6 +799,89 @@ public class Api_PowerSupply extends Base_Api {
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
                 });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا مصالح اضافه می شود
+     **/
+    public Single<VM_Message> addMaterial(VM_PostMaterial material) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                JSONObject input = new JSONObject();
+
+                try {
+                    //آیدی کاربر
+                    input.put("UserId", material.getUserId());
+
+                    //عنوان
+                    input.put("Title", material.getTitle());
+
+                    //نوع آگهی
+                    if (material.getAdType().getAdType() == AdTypeMaterial.Sales) {
+                        input.put("AdType", true);
+                    } else {
+                        input.put("AdType", false);
+                    }
+
+                    //آیدی دسته مصالح
+                    input.put("Materials", material.getMaterialId());
+
+                    //قیمت
+                    input.put("Price", material.getPrice().replace(",", "").replace("٬", ""));
+
+                    //استان
+                    input.put("State", material.getState());
+
+                    //شهر
+                    input.put("City", material.getCity());
+
+                    //شماره موبایل
+                    input.put("Phone", material.getCellPhone());
+
+                    //توضیحات
+                    input.put("Description", material.getDescription());
+
+                    //در اینجا عکس ها ست می شوند
+                    JSONArray imagesArray = new JSONArray();
+                    if (material.getImages().size() > 0) {
+                        List<String> array = material.getImages();
+                        for (int i = 0; i < array.size(); i++) {
+                            imagesArray.put(array.get(i));
+                        }
+                    } else {
+                        imagesArray.put("1");
+                    }
+                    input.put("PicsAd", imagesArray);
+
+                } catch (Exception e) {
+                }
+
+                volley_addMaterial = new PostJsonObjectVolley(ApiUrl + "Advertising/PostAdAddMaterials", input, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_Message message = new VM_Message();
+
+                        try {
+                            JSONObject object = resault.getObject();
+
+                            message.setResult(object.getBoolean("Result"));
+                            message.setCode(object.getInt("Code"));
+                            message.setMessage(object.getString("MessageText"));
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(message);
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->addMaterial", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+
             }).start();
         });
     }
@@ -968,6 +1141,95 @@ public class Api_PowerSupply extends Base_Api {
     }
 
     /**
+     * در اینجا مصالح من برگشت داده می شود
+     **/
+    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MaterialSpinner> materials) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getMyMaterials = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMaterials?UserId=" + userId, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_Material> vals = new ArrayList<>();
+                        JSONArray array = resault.getJsonArray();
+
+                        for (int i = 0; i < array.length(); i++) {
+                            VM_Material material = new VM_Material();
+
+                            try {
+
+                                JSONObject object = array.getJSONObject(i);
+
+                                //آیدی
+                                material.setId(object.getInt("Id"));
+
+                                //عکس
+                                material.setImage(ImageAd + object.getString("PicsAd"));
+
+                                //تایتل مصالح گرفته می شود
+                                if (object.getInt("Materials") != 0) {
+                                    int materialId = object.getInt("Materials");
+                                    for (VM_MaterialSpinner j : materials) {
+
+                                        if (j.getId() == materialId) {
+                                            material.setMaterial(j.getTitle());
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //نوع آگهی
+                                if (object.getBoolean("AdType")) {
+                                    material.setAdType(AdTypeMaterial.Sales);
+                                } else {
+                                    material.setAdType(AdTypeMaterial.Buy);
+                                }
+
+                                //در اینجا قیمت ست می شود
+                                if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                    material.setPrice(object.getString("Price"));
+                                }
+
+                                //شماره موبایل
+                                if (!object.getString("Phone").equalsIgnoreCase("null")) {
+                                    material.setCellPhone(object.getString("Phone"));
+                                }
+
+                                //استان
+                                if (object.getInt("State") != 0) {
+                                    int stateId = object.getInt("State");
+                                    for (VM_ProvincesAndCities j : provincesAndCities) {
+                                        if (j.getId() == stateId) {
+                                            material.setProvinceAndCity(j.getTitle());
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //زمان
+                                if (!object.getString("DateInsert").equalsIgnoreCase("null")) {
+                                    material.setDate(object.getString("DateInsert"));
+                                }
+
+                            } catch (Exception e) {
+                            } finally {
+                                vals.add(material);
+                            }
+                        }
+
+                        emitter.onSuccess(vals);
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->getMyMaterials", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
      * در اینجا جزئیات نیروکار برای ویرایش گرفته می شود
      **/
     public Single<VM_PostPowerSupply> getDetailMyPowerSupply(int id) {
@@ -1128,6 +1390,83 @@ public class Api_PowerSupply extends Base_Api {
         });
     }
 
+    /**
+     * در اینجا جزئیات مصالح من گرفته می شود
+     * **/
+    public Single<VM_PostMaterial> getDetailMyMaterial(int id, Context context) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getDetailMyMaterial = new GetJsonObjectVolley(ApiUrl + "Advertising/GetAdMaterialsInfo?Id=" + id, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        VM_PostMaterial material = new VM_PostMaterial();
+                        JSONObject object = resault.getObject();
+
+                        try {
+
+                            //نوع آگهی
+                            if (object.getBoolean("AdType")) {
+                                material.setAdType(new VM_AdTypeMaterial(AdTypeMaterial.Sales, context.getString(R.string.Sales)));
+                            } else {
+                                material.setAdType(new VM_AdTypeMaterial(AdTypeMaterial.Buy, context.getString(R.string.Buy)));
+                            }
+
+                            //آیدی دسته مصالح
+                            material.setMaterialId(object.getInt("Materials"));
+
+                            //استان
+                            material.setState(object.getInt("State"));
+
+                            //شهر
+                            material.setCity(object.getInt("City"));
+
+                            //قیمت
+                            material.setPrice(object.getString("Price").replace(context.getString(R.string.Toman), "")
+                                    .replace(",", "").replace("٬", "").trim());
+
+                            //شماره تماس
+                            material.setCellPhone(object.getString("Phone"));
+
+                            //توضیحات
+                            material.setDescription(object.getString("Description"));
+
+                            //ویژه
+                            material.setSpecial(object.getBoolean("Special"));
+
+                            //عنوان
+                            material.setTitle(object.getString("Title"));
+
+                            //در اینجا وضعیت سفارش گرفته می شود
+                            if (!object.getString("IsActive").equalsIgnoreCase("null")) {
+                                material.setStepPower(object.getBoolean("IsActive") ? StepsAddPower.Post_an_Ad : StepsAddPower.Check_The_Ad);
+                            }
+
+                            //مربوط به عکس
+                            JSONArray images = object.getJSONArray("AllPicsAd");
+                            for (int i = 0; i < images.length(); i++) {
+                                try {
+                                    String url = ImageAd + images.get(i).toString();
+                                    material.getImages().add(url);
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(material);
+
+                    } else {
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_PowerSupply->getDetailMyMaterial", resault.getMessage());
+                        }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
     public void cancel(String tag, Context context) {
 
         isUploadedFile = false;
@@ -1178,6 +1517,22 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_getMaterials != null) {
             volley_getMaterials.Cancel(tag, context);
+        }
+
+        if (volley_getDetailMaterial != null) {
+            volley_getDetailMaterial.Cancel(tag, context);
+        }
+
+        if (volley_getMyMaterials != null) {
+            volley_getMyMaterials.Cancel(tag, context);
+        }
+
+        if (volley_addMaterial != null) {
+            volley_addMaterial.Cancel(tag, context);
+        }
+
+        if (volley_getDetailMyMaterial != null) {
+            volley_getDetailMyMaterial.Cancel(tag, context);
         }
     }
 
