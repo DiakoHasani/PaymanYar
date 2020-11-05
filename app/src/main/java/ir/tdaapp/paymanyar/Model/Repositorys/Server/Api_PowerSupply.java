@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
@@ -56,6 +59,8 @@ public class Api_PowerSupply extends Base_Api {
     GetJsonObjectVolley volley_getDetailPowerSupply, volley_getDetailMyPowerSupply, volley_getDetailMachinery, volley_getDetailMyMachinery, volley_getDetailMaterial, volley_getDetailMyMaterial;
     PostJsonObjectVolley volley_addPowerSupply, volley_addMachinery, volley_addMaterial;
     GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork, volley_getMyMachineries, volley_getMyMaterials;
+    GetJsonArrayVolley volley_getJobs, volley_getMachinerySpinner, volley_getMaterialSpinner;
+    GetJsonArrayVolley volley_getMachinerysTitle, volley_getJobsTitle, volley_getMaterialsTitle;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
@@ -63,7 +68,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست آگهی های شبکه تامین کار گرفته می شود
      **/
-    public Single<List<VM_PowerSupplyNetwork>> getPowerSupply(VM_FilterPowerSupplyNetwork filter, List<VM_Job> jobs, List<VM_ProvincesAndCities> provincesAndCities, List<VM_WorkExperience> workExperiences) {
+    public Single<List<VM_PowerSupplyNetwork>> getPowerSupply(VM_FilterPowerSupplyNetwork filter, List<VM_ProvincesAndCities> provincesAndCities, List<VM_WorkExperience> workExperiences) {
         return Single.create(emitter -> {
             new Thread(() -> {
 
@@ -94,21 +99,23 @@ public class Api_PowerSupply extends Base_Api {
                                     JSONObject object = array.getJSONObject(i);
                                     VM_PowerSupplyNetwork supplyNetwork = new VM_PowerSupplyNetwork();
 
-                                    supplyNetwork.setId(object.getInt("Id"));
-                                    supplyNetwork.setCellPhone(object.getString("Phone"));
-                                    supplyNetwork.setImage(ImageAd + object.getString("PicsAd"));
-                                    supplyNetwork.setDate(object.getString("DateInsert"));
-                                    supplyNetwork.setSpecial(object.getBoolean("Special"));
+                                    if (!object.getString("Id").equalsIgnoreCase("null"))
+                                        supplyNetwork.setId(object.getInt("Id"));
 
-                                    if (object.getInt("Job") != 0) {
-                                        int jobId = object.getInt("Job");
+                                    if (!object.getString("Phone").equalsIgnoreCase("null"))
+                                        supplyNetwork.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
 
-                                        for (int j = 0; j < jobs.size(); j++) {
-                                            if (jobs.get(j).getId() == jobId) {
-                                                supplyNetwork.setJobTitle(jobs.get(j).getTitle());
-                                                break;
-                                            }
-                                        }
+                                    if (!object.getString("PicsAd").equalsIgnoreCase("null"))
+                                        supplyNetwork.setImage(ImageAd + object.getString("PicsAd"));
+
+                                    if (!object.getString("DateInsert").equalsIgnoreCase("null"))
+                                        supplyNetwork.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
+
+                                    if (!object.getString("Special").equalsIgnoreCase("null"))
+                                        supplyNetwork.setSpecial(object.getBoolean("Special"));
+
+                                    if (!object.getString("JobTitle").equalsIgnoreCase("null")) {
+                                        supplyNetwork.setJobTitle(object.getString("JobTitle"));
                                     }
 
                                     if (object.getInt("State") != 0) {
@@ -133,7 +140,7 @@ public class Api_PowerSupply extends Base_Api {
                                         }
                                     }
 
-                                    supplyNetwork.setName(object.getString("Name"));
+                                    supplyNetwork.setName(Replace.Number_en_To_fa(object.getString("Name")));
 
                                     supplyNetworks.add(supplyNetwork);
 
@@ -163,7 +170,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست ماشین آلات گرفته می شود
      **/
-    public Single<List<VM_Machinery>> getMachineries(VM_FilterMachinery filter, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MachinerySpinner> machinerySpinners) {
+    public Single<List<VM_Machinery>> getMachineries(VM_FilterMachinery filter, List<VM_ProvincesAndCities> provincesAndCities) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 try {
@@ -196,13 +203,8 @@ public class Api_PowerSupply extends Base_Api {
                                         machinery.setImage(ImageAd + object.getString("PicsAd"));
 
                                         //در اینجا تایتل ماشین آلات ست می شود
-                                        if (!object.getString("Machinery").equalsIgnoreCase("null")) {
-                                            int machineryId = object.getInt("Machinery");
-                                            for (int j = 0; j < machinerySpinners.size(); j++) {
-                                                if (machinerySpinners.get(j).getId() == machineryId) {
-                                                    machinery.setMachineryTitle(machinerySpinners.get(j).getTitle());
-                                                }
-                                            }
+                                        if (!object.getString("MachineryTitle").equalsIgnoreCase("null")) {
+                                            machinery.setMachineryTitle(object.getString("MachineryTitle"));
                                         }
 
                                         //در اینجا وضعیت آگهی فروش یا اجاره ای بودن ست می شود
@@ -221,12 +223,12 @@ public class Api_PowerSupply extends Base_Api {
 
                                         //در اینجا قیمت ست می شود
                                         if (!object.getString("Price").equalsIgnoreCase("null")) {
-                                            machinery.setPrice(object.getString("Price"));
+                                            machinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                                         }
 
                                         //شماره موبایل
                                         if (!object.getString("Phone").equalsIgnoreCase("null")) {
-                                            machinery.setCellPhone(object.getString("Phone"));
+                                            machinery.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
                                         }
 
                                         //استان
@@ -243,7 +245,7 @@ public class Api_PowerSupply extends Base_Api {
 
                                         //زمان
                                         if (!object.getString("DateInsert").equalsIgnoreCase("null")) {
-                                            machinery.setDate(object.getString("DateInsert"));
+                                            machinery.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                         }
 
                                     } catch (Exception e) {
@@ -276,7 +278,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست مصالح گرفته می شود
      **/
-    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MaterialSpinner> materials) {
+    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 try {
@@ -310,16 +312,8 @@ public class Api_PowerSupply extends Base_Api {
                                     material.setImage(ImageAd + object.getString("PicsAd"));
 
                                     //تایتل مصالح گرفته می شود
-                                    if (object.getInt("Materials") != 0) {
-                                        int materialId = object.getInt("Materials");
-                                        for (VM_MaterialSpinner j : materials) {
-
-                                            if (j.getId() == materialId) {
-                                                material.setMaterial(j.getTitle());
-                                                break;
-                                            }
-                                        }
-                                    }
+                                    if (!object.getString("MaterialsTitle").equalsIgnoreCase("null"))
+                                        material.setMaterial(object.getString("MaterialsTitle"));
 
                                     //نوع آگهی
                                     if (object.getBoolean("AdType")) {
@@ -330,12 +324,12 @@ public class Api_PowerSupply extends Base_Api {
 
                                     //در اینجا قیمت ست می شود
                                     if (!object.getString("Price").equalsIgnoreCase("null")) {
-                                        material.setPrice(object.getString("Price"));
+                                        material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                                     }
 
                                     //شماره موبایل
                                     if (!object.getString("Phone").equalsIgnoreCase("null")) {
-                                        material.setCellPhone(object.getString("Phone"));
+                                        material.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
                                     }
 
                                     //استان
@@ -351,7 +345,7 @@ public class Api_PowerSupply extends Base_Api {
 
                                     //زمان
                                     if (!object.getString("DateInsert").equalsIgnoreCase("null")) {
-                                        material.setDate(object.getString("DateInsert"));
+                                        material.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                     }
 
                                 } catch (Exception e) {
@@ -398,10 +392,10 @@ public class Api_PowerSupply extends Base_Api {
                             detailPowerSupply.setId(object.getInt("Id"));
 
                             if (!object.getString("DateInsert").equalsIgnoreCase("null"))
-                                detailPowerSupply.setDateInsert(object.getString("DateInsert"));
+                                detailPowerSupply.setDateInsert(Replace.Number_en_To_fa(object.getString("DateInsert")));
 
                             if (!object.getString("Name").equalsIgnoreCase("null"))
-                                detailPowerSupply.setName(object.getString("Name"));
+                                detailPowerSupply.setName(Replace.Number_en_To_fa(object.getString("Name")));
 
                             if (!object.getString("AdType").equalsIgnoreCase("null")) {
                                 if (object.getBoolean("AdType")) {
@@ -410,6 +404,9 @@ public class Api_PowerSupply extends Base_Api {
                                     detailPowerSupply.setAdType(AdType.request);
                                 }
                             }
+
+                            if (!object.getString("JobTitle").equalsIgnoreCase("null"))
+                                detailPowerSupply.setJobTitle(object.getString("JobTitle"));
 
                             if (!object.getString("Job").equalsIgnoreCase("null"))
                                 detailPowerSupply.setJobId(object.getInt("Job"));
@@ -424,10 +421,10 @@ public class Api_PowerSupply extends Base_Api {
                                 detailPowerSupply.setCityId(object.getInt("City"));
 
                             if (!object.getString("Phone").equalsIgnoreCase("null"))
-                                detailPowerSupply.setPhone(object.getString("Phone"));
+                                detailPowerSupply.setPhone(Replace.Number_en_To_fa(object.getString("Phone")));
 
                             if (!object.getString("Description").equalsIgnoreCase("null"))
-                                detailPowerSupply.setDescription(object.getString("Description"));
+                                detailPowerSupply.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             if (!object.getString("Special").equalsIgnoreCase("null"))
                                 detailPowerSupply.setSpecial(object.getBoolean("Special"));
@@ -478,7 +475,7 @@ public class Api_PowerSupply extends Base_Api {
 
                             //تایتل
                             if (!object.getString("Title").equalsIgnoreCase("null")) {
-                                detailMachinery.setTitle(object.getString("Title"));
+                                detailMachinery.setTitle(Replace.Number_en_To_fa(object.getString("Title")));
                             }
 
                             //در اینجا وضعیت آگهی فروش یا اجاره ای بودن ست می شود
@@ -495,6 +492,11 @@ public class Api_PowerSupply extends Base_Api {
                                 }
                             }
 
+                            //تایتل ماشین آلات
+                            if (!object.getString("MachineryTitle").equalsIgnoreCase("null")) {
+                                detailMachinery.setMachineryTitle(object.getString("MachineryTitle"));
+                            }
+
                             //آیدی ماشین آلات
                             if (!object.getString("Machinery").equalsIgnoreCase("null")) {
                                 detailMachinery.setMachineryId(object.getInt("Machinery"));
@@ -502,7 +504,7 @@ public class Api_PowerSupply extends Base_Api {
 
                             //قیمت
                             if (!object.getString("Price").equalsIgnoreCase("null")) {
-                                detailMachinery.setPrice(object.getString("Price"));
+                                detailMachinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                             }
 
                             //استان
@@ -517,12 +519,12 @@ public class Api_PowerSupply extends Base_Api {
 
                             //شماره موبایل
                             if (!object.getString("Phone").equalsIgnoreCase("null")) {
-                                detailMachinery.setCellPhone(object.getString("Phone"));
+                                detailMachinery.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
                             }
 
                             //توضیحات
                             if (!object.getString("Description").equalsIgnoreCase("null")) {
-                                detailMachinery.setDescription(object.getString("Description"));
+                                detailMachinery.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
                             }
 
                             //در اینجا عکس ها گرفته می شود
@@ -568,9 +570,14 @@ public class Api_PowerSupply extends Base_Api {
 
                             material.setId(id);
 
+                            //تایتل مصالح
+                            if (!object.getString("MaterialsTitle").equalsIgnoreCase("null")) {
+                                material.setMaterialsTitle(object.getString("MaterialsTitle"));
+                            }
+
                             //تایتل
                             if (!object.getString("Title").equalsIgnoreCase("null")) {
-                                material.setTitle(object.getString("Title"));
+                                material.setTitle(Replace.Number_en_To_fa(object.getString("Title")));
                             }
 
                             //نوع آگهی
@@ -587,7 +594,7 @@ public class Api_PowerSupply extends Base_Api {
 
                             //قیمت
                             if (!object.getString("Price").equalsIgnoreCase("null")) {
-                                material.setPrice(object.getString("Price"));
+                                material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                             }
 
                             //استان
@@ -602,12 +609,12 @@ public class Api_PowerSupply extends Base_Api {
 
                             //شماره موبایل
                             if (!object.getString("Phone").equalsIgnoreCase("null")) {
-                                material.setCellPhone(object.getString("Phone"));
+                                material.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
                             }
 
                             //توضیحات
                             if (!object.getString("Description").equalsIgnoreCase("null")) {
-                                material.setDescription(object.getString("Description"));
+                                material.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
                             }
 
                             //در اینجا عکس ها گرفته می شود
@@ -659,7 +666,7 @@ public class Api_PowerSupply extends Base_Api {
                         input.put("AdType", true);
                     }
 
-                    input.put("Job", powerSupply.getJob());
+                    input.put("JobName", powerSupply.getJobTitle());
                     input.put("WorkExperience", powerSupply.getWorkExperiences());
                     input.put("State", powerSupply.getState());
                     input.put("City", powerSupply.getCity());
@@ -743,8 +750,8 @@ public class Api_PowerSupply extends Base_Api {
                             break;
                     }
 
-                    //آیدی دسته ماشین آلات
-                    input.put("Machinery", machinery.getMachineryId());
+                    //دسته ماشین آلات
+                    input.put("MachineryName", machinery.getMachineryName());
 
                     //قیمت
                     input.put("Price", machinery.getPrice().replace(",", "").replace("٬", ""));
@@ -826,7 +833,7 @@ public class Api_PowerSupply extends Base_Api {
                     }
 
                     //آیدی دسته مصالح
-                    input.put("Materials", material.getMaterialId());
+                    input.put("MaterialsName", material.getMaterialTitle());
 
                     //قیمت
                     input.put("Price", material.getPrice().replace(",", "").replace("٬", ""));
@@ -938,8 +945,8 @@ public class Api_PowerSupply extends Base_Api {
 
                                 try {
                                     adUpgrade.setId(object.getInt("Id"));
-                                    adUpgrade.setDescription(object.getString("Description"));
-                                    adUpgrade.setPrice(object.getString("Price"));
+                                    adUpgrade.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
+                                    adUpgrade.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                                 } catch (Exception e) {
                                 } finally {
                                     adUpgrades.add(adUpgrade);
@@ -963,7 +970,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست نیروکارهای من برگشت داده می شود
      **/
-    public Single<List<VM_PowerSupplyNetwork>> getMyPowerSupplyNetwork(int userId, List<VM_Job> jobs, List<VM_ProvincesAndCities> provincesAndCities, List<VM_WorkExperience> workExperiences) {
+    public Single<List<VM_PowerSupplyNetwork>> getMyPowerSupplyNetwork(int userId, List<VM_ProvincesAndCities> provincesAndCities, List<VM_WorkExperience> workExperiences) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 try {
@@ -981,46 +988,50 @@ public class Api_PowerSupply extends Base_Api {
                                     JSONObject object = array.getJSONObject(i);
                                     VM_PowerSupplyNetwork supplyNetwork = new VM_PowerSupplyNetwork();
 
-                                    supplyNetwork.setId(object.getInt("Id"));
-                                    supplyNetwork.setCellPhone(object.getString("Phone"));
-                                    supplyNetwork.setImage(ImageAd + object.getString("PicsAd"));
-                                    supplyNetwork.setDate(object.getString("DateInsert"));
-                                    supplyNetwork.setSpecial(object.getBoolean("Special"));
+                                    if (!object.getString("Id").equalsIgnoreCase("null"))
+                                        supplyNetwork.setId(object.getInt("Id"));
 
-                                    if (object.getInt("Job") != 0) {
-                                        int jobId = object.getInt("Job");
+                                    if (!object.getString("Phone").equalsIgnoreCase("null"))
+                                        supplyNetwork.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
 
-                                        for (int j = 0; j < jobs.size(); j++) {
-                                            if (jobs.get(j).getId() == jobId) {
-                                                supplyNetwork.setJobTitle(jobs.get(j).getTitle());
-                                                break;
+                                    if (!object.getString("PicsAd").equalsIgnoreCase("null"))
+                                        supplyNetwork.setImage(ImageAd + object.getString("PicsAd"));
+
+                                    if (!object.getString("DateInsert").equalsIgnoreCase("null"))
+                                        supplyNetwork.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
+
+                                    if (!object.getString("Special").equalsIgnoreCase("null"))
+                                        supplyNetwork.setSpecial(object.getBoolean("Special"));
+
+                                    if (!object.getString("JobTitle").equalsIgnoreCase("null"))
+                                        supplyNetwork.setJobTitle(object.getString("JobTitle"));
+
+                                    if (!object.getString("State").equalsIgnoreCase("null"))
+                                        if (object.getInt("State") != 0) {
+                                            int stateId = object.getInt("State");
+
+                                            for (int j = 0; j < provincesAndCities.size(); j++) {
+                                                if (provincesAndCities.get(j).getId() == stateId) {
+                                                    supplyNetwork.setProvinceAndCity(provincesAndCities.get(j).getTitle());
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    if (object.getInt("State") != 0) {
-                                        int stateId = object.getInt("State");
+                                    if (!object.getString("WorkExperience").equalsIgnoreCase("null"))
+                                        if (object.getInt("WorkExperience") != 0) {
+                                            int workExperience = object.getInt("WorkExperience");
 
-                                        for (int j = 0; j < provincesAndCities.size(); j++) {
-                                            if (provincesAndCities.get(j).getId() == stateId) {
-                                                supplyNetwork.setProvinceAndCity(provincesAndCities.get(j).getTitle());
-                                                break;
+                                            for (int j = 0; j < workExperiences.size(); j++) {
+                                                if (workExperiences.get(j).getId() == workExperience) {
+                                                    supplyNetwork.setWorkExperience(workExperiences.get(j).getTitle());
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    if (object.getInt("WorkExperience") != 0) {
-                                        int workExperience = object.getInt("WorkExperience");
-
-                                        for (int j = 0; j < workExperiences.size(); j++) {
-                                            if (workExperiences.get(j).getId() == workExperience) {
-                                                supplyNetwork.setWorkExperience(workExperiences.get(j).getTitle());
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    supplyNetwork.setName(object.getString("Name"));
+                                    if (!object.getString("Name").equalsIgnoreCase("null"))
+                                        supplyNetwork.setName(Replace.Number_en_To_fa(object.getString("Name")));
 
                                     supplyNetworks.add(supplyNetwork);
 
@@ -1045,7 +1056,7 @@ public class Api_PowerSupply extends Base_Api {
         });
     }
 
-    public Single<List<VM_Machinery>> getMyMachineries(int userId, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MachinerySpinner> machinerySpinners) {
+    public Single<List<VM_Machinery>> getMyMachineries(int userId, List<VM_ProvincesAndCities> provincesAndCities) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMyMachineries = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMachinery?UserId=" + userId, resault -> {
@@ -1063,18 +1074,15 @@ public class Api_PowerSupply extends Base_Api {
                                 try {
                                     JSONObject object = array.getJSONObject(i);
 
-                                    machinery.setId(object.getInt("Id"));
+                                    if (!object.getString("Id").equalsIgnoreCase("null"))
+                                        machinery.setId(object.getInt("Id"));
 
-                                    machinery.setImage(ImageAd + object.getString("PicsAd"));
+                                    if (!object.getString("PicsAd").equalsIgnoreCase("null"))
+                                        machinery.setImage(ImageAd + object.getString("PicsAd"));
 
                                     //در اینجا تایتل ماشین آلات ست می شود
-                                    if (!object.getString("Machinery").equalsIgnoreCase("null")) {
-                                        int machineryId = object.getInt("Machinery");
-                                        for (int j = 0; j < machinerySpinners.size(); j++) {
-                                            if (machinerySpinners.get(j).getId() == machineryId) {
-                                                machinery.setMachineryTitle(machinerySpinners.get(j).getTitle());
-                                            }
-                                        }
+                                    if (!object.getString("MachineryTitle").equalsIgnoreCase("null")) {
+                                        machinery.setMachineryTitle(object.getString("MachineryTitle"));
                                     }
 
                                     //در اینجا وضعیت آگهی فروش یا اجاره ای بودن ست می شود
@@ -1093,12 +1101,12 @@ public class Api_PowerSupply extends Base_Api {
 
                                     //در اینجا قیمت ست می شود
                                     if (!object.getString("Price").equalsIgnoreCase("null")) {
-                                        machinery.setPrice(object.getString("Price"));
+                                        machinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                                     }
 
                                     //شماره موبایل
                                     if (!object.getString("Phone").equalsIgnoreCase("null")) {
-                                        machinery.setCellPhone(object.getString("Phone"));
+                                        machinery.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
                                     }
 
                                     //استان
@@ -1115,7 +1123,7 @@ public class Api_PowerSupply extends Base_Api {
 
                                     //زمان
                                     if (!object.getString("DateInsert").equalsIgnoreCase("null")) {
-                                        machinery.setDate(object.getString("DateInsert"));
+                                        machinery.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                     }
 
                                 } catch (Exception e) {
@@ -1143,7 +1151,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا مصالح من برگشت داده می شود
      **/
-    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities, List<VM_MaterialSpinner> materials) {
+    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMyMaterials = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMaterials?UserId=" + userId, resault -> {
@@ -1160,38 +1168,33 @@ public class Api_PowerSupply extends Base_Api {
                                 JSONObject object = array.getJSONObject(i);
 
                                 //آیدی
-                                material.setId(object.getInt("Id"));
+                                if (!object.getString("Id").equalsIgnoreCase("null"))
+                                    material.setId(object.getInt("Id"));
 
                                 //عکس
-                                material.setImage(ImageAd + object.getString("PicsAd"));
+                                if (!object.getString("PicsAd").equalsIgnoreCase("null"))
+                                    material.setImage(ImageAd + object.getString("PicsAd"));
 
                                 //تایتل مصالح گرفته می شود
-                                if (object.getInt("Materials") != 0) {
-                                    int materialId = object.getInt("Materials");
-                                    for (VM_MaterialSpinner j : materials) {
-
-                                        if (j.getId() == materialId) {
-                                            material.setMaterial(j.getTitle());
-                                            break;
-                                        }
-                                    }
-                                }
+                                if (!object.getString("MaterialsTitle").equalsIgnoreCase("null"))
+                                    material.setMaterial(object.getString("MaterialsTitle"));
 
                                 //نوع آگهی
-                                if (object.getBoolean("AdType")) {
-                                    material.setAdType(AdTypeMaterial.Sales);
-                                } else {
-                                    material.setAdType(AdTypeMaterial.Buy);
-                                }
+                                if (!object.getString("AdType").equalsIgnoreCase("null"))
+                                    if (object.getBoolean("AdType")) {
+                                        material.setAdType(AdTypeMaterial.Sales);
+                                    } else {
+                                        material.setAdType(AdTypeMaterial.Buy);
+                                    }
 
                                 //در اینجا قیمت ست می شود
                                 if (!object.getString("Price").equalsIgnoreCase("null")) {
-                                    material.setPrice(object.getString("Price"));
+                                    material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                                 }
 
                                 //شماره موبایل
                                 if (!object.getString("Phone").equalsIgnoreCase("null")) {
-                                    material.setCellPhone(object.getString("Phone"));
+                                    material.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
                                 }
 
                                 //استان
@@ -1207,7 +1210,7 @@ public class Api_PowerSupply extends Base_Api {
 
                                 //زمان
                                 if (!object.getString("DateInsert").equalsIgnoreCase("null")) {
-                                    material.setDate(object.getString("DateInsert"));
+                                    material.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                 }
 
                             } catch (Exception e) {
@@ -1253,28 +1256,36 @@ public class Api_PowerSupply extends Base_Api {
                             }
 
                             //سابقه کاری
-                            model.setWorkExperiences(object.getInt("WorkExperience"));
+                            if (!object.getString("WorkExperience").equalsIgnoreCase("null"))
+                                model.setWorkExperiences(object.getInt("WorkExperience"));
 
                             //استان
-                            model.setState(object.getInt("State"));
+                            if (!object.getString("State").equalsIgnoreCase("null"))
+                                model.setState(object.getInt("State"));
 
                             //شهر
-                            model.setCity(object.getInt("City"));
+                            if (!object.getString("City").equalsIgnoreCase("null"))
+                                model.setCity(object.getInt("City"));
 
                             //شغل
-                            model.setJob(object.getInt("Job"));
+                            if (!object.getString("JobTitle").equalsIgnoreCase("null"))
+                                model.setJobTitle(object.getString("JobTitle"));
 
                             //نام
-                            model.setName(object.getString("Name"));
+                            if (!object.getString("Name").equalsIgnoreCase("null"))
+                                model.setName(Replace.Number_en_To_fa(object.getString("Name")));
 
                             //شماره تماس
-                            model.setCellPhone(object.getString("Phone"));
+                            if (!object.getString("Phone").equalsIgnoreCase("null"))
+                                model.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
 
                             //توضیحات
-                            model.setDescription(object.getString("Description"));
+                            if (!object.getString("Description").equalsIgnoreCase("null"))
+                                model.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             //ویژه
-                            model.setSpecial(object.getBoolean("Special"));
+                            if (!object.getString("Special").equalsIgnoreCase("null"))
+                                model.setSpecial(object.getBoolean("Special"));
 
                             //در اینجا وضعیت سفارش گرفته می شود
                             if (!object.getString("IsActive").equalsIgnoreCase("null")) {
@@ -1334,30 +1345,41 @@ public class Api_PowerSupply extends Base_Api {
                                 }
                             }
 
-                            //آیدی دسته ماشین آلات
-                            model.setMachineryId(object.getInt("Machinery"));
+                            //دسته ماشین آلات
+                            if (!object.getString("MachineryTitle").equalsIgnoreCase("null"))
+                                model.setMachineryName(object.getString("MachineryTitle"));
 
                             //استان
-                            model.setState(object.getInt("State"));
+                            if (!object.getString("State").equalsIgnoreCase("null"))
+                                model.setState(object.getInt("State"));
 
                             //شهر
-                            model.setCity(object.getInt("City"));
+                            if (!object.getString("City").equalsIgnoreCase("null"))
+                                model.setCity(object.getInt("City"));
 
                             //قیمت
-                            model.setPrice(object.getString("Price").replace(context.getString(R.string.Toman), "")
-                                    .replace(",", "").replace("٬", "").trim());
+                            if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                String price = Replace.Number_en_To_fa(object.getString("Price"))
+                                        .replace(context.getString(R.string.Toman), "")
+                                        .replace(",", "").replace("٬", "").trim();
+                                model.setPrice(price);
+                            }
 
                             //شماره تماس
-                            model.setCellPhone(object.getString("Phone"));
+                            if (!object.getString("Phone").equalsIgnoreCase("null"))
+                                model.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
 
                             //توضیحات
-                            model.setDescription(object.getString("Description"));
+                            if (!object.getString("Description").equalsIgnoreCase("null"))
+                                model.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             //ویژه
-                            model.setSpecial(object.getBoolean("Special"));
+                            if (!object.getString("Special").equalsIgnoreCase("null"))
+                                model.setSpecial(object.getBoolean("Special"));
 
                             //عنوان
-                            model.setTitle(object.getString("Title"));
+                            if (!object.getString("Title").equalsIgnoreCase("null"))
+                                model.setTitle(Replace.Number_en_To_fa(object.getString("Title")));
 
                             //در اینجا وضعیت سفارش گرفته می شود
                             if (!object.getString("IsActive").equalsIgnoreCase("null")) {
@@ -1392,7 +1414,7 @@ public class Api_PowerSupply extends Base_Api {
 
     /**
      * در اینجا جزئیات مصالح من گرفته می شود
-     * **/
+     **/
     public Single<VM_PostMaterial> getDetailMyMaterial(int id, Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
@@ -1405,36 +1427,45 @@ public class Api_PowerSupply extends Base_Api {
                         try {
 
                             //نوع آگهی
-                            if (object.getBoolean("AdType")) {
-                                material.setAdType(new VM_AdTypeMaterial(AdTypeMaterial.Sales, context.getString(R.string.Sales)));
-                            } else {
-                                material.setAdType(new VM_AdTypeMaterial(AdTypeMaterial.Buy, context.getString(R.string.Buy)));
-                            }
+                            if (!object.getString("AdType").equalsIgnoreCase("null"))
+                                if (object.getBoolean("AdType")) {
+                                    material.setAdType(new VM_AdTypeMaterial(AdTypeMaterial.Sales, context.getString(R.string.Sales)));
+                                } else {
+                                    material.setAdType(new VM_AdTypeMaterial(AdTypeMaterial.Buy, context.getString(R.string.Buy)));
+                                }
 
-                            //آیدی دسته مصالح
-                            material.setMaterialId(object.getInt("Materials"));
+                            //دسته مصالح
+                            if (!object.getString("MaterialsTitle").equalsIgnoreCase("null"))
+                                material.setMaterialTitle(object.getString("MaterialsTitle"));
 
                             //استان
-                            material.setState(object.getInt("State"));
+                            if (!object.getString("State").equalsIgnoreCase("null"))
+                                material.setState(object.getInt("State"));
 
                             //شهر
-                            material.setCity(object.getInt("City"));
+                            if (!object.getString("City").equalsIgnoreCase("null"))
+                                material.setCity(object.getInt("City"));
 
                             //قیمت
-                            material.setPrice(object.getString("Price").replace(context.getString(R.string.Toman), "")
-                                    .replace(",", "").replace("٬", "").trim());
+                            if (!object.getString("Price").equalsIgnoreCase("null"))
+                                material.setPrice(Replace.Number_en_To_fa(object.getString("Price").replace(context.getString(R.string.Toman), "")
+                                        .replace(",", "").replace("٬", "").trim()));
 
                             //شماره تماس
-                            material.setCellPhone(object.getString("Phone"));
+                            if (!object.getString("Phone").equalsIgnoreCase("null"))
+                                material.setCellPhone(Replace.Number_en_To_fa(object.getString("Phone")));
 
                             //توضیحات
-                            material.setDescription(object.getString("Description"));
+                            if (!object.getString("Description").equalsIgnoreCase("null"))
+                                material.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             //ویژه
-                            material.setSpecial(object.getBoolean("Special"));
+                            if (!object.getString("Special").equalsIgnoreCase("null"))
+                                material.setSpecial(object.getBoolean("Special"));
 
                             //عنوان
-                            material.setTitle(object.getString("Title"));
+                            if (!object.getString("Title").equalsIgnoreCase("null"))
+                                material.setTitle(Replace.Number_en_To_fa(object.getString("Title")));
 
                             //در اینجا وضعیت سفارش گرفته می شود
                             if (!object.getString("IsActive").equalsIgnoreCase("null")) {
@@ -1460,6 +1491,241 @@ public class Api_PowerSupply extends Base_Api {
                         if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
                             postError("Api_PowerSupply->getDetailMyMaterial", resault.getMessage());
                         }
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا شغل ها ازسرور گرفته می شود
+     **/
+    public Single<List<VM_Job>> getJobs(Context context) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getJobs = new GetJsonArrayVolley(ApiUrl + "Advertising/GetJobs", resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_Job> jobs = new ArrayList<>();
+
+                        try {
+
+                            JSONArray array = resault.getJsonArray();
+
+                            jobs.add(new VM_Job(0, context.getString(R.string.job)));
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+
+                                    JSONObject object = array.getJSONObject(i);
+                                    VM_Job job = new VM_Job();
+
+                                    job.setId(object.getInt("Id"));
+                                    job.setTitle(object.getString("Title"));
+
+                                    jobs.add(job);
+
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(jobs);
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا تایتل شغل ها از سرور گرفته می شود
+     **/
+    public Single<String[]> getJobsTitle() {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getJobsTitle = new GetJsonArrayVolley(ApiUrl + "Advertising/GetJobs", resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+                        String[] vals = new String[resault.getJsonArray().length()];
+
+                        try {
+
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    vals[i] = array.getJSONObject(i).getString("Title");
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(vals);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست دسته ماشین آلات از سرور گرفته می شود
+     **/
+    public Single<List<VM_MachinerySpinner>> getMachinerySpinner(Context context) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getMachinerySpinner = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMachinery", resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_MachinerySpinner> machinerySpinners = new ArrayList<>();
+
+                        try {
+
+                            JSONArray array = resault.getJsonArray();
+
+                            machinerySpinners.add(new VM_MachinerySpinner(0, context.getString(R.string.Machinery2)));
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    JSONObject object = array.getJSONObject(i);
+                                    VM_MachinerySpinner machinerySpinner = new VM_MachinerySpinner();
+
+                                    machinerySpinner.setId(object.getInt("Id"));
+                                    machinerySpinner.setTitle(object.getString("Title"));
+
+                                    machinerySpinners.add(machinerySpinner);
+
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(machinerySpinners);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست تایتل ماشین آلات از سرور گرفته می شود
+     **/
+    public Single<String[]> getMachinerysTitle() {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getMachinerysTitle = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMachinery", resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        String[] vals = new String[resault.getJsonArray().length()];
+
+                        try {
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    vals[i] = array.getJSONObject(i).getString("Title");
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(vals);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست مصالح گرفته می شود
+     **/
+    public Single<List<VM_MaterialSpinner>> getMaterialSpinner(Context context) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getMaterialSpinner = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMaterials", resault -> {
+
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        List<VM_MaterialSpinner> materialSpinners = new ArrayList<>();
+
+                        try {
+
+                            JSONArray array = resault.getJsonArray();
+                            materialSpinners.add(new VM_MaterialSpinner(0, context.getString(R.string.Material)));
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    JSONObject object = array.getJSONObject(i);
+                                    VM_MaterialSpinner materialSpinner = new VM_MaterialSpinner();
+
+                                    materialSpinner.setId(object.getInt("Id"));
+                                    materialSpinner.setTitle(object.getString("Title"));
+
+                                    materialSpinners.add(materialSpinner);
+
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(materialSpinners);
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا لیست تایتل مصالح از سرور گرفته می شود
+     * **/
+    public Single<String[]> getMaterialsTitle() {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getMaterialsTitle = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMaterials", resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        String[] vals=new String[resault.getJsonArray().length()];
+
+                        try {
+                            JSONArray array = resault.getJsonArray();
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    vals[i] = array.getJSONObject(i).getString("Title");
+                                } catch (Exception e) {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        emitter.onSuccess(vals);
+
+                    } else {
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
                 });
@@ -1533,6 +1799,30 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_getDetailMyMaterial != null) {
             volley_getDetailMyMaterial.Cancel(tag, context);
+        }
+
+        if (volley_getJobs != null) {
+            volley_getJobs.Cancel(tag, context);
+        }
+
+        if (volley_getMachinerySpinner != null) {
+            volley_getMachinerySpinner.Cancel(tag, context);
+        }
+
+        if (volley_getMaterialSpinner != null) {
+            volley_getMaterialSpinner.Cancel(tag, context);
+        }
+
+        if (volley_getMachinerysTitle != null) {
+            volley_getMachinerysTitle.Cancel(tag, context);
+        }
+
+        if (volley_getJobsTitle != null) {
+            volley_getJobsTitle.Cancel(tag, context);
+        }
+
+        if (volley_getMaterialsTitle != null) {
+            volley_getMaterialsTitle.Cancel(tag, context);
         }
     }
 

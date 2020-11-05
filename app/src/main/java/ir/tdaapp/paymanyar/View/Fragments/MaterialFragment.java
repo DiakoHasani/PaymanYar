@@ -77,7 +77,6 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
         setToolbar();
 
         p_materialFragment.getProvinces();
-        p_materialFragment.getMaterials();
 
         new Handler().postDelayed(() -> {
             p_materialFragment.start();
@@ -197,15 +196,15 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
         workedInternet = true;
 
         if (getPage() == 0) {
-            materialAdapter=new MaterialAdapter(getContext());
+            materialAdapter = new MaterialAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
             materialAdapter.setClickPowerSupplyNetwork(id -> {
-                DetailMaterialFragment detailMaterialFragment=new DetailMaterialFragment();
+                DetailMaterialFragment detailMaterialFragment = new DetailMaterialFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", id);
                 detailMaterialFragment.setArguments(bundle);
 
-                ((MainActivity)getActivity()).onAddFragment(detailMaterialFragment,R.anim.fadein,R.anim.short_fadeout,true,DetailMaterialFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(detailMaterialFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailMaterialFragment.TAG);
             });
 
             recycler.setAdapter(materialAdapter);
@@ -310,7 +309,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
 
     /**
      * در اینجا دسته مصالح ست می شود
-     * **/
+     **/
     @Override
     public void getMaterials(ArrayAdapter<VM_MaterialSpinner> adapter) {
         cmb_Material.setAdapter(adapter);
@@ -318,7 +317,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
 
     /**
      * در اینجا آیتم ها در رسایکلر ست می شوند
-     * **/
+     **/
     @Override
     public void onItem(VM_Material material) {
         materialAdapter.add(material);
@@ -329,7 +328,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
      **/
     @Override
     public VM_FilterMaterial getFilter() {
-        VM_FilterMaterial filter=new VM_FilterMaterial();
+        VM_FilterMaterial filter = new VM_FilterMaterial();
 
         try {
 
@@ -414,6 +413,14 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
     @Override
     public boolean isLoadingProgress() {
         return loadingProgress;
+    }
+
+    /**
+     * در اینجا چک می کند که اسپینر مصالح از سرور گرفته شده است اگر فالس باشد دوباره اقدام به گرفتن داده ها می کند
+     **/
+    @Override
+    public boolean checkedMaterialSpinner() {
+        return cmb_Material.getAdapter() != null;
     }
 
     @Override

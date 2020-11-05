@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -96,7 +97,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
     FileUploadItemAdapter fileUploadItemAdapter;
 
     Toolbar toolbar;
-    Spinner cmb_AdType, cmb_Material, cmb_Provinces, cmb_City;
+    Spinner cmb_AdType, cmb_Provinces, cmb_City;
     TextInputEditText txt_Price, txt_CellPhone, txt_Title;
     EditText txt_Description;
     LinearLayoutManager layoutManager;
@@ -121,6 +122,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
     int countSetAdapterCitySpinner = 0;
     boolean enableBankingPortal = false;
     LinearLayout btn_Support, btn_Home;
+    AutoCompleteTextView txt_Material;
 
     @Nullable
     @Override
@@ -141,7 +143,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
     void findItem(View view) {
         toolbar = view.findViewById(R.id.toolbar);
         cmb_AdType = view.findViewById(R.id.cmb_AdType);
-        cmb_Material = view.findViewById(R.id.cmb_Material);
+        txt_Material = view.findViewById(R.id.txt_Material);
         cmb_Provinces = view.findViewById(R.id.cmb_Provinces);
         cmb_City = view.findViewById(R.id.cmb_City);
         txt_Title = view.findViewById(R.id.txt_Title);
@@ -305,8 +307,8 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
      * در اینجا اسپینر مصالح ست می شود
      **/
     @Override
-    public void getMaterials(ArrayAdapter<VM_MaterialSpinner> materials) {
-        cmb_Material.setAdapter(materials);
+    public void getMaterials(ArrayAdapter<String> materials) {
+        txt_Material.setAdapter(materials);
     }
 
     /**
@@ -398,28 +400,9 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
     public boolean checkValidation() {
         boolean isValid = true;
 
-        //در اینجا ولیدیشن استان چک می شود
-        if (cmb_Provinces.getAdapter() != null) {
-            if (((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_Provinces.getSelectedView()).setError(getString(R.string.PleaseSelectedOneProvince));
-            }
-        }
-
-        //در اینجا ولیدیشن شهر چک می شود
-        if (cmb_City.getAdapter() != null) {
-            if (((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
-            }
-        }
-
         //در اینجا ولیدیشن شغل چک می شود
-        if (cmb_Material.getAdapter() != null) {
-            if (((VM_MaterialSpinner) cmb_Material.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_Material.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMachinery));
-            }
+        if (!Validation.Required(txt_Material, getString(R.string.ThisValueMust_be_Filled))) {
+            isValid = false;
         }
 
         //در اینجا ولیدیشن نوع آگهی چک می شود
@@ -477,7 +460,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
 
         try {
             model.setAdType(((VM_AdTypeMaterial) cmb_AdType.getSelectedItem()));
-            model.setMaterialId(((VM_MaterialSpinner) cmb_Material.getSelectedItem()).getId());
+            model.setMaterialTitle(txt_Material.getText().toString());
             model.setState(((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId());
             model.setCity(((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId());
             model.setPrice(txt_Price.getText().toString());
@@ -666,7 +649,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
             }
 
             //دسته مصالح
-            cmb_Material.setSelection(model.getMaterialId());
+            txt_Material.setText(model.getMaterialTitle());
 
             //استان
             cmb_Provinces.setSelection(p_addMaterialFragment.getPositionState(model.getState()));
@@ -777,6 +760,9 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
                 clear2("txt_Description");
 
                 Thread.sleep(100);
+                clear2("txt_Material");
+
+                Thread.sleep(100);
                 clear2("txt_CellPhone");
 
                 Thread.sleep(100);
@@ -790,9 +776,6 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
 
                 Thread.sleep(100);
                 clear2("cmb_Provinces");
-
-                Thread.sleep(100);
-                clear2("cmb_Material");
 
                 Thread.sleep(100);
                 clear2("cmb_AdType");
@@ -836,8 +819,8 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
                 case "cmb_Provinces":
                     p_addMaterialFragment.getProvinces();
                     break;
-                case "cmb_Material":
-                    p_addMaterialFragment.getMaterials();
+                case "txt_Material":
+                    txt_Material.setText("");
                     break;
                 case "cmb_AdType":
                     p_addMaterialFragment.geAdTypes();

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -73,9 +76,16 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
                     break;
             }
 
+            //در اینجا انیمیشن آگهی ویژه ست می شود
+            if (vals.get(position).isSpecial()) {
+                holder.setAnimationSpecial(holder.layout2,true);
+            } else {
+                holder.setAnimationSpecial(holder.layout2,false);
+            }
+
             Glide.with(context)
                     .load(vals.get(position).getImage())
-                    .error(R.drawable.machinery_image)
+                    .error(R.drawable.no_photography)
                     .into(holder.img);
 
             holder.layout.setOnClickListener(view -> {
@@ -96,6 +106,7 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
         CardView layout;
         TextView lbl_Machinery, lbl_AdTypeCondition, lbl_Price, lbl_cellPhone, lbl_City, lbl_Date;
         ImageView img;
+        LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,6 +122,25 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
             lbl_City = view.findViewById(R.id.lbl_City);
             lbl_Date = view.findViewById(R.id.lbl_Date);
             img = view.findViewById(R.id.img);
+            layout2 = view.findViewById(R.id.layout2);
+        }
+
+        /**
+         * در اینجا انیمیشن آگهی ویژه ست می شود
+         **/
+        void setAnimationSpecial(LinearLayout layoutAnimation, boolean isAnimation) {
+            if (isAnimation) {
+                layoutAnimation.setVisibility(View.VISIBLE);
+                Animation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(800);
+                anim.setRepeatMode(Animation.REVERSE);
+                anim.setRepeatCount(Animation.INFINITE);
+
+                layoutAnimation.startAnimation(anim);
+            } else {
+                layoutAnimation.setVisibility(View.INVISIBLE);
+                layoutAnimation.setAnimation(null);
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.paymanyar.Model.Services.S_UnitConversionFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Presenter.P_UnitConversionFragment;
@@ -154,7 +155,7 @@ public class UnitConversionFragment extends BaseFragment implements View.OnClick
                 answer.setText("");
                 value.setError(null);
                 if (value.getText().toString().length() > 0) {
-                    p_unitConversionFragment.ConvertValue(value.getText().toString(), sp_value.getSelectedItem().toString(), sp_answer.getSelectedItem().toString(), mode);
+                    p_unitConversionFragment.ConvertValue(Replace.Number_fn_To_en(value.getText().toString()), sp_value.getSelectedItem().toString(), sp_answer.getSelectedItem().toString(), mode);
                 } else {
                     value.setError("لطفا مقدار را وارد کنید");
                 }

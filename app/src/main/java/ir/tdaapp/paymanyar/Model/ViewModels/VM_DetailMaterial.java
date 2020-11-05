@@ -7,7 +7,7 @@ import ir.tdaapp.paymanyar.Model.Enums.AdTypeMaterial;
 
 /**
  * مربوط به جزئیات مصالح
- * **/
+ **/
 public class VM_DetailMaterial {
     int id;
 
@@ -37,10 +37,13 @@ public class VM_DetailMaterial {
 
     List<String> images;
 
+    //تایتل مصالح
+    String materialsTitle;
+
     public VM_DetailMaterial() {
         id = materialId = stateId = cityId = 0;
-        price = title = cellPhone = description = "-";
-        images=new ArrayList<>();
+        price = title = cellPhone = description = materialsTitle = "-";
+        images = new ArrayList<>();
     }
 
     public int getId() {
@@ -121,5 +124,13 @@ public class VM_DetailMaterial {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public String getMaterialsTitle() {
+        return materialsTitle;
+    }
+
+    public void setMaterialsTitle(String materialsTitle) {
+        this.materialsTitle = materialsTitle;
     }
 }

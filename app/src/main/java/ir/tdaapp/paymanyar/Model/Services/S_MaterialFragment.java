@@ -29,4 +29,5 @@ public interface S_MaterialFragment {
     boolean isWorkedInternet();
     int getPage();
     boolean isLoadingProgress();
+    boolean checkedMaterialSpinner();
 }

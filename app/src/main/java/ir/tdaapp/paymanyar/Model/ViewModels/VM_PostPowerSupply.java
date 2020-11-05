@@ -24,6 +24,7 @@ public class VM_PostPowerSupply {
         adType = AdType.title;
         special = false;
         stepPower = StepsAddPower.Check_The_Ad;
+        jobTitle = "";
     }
 
     //مربوط به آیدی یوزر
@@ -60,6 +61,9 @@ public class VM_PostPowerSupply {
     boolean special;
 
     StepsAddPower stepPower;
+
+    //تایتل شغل
+    String jobTitle;
 
     public int getUserId() {
         return userId;
@@ -155,5 +159,13 @@ public class VM_PostPowerSupply {
 
     public void setStepPower(StepsAddPower stepPower) {
         this.stepPower = stepPower;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 }

@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -93,7 +94,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     FileUploadItemAdapter fileUploadItemAdapter;
 
     Toolbar toolbar;
-    Spinner cmb_AdType, cmb_WorkExperiences, cmb_Provinces, cmb_City, cmb_Job;
+    Spinner cmb_AdType, cmb_WorkExperiences, cmb_Provinces, cmb_City;
     TextInputEditText txt_Name, txt_CellPhone;
     EditText txt_Description;
     LinearLayoutManager layoutManager;
@@ -118,6 +119,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     int countSetAdapterCitySpinner = 0;
     boolean enableBankingPortal = false;
     LinearLayout btn_Support, btn_Home;
+    AutoCompleteTextView txt_Job;
 
     @Nullable
     @Override
@@ -141,7 +143,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
         cmb_WorkExperiences = view.findViewById(R.id.cmb_WorkExperiences);
         cmb_Provinces = view.findViewById(R.id.cmb_Provinces);
         cmb_City = view.findViewById(R.id.cmb_City);
-        cmb_Job = view.findViewById(R.id.cmb_Job);
+        txt_Job = view.findViewById(R.id.txt_Job);
         txt_Name = view.findViewById(R.id.txt_Name);
         txt_CellPhone = view.findViewById(R.id.txt_CellPhone);
         txt_Description = view.findViewById(R.id.txt_Description);
@@ -302,8 +304,8 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
      * در اینجا اسپینر شغل ست می شود
      **/
     @Override
-    public void getJobs(ArrayAdapter<VM_Job> jobs) {
-        cmb_Job.setAdapter(jobs);
+    public void getJobs(ArrayAdapter<String> jobs) {
+        txt_Job.setAdapter(jobs);
     }
 
     /**
@@ -403,28 +405,9 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
     public boolean checkValidation() {
         boolean isValid = true;
 
-        //در اینجا ولیدیشن استان چک می شود
-        if (cmb_Provinces.getAdapter() != null) {
-            if (((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_Provinces.getSelectedView()).setError(getString(R.string.PleaseSelectedOneProvince));
-            }
-        }
-
-        //در اینجا ولیدیشن شهر چک می شود
-        if (cmb_City.getAdapter() != null) {
-            if (((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
-            }
-        }
-
         //در اینجا ولیدیشن شغل چک می شود
-        if (cmb_Job.getAdapter() != null) {
-            if (((VM_Job) cmb_Job.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_Job.getSelectedView()).setError(getString(R.string.PleaseSelectedOneJob));
-            }
+        if (!Validation.Required(txt_Job, getString(R.string.ThisValueMust_be_Filled))) {
+            isValid = false;
         }
 
         //در اینجا ولیدیشن نوع آگهی چک می شود
@@ -493,7 +476,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
             input.setWorkExperiences(((VM_WorkExperience) cmb_WorkExperiences.getSelectedItem()).getId());
             input.setState(((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId());
             input.setCity(((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId());
-            input.setJob(((VM_Job) cmb_Job.getSelectedItem()).getId());
+            input.setJobTitle(txt_Job.getText().toString());
             input.setName(txt_Name.getText().toString());
             input.setCellPhone(txt_CellPhone.getText().toString());
             input.setDescription(txt_Description.getText().toString());
@@ -692,7 +675,7 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
             positionCitySpinner = p_addPowerSupply.getPositionCity(model.getCity(), model.getState());
 
             //شغل
-            cmb_Job.setSelection(p_addPowerSupply.getPositionJob(model.getJob()));
+            txt_Job.setText(model.getJobTitle());
 
             //نام
             txt_Name.setText(model.getName());
@@ -793,13 +776,13 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
                 clear2("txt_Description");
 
                 Thread.sleep(100);
+                clear2("txt_Job");
+
+                Thread.sleep(100);
                 clear2("txt_CellPhone");
 
                 Thread.sleep(100);
                 clear2("txt_Name");
-
-                Thread.sleep(100);
-                clear2("cmb_Job");
 
                 Thread.sleep(100);
                 clear2("cmb_City");
@@ -839,8 +822,8 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
                     txt_Name.setError(null);
                     txt_Name.setText("");
                     break;
-                case "cmb_Job":
-                    p_addPowerSupply.getJobs();
+                case "txt_Job":
+                    txt_Job.setText("");
                     break;
                 case "cmb_City":
                     if (cmb_City.getAdapter() != null) {

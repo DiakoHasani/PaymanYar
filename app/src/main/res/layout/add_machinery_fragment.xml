@@ -45,32 +45,15 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <Spinner
+                            android:id="@+id/cmb_AdType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            android:layout_marginTop="8dp">
-
-                            <Spinner
-                                android:id="@+id/cmb_AdType"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginRight="8dp"
-                                android:spinnerMode="dialog"/>
-
-                            <Spinner
-                                android:id="@+id/cmb_Machinery"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginRight="4dp"
-                                android:layout_marginLeft="8dp"
-                                android:spinnerMode="dialog"/>
-
-                        </LinearLayout>
+                            android:layout_weight="1"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:spinnerMode="dialog"
+                            android:layout_marginTop="8dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -143,7 +126,7 @@
                                     android:id="@+id/txt_Price"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/vazir"
+                                    android:fontFamily="@font/iran_sans"
                                     android:textSize="16dp"
                                     android:textColor="@color/colorEditText"
                                     android:textAlignment="center"
@@ -178,6 +161,51 @@
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/border_field_semi_wide_fragment2"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginBottom="12dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:padding="2dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/txt_Machinery"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:imeOptions="actionSearch"
+                                    android:fontFamily="@font/iran_sans"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/colorTitle"
+                                    android:gravity="right|center_vertical"
+                                    android:backgroundTint="@color/colorWhite"
+                                    app:backgroundTint="@color/colorWhite"
+                                    android:paddingRight="8dp"
+                                    android:hint="@string/InputMachinery" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/vazir"
+                                android:textColor="@color/colorGray"
+                                android:textSize="14dp"
+                                android:text="@string/Machinery"
+                                android:background="@color/colorWhite"
+                                android:paddingRight="5dp"
+                                android:paddingLeft="5dp"
+                                android:layout_marginRight="18dp"/>
+
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"

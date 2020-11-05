@@ -49,7 +49,7 @@ public class P_MyPowerSupplyNetworkFragment {
     void getVals() {
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
         Single<List<VM_PowerSupplyNetwork>> data = api_powerSupply.getMyPowerSupplyNetwork(userId
-                , tbl_jobs.getJobs(), tbl_states.getProvincesOrCities(0), tbl_workExperiences.getWorkExperiences());
+                , tbl_states.getProvincesOrCities(0), tbl_workExperiences.getWorkExperiences());
 
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_PowerSupplyNetwork>>() {
             @Override

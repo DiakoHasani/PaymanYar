@@ -792,8 +792,8 @@ public class Api_Tender extends Base_Api {
 
                                     order.setId(object.getInt("Id"));
                                     order.setTitle(object.getString("TenderName"));
-                                    order.setDate(object.getString("DateOfCompletion"));
-                                    order.setPayment(object.getString("AmountPayable"));
+                                    order.setDate(Replace.Number_fn_To_en(object.getString("DateOfCompletion")));
+                                    order.setPayment(Replace.Number_fn_To_en(object.getString("AmountPayable")));
                                     order.setFileUrl(object.getString("FileUrl"));
 
                                     switch (object.getInt("Steep")) {

@@ -7,7 +7,7 @@ import ir.tdaapp.paymanyar.Model.Enums.AdType;
 
 /**
  * مربوط به جزئیات نیروکار
- * **/
+ **/
 public class VM_DetailPowerSupply {
     int id;
     String dateInsert;
@@ -21,19 +21,17 @@ public class VM_DetailPowerSupply {
     String description;
     boolean special;
     List<String> images;
+    String jobTitle;
 
     public VM_DetailPowerSupply() {
         id = 0;
-        dateInsert = "";
-        name = "";
-        phone = "";
-        description = "";
+        dateInsert = name = phone = description = jobTitle = "";
         jobId = 0;
         workExperienceId = 0;
         stateId = 0;
         cityId = 0;
         special = false;
-        images=new ArrayList<>();
+        images = new ArrayList<>();
     }
 
     public int getId() {
@@ -130,5 +128,13 @@ public class VM_DetailPowerSupply {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 }

@@ -1,7 +1,6 @@
 package ir.tdaapp.paymanyar.View.Fragments;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -12,33 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.karumi.dexter.listener.single.PermissionListener;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-
-import java.util.List;
-
 import ir.tdaapp.paymanyar.Model.Services.S_GPSFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Presenter.P_GPSFragment;
@@ -107,7 +95,7 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
 
             @Override
             public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-
+                token.continuePermissionRequest();
             }
         }).check();
 
@@ -195,9 +183,14 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
                 p_gpsFragment.ChangeMapType(2);
                 break;
             case R.id.gps_savebtn:
-                if (lat.getText().toString().length() > 0) {
-                    p_gpsFragment.SaveLocation(lat.getText().toString(), lon.getText().toString());
-                }
+                try {
+                    if (lat.getText().toString().length() > 0) {
+                        float latNumber=Float.valueOf(lat.getText().toString());
+                        float lonNumber=Float.valueOf(lon.getText().toString());
+
+                        p_gpsFragment.SaveLocation(String.format("%.7g%n", latNumber), String.format("%.7g%n", lonNumber));
+                    }
+                }catch (Exception e){}
                 break;
             case R.id.btn_Home:
                 getActivity().finish();

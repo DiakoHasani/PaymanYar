@@ -36,7 +36,7 @@ public class P_PowerSupplyNetworkFragment {
     Tbl_WorkExperiences tbl_workExperiences;
     Tbl_Jobs tbl_jobs;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_getVals, dispose_setVals;
+    Disposable dispose_getVals, dispose_setVals, dispose_getJobs;
 
     public P_PowerSupplyNetworkFragment(Context context, S_PowerSupplyNetworkFragment s_powerSupplyNetworkFragment) {
         this.context = context;
@@ -57,6 +57,12 @@ public class P_PowerSupplyNetworkFragment {
         } else {
             s_powerSupplyNetworkFragment.onLoadingPaging(true);
         }
+
+        //در اینجا شغل ها از سرور گرفته می شود
+        if (!s_powerSupplyNetworkFragment.checkedJobSpinner()) {
+            getJobs();
+        }
+
         getVals();
     }
 
@@ -65,7 +71,7 @@ public class P_PowerSupplyNetworkFragment {
      **/
     void getVals() {
         Single<List<VM_PowerSupplyNetwork>> data = api_powerSupply.getPowerSupply(s_powerSupplyNetworkFragment.getFilter()
-                , tbl_jobs.getJobs(), tbl_states.getProvincesOrCities(0), tbl_workExperiences.getWorkExperiences());
+                , tbl_states.getProvincesOrCities(0), tbl_workExperiences.getWorkExperiences());
 
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_PowerSupplyNetwork>>() {
             @Override
@@ -90,7 +96,7 @@ public class P_PowerSupplyNetworkFragment {
                         new Handler().postDelayed(() -> {
                             s_powerSupplyNetworkFragment.onLoadingPaging(false);
                             s_powerSupplyNetworkFragment.onFinish();
-                        },1500);
+                        }, 1500);
                     }
                 }
             }
@@ -147,9 +153,24 @@ public class P_PowerSupplyNetworkFragment {
         }
     }
 
+    /**
+     * در اینجا شغل ها از سرور گرفته می شود و در اسپینر ست می شوند
+     **/
     public void getJobs() {
-        ArrayAdapter<VM_Job> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, tbl_jobs.getJobs());
-        s_powerSupplyNetworkFragment.getJobs(adapter);
+        Single<List<VM_Job>> data = api_powerSupply.getJobs(context);
+
+        dispose_getJobs = data.subscribeWith(new DisposableSingleObserver<List<VM_Job>>() {
+            @Override
+            public void onSuccess(List<VM_Job> jobs) {
+                ArrayAdapter<VM_Job> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, jobs);
+                s_powerSupplyNetworkFragment.getJobs(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     /**
@@ -170,6 +191,10 @@ public class P_PowerSupplyNetworkFragment {
 
         if (dispose_setVals != null) {
             dispose_setVals.dispose();
+        }
+
+        if (dispose_getJobs != null) {
+            dispose_getJobs.dispose();
         }
     }
 }

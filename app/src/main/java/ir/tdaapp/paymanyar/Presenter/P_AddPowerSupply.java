@@ -46,10 +46,9 @@ public class P_AddPowerSupply {
     Tbl_Jobs tbl_jobs;
     Tbl_AdType tbl_adType;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_addItem, dispose_getDetailItem;
+    Disposable dispose_addItem, dispose_getDetailItem, dispose_getJobs;
     List<VM_ProvincesAndCities> states;
     List<VM_WorkExperience> workExperiences;
-    List<VM_Job> jobs;
 
     public P_AddPowerSupply(Context context, S_AddPowerSupply s_addPowerSupply) {
         this.context = context;
@@ -63,7 +62,6 @@ public class P_AddPowerSupply {
         api_powerSupply = new Api_PowerSupply();
         states = tbl_states.getProvincesOrCities(0);
         workExperiences = tbl_workExperiences.getWorkExperiences();
-        jobs = tbl_jobs.getJobs();
     }
 
     public void start() {
@@ -119,8 +117,19 @@ public class P_AddPowerSupply {
      * در اینجا لیست شغل ها گرفته می شود
      **/
     public void getJobs() {
-        ArrayAdapter<VM_Job> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, jobs);
-        s_addPowerSupply.getJobs(adapter);
+        Single<String[]> data = api_powerSupply.getJobsTitle();
+        dispose_getJobs = data.subscribeWith(new DisposableSingleObserver<String[]>() {
+            @Override
+            public void onSuccess(String[] jobs) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.select_dialog_item, jobs);
+                s_addPowerSupply.getJobs(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     /**
@@ -322,27 +331,9 @@ public class P_AddPowerSupply {
         return tbl_states.getPositionByIdCity(id, parent);
     }
 
-    /**
-     * در اینجا پوزیشن شغل برگشت داده می شود
-     **/
-    public int getPositionJob(int id) {
-
-        int position = 0;
-
-        for (int i = 0; i < jobs.size(); i++) {
-            if (jobs.get(i).getId() == id) {
-                position = i;
-                break;
-            }
-        }
-
-        return position;
-    }
-
     public void cancel(String tag) {
         states = null;
         workExperiences = null;
-        jobs = null;
 
         api_powerSupply.cancel(tag, context);
 
@@ -352,6 +343,10 @@ public class P_AddPowerSupply {
 
         if (dispose_getDetailItem != null) {
             dispose_getDetailItem.dispose();
+        }
+
+        if (dispose_getJobs != null) {
+            dispose_getJobs.dispose();
         }
     }
 }

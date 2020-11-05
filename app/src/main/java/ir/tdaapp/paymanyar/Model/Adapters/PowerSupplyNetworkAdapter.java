@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -61,15 +64,16 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
             holder.lbl_City.setText(powerSupplyNetworks.get(position).getProvinceAndCity());
             holder.lbl_Date.setText(powerSupplyNetworks.get(position).getDate());
 
+            //در اینجا انیمیشن آگهی ویژه ست می شود
             if (powerSupplyNetworks.get(position).isSpecial()) {
-                holder.layout.setCardBackgroundColor(context.getResources().getColor(R.color.colorMySMS));
-            }else{
-                holder.layout.setCardBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+                holder.setAnimationSpecial(holder.layout2,true);
+            } else {
+                holder.setAnimationSpecial(holder.layout2,false);
             }
 
             Glide.with(context)
                     .load(powerSupplyNetworks.get(position).getImage())
-                    .error(R.drawable.power_supply_network)
+                    .error(R.drawable.no_photography)
                     .into(holder.img);
 
             holder.layout.setOnClickListener(view -> {
@@ -90,6 +94,7 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
         CardView layout;
         TextView lbl_job, lbl_name, lbl_work_experience, lbl_cellPhone, lbl_City, lbl_Date;
         ImageView img;
+        LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +111,25 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
             lbl_City = view.findViewById(R.id.lbl_City);
             lbl_Date = view.findViewById(R.id.lbl_Date);
             img = view.findViewById(R.id.img);
+            layout2 = view.findViewById(R.id.layout2);
+        }
+
+        /**
+         * در اینجا انیمیشن آگهی ویژه ست می شود
+         **/
+        void setAnimationSpecial(LinearLayout layoutAnimation, boolean isAnimation) {
+            if (isAnimation) {
+                layoutAnimation.setVisibility(View.VISIBLE);
+                Animation anim = new AlphaAnimation(0.0f, 1.0f);
+                anim.setDuration(800);
+                anim.setRepeatMode(Animation.REVERSE);
+                anim.setRepeatCount(Animation.INFINITE);
+
+                layoutAnimation.startAnimation(anim);
+            } else {
+                layoutAnimation.setVisibility(View.INVISIBLE);
+                layoutAnimation.setAnimation(null);
+            }
         }
     }
 }

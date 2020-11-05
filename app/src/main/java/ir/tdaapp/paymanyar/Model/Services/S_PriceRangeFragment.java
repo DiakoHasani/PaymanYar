@@ -11,48 +11,34 @@ public interface S_PriceRangeFragment {
 
     void onGetDegreeOfImportance(ArrayAdapter adapter);
 
-    void onSetChartNumbers(int lineDown, int lineUp);
-
-    int onGetRoundNumber(int number, boolean isDown);
-
-    void onHideAllChartItems();
-
-    void onShowRightChartNumbers(int number);
-
-    int getMaxPercents();
-
-    void setDefultPointChart();
-
-    void setPointChart(VM_PriceRange point);
-
-    LinearLayout getLinearLayoutRightChart(int percent);
-
-    void getSpaceBetweenRightChartNumbers(layoutSize size);
-
     Float onPixelTodp(float pixel);
 
     int IntToDP(int value);
 
-    LinearLayout getFirstNumberLayoutRightChart();
+    void winnerSelection(String number, String position, int CUp, int CDown);
 
-    int getNumberByLayoutChart(LinearLayout layout);
+    void setDefaultChartNumber();
+
+    void setMarginPointChart(RelativeLayout point, int marginBottom);
+
+    int getMarginRightChartPoint(RelativeLayout layout);
+
+    void setMarginLineChart(RelativeLayout layout, int marginBottom);
+
+    void setOutOfRangePointChart(String position);
+
+    void onSetChartNumbers(int lineDown);
+
+    int roundNumber(int number);
+
+    void setPointChart(VM_PriceRange point);
 
     int getMarginPointChart(int percentPoint, int heightChartLayout);
 
     RelativeLayout getChartPointByNumber(int number);
 
-    int getTopChartNumber();
-
-    int getSpaceBetweenChartNumbers(int firstNumber, int secondNumber);
-
-    int getMarginRightChartPoint(RelativeLayout layout);
-
-    void winnerSelection(String number, String position, int CUp, int CDown);
-
     void enableAnimationPointChart(String position);
 
     void disableAnimationChart();
-
-    void setOutOfRangePointChart(String position);
 
 }

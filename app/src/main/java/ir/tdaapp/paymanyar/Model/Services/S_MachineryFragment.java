@@ -28,4 +28,5 @@ public interface S_MachineryFragment {
     boolean isWorkedInternet();
     int getPage();
     boolean isLoadingProgress();
+    boolean checkedMachinerySpinner();
 }

@@ -37,9 +37,8 @@ public class P_AddMaterialFragment {
     Tbl_States tbl_states;
     Tbl_Material tbl_material;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_addItem, dispose_getDetailItem;
+    Disposable dispose_addItem, dispose_getDetailItem, dispose_getMaterials;
     List<VM_ProvincesAndCities> states;
-    List<VM_MaterialSpinner> materials;
     Tbl_AdTypeMaterial tbl_adTypeMaterial;
 
     public P_AddMaterialFragment(Context context, S_AddMaterialFragment s_addMaterialFragment) {
@@ -51,7 +50,6 @@ public class P_AddMaterialFragment {
         api_powerSupply = new Api_PowerSupply();
         tbl_adTypeMaterial = new Tbl_AdTypeMaterial(context);
         states = tbl_states.getProvincesOrCities(0);
-        materials = tbl_material.getMaterials();
     }
 
     public void start() {
@@ -98,8 +96,20 @@ public class P_AddMaterialFragment {
      * در اینجا دسته مصالح گرفته می شود
      **/
     public void getMaterials() {
-        ArrayAdapter<VM_MaterialSpinner> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, materials);
-        s_addMaterialFragment.getMaterials(adapter);
+
+        Single<String[]> data = api_powerSupply.getMaterialsTitle();
+        dispose_getMaterials = data.subscribeWith(new DisposableSingleObserver<String[]>() {
+            @Override
+            public void onSuccess(String[] vals) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.select_dialog_item, vals);
+                s_addMaterialFragment.getMaterials(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     /**
@@ -189,22 +199,6 @@ public class P_AddMaterialFragment {
      **/
     public int getPositionAdType(AdTypeMaterial adType) {
         return tbl_adTypeMaterial.getPositionByName(adType);
-    }
-
-    /**
-     * در اینجا پوزیشن مصالح بر اساس آیدی برگشت داده می شود
-     **/
-    public int getPositionMaterial(int id) {
-        int position = 0;
-
-        for (int i = 0; i < materials.size(); i++) {
-            if (materials.get(i).getId() == id) {
-                position = i;
-                break;
-            }
-        }
-
-        return position;
     }
 
     /**
@@ -304,7 +298,6 @@ public class P_AddMaterialFragment {
 
     public void cancel(String tag) {
         states = null;
-        materials = null;
 
         api_powerSupply.cancel(tag, context);
 
@@ -314,6 +307,10 @@ public class P_AddMaterialFragment {
 
         if (dispose_getDetailItem != null) {
             dispose_getDetailItem.dispose();
+        }
+
+        if (dispose_getMaterials != null) {
+            dispose_getMaterials.dispose();
         }
     }
 

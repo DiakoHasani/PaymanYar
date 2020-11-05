@@ -22,11 +22,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderDetailPowerSupplyAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_DetailMachineryFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.ZoomOutPageTransformer;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailMachinery;
 import ir.tdaapp.paymanyar.Presenter.P_DetailMachineryFragment;
 import ir.tdaapp.paymanyar.R;
@@ -51,6 +53,7 @@ public class DetailMachineryFragment extends BaseFragment implements S_DetailMac
     int id;
     RelativeLayout rightSlider, leftSlider;
     LinearLayout btn_Support, btn_Home;
+    RelativeLayout cellPhoneItem;
 
     @Nullable
     @Override
@@ -84,6 +87,7 @@ public class DetailMachineryFragment extends BaseFragment implements S_DetailMac
         leftSlider = view.findViewById(R.id.leftSlider);
         btn_Support = view.findViewById(R.id.btn_Support);
         btn_Home = view.findViewById(R.id.btn_Home);
+        cellPhoneItem = view.findViewById(R.id.cellPhoneItem);
     }
 
     void implement() {
@@ -93,6 +97,7 @@ public class DetailMachineryFragment extends BaseFragment implements S_DetailMac
         btn_reload.setOnClickListener(this);
         btn_Home.setOnClickListener(this);
         btn_Support.setOnClickListener(this);
+        cellPhoneItem.setOnClickListener(this);
 
         try {
             id = getArguments().getInt("id");
@@ -207,8 +212,8 @@ public class DetailMachineryFragment extends BaseFragment implements S_DetailMac
             }
 
             //دسته ماشین آلات
-            if (detailMachinery.getMachineryId() != 0) {
-                lbl_MachineryCategory.setText(p_detailMachineryFragment.getTitleMachineryById(detailMachinery.getMachineryId()));
+            if (!detailMachinery.getMachineryTitle().equalsIgnoreCase("")) {
+                lbl_MachineryCategory.setText(detailMachinery.getMachineryTitle());
             } else {
                 lbl_MachineryCategory.setText("-");
             }
@@ -323,6 +328,12 @@ public class DetailMachineryFragment extends BaseFragment implements S_DetailMac
                 break;
             case R.id.btn_Home:
                 ((MainActivity) getActivity()).backToHome();
+                break;
+            case R.id.cellPhoneItem:
+                String phoneNumber = lbl_Call.getText().toString();
+                if (!phoneNumber.equalsIgnoreCase("") && !phoneNumber.equalsIgnoreCase("-")) {
+                    openUrl.getLink(6, Replace.Number_fn_To_en(phoneNumber), getContext());
+                }
                 break;
         }
     }

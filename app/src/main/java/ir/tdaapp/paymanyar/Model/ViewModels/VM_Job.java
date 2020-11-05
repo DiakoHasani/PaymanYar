@@ -9,6 +9,14 @@ public class VM_Job {
     int id;
     String title;
 
+    public VM_Job() {
+    }
+
+    public VM_Job(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public int getId() {
         return id;
     }

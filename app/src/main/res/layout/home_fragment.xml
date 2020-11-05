@@ -134,25 +134,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/ic_title_home">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/vazir"
-                android:textColor="@color/colorBlack"
-                android:textSize="12dp"
-                android:text="@string/Daily"
-                android:gravity="center"
-                android:textStyle="bold"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_weight="3">
 
             <LinearLayout
@@ -774,7 +755,7 @@
                         app:cardUseCompatPadding="false"
                         android:clipToPadding="false"
                         app:cardCornerRadius="5dp"
-                        app:cardBackgroundColor="@color/colorWhite"
+                        app:cardBackgroundColor="@color/colorTitle"
                         android:layout_marginRight="2dp"
                         android:layout_marginLeft="2dp"
                         android:foreground="?attr/selectableItemBackground"
@@ -792,8 +773,8 @@
                                 android:layout_weight="1"
                                 android:text="@string/orders"
                                 android:gravity="center"
-                                android:background="@color/colorLowPrimary"
-                                android:textColor="@color/colorWhite"
+                                android:background="@color/colorWhite"
+                                android:textColor="@color/colorPrimary"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="12dp"/>
 
@@ -816,6 +797,25 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/ic_title_home">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/vazir"
+                android:textColor="@color/colorBlack"
+                android:textSize="12dp"
+                android:text="@string/SupplyNetwork"
+                android:gravity="center"
+                android:textStyle="bold"/>
 
         </RelativeLayout>
 

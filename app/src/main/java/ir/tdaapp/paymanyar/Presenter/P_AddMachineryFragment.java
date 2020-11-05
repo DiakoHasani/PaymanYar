@@ -43,9 +43,8 @@ public class P_AddMachineryFragment {
     Tbl_States tbl_states;
     Tbl_Machineries tbl_machineries;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_addItem, dispose_getDetailItem;
+    Disposable dispose_addItem, dispose_getDetailItem, dispose_getMachineries;
     List<VM_ProvincesAndCities> states;
-    List<VM_MachinerySpinner> machinerySpinners;
 
     public P_AddMachineryFragment(Context context, S_AddMachineryFragment s_addMachineryFragment) {
         this.context = context;
@@ -56,7 +55,6 @@ public class P_AddMachineryFragment {
         tbl_states = new Tbl_States(context);
         api_powerSupply = new Api_PowerSupply();
         states = tbl_states.getProvincesOrCities(0);
-        machinerySpinners = tbl_machineries.getMachineries();
     }
 
     public void start() {
@@ -103,8 +101,20 @@ public class P_AddMachineryFragment {
      * در اینجا دسته ماشین آلات گرفته می شود
      **/
     public void getMachineries() {
-        ArrayAdapter<VM_MachinerySpinner> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, machinerySpinners);
-        s_addMachineryFragment.getMachineries(adapter);
+
+        Single<String[]> data = api_powerSupply.getMachinerysTitle();
+        dispose_getMachineries = data.subscribeWith(new DisposableSingleObserver<String[]>() {
+            @Override
+            public void onSuccess(String[] vals) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.select_dialog_item, vals);
+                s_addMachineryFragment.getMachineries(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     /**
@@ -195,7 +205,7 @@ public class P_AddMachineryFragment {
     public void getDetailItem() {
         s_addMachineryFragment.onLoadingGetDetail(true);
 
-        Single<VM_PostMachinery> data = api_powerSupply.getDetailMyMachinery(s_addMachineryFragment.getIdItem(),context);
+        Single<VM_PostMachinery> data = api_powerSupply.getDetailMyMachinery(s_addMachineryFragment.getIdItem(), context);
         dispose_getDetailItem = data.subscribeWith(new DisposableSingleObserver<VM_PostMachinery>() {
             @Override
             public void onSuccess(VM_PostMachinery powerSupply) {
@@ -268,20 +278,6 @@ public class P_AddMachineryFragment {
     }
 
     /**
-     * در اینجا پوزیشن دسته ماشین آلات برگشت داده می شود
-     * **/
-    public int getPositionMachinery(int id) {
-        int position = 0;
-        for (int i = 0; i < machinerySpinners.size(); i++) {
-            if (machinerySpinners.get(i).getId() == id) {
-                position = i;
-                break;
-            }
-        }
-        return position;
-    }
-
-    /**
      * در اینجا پوزیشن استان برگشت داده می شود
      **/
     public int getPositionState(int id) {
@@ -307,7 +303,6 @@ public class P_AddMachineryFragment {
 
     public void cancel(String tag) {
         states = null;
-        machinerySpinners = null;
 
         api_powerSupply.cancel(tag, context);
 

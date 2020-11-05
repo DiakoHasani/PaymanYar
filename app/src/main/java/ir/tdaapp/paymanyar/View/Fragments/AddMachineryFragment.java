@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -97,7 +98,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
     FileUploadItemAdapter fileUploadItemAdapter;
 
     Toolbar toolbar;
-    Spinner cmb_AdType, cmb_Machinery, cmb_Provinces, cmb_City;
+    Spinner cmb_AdType, cmb_Provinces, cmb_City;
     TextInputEditText txt_Price, txt_CellPhone, txt_Title;
     EditText txt_Description;
     LinearLayoutManager layoutManager;
@@ -122,6 +123,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
     int countSetAdapterCitySpinner = 0;
     boolean enableBankingPortal = false;
     LinearLayout btn_Support, btn_Home;
+    AutoCompleteTextView txt_Machinery;
 
     @Nullable
     @Override
@@ -142,7 +144,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
     void findItem(View view) {
         toolbar = view.findViewById(R.id.toolbar);
         cmb_AdType = view.findViewById(R.id.cmb_AdType);
-        cmb_Machinery = view.findViewById(R.id.cmb_Machinery);
+        txt_Machinery = view.findViewById(R.id.txt_Machinery);
         cmb_Provinces = view.findViewById(R.id.cmb_Provinces);
         cmb_City = view.findViewById(R.id.cmb_City);
         txt_Title = view.findViewById(R.id.txt_Title);
@@ -303,8 +305,8 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
     }
 
     @Override
-    public void getMachineries(ArrayAdapter<VM_MachinerySpinner> machineries) {
-        cmb_Machinery.setAdapter(machineries);
+    public void getMachineries(ArrayAdapter<String> machineries) {
+        txt_Machinery.setAdapter(machineries);
     }
 
     @Override
@@ -393,28 +395,9 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
     public boolean checkValidation() {
         boolean isValid = true;
 
-        //در اینجا ولیدیشن استان چک می شود
-        if (cmb_Provinces.getAdapter() != null) {
-            if (((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_Provinces.getSelectedView()).setError(getString(R.string.PleaseSelectedOneProvince));
-            }
-        }
-
-        //در اینجا ولیدیشن شهر چک می شود
-        if (cmb_City.getAdapter() != null) {
-            if (((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_City.getSelectedView()).setError(getString(R.string.PleaseSelectedOneCity));
-            }
-        }
-
         //در اینجا ولیدیشن شغل چک می شود
-        if (cmb_Machinery.getAdapter() != null) {
-            if (((VM_MachinerySpinner) cmb_Machinery.getSelectedItem()).getId() == 0) {
-                isValid = false;
-                ((TextView) cmb_Machinery.getSelectedView()).setError(getString(R.string.PleaseSelectedOneMachinery));
-            }
+        if (!Validation.Required(txt_Machinery, getString(R.string.ThisValueMust_be_Filled))) {
+            isValid = false;
         }
 
         //در اینجا ولیدیشن نوع آگهی چک می شود
@@ -477,7 +460,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
         try {
 
             model.setAdType(((VM_AdTypeMachinery)cmb_AdType.getSelectedItem()));
-            model.setMachineryId(((VM_MachinerySpinner)cmb_Machinery.getSelectedItem()).getId());
+            model.setMachineryName(txt_Machinery.getText().toString());
             model.setState(((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId());
             model.setCity(((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId());
             model.setPrice(txt_Price.getText().toString());
@@ -665,7 +648,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
             }
 
             //دسته ماشین آلات
-            cmb_Machinery.setSelection(p_addMachineryFragment.getPositionMachinery(model.getMachineryId()));
+            txt_Machinery.setText(model.getMachineryName());
 
             //استان
             cmb_Provinces.setSelection(p_addMachineryFragment.getPositionState(model.getState()));
@@ -776,6 +759,9 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
                 clear2("txt_Description");
 
                 Thread.sleep(100);
+                clear2("txt_Machinery");
+
+                Thread.sleep(100);
                 clear2("txt_CellPhone");
 
                 Thread.sleep(100);
@@ -789,9 +775,6 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
 
                 Thread.sleep(100);
                 clear2("cmb_Provinces");
-
-                Thread.sleep(100);
-                clear2("cmb_Machinery");
 
                 Thread.sleep(100);
                 clear2("cmb_AdType");
@@ -836,8 +819,8 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
                 case "cmb_Provinces":
                     p_addMachineryFragment.getProvinces();
                     break;
-                case "cmb_Machinery":
-                    p_addMachineryFragment.getMachineries();
+                case "txt_Machinery":
+                    txt_Machinery.setText("");
                     break;
                 case "cmb_AdType":
                     p_addMachineryFragment.getAdTypeMachineries();

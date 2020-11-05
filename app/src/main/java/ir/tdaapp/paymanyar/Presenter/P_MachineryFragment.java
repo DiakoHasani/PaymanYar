@@ -30,7 +30,7 @@ public class P_MachineryFragment {
     Tbl_States tbl_states;
     Tbl_Machineries tbl_machineries;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_getVals, dispose_setVals;
+    Disposable dispose_getVals, dispose_setVals, dispose_getMachineries;
 
     public P_MachineryFragment(Context context, S_MachineryFragment s_machineryFragment) {
         this.context = context;
@@ -48,6 +48,11 @@ public class P_MachineryFragment {
             s_machineryFragment.onLoading(true);
         } else {
             s_machineryFragment.onLoadingPaging(true);
+        }
+
+        //در اینجا دسته ماشین آلات از سرور گرفته می شود و در اسپینر ست می شود
+        if (!s_machineryFragment.checkedMachinerySpinner()) {
+            getMachineries();
         }
         getVals();
     }
@@ -79,13 +84,25 @@ public class P_MachineryFragment {
      * در اینجا لیست ماشین آلات گرفته می شود
      **/
     public void getMachineries() {
-        ArrayAdapter<VM_MachinerySpinner> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, tbl_machineries.getMachineries());
-        s_machineryFragment.getMachineries(adapter);
+
+        Single<List<VM_MachinerySpinner>> data = api_powerSupply.getMachinerySpinner(context);
+        dispose_getMachineries = data.subscribeWith(new DisposableSingleObserver<List<VM_MachinerySpinner>>() {
+            @Override
+            public void onSuccess(List<VM_MachinerySpinner> machinerySpinners) {
+                ArrayAdapter<VM_MachinerySpinner> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, machinerySpinners);
+                s_machineryFragment.getMachineries(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     void getVals() {
         Single<List<VM_Machinery>> data = api_powerSupply.getMachineries(s_machineryFragment.getFilter(),
-                tbl_states.getProvincesOrCities(0), tbl_machineries.getMachineries());
+                tbl_states.getProvincesOrCities(0));
 
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_Machinery>>() {
             @Override
@@ -150,6 +167,10 @@ public class P_MachineryFragment {
 
         if (dispose_setVals != null) {
             dispose_setVals.dispose();
+        }
+
+        if (dispose_getMachineries != null) {
+            dispose_getMachineries.dispose();
         }
     }
 }

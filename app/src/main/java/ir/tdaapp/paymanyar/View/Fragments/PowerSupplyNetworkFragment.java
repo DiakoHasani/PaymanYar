@@ -78,7 +78,6 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
         setToolbar();
 
         p_powerSupplyNetworkFragment.getProvinces();
-        p_powerSupplyNetworkFragment.getJobs();
         p_powerSupplyNetworkFragment.getWorkExperiences();
 
         new Handler().postDelayed(() -> {
@@ -432,6 +431,14 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
     @Override
     public boolean isLoadingProgress() {
         return loadingProgress;
+    }
+
+    /**
+     * در اینجا چک می کند که اسپینر شغل از سرور گرفته شده است اگر فالس باشد دوباره اقدام به گرفتن داده ها می کند
+     **/
+    @Override
+    public boolean checkedJobSpinner() {
+        return cmb_job.getAdapter() != null;
     }
 
     @Override

@@ -25,7 +25,7 @@ public interface S_AddMaterialFragment {
 
     void getCities(ArrayAdapter<VM_ProvincesAndCities> cities);
 
-    void getMaterials(ArrayAdapter<VM_MaterialSpinner> materials);
+    void getMaterials(ArrayAdapter<String> materials);
 
     void getAdTypes(ArrayAdapter<VM_AdTypeMaterial> adTypes);
 

@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SupportAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_SupportFragment;
@@ -112,22 +113,24 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
             @Override
             public void onClickSMS(String phoneNumber) {
 
-                if (phoneNumber != null) {
+                String phoneNumber2 = Replace.Number_fn_To_en(phoneNumber);
 
-                    if (phoneNumber.length() != 0) {
+                if (phoneNumber2 != null) {
 
-                        if (phoneNumber.charAt(0) == '0') {
+                    if (phoneNumber2.length() != 0) {
+
+                        if (phoneNumber2.charAt(0) == '0') {
                             String a = "+98";
                             int b = 0;
-                            for (char i : phoneNumber.toCharArray()) {
+                            for (char i : phoneNumber2.toCharArray()) {
                                 if (b != 0) {
                                     a += i;
                                 }
                                 b++;
                             }
                             openUrl.getWhatsApp(a, getContext());
-                        }else{
-                            openUrl.getWhatsApp(phoneNumber, getContext());
+                        } else {
+                            openUrl.getWhatsApp(phoneNumber2, getContext());
                         }
 
                     }
@@ -137,17 +140,17 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
 
             @Override
             public void onClickTelegram(String url) {
-                openUrl.getTelegram(url, getContext());
+                openUrl.getTelegram(Replace.Number_fn_To_en(url), getContext());
             }
 
             @Override
             public void onClickCall(String phoneNumber) {
-                openUrl.call(phoneNumber, getContext());
+                openUrl.call(Replace.Number_fn_To_en(phoneNumber), getContext());
             }
 
             @Override
             public void onClickEmail(String url) {
-                openUrl.getEmail(url, getContext());
+                openUrl.getEmail(Replace.Number_fn_To_en(url), getContext());
             }
         });
     }

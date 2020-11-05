@@ -37,10 +37,13 @@ public class VM_DetailMachinery {
 
     List<String> images;
 
+    //تایتل دسته ماشین آلات
+    String machineryTitle;
+
     public VM_DetailMachinery() {
         id = MachineryId = stateId = cityId = 0;
-        price = title = cellPhone = description = "-";
-        images=new ArrayList<>();
+        price = title = cellPhone = description = machineryTitle = "-";
+        images = new ArrayList<>();
     }
 
     public int getId() {
@@ -121,5 +124,13 @@ public class VM_DetailMachinery {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public String getMachineryTitle() {
+        return machineryTitle;
+    }
+
+    public void setMachineryTitle(String machineryTitle) {
+        this.machineryTitle = machineryTitle;
     }
 }

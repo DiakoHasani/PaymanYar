@@ -2,6 +2,7 @@ package ir.tdaapp.paymanyar.View.Activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
     P_MainActivity p_mainActivity;
     private Tbl_Notification tbl_notification;
     private Tbl_User tbl_user;
+    DisplayMetrics displayMetrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         p_mainActivity = new P_MainActivity(getApplicationContext(), this);
         tbl_notification = new Tbl_Notification();
         tbl_user = new Tbl_User();
+
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
     }
 
     //در اینجا برنامه به صفحه اول بر می گردد
@@ -243,5 +248,15 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
                 fragment.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    //در اینجا اندازه عرض صفحه نمایش برگشت داده می شود
+    public int getWidthDisplay() {
+        return displayMetrics.widthPixels;
+    }
+
+    //در اینجا اندازه طول صفحه نمایش برگشت داده می شود
+    public int getHeightDisplay() {
+        return displayMetrics.heightPixels;
     }
 }

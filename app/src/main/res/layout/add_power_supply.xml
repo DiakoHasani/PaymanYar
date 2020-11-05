@@ -99,16 +99,6 @@
 
                         </LinearLayout>
 
-                        <Spinner
-                            android:id="@+id/cmb_Job"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp"
-                            android:spinnerMode="dialog"/>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -164,6 +154,51 @@
                             </com.google.android.material.textfield.TextInputLayout>
 
                         </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/border_field_semi_wide_fragment2"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginBottom="12dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:padding="2dp">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/txt_Job"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:imeOptions="actionSearch"
+                                    android:fontFamily="@font/iran_sans"
+                                    android:textSize="14dp"
+                                    android:textColor="@color/colorTitle"
+                                    android:gravity="right|center_vertical"
+                                    android:backgroundTint="@color/colorWhite"
+                                    app:backgroundTint="@color/colorWhite"
+                                    android:paddingRight="8dp"
+                                    android:hint="@string/InputJob" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/vazir"
+                                android:textColor="@color/colorGray"
+                                android:textSize="14dp"
+                                android:text="@string/job"
+                                android:background="@color/colorWhite"
+                                android:paddingRight="5dp"
+                                android:paddingLeft="5dp"
+                                android:layout_marginRight="18dp"/>
+
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"

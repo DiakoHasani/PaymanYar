@@ -19,6 +19,7 @@ public class Base_Api {
     public String ImageAd = "http://tiptop.tdaapp.ir/Content/data/Ad/";
     public String PDFurl="http://tiptop.tdaapp.ir/Content/data/Books/";
     public String Orderurl="http://tiptop.tdaapp.ir/Content/data/OrderFile/";
+    public String SupportImageurl="http://tiptop.tdaapp.ir/Content/data/Supporter/";
 
     PostJsonObjectVolley volley_PostError;
     Disposable dispose_postError;

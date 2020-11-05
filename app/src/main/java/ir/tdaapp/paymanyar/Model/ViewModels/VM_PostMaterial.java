@@ -7,7 +7,7 @@ import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 
 /**
  * ویومدل مربوط به افزودن مصالح
- * **/
+ **/
 public class VM_PostMaterial {
     //مربوط به آیدی یوزر
     int userId;
@@ -44,9 +44,11 @@ public class VM_PostMaterial {
 
     StepsAddPower stepPower;
 
+    String materialTitle;
+
     public VM_PostMaterial() {
         userId = materialId = state = city = 0;
-        price = title = cellPhone = description = "";
+        price = title = cellPhone = description = materialTitle = "";
         images = new ArrayList<>();
         special = false;
     }
@@ -145,5 +147,13 @@ public class VM_PostMaterial {
 
     public void setStepPower(StepsAddPower stepPower) {
         this.stepPower = stepPower;
+    }
+
+    public String getMaterialTitle() {
+        return materialTitle;
+    }
+
+    public void setMaterialTitle(String materialTitle) {
+        this.materialTitle = materialTitle;
     }
 }

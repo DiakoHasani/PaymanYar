@@ -32,4 +32,5 @@ public interface S_PowerSupplyNetworkFragment {
     boolean isWorkedInternet();
     int getPage();
     boolean isLoadingProgress();
+    boolean checkedJobSpinner();
 }

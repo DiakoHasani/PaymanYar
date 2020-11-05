@@ -56,7 +56,6 @@
                             android:fontFamily="@font/vazir"
                             android:textSize="14dp"
                             android:textColor="@color/colorTitle"
-                            android:hint="@string/Please_take_action_to_speed_up_the_tender_process"
                             android:backgroundTint="@color/colorWhite"
                             app:backgroundTint="@color/colorWhite"
                             android:lines="4"/>

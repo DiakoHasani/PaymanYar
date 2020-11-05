@@ -5,6 +5,6 @@
     <item android:id="@+id/myAd"
         android:icon="@drawable/ic_my_ad"
         android:title="@string/MyAd"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
 </menu>

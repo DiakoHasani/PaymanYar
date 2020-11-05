@@ -34,9 +34,9 @@ public class P_PriceRangeFragment {
 
         List<VM_DegreeOfImportance> vals = new ArrayList<>();
 
-        vals.add(new VM_DegreeOfImportance(1, "کم"));
-        vals.add(new VM_DegreeOfImportance(2, "متوسط"));
-        vals.add(new VM_DegreeOfImportance(3, "زیاد"));
+        vals.add(new VM_DegreeOfImportance(1, context.getString(R.string.Low)));
+        vals.add(new VM_DegreeOfImportance(2, context.getString(R.string.medium)));
+        vals.add(new VM_DegreeOfImportance(3, context.getString(R.string.Much)));
 
         ArrayAdapter<VM_DegreeOfImportance> adapter = new ArrayAdapter<>(context, R.layout.spinner_item3, vals);
         s_priceRangeFragment.onGetDegreeOfImportance(adapter);
@@ -133,16 +133,16 @@ public class P_PriceRangeFragment {
             //بدست آوردن حد بالا
             double C2 = Math.abs(M + (T * S));
 
-            s_priceRangeFragment.setDefultPointChart();
+            s_priceRangeFragment.setDefaultChartNumber();
             for (VM_PriceRange i : participates) {
                 float v = Float.valueOf(i.percent);
 
-                if (v < C1 || v > C2) {
+                if (v <= C1 || v >= C2) {
                     s_priceRangeFragment.setOutOfRangePointChart(i.id);
                 }
             }
 
-            s_priceRangeFragment.onSetChartNumbers((int) C1, (int) C2);
+            s_priceRangeFragment.onSetChartNumbers((int) C1);
 
             for (int i = 0; i < participates.size(); i++) {
                 s_priceRangeFragment.setPointChart(participates.get(i));
@@ -262,9 +262,8 @@ public class P_PriceRangeFragment {
             }
         }
 
-        //در اینجا نقطه چشمک زن ست می شود
-        s_priceRangeFragment.enableAnimationPointChart(index);
 
         s_priceRangeFragment.winnerSelection(String.valueOf(max_price), index, (int) c2, (int) C);
+        s_priceRangeFragment.enableAnimationPointChart(index);
     }
 }

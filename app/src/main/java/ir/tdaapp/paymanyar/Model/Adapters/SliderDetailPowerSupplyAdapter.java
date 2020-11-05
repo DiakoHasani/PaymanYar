@@ -40,7 +40,7 @@ public class SliderDetailPowerSupplyAdapter extends RecyclerView.Adapter<SliderD
 
         Glide.with(context)
                 .load(urls.get(position))
-                .error(R.drawable.power_supply_network)
+                .error(R.drawable.no_photography)
                 .into(holder.image);
 
     }

@@ -1270,925 +1270,7 @@
                                     android:layout_width="35dp"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:weightSum="12">
-
-                                    <LinearLayout
-                                        android:id="@+id/number350"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="350"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number340"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="340"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number330"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="330"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number320"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="320"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number310"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="310"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number300"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="300"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number290"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="290"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number280"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="280"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number270"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="270"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number260"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="260"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number250"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="250"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number240"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="240"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number230"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="230"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number220"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="220"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number210"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="210"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number200"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="200"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number190"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="190"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number180"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="180"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number170"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="170"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number160"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="160"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number150"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="150"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number140"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="140"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number130"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="130"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number120"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="120"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number110"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="110"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number100"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="100"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number90"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="90"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number80"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="80"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number70"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="70"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number60"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="60"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number50"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="50"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number40"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="40"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number30"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="30"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:id="@+id/number20"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"
-                                        android:gravity="left"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="8dp"
-                                            android:textColor="@color/colorTitle"
-                                            android:text="20"
-                                            android:layout_marginLeft="4dp"
-                                            android:layout_gravity="center_vertical"
-                                            android:fontFamily="@font/iran_sans"/>
-
-                                        <View
-                                            android:layout_width="8dp"
-                                            android:layout_height="1dp"
-                                            android:background="@color/colorGray"
-                                            android:layout_gravity="center_vertical"/>
-
-                                    </LinearLayout>
+                                    android:weightSum="10">
 
                                     <LinearLayout
                                         android:id="@+id/number10"
@@ -2197,9 +1279,10 @@
                                         android:layout_weight="1"
                                         android:gravity="left"
                                         android:orientation="horizontal"
-                                        android:visibility="gone">
+                                        android:visibility="visible">
 
                                         <TextView
+                                            android:id="@+id/lbl_Number10"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="8dp"
@@ -2218,20 +1301,245 @@
                                     </LinearLayout>
 
                                     <LinearLayout
-                                        android:id="@+id/number0"
+                                        android:id="@+id/number9"
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
                                         android:gravity="left"
                                         android:orientation="horizontal"
-                                        android:visibility="gone">
+                                        android:visibility="visible">
 
                                         <TextView
+                                            android:id="@+id/lbl_Number9"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textSize="8dp"
                                             android:textColor="@color/colorTitle"
-                                            android:text="0"
+                                            android:text="9"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number8"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number8"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="8"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number7"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="7"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number6"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="6"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number5"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="5"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number4"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="4"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="3"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="2"
+                                            android:layout_marginLeft="4dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/iran_sans"/>
+
+                                        <View
+                                            android:layout_width="8dp"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorGray"
+                                            android:layout_gravity="center_vertical"/>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/number1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="left"
+                                        android:orientation="horizontal"
+                                        android:visibility="visible">
+
+                                        <TextView
+                                            android:id="@+id/lbl_Number1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="8dp"
+                                            android:textColor="@color/colorTitle"
+                                            android:text="1"
                                             android:layout_marginLeft="4dp"
                                             android:layout_gravity="center_vertical"
                                             android:fontFamily="@font/iran_sans"/>
@@ -2256,15 +1564,15 @@
                                         android:layout_height="match_parent"
                                         android:background="@color/colorGray"
                                         android:layout_centerVertical="true"
-                                        android:layout_marginBottom="15dp"
-                                        android:layout_marginTop="15dp"/>
+                                        android:layout_marginBottom="18dp"
+                                        android:layout_marginTop="18dp"/>
 
                                     <RelativeLayout
                                         android:id="@+id/chartPoint1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="10dp">
 
                                         <LinearLayout
@@ -2309,7 +1617,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="30dp">
 
                                         <LinearLayout
@@ -2354,7 +1662,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="50dp">
 
                                         <LinearLayout
@@ -2399,7 +1707,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="70dp">
 
                                         <LinearLayout
@@ -2444,7 +1752,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="90dp">
 
                                         <LinearLayout
@@ -2489,7 +1797,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="110dp">
 
                                         <LinearLayout
@@ -2534,7 +1842,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="130dp">
 
                                         <LinearLayout
@@ -2579,7 +1887,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="150dp">
 
                                         <LinearLayout
@@ -2624,7 +1932,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="170dp">
 
                                         <LinearLayout
@@ -2669,7 +1977,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="190dp">
 
                                         <LinearLayout
@@ -2714,7 +2022,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="215dp">
 
                                         <LinearLayout
@@ -2759,7 +2067,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginBottom="11dp"
                                         android:layout_marginRight="240dp">
 
                                         <LinearLayout
@@ -2805,7 +2113,7 @@
                                         android:id="@+id/chartUpLine"
                                         android:background="@color/colorPrimary"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="15dp"/>
+                                        android:layout_marginBottom="18dp"/>
 
                                     <RelativeLayout
                                         android:layout_width="match_parent"
@@ -2813,7 +2121,7 @@
                                         android:id="@+id/chartDownLine"
                                         android:background="@color/colorYellow"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_marginBottom="15dp"/>
+                                        android:layout_marginBottom="18dp"/>
 
                                 </RelativeLayout>
 

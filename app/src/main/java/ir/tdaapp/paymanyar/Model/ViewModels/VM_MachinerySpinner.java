@@ -14,6 +14,11 @@ public class VM_MachinerySpinner {
         title = "";
     }
 
+    public VM_MachinerySpinner(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public int getId() {
         return id;
     }

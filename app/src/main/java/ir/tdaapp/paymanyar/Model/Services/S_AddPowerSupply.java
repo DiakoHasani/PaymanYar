@@ -28,7 +28,7 @@ public interface S_AddPowerSupply {
 
     void getCities(ArrayAdapter<VM_ProvincesAndCities> cities);
 
-    void getJobs(ArrayAdapter<VM_Job> jobs);
+    void getJobs(ArrayAdapter<String> jobs);
 
     void getWorkExperiences(ArrayAdapter<VM_WorkExperience> workExperiences);
 

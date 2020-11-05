@@ -24,6 +24,22 @@ public class DisplayPhone {
         } else {
             return DisplaySize.other;
         }
+    }
 
+    public static DisplaySize getDisplaySize(int width) {
+
+        if (width >= 0 && width <= 480) {
+            return DisplaySize.xSmall;
+        } else if (width >= 600 && width <= 840) {
+            return DisplaySize.small;
+        } else if (width >= 960 && width < 1280) {
+            return DisplaySize.medium;
+        } else if (width >= 1280 && width <= 1440) {
+            return DisplaySize.large;
+        } else if (width >= 1900) {
+            return DisplaySize.xLarge;
+        } else {
+            return DisplaySize.other;
+        }
     }
 }

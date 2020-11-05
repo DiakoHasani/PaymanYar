@@ -108,14 +108,11 @@ public class P_GPSFragment {
                 // For dropping a marker at a point on the Map
                 LatLng sydney = new LatLng(longitude, latitude);
 
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng).title("Your Mark").snippet(""));
-                        if (s_gpsFragment != null)
-                            s_gpsFragment.OnLocationChange(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
-                    }
+                googleMap.setOnMapClickListener(latLng -> {
+                    googleMap.clear();
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title("Your Mark").snippet(""));
+                    if (s_gpsFragment != null)
+                        s_gpsFragment.OnLocationChange(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
                 });
 
                 // For zooming automatically to the location of the marker

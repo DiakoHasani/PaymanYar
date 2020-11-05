@@ -27,7 +27,7 @@ public interface S_AddMachineryFragment {
 
     void getCities(ArrayAdapter<VM_ProvincesAndCities> cities);
 
-    void getMachineries(ArrayAdapter<VM_MachinerySpinner> machineries);
+    void getMachineries(ArrayAdapter<String> machineries);
 
     void getAdTypes(ArrayAdapter<VM_AdTypeMachinery> adTypes);
 

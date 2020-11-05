@@ -45,9 +45,11 @@ public class VM_PostMachinery {
 
     StepsAddPower stepPower;
 
+    String machineryName;
+
     public VM_PostMachinery() {
         userId = machineryId = state = city = 0;
-        price = title = cellPhone = description = "";
+        price = title = cellPhone = description = machineryName = "";
         images = new ArrayList<>();
         special = false;
     }
@@ -146,5 +148,13 @@ public class VM_PostMachinery {
 
     public void setStepPower(StepsAddPower stepPower) {
         this.stepPower = stepPower;
+    }
+
+    public String getMachineryName() {
+        return machineryName;
+    }
+
+    public void setMachineryName(String machineryName) {
+        this.machineryName = machineryName;
     }
 }

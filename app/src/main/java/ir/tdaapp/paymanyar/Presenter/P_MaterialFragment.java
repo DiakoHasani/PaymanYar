@@ -30,7 +30,7 @@ public class P_MaterialFragment {
     Tbl_Material tbl_material;
     Tbl_States tbl_states;
     Api_PowerSupply api_powerSupply;
-    Disposable dispose_getVals, dispose_setVals;
+    Disposable dispose_getVals, dispose_setVals, dispose_getMaterials;
 
     public P_MaterialFragment(Context context, S_MaterialFragment s_materialFragment) {
         this.context = context;
@@ -49,12 +49,18 @@ public class P_MaterialFragment {
         } else {
             s_materialFragment.onLoadingPaging(true);
         }
+
+        //در اینجا لیست مصالح اسپینر از سرور گرفته می شود
+        if (!s_materialFragment.checkedMaterialSpinner()) {
+            getMaterials();
+        }
+
         getVals();
     }
 
-    void getVals(){
-        Single<List<VM_Material>> data=api_powerSupply.getMaterials(s_materialFragment.getFilter(),tbl_states.getProvincesOrCities(0),tbl_material.getMaterials());
-        dispose_getVals=data.subscribeWith(new DisposableSingleObserver<List<VM_Material>>() {
+    void getVals() {
+        Single<List<VM_Material>> data = api_powerSupply.getMaterials(s_materialFragment.getFilter(), tbl_states.getProvincesOrCities(0));
+        dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_Material>>() {
             @Override
             public void onSuccess(List<VM_Material> vm_materials) {
                 if (vm_materials.size() != 0) {
@@ -96,7 +102,7 @@ public class P_MaterialFragment {
         });
     }
 
-    void setVals(List<VM_Material> materials){
+    void setVals(List<VM_Material> materials) {
         Observable<VM_Material> data = Observable.fromIterable(materials);
         dispose_setVals = data.subscribe(material -> {
             s_materialFragment.onItem(material);
@@ -132,10 +138,23 @@ public class P_MaterialFragment {
 
     /**
      * در اینجا لیست مصالح گرفته می شود
-     * **/
-    public void getMaterials(){
-        ArrayAdapter<VM_MaterialSpinner> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, tbl_material.getMaterials());
-        s_materialFragment.getMaterials(adapter);
+     **/
+    public void getMaterials() {
+
+        Single<List<VM_MaterialSpinner>> data = api_powerSupply.getMaterialSpinner(context);
+
+        dispose_getMaterials=data.subscribeWith(new DisposableSingleObserver<List<VM_MaterialSpinner>>() {
+            @Override
+            public void onSuccess(List<VM_MaterialSpinner> vm_materialSpinners) {
+                ArrayAdapter<VM_MaterialSpinner> adapter = new ArrayAdapter<>(context, R.layout.spinner_item2, vm_materialSpinners);
+                s_materialFragment.getMaterials(adapter);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     public void cancel(String tag) {
@@ -148,6 +167,10 @@ public class P_MaterialFragment {
 
         if (dispose_setVals != null) {
             dispose_setVals.dispose();
+        }
+
+        if (dispose_getMaterials != null) {
+            dispose_getMaterials.dispose();
         }
     }
 

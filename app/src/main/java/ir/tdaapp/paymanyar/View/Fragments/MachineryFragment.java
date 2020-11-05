@@ -79,7 +79,6 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
         setToolbar();
 
         p_machineryFragment.getProvinces();
-        p_machineryFragment.getMachineries();
 
         new Handler().postDelayed(() -> {
             p_machineryFragment.start();
@@ -207,7 +206,7 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
                 bundle.putInt("id", id);
                 detailMachineryFragment.setArguments(bundle);
 
-                ((MainActivity)getActivity()).onAddFragment(detailMachineryFragment,R.anim.fadein,R.anim.short_fadeout,true,DetailMachineryFragment.TAG);
+                ((MainActivity) getActivity()).onAddFragment(detailMachineryFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailMachineryFragment.TAG);
             });
 
             recycler.setAdapter(machineryAdapter);
@@ -416,6 +415,14 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
     @Override
     public boolean isLoadingProgress() {
         return loadingProgress;
+    }
+
+    /**
+     * در اینجا چک می کند که اسپینر دسته ماشین آلات از سرور گرفته شده است اگر فالس باشد دوباره اقدام به گرفتن داده ها می کند
+     * **/
+    @Override
+    public boolean checkedMachinerySpinner() {
+        return cmb_Machinery.getAdapter() != null;
     }
 
     @Override
