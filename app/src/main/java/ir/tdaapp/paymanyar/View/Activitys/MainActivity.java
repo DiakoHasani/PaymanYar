@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.flurry.android.FlurryAgent;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.AnimRes;
@@ -56,14 +58,14 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
 
         //زمانی که برنامه بسته باشد و کاربر روی نوتیفیکشن کلیک کند کد زیر را فراخوانی می کند
         Intent i = getIntent();
-        Bundle extras = i.getExtras();
-        if (extras != null) {
-            if (extras.getString("key1") != null) {
-                for (String key : extras.keySet()) {
-                    if (key.equalsIgnoreCase("key1")) {
-                        onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
-                        onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
-                    }
+        if (i.getSerializableExtra("key1") != null) {
+            String a = i.getStringExtra("key1");
+            if (a != null) {
+                if (a.equalsIgnoreCase("0")) {
+                    onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
+                    onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
+                } else {
+                    onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
                 }
             } else {
                 onAddFragment(new HomeFragment(), 0, 0, false, HomeFragment.TAG);
@@ -104,10 +106,10 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         super.onNewIntent(intent);
 
         //زمانی که کاربر روی نوتیفیکیشن کلیک کند کد زیر فراخوانی می شود
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            for (String key : extras.keySet()) {
-                if (key.equalsIgnoreCase("key1")) {
+        if (intent.getSerializableExtra("key1") != null) {
+            String a = intent.getStringExtra("key1");
+            if (a!=null){
+                if (a.equalsIgnoreCase("0")) {
                     //در اینجا چک می کند که صفحه مناقصات کاربر باز است اگر باز باشد آن را ریست می کند
                     Fragment hasFragmentFilterFrames = getSupportFragmentManager().findFragmentByTag(FilterFramesFragment.TAG);
                     if (hasFragmentFilterFrames != null) {
@@ -115,10 +117,8 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
                     } else {
                         onAddFragment(new FilterFramesFragment(), R.anim.short_fadein, R.anim.short_fadeout, true, FilterFramesFragment.TAG);
                     }
-
                 }
             }
-
         }
     }
 

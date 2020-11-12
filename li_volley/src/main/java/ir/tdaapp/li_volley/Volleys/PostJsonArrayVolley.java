@@ -2,6 +2,7 @@ package ir.tdaapp.li_volley.Volleys;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
@@ -12,6 +13,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
+
+import java.util.Map;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Services.IGetJsonArray;
@@ -37,6 +40,8 @@ public class PostJsonArrayVolley {
     IGetJsonArray iGetJsonArray;
 
     JsonArrayRequest request;
+
+    Map<String, String> header;
 
     public PostJsonArrayVolley(String url, JSONArray input, IGetJsonArray iGetJsonArray) {
         Url = url;
@@ -82,7 +87,7 @@ public class PostJsonArrayVolley {
                 resault.setResault(ResaultCode.Success);
                 iGetJsonArray.Get(resault);
             }
-            ,error -> {
+                    ,error -> {
                 if (error instanceof TimeoutError) {
                     resault.setResault(ResaultCode.TimeoutError);
                 } else if (error instanceof ServerError) {
@@ -97,7 +102,14 @@ public class PostJsonArrayVolley {
                 resault.setJsonArray(null);
                 resault.setMessage(error.toString());
                 iGetJsonArray.Get(resault);
-            });
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    if (getHeader() != null)
+                        return getHeader();
+                    return super.getHeaders();
+                }
+            };
 
             RetryPolicy policy = new DefaultRetryPolicy(TimeOut, Retries, Multiplier);
             request.setRetryPolicy(policy);
@@ -110,6 +122,14 @@ public class PostJsonArrayVolley {
             resault.setMessage(e.toString());
             iGetJsonArray.Get(resault);
         }
+    }
+
+    public Map<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
     }
 
     //برای لغو کردن عملیات

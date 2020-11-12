@@ -263,7 +263,7 @@ public class P_PriceRangeFragment {
         }
 
 
-        s_priceRangeFragment.winnerSelection(String.valueOf(max_price), index, (int) c2, (int) C);
+        s_priceRangeFragment.winnerSelection(String.valueOf(max_price), index, c2, C);
         s_priceRangeFragment.enableAnimationPointChart(index);
     }
 }

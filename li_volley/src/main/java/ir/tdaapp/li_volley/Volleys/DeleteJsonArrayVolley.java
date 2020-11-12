@@ -2,6 +2,7 @@ package ir.tdaapp.li_volley.Volleys;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
@@ -10,6 +11,8 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonArrayRequest;
+
+import java.util.Map;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Services.IGetJsonArray;
@@ -32,6 +35,8 @@ public class DeleteJsonArrayVolley {
     IGetJsonArray iGetJsonArray;
 
     JsonArrayRequest request;
+
+    Map<String, String> header;
 
     public DeleteJsonArrayVolley(String url, IGetJsonArray iGetJsonArray) {
         Url = url;
@@ -69,7 +74,7 @@ public class DeleteJsonArrayVolley {
 
         try {
 
-             request = new JsonArrayRequest(Request.Method.DELETE, Url, null, response -> {
+            request = new JsonArrayRequest(Request.Method.DELETE, Url, null, response -> {
                 resault.setJsonArray(response);
                 resault.setResault(ResaultCode.Success);
                 iGetJsonArray.Get(resault);
@@ -85,10 +90,17 @@ public class DeleteJsonArrayVolley {
                 } else {
                     resault.setResault(ResaultCode.Error);
                 }
-                 resault.setJsonArray(null);
+                resault.setJsonArray(null);
                 resault.setMessage(error.toString());
                 iGetJsonArray.Get(resault);
-            });
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    if (getHeader() != null)
+                        return getHeader();
+                    return super.getHeaders();
+                }
+            };
 
             RetryPolicy policy = new DefaultRetryPolicy(TimeOut, Retries, Multiplier);
             request.setRetryPolicy(policy);
@@ -102,6 +114,14 @@ public class DeleteJsonArrayVolley {
             iGetJsonArray.Get(resault);
         }
 
+    }
+
+    public Map<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
     }
 
     //برای لغو کردن عملیات

@@ -2,6 +2,7 @@ package ir.tdaapp.li_volley.Volleys;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
@@ -37,6 +38,8 @@ public class PutStringVolley {
     IGetString iGetString;
 
     StringRequest request;
+
+    Map<String, String> header;
 
     public PutStringVolley(String url, Map<String, String> params, IGetString iGetString) {
         Url = url;
@@ -101,6 +104,13 @@ public class PutStringVolley {
                 protected Map<String, String> getParams() {
                     return params;
                 }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    if (getHeader() != null)
+                        return getHeader();
+                    return super.getHeaders();
+                }
             };
 
             RetryPolicy policy = new DefaultRetryPolicy(TimeOut, Retries, Multiplier);
@@ -114,6 +124,14 @@ public class PutStringVolley {
             resault.setMessage(e.toString());
             iGetString.Get(resault);
         }
+    }
+
+    public Map<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
     }
 
     //برای لغو کردن عملیات

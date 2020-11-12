@@ -2,6 +2,7 @@ package ir.tdaapp.li_volley.Volleys;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.ParseError;
@@ -11,6 +12,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 
 import org.json.JSONObject;
+
+import java.util.Map;
 
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Services.IGetJsonArray;
@@ -37,6 +40,8 @@ public class PostJsonObject_And_GetJsonArrayVolley {
     IGetJsonArray iGetJsonArray;
 
     CustomRequest_JsonArray request;
+
+    Map<String, String> header;
 
     public PostJsonObject_And_GetJsonArrayVolley(String url, JSONObject input, IGetJsonArray iGetJsonArray) {
         Url = url;
@@ -98,7 +103,14 @@ public class PostJsonObject_And_GetJsonArrayVolley {
                 result.setMessage(error.toString());
                 iGetJsonArray.Get(result);
 
-            });
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    if (getHeader() != null)
+                        return getHeader();
+                    return super.getHeaders();
+                }
+            };
 
             RetryPolicy policy = new DefaultRetryPolicy(TimeOut, Retries, Multiplier);
             request.setRetryPolicy(policy);
@@ -112,6 +124,14 @@ public class PostJsonObject_And_GetJsonArrayVolley {
             iGetJsonArray.Get(result);
         }
 
+    }
+
+    public Map<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
     }
 
     //برای لغو کردن عملیات

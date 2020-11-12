@@ -36,7 +36,7 @@ public class Tbl_States {
             provincesAndCities.add(city);
         }
 
-        Cursor q = db.ExecuteQ("select * from TblStates where ParentId=" + parentId);
+        Cursor q = db.ExecuteQ("select * from TblStates where ParentId=" + parentId + " ORDER BY Title");
 
         for (int i = 0; i < q.getCount(); i++) {
 
@@ -99,8 +99,8 @@ public class Tbl_States {
         List<VM_ProvincesAndCities> vals = getProvincesOrCities(parent);
 
         for (int i = 0; i < vals.size(); i++) {
-            if (vals.get(i).getId()==id){
-                position=i;
+            if (vals.get(i).getId() == id) {
+                position = i;
                 break;
             }
         }

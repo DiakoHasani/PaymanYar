@@ -15,7 +15,7 @@ public interface S_PriceRangeFragment {
 
     int IntToDP(int value);
 
-    void winnerSelection(String number, String position, int CUp, int CDown);
+    void winnerSelection(String number, String position, double CUp, double CDown);
 
     void setDefaultChartNumber();
 

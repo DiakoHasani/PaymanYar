@@ -346,29 +346,29 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
      * CDown مقدارخط پایین
      **/
     @Override
-    public void winnerSelection(String number, String position, int CUp, int CDown) {
+    public void winnerSelection(String number, String position, double CUp, double CDown) {
         winnerPrice.setText(number);
         winnerNumber.setText(position);
 
         Views.getLinearLayoutHeight(number1, (width, height) -> {
             //در اینجا خط بالا نمودار ست می شود
-            int marginBottomCUp = getMarginPointChart(CUp, height);
+            int marginBottomCUp = getMarginPointChart((int) CUp, height);
             if (marginBottomCUp != -1) {
                 chartUpLine.setVisibility(View.VISIBLE);
 
                 setMarginLineChart(chartUpLine, marginBottomCUp);
 
-                lbl_upper_line.setText(String.valueOf(CUp));
+                lbl_upper_line.setText(String.valueOf((float) CUp));
             }
 
             //ر اینجا خط پایین نمودار ست می شود
-            int marginBottomCDown = getMarginPointChart(CDown, height);
+            int marginBottomCDown = getMarginPointChart((int) CDown, height);
 
             if (marginBottomCDown != -1) {
                 chartDownLine.setVisibility(View.VISIBLE);
 
                 setMarginLineChart(chartDownLine, marginBottomCDown);
-                Low_limit.setText(String.valueOf(CDown));
+                Low_limit.setText(String.valueOf((float) CDown));
             }
         });
     }
@@ -787,7 +787,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     /**
      * در اینجا نقطه چشمک زن برنده مناقصه در نمودار ست می شود
-     * **/
+     **/
     @Override
     public void enableAnimationPointChart(String position) {
         disableAnimationChart();
@@ -839,7 +839,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
 
     /**
      * در اینجا نقطه چشمک زن نمودار غیرفعال می شود
-     * **/
+     **/
     @Override
     public void disableAnimationChart() {
         circle_chartPoint1.setAnimation(null);
