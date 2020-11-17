@@ -8,6 +8,7 @@ public class VM_Support {
     String cellPhone;
     String email;
     String telegram;
+    String whatsApp;
 
     public int getId() {
         return id;
@@ -63,5 +64,13 @@ public class VM_Support {
 
     public void setTelegram(String telegram) {
         this.telegram = telegram;
+    }
+
+    public String getWhatsApp() {
+        return whatsApp;
+    }
+
+    public void setWhatsApp(String whatsApp) {
+        this.whatsApp = whatsApp;
     }
 }

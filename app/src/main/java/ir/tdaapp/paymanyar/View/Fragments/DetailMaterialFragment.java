@@ -191,10 +191,10 @@ public class DetailMaterialFragment extends BaseFragment implements S_DetailMate
             }
 
             //قیمت
-            if (!detailMaterial.getPrice().equalsIgnoreCase("")) {
+            if (!detailMaterial.getPrice().equalsIgnoreCase("-")) {
                 lbl_Price.setText(detailMaterial.getPrice());
             } else {
-                lbl_Price.setText("-");
+                lbl_Price.setText(getString(R.string.Agreement));
             }
 
             //دسته مصالح

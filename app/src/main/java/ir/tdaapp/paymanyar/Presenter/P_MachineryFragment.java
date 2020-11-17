@@ -102,7 +102,7 @@ public class P_MachineryFragment {
 
     void getVals() {
         Single<List<VM_Machinery>> data = api_powerSupply.getMachineries(s_machineryFragment.getFilter(),
-                tbl_states.getProvincesOrCities(0));
+                tbl_states.getProvincesOrCities(0), context);
 
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_Machinery>>() {
             @Override

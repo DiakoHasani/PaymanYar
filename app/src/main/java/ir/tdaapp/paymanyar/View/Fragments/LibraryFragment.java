@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -37,18 +38,23 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager2.widget.ViewPager2;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.LibraryAdapter;
+import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_LibraryFragment;
 import ir.tdaapp.paymanyar.Model.Services.addLibrary;
 import ir.tdaapp.paymanyar.Model.Services.onClickLibrary;
+import ir.tdaapp.paymanyar.Model.Services.onClickSliderItem;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
 import ir.tdaapp.paymanyar.Presenter.P_LibraryFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
+import me.relex.circleindicator.CircleIndicator3;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -64,7 +70,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
     LinearLayoutManager layoutManager;
     Toolbar toolbar;
     RecyclerView recycler;
-    ShimmerFrameLayout loading;
+    ShimmerFrameLayout loading, loadingSlider;
     EditText txt_Search;
     Button btn_Search;
     int page = 0;
@@ -75,6 +81,11 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
     SwipeRefreshLayout reload;
     String[] Permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     RelativeLayout loading_Download;
+    ViewPager2 Slider;
+    CircleIndicator3 indicator;
+    ImageView btn_reload;
+    SliderHomeAdapter sliderHomeAdapter;
+    ImageView emptySlider;
 
 
     @Nullable
@@ -87,6 +98,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         setToolbar();
 
         new Handler().postDelayed(() -> {
+            p_libraryFragment.getSlider();
             p_libraryFragment.start(txt_Search.getText().toString(), page);
         }, 300);
         return view;
@@ -102,11 +114,17 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         empty = view.findViewById(R.id.empty);
         reload = view.findViewById(R.id.reload);
         loading_Download = view.findViewById(R.id.loading_Download);
+        loadingSlider = view.findViewById(R.id.loadingSlider);
+        Slider = view.findViewById(R.id.Slider);
+        indicator = view.findViewById(R.id.indicator);
+        btn_reload = view.findViewById(R.id.btn_reload);
+        emptySlider = view.findViewById(R.id.emptySlider);
     }
 
     void implement() {
         p_libraryFragment = new P_LibraryFragment(getContext(), this);
         btn_Search.setOnClickListener(this);
+        btn_reload.setOnClickListener(this);
 
         recycler.setOnScrollListener(pOnScrollListener);
 
@@ -391,11 +409,150 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
         Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
     }
 
+    //در اینجا یکی یکی آیتم های اسلایدر اضافه می شوند
+    @Override
+    public void onItemSlider(VM_HomeSlider slider) {
+        sliderHomeAdapter.add(slider);
+    }
+
+    //در اینجا صفحه جاری اسلایدر گرفته می شود
+    @Override
+    public int onGetCurrentSlider() {
+        return Slider.getCurrentItem();
+    }
+
+    @Override
+    public void onSetCurrentSlider(int i, boolean b) {
+        Slider.setCurrentItem(i, b);
+    }
+
+    //برای به دست آوردن صفحه بعد اسلایدر می باشد
+    @Override
+    public int onGetItem(int i) {
+        return Slider.getCurrentItem() + i;
+    }
+
+    //در اینجا تعداد اسلایدرها برگشت داده می شود
+    @Override
+    public int onGetCountSlider() {
+        return Slider.getAdapter().getItemCount();
+    }
+
+    /**
+     * مربوط به نمایش نبود آیتم در اسلایدر
+     **/
+    @Override
+    public void noItemSlider(boolean show) {
+        if (show) {
+            emptySlider.setVisibility(View.VISIBLE);
+        } else {
+            emptySlider.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * مربوط به لودینگ اسلایدر
+     **/
+    @Override
+    public void onLoadingSlider(boolean show) {
+        if (show) {
+            loadingSlider.startShimmerAnimation();
+            loadingSlider.setVisibility(View.VISIBLE);
+        } else {
+            loadingSlider.stopShimmerAnimation();
+            loadingSlider.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * در اینجا اسلایدر نمایش داده می شود یا مخفی می شود
+     **/
+    @Override
+    public void onShowSlider(boolean show) {
+        if (show) {
+            Slider.setVisibility(View.VISIBLE);
+        } else {
+            Slider.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * مربوط به خطای اسلایدر
+     **/
+    @Override
+    public void onErrorSlider(ResaultCode result) {
+        String text = "";
+
+        switch (result) {
+            case NetworkError:
+                text = getString(R.string.please_Checked_Your_Internet_Connection);
+                break;
+            case TimeoutError:
+                text = getString(R.string.YourInternetIsVrySlow);
+                break;
+            case ServerError:
+                text = getString(R.string.There_Was_an_Error_In_The_Server);
+                break;
+            case ParseError:
+            case Error:
+                text = getString(R.string.There_Was_an_Error_In_The_Application);
+                break;
+        }
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        onShowReloadSlider(true);
+    }
+
+    /**
+     * مربوط به دکمه رلود اسلایدر
+     **/
+    @Override
+    public void onShowReloadSlider(boolean show) {
+        if (show) {
+            btn_reload.setVisibility(View.VISIBLE);
+        } else {
+            btn_reload.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * زمانی که تمامی داده های اسلایدر از سرور گرفته شوند و در اسلایدر ست شوند متد زیر فراخوانی می شود
+     **/
+    @Override
+    public void onFinishSlider() {
+        p_libraryFragment.startSlider();
+
+        indicator.setViewPager(Slider);
+    }
+
+    @Override
+    public void onStartSlider() {
+        sliderHomeAdapter = new SliderHomeAdapter(getContext());
+        Slider.setAdapter(sliderHomeAdapter);
+        Slider.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+
+        sliderHomeAdapter.setClickSliderItem(new onClickSliderItem() {
+            @Override
+            public void onClick(VM_HomeSlider model) {
+                p_libraryFragment.resetSlider();
+                openUrl.getLink(model.getUrlKind(), model.getUrl(), getContext());
+            }
+
+            @Override
+            public void onToach(int id) {
+                p_libraryFragment.resetSlider();
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Search:
                 page = 0;
+                p_libraryFragment.start(txt_Search.getText().toString(), page);
+                break;
+            case R.id.btn_reload:
+                p_libraryFragment.getSlider();
                 p_libraryFragment.start(txt_Search.getText().toString(), page);
                 break;
         }

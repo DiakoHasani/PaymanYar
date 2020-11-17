@@ -253,6 +253,7 @@ public class Api_SMS extends Base_Api {
                                     support.setName(object.getString("FullName"));
                                     support.setTelegram(object.getString("Telegram"));
                                     support.setEmail(object.getString("Emaill"));
+                                    support.setWhatsApp(object.getString("Whatsapp"));
 
                                     supports.add(support);
 

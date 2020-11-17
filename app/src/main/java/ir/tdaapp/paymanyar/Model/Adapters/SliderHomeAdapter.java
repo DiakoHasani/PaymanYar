@@ -55,6 +55,7 @@ public class SliderHomeAdapter extends RecyclerView.Adapter<SliderHomeAdapter.My
 
             Glide.with(context)
                     .asBitmap()
+                    .skipMemoryCache(true)
                     .load(vals.get(position).getImage())
                     .error(R.drawable.ic_error_slider)
                     .into(holder.img);

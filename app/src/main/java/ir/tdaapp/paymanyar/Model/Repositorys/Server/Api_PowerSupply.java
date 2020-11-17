@@ -170,7 +170,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست ماشین آلات گرفته می شود
      **/
-    public Single<List<VM_Machinery>> getMachineries(VM_FilterMachinery filter, List<VM_ProvincesAndCities> provincesAndCities) {
+    public Single<List<VM_Machinery>> getMachineries(VM_FilterMachinery filter, List<VM_ProvincesAndCities> provincesAndCities, Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 try {
@@ -222,8 +222,10 @@ public class Api_PowerSupply extends Base_Api {
                                         }
 
                                         //در اینجا قیمت ست می شود
-                                        if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                        if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                             machinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
+                                        } else {
+                                            machinery.setPrice(context.getString(R.string.Agreement));
                                         }
 
                                         //شماره موبایل
@@ -278,7 +280,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست مصالح گرفته می شود
      **/
-    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities) {
+    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities,Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 try {
@@ -323,8 +325,10 @@ public class Api_PowerSupply extends Base_Api {
                                     }
 
                                     //در اینجا قیمت ست می شود
-                                    if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                    if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                         material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
+                                    } else {
+                                        material.setPrice(context.getString(R.string.Agreement));
                                     }
 
                                     //شماره موبایل
@@ -503,7 +507,7 @@ public class Api_PowerSupply extends Base_Api {
                             }
 
                             //قیمت
-                            if (!object.getString("Price").equalsIgnoreCase("null")) {
+                            if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                 detailMachinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                             }
 
@@ -593,7 +597,7 @@ public class Api_PowerSupply extends Base_Api {
                             }
 
                             //قیمت
-                            if (!object.getString("Price").equalsIgnoreCase("null")) {
+                            if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                 material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
                             }
 
@@ -754,7 +758,12 @@ public class Api_PowerSupply extends Base_Api {
                     input.put("MachineryName", machinery.getMachineryName());
 
                     //قیمت
-                    input.put("Price", machinery.getPrice().replace(",", "").replace("٬", ""));
+                    String price =Replace.Number_fn_To_en(machinery.getPrice().replace(",", "").replace("٬", ""));
+                    if (!price.equalsIgnoreCase("") && !price.equalsIgnoreCase("0")) {
+                        input.put("Price", price);
+                    } else {
+                        input.put("Price", null);
+                    }
 
                     //استان
                     input.put("State", machinery.getState());
@@ -836,7 +845,12 @@ public class Api_PowerSupply extends Base_Api {
                     input.put("MaterialsName", material.getMaterialTitle());
 
                     //قیمت
-                    input.put("Price", material.getPrice().replace(",", "").replace("٬", ""));
+                    String price =Replace.Number_fn_To_en(material.getPrice().replace(",", "").replace("٬", ""));
+                    if (!price.equalsIgnoreCase("") && !price.equalsIgnoreCase("0")) {
+                        input.put("Price", price);
+                    } else {
+                        input.put("Price", null);
+                    }
 
                     //استان
                     input.put("State", material.getState());
@@ -1056,7 +1070,7 @@ public class Api_PowerSupply extends Base_Api {
         });
     }
 
-    public Single<List<VM_Machinery>> getMyMachineries(int userId, List<VM_ProvincesAndCities> provincesAndCities) {
+    public Single<List<VM_Machinery>> getMyMachineries(int userId, List<VM_ProvincesAndCities> provincesAndCities,Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMyMachineries = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMachinery?UserId=" + userId, resault -> {
@@ -1100,8 +1114,10 @@ public class Api_PowerSupply extends Base_Api {
                                     }
 
                                     //در اینجا قیمت ست می شود
-                                    if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                    if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                         machinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
+                                    }else{
+                                        machinery.setPrice(context.getString(R.string.Agreement));
                                     }
 
                                     //شماره موبایل
@@ -1151,7 +1167,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا مصالح من برگشت داده می شود
      **/
-    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities) {
+    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities,Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMyMaterials = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMaterials?UserId=" + userId, resault -> {
@@ -1188,8 +1204,10 @@ public class Api_PowerSupply extends Base_Api {
                                     }
 
                                 //در اینجا قیمت ست می شود
-                                if (!object.getString("Price").equalsIgnoreCase("null")) {
+                                if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                     material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
+                                }else{
+                                    material.setPrice(context.getString(R.string.Agreement));
                                 }
 
                                 //شماره موبایل
@@ -1701,14 +1719,14 @@ public class Api_PowerSupply extends Base_Api {
 
     /**
      * در اینجا لیست تایتل مصالح از سرور گرفته می شود
-     * **/
+     **/
     public Single<String[]> getMaterialsTitle() {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMaterialsTitle = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMaterials", resault -> {
                     if (resault.getResault() == ResaultCode.Success) {
 
-                        String[] vals=new String[resault.getJsonArray().length()];
+                        String[] vals = new String[resault.getJsonArray().length()];
 
                         try {
                             JSONArray array = resault.getJsonArray();

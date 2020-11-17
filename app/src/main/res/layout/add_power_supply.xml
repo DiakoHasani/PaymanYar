@@ -109,7 +109,7 @@
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/name"
+                                android:hint="@string/Title"
                                 style="@style/LoginTextInputLayoutStyle"
                                 android:layout_centerInParent="true"
                                 android:layout_weight="1"

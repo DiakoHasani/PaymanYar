@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,14 +28,13 @@ import androidx.cardview.widget.CardView;
 import ir.tdaapp.li_utility.Codes.ShowPrice;
 import ir.tdaapp.li_utility.Codes.Validation;
 import ir.tdaapp.paymanyar.Model.Services.S_PriceRangeFragment;
-import ir.tdaapp.paymanyar.Model.Services.layoutSize;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.PercentPriceRange;
 import ir.tdaapp.paymanyar.Model.Utilitys.Views;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PriceRange;
 import ir.tdaapp.paymanyar.Presenter.P_PriceRangeFragment;
 import ir.tdaapp.paymanyar.R;
-import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 
 //صفحه دامنه قیمت
 public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFragment, View.OnClickListener {
@@ -230,8 +228,8 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
     void setToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         toolbar.setTitle(getContext().getResources().getString(R.string.PriceRange));
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((ToolsActivity) getActivity()).setSupportActionBar(toolbar);
+        ((ToolsActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorWhite), PorterDuff.Mode.SRC_ATOP);
         toolbar.setNavigationOnClickListener(v -> {
             getActivity().onBackPressed();
@@ -321,7 +319,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
                 Calculate();
                 break;
             case R.id.btn_Home:
-                ((MainActivity) getActivity()).backToHome();
+                getActivity().finish();
                 break;
         }
     }
@@ -356,7 +354,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
             if (marginBottomCUp != -1) {
                 chartUpLine.setVisibility(View.VISIBLE);
 
-                setMarginLineChart(chartUpLine, marginBottomCUp);
+                setMarginLineChart(chartUpLine, marginBottomCUp + IntToDP(1));
 
                 lbl_upper_line.setText(String.valueOf((float) CUp));
             }
@@ -367,7 +365,7 @@ public class PriceRangeFragment extends BaseFragment implements S_PriceRangeFrag
             if (marginBottomCDown != -1) {
                 chartDownLine.setVisibility(View.VISIBLE);
 
-                setMarginLineChart(chartDownLine, marginBottomCDown);
+                setMarginLineChart(chartDownLine, marginBottomCDown+ IntToDP(1));
                 Low_limit.setText(String.valueOf((float) CDown));
             }
         });

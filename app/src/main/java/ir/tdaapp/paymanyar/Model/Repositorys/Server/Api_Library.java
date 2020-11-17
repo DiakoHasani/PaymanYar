@@ -21,13 +21,14 @@ import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Library;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 
 //مربوط به کتابخانه
 public class Api_Library extends Base_Api {
 
-    private GetJsonArrayVolley volley_getLibraries;
+    private GetJsonArrayVolley volley_getLibraries, volley_getSliderImages;
     PostJsonObjectVolley volley_addCountDownloadLibrary;
     Thread thread;
 
@@ -162,6 +163,62 @@ public class Api_Library extends Base_Api {
         });
     }
 
+    /**
+     * در اینجا عکس های اسلایدر گرفته می شود
+     * **/
+    public Single<List<VM_HomeSlider>> getSliderImages() {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_getSliderImages = new GetJsonArrayVolley(ApiUrl + "SliderAndApp/GetSliderForLibraries", resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+
+                        try {
+
+                            JSONArray array = resault.getJsonArray();
+                            List<VM_HomeSlider> sliders = new ArrayList<>();
+
+                            for (int i = 0; i < array.length(); i++) {
+                                try {
+                                    JSONObject object = array.getJSONObject(i);
+                                    VM_HomeSlider slider = new VM_HomeSlider();
+
+                                    slider.setId(object.getInt("Id"));
+                                    slider.setTitle(object.getString("Title"));
+                                    slider.setImage(SliderImageUrl + object.getString("Image"));
+
+                                    //در اینجا نوع لینک اسلایدر ست می شود
+                                    int urlKind = 0;
+                                    String k = object.getString("UrlKind");
+                                    if (!k.equalsIgnoreCase("null")) {
+                                        urlKind = Integer.valueOf(k);
+                                    }
+                                    slider.setUrlKind(urlKind);
+
+                                    String url = "";
+                                    if (!object.getString("Url").equalsIgnoreCase("null")) {
+                                        url = object.getString("Url");
+                                    }
+                                    slider.setUrl(url);
+
+                                    sliders.add(slider);
+                                } catch (Exception e) {
+                                }
+                            }
+
+                            emitter.onSuccess(sliders);
+
+                        } catch (Exception e) {
+                            emitter.onError(e);
+                        }
+
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
     public void Cancel(String tag, Context context) {
 
         cancelBase(tag, context);
@@ -172,6 +229,10 @@ public class Api_Library extends Base_Api {
 
         if (volley_addCountDownloadLibrary != null) {
             volley_addCountDownloadLibrary.Cancel(tag, context);
+        }
+
+        if (volley_getSliderImages != null) {
+            volley_getSliderImages.Cancel(tag, context);
         }
 
     }

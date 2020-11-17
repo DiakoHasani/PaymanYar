@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements S_MainActivity {
         //زمانی که کاربر روی نوتیفیکیشن کلیک کند کد زیر فراخوانی می شود
         if (intent.getSerializableExtra("key1") != null) {
             String a = intent.getStringExtra("key1");
-            if (a!=null){
+            if (a != null) {
                 if (a.equalsIgnoreCase("0")) {
                     //در اینجا چک می کند که صفحه مناقصات کاربر باز است اگر باز باشد آن را ریست می کند
                     Fragment hasFragmentFilterFrames = getSupportFragmentManager().findFragmentByTag(FilterFramesFragment.TAG);

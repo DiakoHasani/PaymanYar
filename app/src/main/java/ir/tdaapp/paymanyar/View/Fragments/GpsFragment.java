@@ -185,12 +185,10 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
             case R.id.gps_savebtn:
                 try {
                     if (lat.getText().toString().length() > 0) {
-                        float latNumber=Float.valueOf(lat.getText().toString());
-                        float lonNumber=Float.valueOf(lon.getText().toString());
-
-                        p_gpsFragment.SaveLocation(String.format("%.7g%n", latNumber), String.format("%.7g%n", lonNumber));
+                        p_gpsFragment.SaveLocation(lat.getText().toString(), lon.getText().toString());
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
                 break;
             case R.id.btn_Home:
                 getActivity().finish();
@@ -211,8 +209,17 @@ public class GpsFragment extends BaseFragment implements S_GPSFragment, View.OnC
 
     @Override
     public void OnLocationChange(String lat, String lon) {
-        this.lat.setText(lat);
-        this.lon.setText(lon);
+        String latNumber = "";
+        String lonNumber = "";
+        try {
+            latNumber = String.format("%.7g%n", Float.valueOf(lat));
+            lonNumber = String.format("%.7g%n", Float.valueOf(lon));
+        } catch (Exception e) {
+            int a = 1;
+            a++;
+        }
+        this.lat.setText(latNumber);
+        this.lon.setText(lonNumber);
     }
 
     @Override

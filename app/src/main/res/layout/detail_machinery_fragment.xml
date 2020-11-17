@@ -26,7 +26,7 @@
             <RelativeLayout
                 android:id="@+id/sliderItems"
                 android:layout_width="match_parent"
-                android:layout_height="160dp">
+                android:layout_height="180dp">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/slider"
@@ -68,7 +68,8 @@
                         android:layout_height="32dp"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="8dp"
-                        android:src="@drawable/ic_right_slider" />
+                        android:src="@drawable/ic_right_slider"
+                        android:background="@color/colorSliderButton"/>
 
                 </RelativeLayout>
 
@@ -84,7 +85,8 @@
                         android:layout_height="32dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/ic_left_slider"/>
+                        android:src="@drawable/ic_left_slider"
+                        android:background="@color/colorSliderButton"/>
 
                 </RelativeLayout>
 
@@ -107,7 +109,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/border_field_semi_wide_fragment"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="5dp"
                         android:paddingRight="2dp"
@@ -153,7 +154,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/border_field_semi_wide_fragment"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="5dp"
                         android:paddingRight="2dp"
@@ -208,7 +208,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/border_field_semi_wide_fragment"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="5dp"
                         android:clickable="true"
@@ -256,7 +255,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/border_field_semi_wide_fragment"
                         android:layout_marginTop="12dp"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="5dp"
                         android:paddingRight="2dp"
@@ -303,7 +301,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_field_semi_wide_fragment"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="5dp"
                     android:paddingRight="2dp"
@@ -348,7 +345,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_field_semi_wide_fragment"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="5dp"
                     android:paddingRight="2dp"
@@ -393,7 +389,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_field_semi_wide_fragment"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="5dp"
                     android:paddingRight="2dp"

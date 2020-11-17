@@ -44,7 +44,7 @@ public class P_GPSFragment {
 
     //در اینجا لوکیشن روشن می شود
     public void setLocation() {
-        LocationManager manager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             context.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
@@ -75,8 +75,8 @@ public class P_GPSFragment {
                 // Getting the name of the best provider
                 String provider = locationManager.getBestProvider(criteria, true);
 
-                double longitude=35.331;
-                double latitude=46.997;
+                double longitude = 35.331;
+                double latitude = 46.997;
                 if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
 
@@ -111,8 +111,9 @@ public class P_GPSFragment {
                 googleMap.setOnMapClickListener(latLng -> {
                     googleMap.clear();
                     googleMap.addMarker(new MarkerOptions().position(latLng).title("Your Mark").snippet(""));
-                    if (s_gpsFragment != null)
+                    if (s_gpsFragment != null) {
                         s_gpsFragment.OnLocationChange(String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
+                    }
                 });
 
                 // For zooming automatically to the location of the marker

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
@@ -36,6 +35,7 @@ import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Activitys.ToolsActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.UpdateAppDialog;
+import me.relex.circleindicator.CircleIndicator3;
 
 public class HomeFragment extends BaseFragment implements S_HomeFragment, View.OnClickListener,
         NavigationView.OnNavigationItemSelectedListener {
@@ -46,18 +46,18 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     P_HomeFragment p_homeFragment;
     SliderHomeAdapter sliderHomeAdapter;
     ShimmerFrameLayout Loading;
-    CardView btn_Tools, btn_NewsPaper, btn_TenderNotification, btn_PriceRange, btn_Libraries;
+    CardView btn_Tools, btn_NewsPaper, btn_TenderNotification, btn_Libraries;
     Toolbar toolbar;
     NavigationView nav_View;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     LinearLayout btn_SMS, btn_Support;
     ErrorAplicationDialog errorAplicationDialog;
-    RelativeLayout point1, point2, point3, point4, point5, point6, point7, point8;
     ImageView btn_reload;
     CardView btn_TenderAnalise, btn_Scheduling, btn_Audit, btn_Difference, btn_CostEstimation;
     CardView btn_WorkForce, btn_Machinery, btn_Materials,btn_orders;
     ErrorAplicationDialog soonAdded;
+    CircleIndicator3 indicator;
 
     @Nullable
     @Override
@@ -82,18 +82,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         toolbar = view.findViewById(R.id.toolbar);
         nav_View = view.findViewById(R.id.nav_View);
         drawer = view.findViewById(R.id.drawer);
-        btn_PriceRange = view.findViewById(R.id.btn_PriceRange);
         btn_Libraries = view.findViewById(R.id.btn_Libraries);
         btn_SMS = view.findViewById(R.id.btn_SMS);
         btn_Support = view.findViewById(R.id.btn_Support);
-        point1 = view.findViewById(R.id.point1);
-        point2 = view.findViewById(R.id.point2);
-        point3 = view.findViewById(R.id.point3);
-        point4 = view.findViewById(R.id.point4);
-        point5 = view.findViewById(R.id.point5);
-        point6 = view.findViewById(R.id.point6);
-        point7 = view.findViewById(R.id.point7);
-        point8 = view.findViewById(R.id.point8);
         btn_reload = view.findViewById(R.id.btn_reload);
         btn_TenderAnalise = view.findViewById(R.id.btn_TenderAnalise);
         btn_Scheduling = view.findViewById(R.id.btn_Scheduling);
@@ -104,6 +95,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_Machinery = view.findViewById(R.id.btn_Machinery);
         btn_Materials = view.findViewById(R.id.btn_Materials);
         btn_orders = view.findViewById(R.id.btn_orders);
+        indicator = view.findViewById(R.id.indicator);
     }
 
     void implement() {
@@ -112,7 +104,6 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_Tools.setOnClickListener(this);
         btn_NewsPaper.setOnClickListener(this);
         btn_TenderNotification.setOnClickListener(this);
-        btn_PriceRange.setOnClickListener(this);
         btn_Libraries.setOnClickListener(this);
         btn_SMS.setOnClickListener(this);
         btn_Support.setOnClickListener(this);
@@ -127,57 +118,6 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         btn_Materials.setOnClickListener(this);
         btn_orders.setOnClickListener(this);
 
-        //در اینجا زمانی که یکی از صفحه های اسلایدر تغییر پیجینگ مربوط به آن را تغییر می دهد
-        Slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-
-                try {
-
-                    if (null != getContext()) {
-                        point1.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point4.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point5.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point6.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point7.setBackground(getResources().getDrawable(R.drawable.page_slider));
-                        point8.setBackground(getResources().getDrawable(R.drawable.page_slider));
-
-                        //در اینجا پیجینگ مربوط به آن عکس اسلایدر اکتیو می شود
-                        switch (onGetCurrentSlider() + 1) {
-                            case 1:
-                                point1.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 2:
-                                point2.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 3:
-                                point3.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 4:
-                                point4.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 5:
-                                point5.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 6:
-                                point6.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 7:
-                                point7.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                            case 8:
-                                point8.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
-                                break;
-                        }
-                    }
-                } catch (Exception e) {
-                }
-
-            }
-        });
 
         nav_View.setNavigationItemSelectedListener(this::onNavigationItemSelected);
 
@@ -297,43 +237,7 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
         Loading.stopShimmerAnimation();
         p_homeFragment.startSlider();
 
-        //در اینجا پیجینگ اسلایدر ایجاد می شود
-        for (int i = 1; i <= onGetCountSlider(); i++) {
-
-            if (i == 1) {
-                point1.setVisibility(View.VISIBLE);
-            }
-            if (i == 2) {
-                point2.setVisibility(View.VISIBLE);
-                point2.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-            if (i == 3) {
-                point3.setVisibility(View.VISIBLE);
-                point3.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-            if (i == 4) {
-                point4.setVisibility(View.VISIBLE);
-                point4.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-            if (i == 5) {
-                point5.setVisibility(View.VISIBLE);
-                point5.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-            if (i == 6) {
-                point6.setVisibility(View.VISIBLE);
-                point6.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-            if (i == 7) {
-                point7.setVisibility(View.VISIBLE);
-                point7.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-            if (i == 8) {
-                point8.setVisibility(View.VISIBLE);
-                point8.setBackground(getResources().getDrawable(R.drawable.page_slider));
-            }
-
-        }
-        point1.setBackground(getResources().getDrawable(R.drawable.page_slider_active));
+        indicator.setViewPager(Slider);
 
     }
 
@@ -413,9 +317,6 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
                 break;
             case R.id.btn_TenderNotification:
                 ((MainActivity) getActivity()).onAddFragment(new TenderNotificationFragment(), R.anim.fadein, R.anim.fadeout, true, TenderNotificationFragment.TAG);
-                break;
-            case R.id.btn_PriceRange:
-                ((MainActivity) getActivity()).onAddFragment(new PriceRangeFragment(), R.anim.fadein, R.anim.fadeout, true, PriceRangeFragment.TAG);
                 break;
             case R.id.btn_Libraries:
                 ((MainActivity) getActivity()).onAddFragment(new LibraryFragment(), R.anim.fadein, R.anim.fadeout, true, LibraryFragment.TAG);

@@ -67,7 +67,7 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.MyViewHo
 
         holder.img_sms.setOnClickListener(view -> {
             if (clickSupport != null) {
-                clickSupport.onClickSMS(supports.get(position).getCellPhone());
+                clickSupport.onClickSMS(supports.get(position).getWhatsApp());
             }
         });
 

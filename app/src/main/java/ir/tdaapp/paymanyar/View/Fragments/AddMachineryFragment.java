@@ -408,11 +408,6 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
             }
         }
 
-        //در اینجا ولیدیشن قیمت چک می شود
-        if (!Validation.Required(txt_Price, getString(R.string.ThisValueMust_be_Filled))) {
-            isValid = false;
-        }
-
         //در اینجا ولیدیشن عنوان چک می شود
         if (!Validation.Required(txt_Title, getString(R.string.ThisValueMust_be_Filled))) {
             isValid = false;

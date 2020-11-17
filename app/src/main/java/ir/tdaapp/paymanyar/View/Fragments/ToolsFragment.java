@@ -28,7 +28,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
     public final static String TAG = "ToolsFragment";
     ShimmerFrameLayout animationLogo;
     P_ToolsFragment p_toolsFragment;
-    CardView btn_StallTable, btn_GPS, btn_UnitConversionFragment, btn_Level, btn_Magnifier, btnCompass;
+    CardView btn_StallTable, btn_GPS, btn_UnitConversionFragment, btn_Level, btn_Magnifier, btn_PriceRange;
     ImageView logo;
 
     @Nullable
@@ -50,7 +50,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
         btn_UnitConversionFragment = view.findViewById(R.id.btn_UnitConversionFragment);
         btn_Level = view.findViewById(R.id.btn_Level);
         btn_Magnifier = view.findViewById(R.id.tools_btnMagnifier);
-        btnCompass = view.findViewById(R.id.tools_btnCompass);
+        btn_PriceRange = view.findViewById(R.id.btn_PriceRange);
         logo = view.findViewById(R.id.logo);
     }
 
@@ -61,7 +61,7 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
         btn_UnitConversionFragment.setOnClickListener(this);
         btn_Level.setOnClickListener(this);
         btn_Magnifier.setOnClickListener(this);
-        btnCompass.setOnClickListener(this);
+        btn_PriceRange.setOnClickListener(this);
         logo.setOnClickListener(this);
     }
 
@@ -94,8 +94,8 @@ public class ToolsFragment extends BaseFragment implements S_ToolsFragment, View
             case R.id.tools_btnMagnifier:
                 startActivity(new Intent(getActivity(), MagnifierActivity.class));
                 break;
-            case R.id.tools_btnCompass:
-                startActivity(new Intent(getActivity(), RullerActivity.class));
+            case R.id.btn_PriceRange:
+                ((ToolsActivity) getActivity()).onAddFragment(new PriceRangeFragment(), R.anim.fadein, R.anim.short_fadeout, true, PriceRangeFragment.TAG);
                 break;
             case R.id.logo:
                 ((ToolsActivity) getActivity()).onAddFragment(new Compass_Fragment(), R.anim.slide_in_right, R.anim.short_fadeout, true, Compass_Fragment.TAG);

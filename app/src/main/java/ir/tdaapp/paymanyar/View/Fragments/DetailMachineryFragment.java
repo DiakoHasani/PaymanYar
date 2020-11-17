@@ -205,10 +205,10 @@ public class DetailMachineryFragment extends BaseFragment implements S_DetailMac
             }
 
             //قیمت
-            if (!detailMachinery.getPrice().equalsIgnoreCase("")) {
+            if (!detailMachinery.getPrice().equalsIgnoreCase("-")) {
                 lbl_Price.setText(detailMachinery.getPrice());
             } else {
-                lbl_Price.setText("-");
+                lbl_Price.setText(getString(R.string.Agreement));
             }
 
             //دسته ماشین آلات

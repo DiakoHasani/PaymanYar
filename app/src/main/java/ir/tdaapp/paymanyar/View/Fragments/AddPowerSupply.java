@@ -443,6 +443,11 @@ public class AddPowerSupply extends BaseFragment implements S_AddPowerSupply, Vi
             isValid = false;
         }
 
+        //در اینجا چک می کند که کاربر بیشتر از 25 کلمه در ادیت تکست عنوان وارد نکرده باشد
+        if (!Validation.MaxLength(txt_Name,getString(R.string.MaxLengthIs25Char),25)){
+            isValid = false;
+        }
+
         return isValid;
     }
 

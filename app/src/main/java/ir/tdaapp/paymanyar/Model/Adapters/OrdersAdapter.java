@@ -17,6 +17,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAnalizeTender;
 import ir.tdaapp.paymanyar.Model.Services.onClickOrders;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Orders;
@@ -77,13 +78,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         if (vals.get(position).getDate().equalsIgnoreCase("")) {
             holder.lbl_Date.setText("--/--/----");
         } else {
-            holder.lbl_Date.setText(vals.get(position).getDate());
+            holder.lbl_Date.setText(Replace.Number_en_To_fa(vals.get(position).getDate()));
         }
 
         if (vals.get(position).getPayment().equalsIgnoreCase("")) {
             holder.lbl_Pay.setText("--,---");
         } else {
-            holder.lbl_Pay.setText(vals.get(position).getPayment());
+            holder.lbl_Pay.setText(Replace.Number_en_To_fa(vals.get(position).getPayment()));
         }
 
         holder.setStepItem(vals.get(position).getStepsAnalizeTender());

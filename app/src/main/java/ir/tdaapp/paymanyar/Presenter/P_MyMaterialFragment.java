@@ -48,7 +48,7 @@ public class P_MyMaterialFragment {
 
     void getVals() {
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
-        Single<List<VM_Material>> data = api_powerSupply.getMyMaterials(userId, tbl_states.getProvincesOrCities(0));
+        Single<List<VM_Material>> data = api_powerSupply.getMyMaterials(userId, tbl_states.getProvincesOrCities(0),context);
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_Material>>() {
             @Override
             public void onSuccess(List<VM_Material> vm_materials) {

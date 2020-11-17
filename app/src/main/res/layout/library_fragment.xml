@@ -16,7 +16,8 @@
             android:id="@+id/AppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="@color/colorWhite">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -24,6 +25,58 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"/>
+
+            <RelativeLayout
+                android:id="@+id/sliderItems"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/queryLayout">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/Slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/loadingSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/ic_loading_slider"
+                        android:layout_gravity="center"/>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_alignParentBottom="true"/>
+
+                <ImageView
+                    android:id="@+id/btn_reload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_refresh"
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <ImageView
+                    android:id="@+id/emptySlider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_no_image_slider"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 

@@ -23,6 +23,7 @@ import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_Library;
 import ir.tdaapp.paymanyar.Model.Services.S_LibraryFragment;
 import ir.tdaapp.paymanyar.Model.Services.addLibrary;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_HomeSlider;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Library;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.R;
@@ -32,8 +33,11 @@ public class P_LibraryFragment {
     private Context context;
     private S_LibraryFragment s_libraryFragment;
     Api_Library api_library;
-    Disposable dispose_getLibraries, dispose_setLibraries, dispose_downloadLibrary, dispose_downloadPDF;
+    Disposable dispose_getLibraries, dispose_setLibraries, dispose_downloadLibrary, dispose_downloadPDF, dispose_getSlider, dispose_setSlider;
     Tbl_Library tbl_library;
+    boolean SliderNext;
+    boolean started;
+    Handler handler;
 
     public P_LibraryFragment(Context context, S_LibraryFragment s_libraryFragment) {
         this.context = context;
@@ -50,6 +54,57 @@ public class P_LibraryFragment {
         }
 
         getLibraries(queryText, page);
+    }
+
+    /**
+     * در اینجا عکس های اسلایدر از سرور گرفته می شود
+     **/
+    public void getSlider() {
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        started = false;
+        handler = new Handler();
+
+        s_libraryFragment.onStartSlider();
+        s_libraryFragment.noItemSlider(false);
+        s_libraryFragment.onLoadingSlider(true);
+        s_libraryFragment.onShowSlider(false);
+        s_libraryFragment.onShowReloadSlider(false);
+
+        Single<List<VM_HomeSlider>> data = api_library.getSliderImages();
+
+        dispose_getSlider = data.subscribeWith(new DisposableSingleObserver<List<VM_HomeSlider>>() {
+            @Override
+            public void onSuccess(List<VM_HomeSlider> vm_homeSliders) {
+                s_libraryFragment.onLoadingSlider(false);
+                if (vm_homeSliders.size() > 0) {
+                    s_libraryFragment.onShowSlider(true);
+                    setSlider(vm_homeSliders);
+                } else {
+                    s_libraryFragment.noItemSlider(true);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_libraryFragment.onLoadingSlider(false);
+                s_libraryFragment.onShowSlider(false);
+                s_libraryFragment.onErrorSlider(Error.GetErrorVolley(e.toString()));
+            }
+        });
+    }
+
+    void setSlider(List<VM_HomeSlider> data) {
+        Observable<VM_HomeSlider> vals = Observable.fromIterable(data);
+
+        dispose_setSlider = vals.subscribe(slider -> {
+            s_libraryFragment.onItemSlider(slider);
+        }, throwable -> {
+
+        }, () -> {
+            s_libraryFragment.onFinishSlider();
+        });
     }
 
     //در اینجا کتاب ها گرفته می شود
@@ -174,12 +229,59 @@ public class P_LibraryFragment {
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 shareIntent.setType("application/pdf");
-                context.startActivity(Intent.createChooser(shareIntent,context.getString(R.string.share)));
-            } catch (Exception e) { }
+                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+            } catch (Exception e) {
+            }
         } else {
             Toast.makeText(context, context.getString(R.string.Download_the_PDF_first), Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void startSlider() {
+        started = true;
+        handler.postDelayed(runnable, 4000);
+    }
+
+    public void resetSlider() {
+        handler.removeCallbacks(runnable);
+        startSlider();
+    }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+
+                //در اینجا معلوم می شود که اسلایدر در کدام پیج است
+                int PagingSliderPosition = s_libraryFragment.onGetCurrentSlider();
+
+                //در اینجا چک می شود که اسلایدر در صفحه اول است اگر شرط درست باشد به صفحه بعد می رود
+                if (PagingSliderPosition == 0) {
+                    s_libraryFragment.onSetCurrentSlider(s_libraryFragment.onGetItem(+1), true);
+                    SliderNext = true;
+                }
+                //در اینجا چک می شود که اگر اسلایدر در صفحه آخر است به صفحه قبل بر می گردد
+                else if (PagingSliderPosition == s_libraryFragment.onGetCountSlider() - 1) {
+                    s_libraryFragment.onSetCurrentSlider(s_libraryFragment.onGetItem(-1), true);
+                    SliderNext = false;
+                } else {
+                    //در اینجا اسلایدر به صفحه بعد می رود
+                    if (SliderNext == true) {
+                        s_libraryFragment.onSetCurrentSlider(s_libraryFragment.onGetItem(+1), true);
+                    }
+                    //در اینجا اسلایدر به صفحه قبل می رود
+                    else {
+                        s_libraryFragment.onSetCurrentSlider(s_libraryFragment.onGetItem(-1), true);
+                    }
+                }
+                if (started) {
+                    startSlider();
+                }
+
+            } catch (Exception e) {
+            }
+        }
+    };
 
     public void Cancel(String tag) {
 
@@ -201,6 +303,14 @@ public class P_LibraryFragment {
 
         if (dispose_downloadPDF != null) {
             dispose_downloadPDF.dispose();
+        }
+
+        if (dispose_downloadPDF != null) {
+            dispose_getSlider.dispose();
+        }
+
+        if (dispose_setSlider != null) {
+            dispose_setSlider.dispose();
         }
     }
 }

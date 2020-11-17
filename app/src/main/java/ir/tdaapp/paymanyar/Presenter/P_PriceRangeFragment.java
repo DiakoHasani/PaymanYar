@@ -75,7 +75,7 @@ public class P_PriceRangeFragment {
             long A = (Long.valueOf(Replace.Number_fn_To_en(price)));
 
             //میزان اهمیت
-            double T = GetPriority(participates.size() - 1, priority);
+            double T = GetPriority(participates.size() + 1, priority);
 
             //مبلغ تضمین
             double D = A * 5 / 100; // Default
@@ -85,7 +85,7 @@ public class P_PriceRangeFragment {
             }
 
             //تعداد پیمانکاران
-            int N = participates.size();
+            int N = participates.size() + 1;
 
             //میانگین درصدهای پیشنهادی
             double M = GetAverage(participates, true);
@@ -196,11 +196,12 @@ public class P_PriceRangeFragment {
 
     //انحراف معیار درخواست های حذف نشده
     private double devitation(double M, ArrayList<VM_PriceRange> arr, double m) {
-        double ans = 100.0f;
+        double ans = 0;
+        ans += Math.pow(100 - M, 2);// (Xi - X)^2  , X is Average
 
         try {
 
-            int numbers = 1;
+            int numbers = 0;
             for (int i = 0; i < arr.size(); i++) {
 
                 if (m > 0) {
@@ -214,7 +215,7 @@ public class P_PriceRangeFragment {
                 }
 
             }
-            ans = Math.sqrt(ans / (numbers - 1));
+            ans = Math.sqrt(ans / (numbers));
         } catch (Exception e) {
         }
 

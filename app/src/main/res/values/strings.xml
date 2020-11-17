@@ -218,6 +218,7 @@
     <string name="City">شهر</string>
     <string name="AdType">نوع آگهی</string>
     <string name="Price">قیمت</string>
+    <string name="Price2">قیمت (توافقی)</string>
     <string name="MachineryCategory">دسته ماشین آلات</string>
     <string name="MaterialCategory">دسته مصالح</string>
     <string name="call">تماس</string>
@@ -229,7 +230,7 @@
     <string name="Post_an_ad">انتشار آگهی</string>
     <string name="New_Ad">آگهی جدید</string>
     <string name="Ad_upgrade">ارتقا آگهی</string>
-    <string name="add">افزودن</string>
+    <string name="add">ارسال آگهی</string>
     <string name="WorkExperience">سابقه کار</string>
     <string name="job">شغل</string>
     <string name="AddPowerSupply">افزودن نیروکار</string>
@@ -255,5 +256,6 @@
     <string name="Low">متوسط</string>
     <string name="medium">زیاد</string>
     <string name="Much">بسیار زیاد</string>
+    <string name="Agreement">توافقی</string>
 
 </resources>

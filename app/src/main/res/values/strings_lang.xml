@@ -18,6 +18,7 @@
     <string name="YouHaveNotOrder">شما هیچ سفارشی ندارید</string>
     <string name="ThisValueMust_be_Filled">این مقدار باید پر شود</string>
     <string name="phoneNumberIsNotValid">شماره موبایل معتبر نیست</string>
+    <string name="MaxLengthIs25Char">باید حداکثر 25 کلمه وارد کنید</string>
     <string name="A_new_version_of_the_app_is_availableDo_you_want_to_update">نسخه جدید برنامه در دسترس است. آیا مایل به بروز رسانی هستید؟</string>
     <string name="Create_an_account_first">ابتدا یک حساب کاربری ایجاد کنید</string>
     <string name="There_are_no_tenders_for_you">هیچ مناقصه ای برای شما وجود ندارد</string>

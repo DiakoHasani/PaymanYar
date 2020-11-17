@@ -109,6 +109,9 @@ dependencies {
     //مربوط به کتابخانه انیمیشن
     implementation 'at.wirecube:additive_animations:1.8.0'
 
+    //مربوط به نقطه های پیجینگ پایین اسلایدر
+    implementation 'me.relex:circleindicator:2.1.4'
+
 }
 repositories {
     mavenCentral()

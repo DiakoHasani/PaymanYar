@@ -46,7 +46,7 @@ public class P_MyMachineriesFragment {
 
     void getVals() {
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
-        Single<List<VM_Machinery>> data = api_powerSupply.getMyMachineries(userId, tbl_states.getProvincesOrCities(0));
+        Single<List<VM_Machinery>> data = api_powerSupply.getMyMachineries(userId, tbl_states.getProvincesOrCities(0),context);
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_Machinery>>() {
             @Override
             public void onSuccess(List<VM_Machinery> vm_machineries) {

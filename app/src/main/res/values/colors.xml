@@ -27,6 +27,7 @@
     <color name="colorBackgroundHour">#24d1fc</color>
     <color name="colorYellow">#da954b</color>
     <color name="colorMySMS">#e9e9e9</color>
+    <color name="colorSpecialItem">#CACACA</color>
     <color name="colorPDF">#FA6160</color>
     <color name="colorLowPDF">#f5a2a4</color>
     <color name="colorWord">#005298</color>
@@ -44,4 +45,5 @@
     <color name="colorBronze">#A8623E</color>
     <color name="colorSilver">#CABC9F</color>
     <color name="colorGolden">#E0BC4E</color>
+    <color name="colorSliderButton">#22000000</color>
 </resources>
