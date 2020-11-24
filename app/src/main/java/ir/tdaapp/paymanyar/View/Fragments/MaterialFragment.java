@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,9 +29,11 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.MaterialAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_MaterialFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMaterial;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Material;
@@ -198,13 +201,21 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
         if (getPage() == 0) {
             materialAdapter = new MaterialAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-            materialAdapter.setClickPowerSupplyNetwork(id -> {
-                DetailMaterialFragment detailMaterialFragment = new DetailMaterialFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", id);
-                detailMaterialFragment.setArguments(bundle);
+            materialAdapter.setClickPowerSupplyNetwork(new onClickPowerSupplyNetwork() {
+                @Override
+                public void click(int id) {
+                    DetailMaterialFragment detailMaterialFragment = new DetailMaterialFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", id);
+                    detailMaterialFragment.setArguments(bundle);
 
-                ((MainActivity) getActivity()).onAddFragment(detailMaterialFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailMaterialFragment.TAG);
+                    ((MainActivity) getActivity()).onAddFragment(detailMaterialFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailMaterialFragment.TAG);
+                }
+
+                @Override
+                public void remove(int id) {
+
+                }
             });
 
             recycler.setAdapter(materialAdapter);
@@ -394,7 +405,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
         loadingProgress = false;
         workedInternet = false;
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
     }
 
     /**

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -39,6 +40,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.LibraryAdapter;
 import ir.tdaapp.paymanyar.Model.Adapters.SliderHomeAdapter;
@@ -387,11 +389,11 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
 
                 startActivity(Intent.createChooser(intent, getString(R.string.ChoseApp)));
             } catch (Exception e) {
-                Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+                Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
             }
 
         } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT,true).show();
         }
     }
 
@@ -406,7 +408,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
 
     @Override
     public void onErrorDownloadPDF() {
-        Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا یکی یکی آیتم های اسلایدر اضافه می شوند
@@ -498,7 +500,7 @@ public class LibraryFragment extends BaseFragment implements S_LibraryFragment, 
                 text = getString(R.string.There_Was_an_Error_In_The_Application);
                 break;
         }
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
         onShowReloadSlider(true);
     }
 

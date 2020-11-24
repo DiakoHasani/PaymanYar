@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">PaymanYar</string>
+    <string name="app_name">PaimanYar+</string>
     <string name="PhoneNumber">شماره موبایل</string>
     <string name="Login">ورود</string>
     <string name="Resend">ارسال مجدد</string>
-    <string name="PriceRange">دامنه قیمت</string>
+    <string name="PriceRange">دامنه مناسب قیمت</string>
     <string name="Tools">ابزارها</string>
     <string name="Counter">روزنامه اقتصادی</string>
-    <string name="Library">بخشنامه</string>
+    <string name="Library">در جریان باشید</string>
     <string name="Tenders">مناقصات</string>
     <string name="TenderAnalise">آنالیز مناقصه</string>
     <string name="fee">رایگان</string>
@@ -15,7 +15,7 @@
     <string name="Audit">حسابرسی</string>
     <string name="orders">سفارشات</string>
     <string name="Difference">مابه\n التفاوت</string>
-    <string name="Difference2">مابه التفاوت</string>
+    <string name="Difference2">تعدیل و مابه التفاوت ها</string>
     <string name="Adjustment_and_Difference">تعدیل و مابه التفاوت ها</string>
     <string name="CostEstimation">متره و\nبرآورد</string>
     <string name="CostEstimation2">متره و برآورد</string>
@@ -91,7 +91,7 @@
     <string name="AnaliseThisTender">آنالیز این مناقصه</string>
     <string name="Let_me_know">باخبرم کن</string>
     <string name="Toman">تومان</string>
-    <string name="PaymanyarCode">کد پیمانیار:</string>
+    <string name="PaymanyarCode">کد پیمان یار+:</string>
     <string name="NationalEstimate">برآورد مالی:</string>
     <string name="NationalEstimate2">برآورد مالی</string>
     <string name="TenderTitle">عنوان مناقصه:</string>
@@ -107,7 +107,7 @@
     <string name="DetailTender">شرح مناقصه</string>
     <string name="Seen">مشاهده</string>
     <string name="compass">قطب نما</string>
-    <string name="PaymanYar">پیمانیار</string>
+    <string name="PaymanYar">پیمان یار+</string>
     <string name="TenderCharge">شارژ مناقصات</string>
     <string name="Open">باز</string>
     <string name="Close">بستن</string>
@@ -134,6 +134,7 @@
     <string name="Update">بروزرسانی</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
+    <string name="UpdatePlayStore">بروزرسانی در فروشگاه گوگل پلی</string>
     <string name="Back_to_the_app">بازگشت به برنامه</string>
     <string name="filter_frames">فیلتر شده ها</string>
     <string name="share">اشتراک</string>
@@ -245,8 +246,11 @@
     <string name="DetailMaterial">جزئیات مصالح</string>
     <string name="InputDescription">توضیحات خود را بنویسید</string>
     <string name="InputJob">شغل خود را بنویسید</string>
+    <string name="Enter_the_requested_job">شغل درخواستی را وارد کنید</string>
     <string name="InputMachinery">دسته ماشین آلات خود را بنویسید</string>
+    <string name="RequestInputMachinery">دسته ماشین آلات درخواستی خود را بنویسید</string>
     <string name="InputMaterial">دسته مصالح خود را بنویسید</string>
+    <string name="RequestInputMaterial">دسته مصالح درخواستی خود را بنویسید</string>
     <string name="MyAd">آگهی من</string>
     <string name="Machinery2">دسته ماشین آلات</string>
     <string name="RentTake">اجاره گرفتن</string>

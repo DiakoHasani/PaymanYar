@@ -3,7 +3,7 @@ package ir.tdaapp.paymanyar.View.Activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.widget.Toast;
+
 
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
 import com.flurry.android.FlurryAgent;

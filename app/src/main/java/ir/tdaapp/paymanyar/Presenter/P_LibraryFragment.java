@@ -8,11 +8,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.content.FileProvider;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
@@ -233,7 +235,7 @@ public class P_LibraryFragment {
             } catch (Exception e) {
             }
         } else {
-            Toast.makeText(context, context.getString(R.string.Download_the_PDF_first), Toast.LENGTH_SHORT).show();
+            Toasty.error(context, context.getString(R.string.Download_the_PDF_first), Toast.LENGTH_SHORT,true).show();
         }
     }
 

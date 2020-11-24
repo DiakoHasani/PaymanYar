@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.paymanyar.Model.Adapters.SavesGpsAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_SavesGpsDialog;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseBottomSheetDialogFragment;
@@ -81,7 +83,7 @@ public class SavesGpsDialog extends BaseBottomSheetDialogFragment implements S_S
     public void onError() {
         ic_retry.setEnabled(true);
         ic_retry.setVisibility(View.VISIBLE);
-        Toast.makeText(getContext(), getContext().getResources().getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getContext().getResources().getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا تمامی المنت های صفحه مخفی می شود

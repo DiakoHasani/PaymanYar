@@ -13,9 +13,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_utility.Codes.ShowPriceTextView;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
@@ -216,7 +218,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                 break;
         }
 
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), message, Toast.LENGTH_SHORT,true).show();
         btn_reload.setVisibility(View.VISIBLE);
     }
 
@@ -340,7 +342,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
                 if (((MainActivity) getActivity()).getTbl_user().hasAccount(getActivity())) {
                     ((MainActivity) getActivity()).onAddFragment(new ChargeFragment(), R.anim.fadein, R.anim.short_fadeout, true, ChargeFragment.TAG);
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+                    Toasty.error(getActivity(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT,true).show();
                     ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
                 }
                 break;

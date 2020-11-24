@@ -13,7 +13,7 @@ import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 
-public class Base_Api {
+public abstract class Base_Api {
     public String ApiUrl = "http://tiptop.tdaapp.ir/api/";
     public String SliderImageUrl = "http://tiptop.tdaapp.ir/Content/data/Sliders/";
     public String ImageAd = "http://tiptop.tdaapp.ir/Content/data/Ad/";

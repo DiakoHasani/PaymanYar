@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -49,6 +50,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
@@ -194,6 +196,27 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
                 } catch (Exception e) {
                 }
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        cmb_AdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                VM_AdTypeMaterial item = ((VM_AdTypeMaterial) adapterView.getSelectedItem());
+                switch (item.getAdType()) {
+                    case title:
+                    case Sales:
+                        txt_Material.setHint(getString(R.string.InputMaterial));
+                        break;
+                    case Buy:
+                        txt_Material.setHint(getString(R.string.RequestInputMaterial));
+                        break;
+                }
             }
 
             @Override
@@ -381,7 +404,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
             val.setPath(file.getPath());
             fileUploadItemAdapter.addFile(val);
         } else {
-            Toast.makeText(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT,true).show();
         }
     }
 
@@ -390,7 +413,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
      **/
     @Override
     public void onNotValidFile(String errorText) {
-        Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), errorText, Toast.LENGTH_SHORT,true).show();
     }
 
     /**
@@ -446,7 +469,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
      **/
     @Override
     public void notValid() {
-        Toast.makeText(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT,true).show();
     }
 
     @Override
@@ -628,7 +651,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
                 text = getString(R.string.There_Was_an_Error_In_The_Application);
                 break;
         }
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
 
         progress_Loading_GetDetail.setVisibility(View.GONE);
         btn_Refresh_Loading_GetDetail.setVisibility(View.VISIBLE);
@@ -673,9 +696,9 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
             }
 
             //اگر آگهی ویژه باشد یعنی قبلا ارتقا داده شده و دکمه ارتقا غیرفعال می شود
-            if (model.isSpecial()) {
-                enableUpgradeOrder(false);
-            }
+//            if (model.isSpecial()) {
+//                enableUpgradeOrder(false);
+//            }
 
             List<String> paths = model.getImages();
             for (int i = 0; i < paths.size(); i++) {
@@ -782,6 +805,7 @@ public class AddMaterialFragment extends BaseFragment implements S_AddMaterialFr
             }
         }).start();
     }
+
     void clear2(String val) {
         handler_clear.post(() -> {
             switch (val) {

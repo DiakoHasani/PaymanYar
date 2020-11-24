@@ -1,11 +1,17 @@
 package ir.tdaapp.paymanyar.Model.Repositorys.Server;
 
 import android.content.Context;
+import android.os.Environment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +67,9 @@ public class Api_Home extends Base_Api {
                                     }
                                     slider.setUrlKind(urlKind);
 
-                                    String url="";
-                                    if (!object.getString("Url").equalsIgnoreCase("null")){
-                                        url=object.getString("Url");
+                                    String url = "";
+                                    if (!object.getString("Url").equalsIgnoreCase("null")) {
+                                        url = object.getString("Url");
                                     }
                                     slider.setUrl(url);
 
@@ -100,8 +106,8 @@ public class Api_Home extends Base_Api {
                         }
 
                     } else {
-                        if (resault.getResault()!=ResaultCode.TimeoutError&&resault.getResault()!=ResaultCode.NetworkError){
-                            postError("Api_Home->HomeData",resault.getMessage());
+                        if (resault.getResault() != ResaultCode.TimeoutError && resault.getResault() != ResaultCode.NetworkError) {
+                            postError("Api_Home->HomeData", resault.getMessage());
                         }
                         emitter.onError(new IOException(resault.getResault().toString()));
                     }
@@ -115,7 +121,7 @@ public class Api_Home extends Base_Api {
     //در اینجا عملیات وولی لغو می شود
     public void Cancel(String TAG, Context context) {
 
-        cancelBase(TAG,context);
+        cancelBase(TAG, context);
 
         if (get_HomeData != null) {
             get_HomeData.Cancel(TAG, context);

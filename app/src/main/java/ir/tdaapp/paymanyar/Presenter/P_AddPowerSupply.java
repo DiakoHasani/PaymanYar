@@ -6,11 +6,13 @@ import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -241,7 +243,7 @@ public class P_AddPowerSupply {
                                 s_addPowerSupply.onAnimationStep(StepsAddPower.Check_The_Ad, true);
                                 s_addPowerSupply.onSuccess();
                             } else {
-                                Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toasty.error(context, message.getMessage(), Toast.LENGTH_SHORT,true).show();
                                 s_addPowerSupply.onLoading(false);
                             }
                         }

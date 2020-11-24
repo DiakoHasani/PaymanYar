@@ -6,10 +6,12 @@ import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -252,7 +254,7 @@ public class P_AddMaterialFragment {
                                 s_addMaterialFragment.onAnimationStep(StepsAddPower.Check_The_Ad, true);
                                 s_addMaterialFragment.onSuccess();
                             } else {
-                                Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toasty.error(context, message.getMessage(), Toast.LENGTH_SHORT,true).show();
                                 s_addMaterialFragment.onLoading(false);
                             }
                         }

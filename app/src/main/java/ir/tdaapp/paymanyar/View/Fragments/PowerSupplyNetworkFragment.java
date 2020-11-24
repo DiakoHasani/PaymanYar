@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,9 +29,11 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.PowerSupplyNetworkAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_PowerSupplyNetworkFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Job;
@@ -201,15 +204,21 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
         if (getPage() == 0) {
             powerSupplyNetworkAdapter = new PowerSupplyNetworkAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-            powerSupplyNetworkAdapter.setClickPowerSupplyNetwork(id -> {
+            powerSupplyNetworkAdapter.setClickPowerSupplyNetwork(new onClickPowerSupplyNetwork() {
+                @Override
+                public void click(int id) {
+                    DetailPowerSupplyFragment detailPowerSupplyFragment = new DetailPowerSupplyFragment();
 
-                DetailPowerSupplyFragment detailPowerSupplyFragment = new DetailPowerSupplyFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", id);
 
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", id);
+                    detailPowerSupplyFragment.setArguments(bundle);
+                    ((MainActivity) getActivity()).onAddFragment(detailPowerSupplyFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailPowerSupplyFragment.TAG);
+                }
 
-                detailPowerSupplyFragment.setArguments(bundle);
-                ((MainActivity) getActivity()).onAddFragment(detailPowerSupplyFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailPowerSupplyFragment.TAG);
+                @Override
+                public void remove(int id) {
+                }
             });
 
             recycler.setAdapter(powerSupplyNetworkAdapter);
@@ -412,7 +421,7 @@ public class PowerSupplyNetworkFragment extends BaseFragment implements S_PowerS
         loadingProgress = false;
         workedInternet = false;
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
     }
 
     /**

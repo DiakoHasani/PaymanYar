@@ -10,7 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activitys.PaymentAdActivity"
+        <activity android:name=".View.Activitys.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".View.Activitys.PaymentAdActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -23,10 +31,12 @@
                     android:scheme="paymanyar" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.Activitys.LevelActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".View.Activitys.MagnifierActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".View.Activitys.LevelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.Activitys.MagnifierActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.Activitys.PaymentOrderActivity"
             android:screenOrientation="portrait">
@@ -61,17 +71,12 @@
         <activity
             android:name=".View.Activitys.ToolsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".View.Activitys.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -113,7 +118,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
 </manifest>

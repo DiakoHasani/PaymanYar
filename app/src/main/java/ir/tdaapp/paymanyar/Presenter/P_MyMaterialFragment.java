@@ -9,11 +9,14 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Material;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Notification;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_States;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_PowerSupply;
+import ir.tdaapp.paymanyar.Model.Services.RemoveSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.Services.S_MyMaterialFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Material;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
 /**
@@ -25,7 +28,8 @@ public class P_MyMaterialFragment {
     Api_PowerSupply api_powerSupply;
     Tbl_States tbl_states;
     Tbl_Material tbl_material;
-    Disposable dispose_getVals, dispose_setVals;
+    Disposable dispose_getVals, dispose_setVals,dispose_deleteMaterial;
+    Tbl_Notification tbl_notification;
 
     public P_MyMaterialFragment(Context context, S_MyMaterialFragment s_materialFragment) {
         this.context = context;
@@ -33,6 +37,7 @@ public class P_MyMaterialFragment {
         api_powerSupply = new Api_PowerSupply();
         tbl_states = new Tbl_States(context);
         tbl_material = new Tbl_Material(context);
+        tbl_notification=new Tbl_Notification();
     }
 
     public void start() {
@@ -85,6 +90,28 @@ public class P_MyMaterialFragment {
         });
     }
 
+    /**
+     * در اینجا یک مصالح حذف می شود
+     * **/
+    public void deleteMaterial(int id, RemoveSupplyNetwork removeSupplyNetwork){
+        String apiKey = tbl_notification.getToken(context);
+        Single<VM_Message> data=api_powerSupply.deleteMaterial(id,apiKey);
+        s_materialFragment.onLoadingDelete(true);
+        dispose_deleteMaterial = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
+            @Override
+            public void onSuccess(VM_Message message) {
+                s_materialFragment.onLoadingDelete(false);
+                removeSupplyNetwork.onSuccess(message);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_materialFragment.onLoadingDelete(false);
+                removeSupplyNetwork.onError(Error.GetErrorVolley(e.toString()));
+            }
+        });
+    }
+
     public void cancel(String tag) {
         api_powerSupply.cancel(tag, context);
 
@@ -94,6 +121,10 @@ public class P_MyMaterialFragment {
 
         if (dispose_setVals != null) {
             dispose_setVals.dispose();
+        }
+
+        if (dispose_deleteMaterial != null) {
+            dispose_deleteMaterial.dispose();
         }
     }
 }

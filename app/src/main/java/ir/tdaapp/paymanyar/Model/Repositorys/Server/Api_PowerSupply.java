@@ -16,6 +16,7 @@ import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
+import ir.tdaapp.li_volley.Volleys.DeleteJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonArrayVolley;
 import ir.tdaapp.li_volley.Volleys.GetJsonObjectVolley;
 import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
@@ -61,6 +62,7 @@ public class Api_PowerSupply extends Base_Api {
     GetJsonArrayVolley volley_getUpgrades, volley_getMyPowerSupplyNetwork, volley_getMyMachineries, volley_getMyMaterials;
     GetJsonArrayVolley volley_getJobs, volley_getMachinerySpinner, volley_getMaterialSpinner;
     GetJsonArrayVolley volley_getMachinerysTitle, volley_getJobsTitle, volley_getMaterialsTitle;
+    DeleteJsonObjectVolley volley_deletePowerSupply, volley_deleteMachinry, volley_deleteMaterial;
 
     //زمانی که کاربر درحال آپلود فایل باشد مقدار زیر ترو خواهد شد
     boolean isUploadedFile = false;
@@ -280,7 +282,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا لیست مصالح گرفته می شود
      **/
-    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities,Context context) {
+    public Single<List<VM_Material>> getMaterials(VM_FilterMaterial filter, List<VM_ProvincesAndCities> provincesAndCities, Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 try {
@@ -672,8 +674,16 @@ public class Api_PowerSupply extends Base_Api {
 
                     input.put("JobName", powerSupply.getJobTitle());
                     input.put("WorkExperience", powerSupply.getWorkExperiences());
-                    input.put("State", powerSupply.getState());
-                    input.put("City", powerSupply.getCity());
+
+                    if (powerSupply.getState() != 0)
+                        input.put("State", powerSupply.getState());
+                    else
+                        input.put("State", null);
+
+                    if (powerSupply.getCity() != 0)
+                        input.put("City", powerSupply.getCity());
+                    else
+                        input.put("City", null);
                     input.put("Phone", powerSupply.getCellPhone());
                     input.put("Description", powerSupply.getDescription());
 
@@ -758,7 +768,7 @@ public class Api_PowerSupply extends Base_Api {
                     input.put("MachineryName", machinery.getMachineryName());
 
                     //قیمت
-                    String price =Replace.Number_fn_To_en(machinery.getPrice().replace(",", "").replace("٬", ""));
+                    String price = Replace.Number_fn_To_en(machinery.getPrice().replace(",", "").replace("٬", ""));
                     if (!price.equalsIgnoreCase("") && !price.equalsIgnoreCase("0")) {
                         input.put("Price", price);
                     } else {
@@ -766,10 +776,16 @@ public class Api_PowerSupply extends Base_Api {
                     }
 
                     //استان
-                    input.put("State", machinery.getState());
+                    if (machinery.getState() != 0)
+                        input.put("State", machinery.getState());
+                    else
+                        input.put("State", null);
 
                     //شهر
-                    input.put("City", machinery.getCity());
+                    if (machinery.getCity() != 0)
+                        input.put("City", machinery.getCity());
+                    else
+                        input.put("City", null);
 
                     //شماره موبایل
                     input.put("Phone", machinery.getCellPhone());
@@ -845,7 +861,7 @@ public class Api_PowerSupply extends Base_Api {
                     input.put("MaterialsName", material.getMaterialTitle());
 
                     //قیمت
-                    String price =Replace.Number_fn_To_en(material.getPrice().replace(",", "").replace("٬", ""));
+                    String price = Replace.Number_fn_To_en(material.getPrice().replace(",", "").replace("٬", ""));
                     if (!price.equalsIgnoreCase("") && !price.equalsIgnoreCase("0")) {
                         input.put("Price", price);
                     } else {
@@ -853,10 +869,16 @@ public class Api_PowerSupply extends Base_Api {
                     }
 
                     //استان
-                    input.put("State", material.getState());
+                    if (material.getState() != 0)
+                        input.put("State", material.getState());
+                    else
+                        input.put("State", null);
 
                     //شهر
-                    input.put("City", material.getCity());
+                    if (material.getCity() != 0)
+                        input.put("City", material.getCity());
+                    else
+                        input.put("City", null);
 
                     //شماره موبایل
                     input.put("Phone", material.getCellPhone());
@@ -1070,7 +1092,7 @@ public class Api_PowerSupply extends Base_Api {
         });
     }
 
-    public Single<List<VM_Machinery>> getMyMachineries(int userId, List<VM_ProvincesAndCities> provincesAndCities,Context context) {
+    public Single<List<VM_Machinery>> getMyMachineries(int userId, List<VM_ProvincesAndCities> provincesAndCities, Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMyMachineries = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMachinery?UserId=" + userId, resault -> {
@@ -1116,7 +1138,7 @@ public class Api_PowerSupply extends Base_Api {
                                     //در اینجا قیمت ست می شود
                                     if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                         machinery.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
-                                    }else{
+                                    } else {
                                         machinery.setPrice(context.getString(R.string.Agreement));
                                     }
 
@@ -1167,7 +1189,7 @@ public class Api_PowerSupply extends Base_Api {
     /**
      * در اینجا مصالح من برگشت داده می شود
      **/
-    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities,Context context) {
+    public Single<List<VM_Material>> getMyMaterials(int userId, List<VM_ProvincesAndCities> provincesAndCities, Context context) {
         return Single.create(emitter -> {
             new Thread(() -> {
                 volley_getMyMaterials = new GetJsonArrayVolley(ApiUrl + "Advertising/GetMeAdMaterials?UserId=" + userId, resault -> {
@@ -1206,7 +1228,7 @@ public class Api_PowerSupply extends Base_Api {
                                 //در اینجا قیمت ست می شود
                                 if (!object.getString("Price").equalsIgnoreCase("null") && !object.getString("Price").equalsIgnoreCase("تومان ")) {
                                     material.setPrice(Replace.Number_en_To_fa(object.getString("Price")));
-                                }else{
+                                } else {
                                     material.setPrice(context.getString(R.string.Agreement));
                                 }
 
@@ -1751,6 +1773,81 @@ public class Api_PowerSupply extends Base_Api {
         });
     }
 
+    /**
+     * در اینجا یک نیروکار حذف می شود
+     **/
+    public Single<VM_Message> deletePowerSupply(int id, String apiKey) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_deletePowerSupply = new DeleteJsonObjectVolley(ApiUrl + "Advertising/DeleteAdvertising?ApiKey=" + apiKey + "&AdId=" + id, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+                        VM_Message message = new VM_Message();
+                        JSONObject object = resault.getObject();
+                        try {
+                            message.setCode(object.getInt("Code"));
+                            message.setMessage(object.getString("MessageText"));
+                            message.setResult(object.getBoolean("Result"));
+                        } catch (Exception e) {
+                        }
+                        emitter.onSuccess(message);
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا یک ماشین آلات حذف می شود
+     **/
+    public Single<VM_Message> deleteMachinry(int id, String apiKey) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_deleteMachinry = new DeleteJsonObjectVolley(ApiUrl + "Advertising/DeleteMachinery?ApiKey=" + apiKey + "&AdId=" + id, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+                        VM_Message message = new VM_Message();
+                        JSONObject object = resault.getObject();
+                        try {
+                            message.setCode(object.getInt("Code"));
+                            message.setMessage(object.getString("MessageText"));
+                            message.setResult(object.getBoolean("Result"));
+                        } catch (Exception e) {
+                        }
+                        emitter.onSuccess(message);
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
+    /**
+     * در اینجا یک مصالح حذف می شود
+     **/
+    public Single<VM_Message> deleteMaterial(int id, String apiKey) {
+        return Single.create(emitter -> {
+            new Thread(() -> {
+                volley_deleteMaterial = new DeleteJsonObjectVolley(ApiUrl + "Advertising/DeleteMaterials?ApiKey=" + apiKey + "&AdId=" + id, resault -> {
+                    if (resault.getResault() == ResaultCode.Success) {
+                        VM_Message message = new VM_Message();
+                        JSONObject object = resault.getObject();
+                        try {
+                            message.setCode(object.getInt("Code"));
+                            message.setMessage(object.getString("MessageText"));
+                            message.setResult(object.getBoolean("Result"));
+                        } catch (Exception e) {
+                        }
+                        emitter.onSuccess(message);
+                    } else {
+                        emitter.onError(new IOException(resault.getResault().toString()));
+                    }
+                });
+            }).start();
+        });
+    }
+
     public void cancel(String tag, Context context) {
 
         isUploadedFile = false;
@@ -1841,6 +1938,18 @@ public class Api_PowerSupply extends Base_Api {
 
         if (volley_getMaterialsTitle != null) {
             volley_getMaterialsTitle.Cancel(tag, context);
+        }
+
+        if (volley_deletePowerSupply != null) {
+            volley_deletePowerSupply.Cancel(tag, context);
+        }
+
+        if (volley_deleteMachinry != null) {
+            volley_deleteMachinry.Cancel(tag, context);
+        }
+
+        if (volley_deleteMaterial != null) {
+            volley_deleteMaterial.Cancel(tag, context);
         }
     }
 

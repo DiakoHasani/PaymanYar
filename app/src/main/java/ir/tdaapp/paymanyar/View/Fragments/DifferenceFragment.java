@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -48,6 +49,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
@@ -265,14 +267,14 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
             val.setPath(file.getPath());
             fileUploadAdapter.addFile(val);
         } else {
-            Toast.makeText(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT,true).show();
         }
     }
 
     //اگر فایل انتخاب شده ولید نباشد متد زیر فراخوانی می شود
     @Override
     public void onNotValidFile(String errorText) {
-        Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), errorText, Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا آدرس فایل ها برگشت داده می شود
@@ -295,7 +297,7 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
     @Override
     public void onNoAccount() {
         btn_ShowSteps.setEnabled(true);
-        Toast.makeText(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT,true).show();
         ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
     }
 
@@ -425,7 +427,7 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
     @Override
     public void onNotValid() {
         btn_ShowSteps.setEnabled(true);
-        Toast.makeText(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT,true).show();
     }
 
     @Override
@@ -562,7 +564,7 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
 
         btn_reload.setVisibility(View.VISIBLE);
         progress_loading.setVisibility(View.GONE);
@@ -1158,7 +1160,7 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
     //اگر در دانلود فایل خطای رخ دهد متد زیر فراخوانی می شود
     @Override
     public void onErrorDownloadFile(Throwable e) {
-        Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا فایل نمایش داده می شود
@@ -1180,11 +1182,11 @@ public class DifferenceFragment extends BaseFragment implements S_DifferenceFrag
 
                 startActivity(Intent.createChooser(intent, getString(R.string.ChoseApp)));
             } catch (Exception e) {
-                Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+                Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
             }
 
         } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT,true).show();
         }
     }
 

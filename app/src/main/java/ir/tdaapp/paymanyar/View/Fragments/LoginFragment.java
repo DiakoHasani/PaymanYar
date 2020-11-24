@@ -11,11 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_LoginFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
@@ -80,7 +82,7 @@ public class LoginFragment extends BaseFragment implements S_LoginFragment,View.
                 text = getString(R.string.There_Was_an_Error_In_The_Application);
                 break;
         }
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
     }
 
     @Override
@@ -112,7 +114,7 @@ public class LoginFragment extends BaseFragment implements S_LoginFragment,View.
                     R.anim.fadein,R.anim.short_fadeout,true,LoginCodeFragment.TAG);
 
         } else {
-            Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
         }
 
     }

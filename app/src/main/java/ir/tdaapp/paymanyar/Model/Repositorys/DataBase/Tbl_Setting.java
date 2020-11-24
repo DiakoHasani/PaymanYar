@@ -20,10 +20,9 @@ public class Tbl_Setting {
     }
 
     //در اینجا کویری های جدید اسکیوال اعمال می شوند و لازم بودن آپدیت اپلیکیشن اعلام می شود
-    public void setUpdates(List<VM_UpdateApp> updates, resultVersionApp_Sql res) {
+    public void setUpdates(float versionApp, List<VM_UpdateApp> updates, resultVersionApp_Sql res) {
 
-        Cursor q=db.ExecuteQ("select * from Tbl_Setting where id=1");
-        float versionApp;
+        Cursor q = db.ExecuteQ("select * from Tbl_Setting where id=1");
         float versionSql;
 
         //اگر مقدار زیر ترو شود برنامه نیاز به آپدیت خواهد داشت
@@ -32,28 +31,28 @@ public class Tbl_Setting {
         //در اینجا اجباری بودن آپدیت ست می شود
         boolean hadUpdate = false;
 
-        try{
+        try {
 
             for (int i = 0; i < updates.size(); i++) {
 
                 res.clearData(updates.get(i).isCleardate());
 
-                versionApp =Float.valueOf(String.valueOf(q.getInt(q.getColumnIndex("versionApp"))));
-                versionSql =Float.valueOf(String.valueOf(q.getInt(q.getColumnIndex("versionSql"))));
+
+                versionSql = Float.valueOf(String.valueOf(q.getInt(q.getColumnIndex("versionSql"))));
 
                 if (updates.get(i).getAppVesrsion() > versionApp) {
                     isUpdateApp = true;
 
                     //در اینجا عدد پشت ممیز گرفته می شود
                     //در اینجا بخش صحیح ورژن اپلیکیشن از سرور گرفته می شود
-                    float f=Float.valueOf(String.valueOf(updates.get(i).getAppVesrsion()));
-                    int first = ((int)f);
+                    float f = Float.valueOf(String.valueOf(updates.get(i).getAppVesrsion()));
+                    int first = ((int) f);
 
                     //در اینجا بخش صحیح ورژن اپلیکیشن در دیتابیس گرفته می شود
-                    int second = ((int)versionApp);
+                    int second = ((int) versionApp);
 
                     //اگر ورژن اپ سرور از دیتابیس بزرگتر باشد یعنی آپدیت اجباری است
-                    if (first>second) {
+                    if (first > second) {
                         hadUpdate = true;
                     }
 
@@ -71,7 +70,7 @@ public class Tbl_Setting {
 
             res.updateApp(isUpdateApp, hadUpdate);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             res.updateApp(isUpdateApp, false);
         }
     }

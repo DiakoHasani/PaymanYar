@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SmsAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_SmsFragment;
@@ -234,7 +236,7 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
         if (message.isResult()) {
             smsAdapter.archiveSMS(messageId);
         } else {
-            Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
         }
     }
 
@@ -258,7 +260,7 @@ public class SmsFragment extends BaseFragment implements S_SmsFragment, View.OnC
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
     }
 
     @Override

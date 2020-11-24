@@ -151,6 +151,16 @@
                 android:scaleType="fitXY"
                 android:background="@color/colorMySMS"/>
 
+            <ImageView
+                android:id="@+id/removeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:background="@color/colorWhite"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
     </LinearLayout>

@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
@@ -28,6 +29,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import es.dmoral.toasty.Toasty;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
@@ -486,7 +488,7 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -494,7 +496,11 @@ public class TenderNotificationFragment extends BaseFragment implements S_Tender
     @Override
     public void onSuccessLetMeKnow(VM_Message message) {
         loadingLet_me_know(false);
-        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        if (message.isResult()){
+            Toasty.success(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
+        }else{
+            Toasty.error(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
+        }
     }
 
     @Override

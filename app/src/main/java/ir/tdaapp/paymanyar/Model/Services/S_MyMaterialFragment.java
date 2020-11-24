@@ -16,4 +16,5 @@ public interface S_MyMaterialFragment {
     void onFinish();
     void noAccount();
     void onEmpty();
+    void onLoadingDelete(boolean load);
 }

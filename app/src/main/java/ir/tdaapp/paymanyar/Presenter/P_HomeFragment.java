@@ -109,7 +109,7 @@ public class P_HomeFragment {
     //در اینجا آپدیت ها یکی یکی گرفته می شوند و عملیات خود را انجام می دهیم
     void setUpdates(List<VM_UpdateApp> updates) {
 
-        tbl_setting.setUpdates(updates, new resultVersionApp_Sql() {
+        tbl_setting.setUpdates(s_homeFragment.getApplicationVersion(), updates, new resultVersionApp_Sql() {
             @Override
             public void updateApp(boolean update, boolean hadUpdate) {
                 //اگر برنامه نیاز به آپدیت داشته باشد شرط زیر اجرا می شود
@@ -220,7 +220,8 @@ public class P_HomeFragment {
                     startSlider();
                 }
 
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
         }
     };
 

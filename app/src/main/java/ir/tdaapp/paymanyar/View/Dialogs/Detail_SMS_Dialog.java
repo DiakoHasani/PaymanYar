@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Services.S_Detail_SMS_Dialog;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
@@ -84,7 +86,7 @@ public class Detail_SMS_Dialog extends BaseDialogFragment implements S_Detail_SM
                 break;
         }
 
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), message, Toast.LENGTH_SHORT, true).show();
         btn_reload.setVisibility(View.VISIBLE);
     }
 

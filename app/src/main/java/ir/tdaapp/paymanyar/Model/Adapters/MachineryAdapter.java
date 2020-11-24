@@ -27,10 +27,15 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
     Context context;
     List<VM_Machinery> vals;
     onClickPowerSupplyNetwork clickPowerSupplyNetwork;
+    boolean showDeleteButton = false;
 
     public MachineryAdapter(Context context) {
         this.context = context;
         vals = new ArrayList<>();
+    }
+
+    public void setShowDeleteButton(boolean showDeleteButton) {
+        this.showDeleteButton = showDeleteButton;
     }
 
     public void setClickPowerSupplyNetwork(onClickPowerSupplyNetwork clickPowerSupplyNetwork) {
@@ -40,6 +45,17 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
     public void add(VM_Machinery machinery) {
         vals.add(machinery);
         notifyItemInserted(vals.size());
+    }
+
+    public void delete(int id) {
+        for (int i = 0; i < vals.size(); i++) {
+            if (vals.get(i).getId()==id){
+                vals.remove(i);
+                notifyItemRemoved(i);
+                notifyItemRangeChanged(i, vals.size());
+                break;
+            }
+        }
     }
 
     @NonNull
@@ -78,9 +94,9 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
 
             //در اینجا انیمیشن آگهی ویژه ست می شود
             if (vals.get(position).isSpecial()) {
-                holder.setAnimationSpecial(holder.layout2,true);
+                holder.setAnimationSpecial(holder.layout2, true);
             } else {
-                holder.setAnimationSpecial(holder.layout2,false);
+                holder.setAnimationSpecial(holder.layout2, false);
             }
 
             Glide.with(context)
@@ -90,6 +106,10 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
 
             holder.layout.setOnClickListener(view -> {
                 clickPowerSupplyNetwork.click(vals.get(position).getId());
+            });
+
+            holder.removeButton.setOnClickListener(view -> {
+                clickPowerSupplyNetwork.remove(vals.get(position).getId());
             });
 
         } catch (Exception e) {
@@ -105,12 +125,18 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
 
         CardView layout;
         TextView lbl_Machinery, lbl_AdTypeCondition, lbl_Price, lbl_cellPhone, lbl_City, lbl_Date;
-        ImageView img;
+        ImageView img, removeButton;
         LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             findItem(itemView);
+
+            if (showDeleteButton) {
+                removeButton.setVisibility(View.VISIBLE);
+            } else {
+                removeButton.setVisibility(View.GONE);
+            }
         }
 
         void findItem(View view) {
@@ -123,6 +149,7 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
             lbl_Date = view.findViewById(R.id.lbl_Date);
             img = view.findViewById(R.id.img);
             layout2 = view.findViewById(R.id.layout2);
+            removeButton = view.findViewById(R.id.removeButton);
         }
 
         /**

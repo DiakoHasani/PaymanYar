@@ -30,10 +30,15 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
     Context context;
     List<VM_PowerSupplyNetwork> powerSupplyNetworks;
     onClickPowerSupplyNetwork clickPowerSupplyNetwork;
+    boolean showDeleteButton = false;
 
     public PowerSupplyNetworkAdapter(Context context) {
         this.context = context;
         powerSupplyNetworks = new ArrayList<>();
+    }
+
+    public void setShowDeleteButton(boolean showDeleteButton) {
+        this.showDeleteButton = showDeleteButton;
     }
 
     public void setClickPowerSupplyNetwork(onClickPowerSupplyNetwork clickPowerSupplyNetwork) {
@@ -43,6 +48,17 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
     public void add(VM_PowerSupplyNetwork item) {
         powerSupplyNetworks.add(item);
         notifyItemInserted(powerSupplyNetworks.size());
+    }
+
+    public void delete(int id) {
+        for (int i = 0; i < powerSupplyNetworks.size(); i++) {
+            if (powerSupplyNetworks.get(i).getId()==id){
+                powerSupplyNetworks.remove(i);
+                notifyItemRemoved(i);
+                notifyItemRangeChanged(i, powerSupplyNetworks.size());
+                break;
+            }
+        }
     }
 
     @NonNull
@@ -66,9 +82,9 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
 
             //در اینجا انیمیشن آگهی ویژه ست می شود
             if (powerSupplyNetworks.get(position).isSpecial()) {
-                holder.setAnimationSpecial(holder.layout2,true);
+                holder.setAnimationSpecial(holder.layout2, true);
             } else {
-                holder.setAnimationSpecial(holder.layout2,false);
+                holder.setAnimationSpecial(holder.layout2, false);
             }
 
             Glide.with(context)
@@ -78,6 +94,10 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
 
             holder.layout.setOnClickListener(view -> {
                 clickPowerSupplyNetwork.click(powerSupplyNetworks.get(position).getId());
+            });
+
+            holder.removeButton.setOnClickListener(view -> {
+                clickPowerSupplyNetwork.remove(powerSupplyNetworks.get(position).getId());
             });
 
         } catch (Exception e) {
@@ -93,13 +113,19 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
 
         CardView layout;
         TextView lbl_job, lbl_name, lbl_work_experience, lbl_cellPhone, lbl_City, lbl_Date;
-        ImageView img;
+        ImageView img, removeButton;
         LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             findItem(itemView);
+
+            if (showDeleteButton) {
+                removeButton.setVisibility(View.VISIBLE);
+            } else {
+                removeButton.setVisibility(View.GONE);
+            }
         }
 
         void findItem(View view) {
@@ -112,6 +138,7 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
             lbl_Date = view.findViewById(R.id.lbl_Date);
             img = view.findViewById(R.id.img);
             layout2 = view.findViewById(R.id.layout2);
+            removeButton = view.findViewById(R.id.removeButton);
         }
 
         /**

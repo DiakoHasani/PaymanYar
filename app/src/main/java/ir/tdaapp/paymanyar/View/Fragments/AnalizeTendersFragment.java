@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -64,6 +65,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
@@ -292,14 +294,14 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             val.setPath(file.getPath());
             fileUploadAdapter.addFile(val);
         } else {
-            Toast.makeText(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT,true).show();
         }
     }
 
     //اگر فایل انتخاب شده ولید نباشد متد زیر فراخوانی می شود
     @Override
     public void onNotValidFile(String errorText) {
-        Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), errorText, Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا آدرس فایل ها برگشت داده می شود
@@ -320,7 +322,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     //اگر کاربر حساب کاربری نداشته باشد متد زیر فراخوانی می شود
     @Override
     public void onNoAccount() {
-        Toast.makeText(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT,true).show();
         ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
     }
 
@@ -336,7 +338,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
             input.setTenderName(txt_TenderName.getText().toString());
 
             //در اینجا برآورد مالی ست می شود
-            input.setFee(txt_NationalEstimate.getText().toString().replace(",", "").replace("٬", ""));
+            input.setFee(Replace.Number_fn_To_en(txt_NationalEstimate.getText().toString().replace(",", "").replace("٬", "")));
 
             //در اینجا نام پیمانکار ست می شود
             input.setContractorName(txt_ContractorName.getText().toString());
@@ -453,7 +455,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     //اگر مقادیر ولید نباشند متد زیر فراخوانی می شوند
     @Override
     public void onNotValid() {
-        Toast.makeText(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT,true).show();
     }
 
     @Override
@@ -595,7 +597,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
 
         btn_reload.setVisibility(View.VISIBLE);
         progress_loading.setVisibility(View.GONE);
@@ -1261,7 +1263,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
     //اگر در دانلود فایل خطای رخ دهد متد زیر فراخوانی می شود
     @Override
     public void onErrorDownloadFile(Throwable e) {
-        Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا فایل نمایش داده می شود
@@ -1283,11 +1285,11 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
                 startActivity(Intent.createChooser(intent, getString(R.string.ChoseApp)));
             } catch (Exception e) {
-                Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+                Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
             }
 
         } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT,true).show();
         }
     }
 

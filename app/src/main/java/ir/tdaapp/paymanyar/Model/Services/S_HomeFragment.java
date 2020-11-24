@@ -30,4 +30,6 @@ public interface S_HomeFragment {
     void onSetCurrentSlider(int i, boolean b);
 
     void onShowMenuLoginNavigation();
+
+    float getApplicationVersion();
 }

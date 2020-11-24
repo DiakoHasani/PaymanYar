@@ -20,7 +20,4 @@ public class P_CompassFragment {
 
     }
 
-
-
-
 }

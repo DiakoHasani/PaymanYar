@@ -20,6 +20,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.karumi.dexter.Dexter;
@@ -41,6 +42,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.OrdersAdapter;
 import ir.tdaapp.paymanyar.Model.Enums.OrderKind;
@@ -427,7 +429,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
 
     @Override
     public void onNoAccount() {
-        Toast.makeText(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT,true).show();
         ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), R.anim.fadein, R.anim.short_fadeout, true, LoginFragment.TAG);
     }
 
@@ -490,7 +492,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
     //مربوط به خطای دانلود فایل
     @Override
     public void onErrorDownloadFile(Throwable e) {
-        Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
     }
 
     //در اینجا فایل نمایش داده می شود
@@ -512,11 +514,11 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
 
                 startActivity(Intent.createChooser(intent, getString(R.string.ChoseApp)));
             } catch (Exception e) {
-                Toast.makeText(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT).show();
+                Toasty.error(getContext(), getString(R.string.There_Was_an_Error_In_The_Application), Toast.LENGTH_SHORT,true).show();
             }
 
         } else {
-            Toast.makeText(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.notFoundThisPDF), Toast.LENGTH_SHORT,true).show();
         }
     }
 
@@ -528,7 +530,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
         if (message.isResult()) {
             ordersAdapter.removeOrder(orderId);
         } else {
-            Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
         }
     }
 
@@ -555,7 +557,7 @@ public class OrdersFragment extends BaseFragment implements S_OrdersFragment, Vi
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
     }
 
     @Override

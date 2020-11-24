@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,10 +29,12 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.MachineryAdapter;
 import ir.tdaapp.paymanyar.Model.Adapters.PowerSupplyNetworkAdapter;
 import ir.tdaapp.paymanyar.Model.Services.S_MachineryFragment;
+import ir.tdaapp.paymanyar.Model.Services.onClickPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_FilterMachinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Machinery;
@@ -200,13 +203,21 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
         if (getPage() == 0) {
             machineryAdapter = new MachineryAdapter(getContext());
             layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-            machineryAdapter.setClickPowerSupplyNetwork(id -> {
-                DetailMachineryFragment detailMachineryFragment = new DetailMachineryFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", id);
-                detailMachineryFragment.setArguments(bundle);
+            machineryAdapter.setClickPowerSupplyNetwork(new onClickPowerSupplyNetwork() {
+                @Override
+                public void click(int id) {
+                    DetailMachineryFragment detailMachineryFragment = new DetailMachineryFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", id);
+                    detailMachineryFragment.setArguments(bundle);
 
-                ((MainActivity) getActivity()).onAddFragment(detailMachineryFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailMachineryFragment.TAG);
+                    ((MainActivity) getActivity()).onAddFragment(detailMachineryFragment, R.anim.fadein, R.anim.short_fadeout, true, DetailMachineryFragment.TAG);
+                }
+
+                @Override
+                public void remove(int id) {
+
+                }
             });
 
             recycler.setAdapter(machineryAdapter);
@@ -396,7 +407,7 @@ public class MachineryFragment extends BaseFragment implements S_MachineryFragme
         loadingProgress = false;
         workedInternet = false;
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
     }
 
     /**

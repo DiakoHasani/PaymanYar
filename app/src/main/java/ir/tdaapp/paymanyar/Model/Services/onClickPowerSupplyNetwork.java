@@ -5,4 +5,5 @@ package ir.tdaapp.paymanyar.Model.Services;
  * **/
 public interface onClickPowerSupplyNetwork {
     void click(int id);
+    void remove(int id);
 }

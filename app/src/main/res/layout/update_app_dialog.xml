@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
     android:clickable="true"
     android:textDirection="rtl"
     android:layoutDirection="rtl">
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/vazir"
             android:textSize="18dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="28dp"
             android:textColor="@color/colorTitle"
             android:gravity="center"
             android:text="@string/Update"/>
@@ -30,7 +31,7 @@
             android:fontFamily="@font/vazir"
             android:textSize="14dp"
             android:textColor="@color/colorTitle"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:text="@string/A_new_version_of_the_app_is_availableDo_you_want_to_update"
             android:gravity="center"
             android:paddingRight="8dp"
@@ -43,25 +44,125 @@
             android:paddingLeft="8dp"
             android:layout_marginTop="25dp"
             android:layoutDirection="ltr"
-            android:textDirection="ltr">
+            android:textDirection="ltr"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:text="@string/yes"
-                android:fontFamily="@font/vazir"
-                android:textSize="14dp"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_playStore"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                app:cardCornerRadius="4dp"
+                android:clipToPadding="false"
+                app:cardUseCompatPadding="false"
+                android:clickable="true"
+                android:theme="@style/AppTheme.MyRipple"
+                android:layout_centerVertical="true">
 
-            <Button
-                android:id="@+id/btn_no"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/vazir"
+                    android:gravity="center"
+                    android:text="@string/UpdatePlayStore"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_update"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="4dp"
+                android:clipToPadding="false"
+                app:cardUseCompatPadding="false"
+                android:clickable="true"
+                android:theme="@style/AppTheme.MyRipple"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/vazir"
+                    android:gravity="center"
+                    android:text="@string/Update"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                app:cardBackgroundColor="@color/colorError"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="4dp"
+                android:clipToPadding="false"
+                app:cardUseCompatPadding="false"
+                android:clickable="true"
+                android:theme="@style/AppTheme.MyRipple3"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/vazir"
+                    android:gravity="center"
+                    android:text="@string/Cancel"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:text="@string/no"
-                android:fontFamily="@font/vazir"
-                android:textSize="14dp"/>
+                android:id="@+id/progress"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:max="100"
+                android:progress="0"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layoutDirection="ltr"/>
+
+            <TextView
+                android:id="@+id/lbl_Progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textDirection="ltr"
+                android:text="0%"
+                android:fontFamily="@font/iran_sans"
+                android:textColor="@color/colorTitle"
+                android:textSize="16dp"
+                android:gravity="center_horizontal"/>
 
         </LinearLayout>
 

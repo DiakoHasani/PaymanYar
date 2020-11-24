@@ -40,15 +40,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/icons"
-        android:layout_marginLeft="16dp"
-        android:paddingRight="8dp"
-        android:weightSum="2.35">
+        android:layout_marginLeft="4dp"
+        android:weightSum="2.3">
 
         <TextView
             android:id="@+id/lbl_number"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.35"
+            android:layout_weight="0.3"
             android:gravity="center"
             android:fontFamily="@font/vazir"
             android:textSize="16dp"
@@ -66,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGray"
                 android:fontFamily="@font/vazir"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:text="@string/Wide"/>
 
             <TextView
@@ -94,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGray"
                 android:fontFamily="@font/vazir"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:text="@string/Length"/>
 
             <TextView

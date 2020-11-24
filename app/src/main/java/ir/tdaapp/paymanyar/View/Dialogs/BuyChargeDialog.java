@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Charge;
@@ -80,7 +82,7 @@ public class BuyChargeDialog extends BaseDialogFragment implements View.OnClickL
                     getDialog().dismiss();
                     gotoBuy();
                 } else {
-                    Toast.makeText(getContext(), getResources().getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+                    Toasty.error(getContext(), getResources().getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT,true).show();
                 }
                 break;
         }

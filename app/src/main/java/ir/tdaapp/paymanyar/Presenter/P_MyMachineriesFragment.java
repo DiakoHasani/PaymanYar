@@ -9,11 +9,14 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Machineries;
+import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_Notification;
 import ir.tdaapp.paymanyar.Model.Repositorys.DataBase.Tbl_States;
 import ir.tdaapp.paymanyar.Model.Repositorys.Server.Api_PowerSupply;
+import ir.tdaapp.paymanyar.Model.Services.RemoveSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.Services.S_MyMachineriesFragment;
 import ir.tdaapp.paymanyar.Model.Utilitys.Error;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Machinery;
+import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_PowerSupplyNetwork;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 
@@ -23,7 +26,8 @@ public class P_MyMachineriesFragment {
     Api_PowerSupply api_powerSupply;
     Tbl_States tbl_states;
     Tbl_Machineries tbl_machineries;
-    Disposable dispose_getVals, dispose_setVals;
+    Disposable dispose_getVals, dispose_setVals,dispose_deleteMachinery;
+    Tbl_Notification tbl_notification;
 
     public P_MyMachineriesFragment(Context context, S_MyMachineriesFragment s_myMachineriesFragment) {
         this.context = context;
@@ -31,6 +35,7 @@ public class P_MyMachineriesFragment {
         api_powerSupply = new Api_PowerSupply();
         tbl_states = new Tbl_States(context);
         tbl_machineries = new Tbl_Machineries(context);
+        tbl_notification = new Tbl_Notification();
     }
 
     public void start() {
@@ -46,7 +51,7 @@ public class P_MyMachineriesFragment {
 
     void getVals() {
         int userId = ((MainActivity) context).getTbl_user().getUserId(context);
-        Single<List<VM_Machinery>> data = api_powerSupply.getMyMachineries(userId, tbl_states.getProvincesOrCities(0),context);
+        Single<List<VM_Machinery>> data = api_powerSupply.getMyMachineries(userId, tbl_states.getProvincesOrCities(0), context);
         dispose_getVals = data.subscribeWith(new DisposableSingleObserver<List<VM_Machinery>>() {
             @Override
             public void onSuccess(List<VM_Machinery> vm_machineries) {
@@ -83,6 +88,25 @@ public class P_MyMachineriesFragment {
         });
     }
 
+    public void deleteMachinery(int id, RemoveSupplyNetwork removeSupplyNetwork) {
+        String apiKey = tbl_notification.getToken(context);
+        Single<VM_Message> data = api_powerSupply.deleteMachinry(id, apiKey);
+        s_myMachineriesFragment.onLoadingDelete(true);
+        dispose_deleteMachinery = data.subscribeWith(new DisposableSingleObserver<VM_Message>() {
+            @Override
+            public void onSuccess(VM_Message message) {
+                s_myMachineriesFragment.onLoadingDelete(false);
+                removeSupplyNetwork.onSuccess(message);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                s_myMachineriesFragment.onLoadingDelete(false);
+                removeSupplyNetwork.onError(Error.GetErrorVolley(e.toString()));
+            }
+        });
+    }
+
     public void cancel(String tag) {
         api_powerSupply.cancel(tag, context);
 
@@ -92,6 +116,10 @@ public class P_MyMachineriesFragment {
 
         if (dispose_setVals != null) {
             dispose_setVals.dispose();
+        }
+
+        if (dispose_deleteMachinery != null) {
+            dispose_deleteMachinery.dispose();
         }
     }
 }

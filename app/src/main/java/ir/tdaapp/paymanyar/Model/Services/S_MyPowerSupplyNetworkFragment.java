@@ -13,4 +13,5 @@ public interface S_MyPowerSupplyNetworkFragment {
     void onFinish();
     void noAccount();
     void onEmpty();
+    void onLoadingDelete(boolean load);
 }

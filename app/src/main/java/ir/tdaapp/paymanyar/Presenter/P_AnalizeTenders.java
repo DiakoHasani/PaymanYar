@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -236,7 +238,7 @@ public class P_AnalizeTenders {
                                 s_analizeTenders.onSuccess();
                             } else {
                                 s_analizeTenders.onLoading(false);
-                                Toast.makeText(context, message.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toasty.error(context, message.getMessage(), Toast.LENGTH_SHORT,true).show();
                             }
                         }
 

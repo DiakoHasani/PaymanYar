@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 
@@ -297,6 +298,14 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
     public void onShowMenuLoginNavigation() {
         Menu nav_Menu = nav_View.getMenu();
         nav_Menu.findItem(R.id.menu_Login).setVisible(true);
+    }
+
+    /**
+     * در اینجا ورژن اپلیکیشن برگشت داده می شود
+     * **/
+    @Override
+    public float getApplicationVersion() {
+        return versionApplication;
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_utility.Codes.Replace;
 import ir.tdaapp.li_volley.Enum.ResaultCode;
 import ir.tdaapp.paymanyar.Model.Adapters.SupportAdapter;
@@ -220,7 +222,7 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
 
     @Override
     public void onCreateAccount() {
-        Toast.makeText(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Create_an_account_first), Toast.LENGTH_SHORT,true).show();
         ((MainActivity) getActivity()).onAddFragment(new LoginFragment(), 0, 0, true, LoginFragment.TAG);
         btn_Send.setEnabled(true);
     }
@@ -245,7 +247,7 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
                 break;
         }
 
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
         btn_Send.setEnabled(false);
     }
 
@@ -262,7 +264,13 @@ public class SupportFragment extends BaseFragment implements S_SupportFragment, 
 
     @Override
     public void onFinishSend(VM_Message message) {
-        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        txt_Message.setText("");
+        if (message.isResult()){
+            Toasty.success(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
+        }else{
+            Toasty.error(getContext(), message.getMessage(), Toast.LENGTH_SHORT,true).show();
+        }
+
         btn_Send.setEnabled(true);
     }
 

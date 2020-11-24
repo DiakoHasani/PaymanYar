@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -49,6 +50,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import es.dmoral.toasty.Toasty;
 import ir.tdaapp.li_image.ImagesCodes.CompressImage;
 import ir.tdaapp.li_image.ImagesCodes.GetByCamera;
 import ir.tdaapp.li_image.ImagesCodes.GetByGalery;
@@ -89,7 +91,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * مربوط به افزودن ماشین آلات
  **/
-public class AddMachineryFragment extends BaseFragment implements S_AddMachineryFragment,View.OnClickListener {
+public class AddMachineryFragment extends BaseFragment implements S_AddMachineryFragment, View.OnClickListener {
 
     public final static String TAG = "AddMachineryFragment";
 
@@ -195,6 +197,29 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
                 } catch (Exception e) {
                 }
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        cmb_AdType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                VM_AdTypeMachinery item = ((VM_AdTypeMachinery) adapterView.getSelectedItem());
+                switch (item.getAdTypeCondition()){
+                    case title:
+                    case Sales:
+                    case RentGive:
+                        txt_Machinery.setHint(getString(R.string.InputMachinery));
+                        break;
+                    case Buy:
+                    case RentTake:
+                        txt_Machinery.setHint(getString(R.string.RequestInputMachinery));
+                        break;
+                }
             }
 
             @Override
@@ -376,7 +401,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
             val.setPath(file.getPath());
             fileUploadItemAdapter.addFile(val);
         } else {
-            Toast.makeText(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT).show();
+            Toasty.error(getContext(), getString(R.string.error_In_Your_File), Toast.LENGTH_SHORT,true).show();
         }
     }
 
@@ -385,7 +410,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
      **/
     @Override
     public void onNotValidFile(String errorText) {
-        Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), errorText, Toast.LENGTH_SHORT,true).show();
     }
 
     /**
@@ -441,7 +466,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
      **/
     @Override
     public void notValid() {
-        Toast.makeText(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), getString(R.string.Please_enter_full_values), Toast.LENGTH_SHORT,true).show();
     }
 
     /**
@@ -450,11 +475,11 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
     @Override
     public VM_PostMachinery getInputUser() {
 
-        VM_PostMachinery model=new VM_PostMachinery();
+        VM_PostMachinery model = new VM_PostMachinery();
 
         try {
 
-            model.setAdType(((VM_AdTypeMachinery)cmb_AdType.getSelectedItem()));
+            model.setAdType(((VM_AdTypeMachinery) cmb_AdType.getSelectedItem()));
             model.setMachineryName(txt_Machinery.getText().toString());
             model.setState(((VM_ProvincesAndCities) cmb_Provinces.getSelectedItem()).getId());
             model.setCity(((VM_ProvincesAndCities) cmb_City.getSelectedItem()).getId());
@@ -464,7 +489,8 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
             model.setUserId(((MainActivity) getActivity()).getTbl_user().getUserId(getContext()));
             model.setTitle(txt_Title.getText().toString());
 
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return model;
     }
@@ -627,7 +653,7 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
                 text = getString(R.string.There_Was_an_Error_In_The_Application);
                 break;
         }
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), text, Toast.LENGTH_SHORT,true).show();
 
         progress_Loading_GetDetail.setVisibility(View.GONE);
         btn_Refresh_Loading_GetDetail.setVisibility(View.VISIBLE);
@@ -672,9 +698,9 @@ public class AddMachineryFragment extends BaseFragment implements S_AddMachinery
             }
 
             //اگر آگهی ویژه باشد یعنی قبلا ارتقا داده شده و دکمه ارتقا غیرفعال می شود
-            if (model.isSpecial()) {
-                enableUpgradeOrder(false);
-            }
+//            if (model.isSpecial()) {
+//                enableUpgradeOrder(false);
+//            }
 
             List<String> paths = model.getImages();
             for (int i = 0; i < paths.size(); i++) {
