@@ -675,13 +675,6 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
                 }
             }
 
-            //در اینجا تایمر ست می شود
-            if (analiseInfo.getTimer() != null) {
-                if (!analiseInfo.getTimer().equalsIgnoreCase("") && !analiseInfo.getTimer().equalsIgnoreCase("null")) {
-                    startTimer(analiseInfo.getTimer().replace(",", ":"));
-                }
-            }
-
             //در اینجا فایل ها ست می شوند
             if (analiseInfo.getFileUrls() != null) {
 
@@ -766,12 +759,27 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
                 lbl_doing.setTextColor(getResources().getColor(R.color.colorTitle));
                 lbl_doing.setText(getString(R.string.doing));
+
+                //در اینجا تایمر ست می شود
+                if (analiseInfo.getTimer() != null) {
+                    if (!analiseInfo.getTimer().equalsIgnoreCase("") && !analiseInfo.getTimer().equalsIgnoreCase("null")) {
+                        startTimer(analiseInfo.getTimer().replace(",", ":"));
+                    }else if (analiseInfo.getTimer().equalsIgnoreCase("")){
+                        lbl_doing.setText(getString(R.string.as_soon_as_possible));
+                        lbl_doing.setTextColor(getResources().getColor(R.color.colorError));
+                    }else if (analiseInfo.getTimer().equalsIgnoreCase("null")){
+                        lbl_doing.setText(getString(R.string.Done));
+                        lbl_doing.setTextColor(getResources().getColor(R.color.colorError));
+                    }
+                }
+
                 switch (analiseInfo.getStep()) {
                     case sendOrder:
                     case orderCheck:
                         step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         step_orderCheck_Background.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));
                         onAnimation_Step_pay(analiseInfo.getStep(), true);
+                        lbl_doing.setText("");
                         break;
                     case duration:
                     case orderCost:
@@ -784,6 +792,7 @@ public class AnalizeTendersFragment extends BaseFragment implements S_AnalizeTen
 
                         step_pay.setEnabled(true);
                         onAnimation_Step_pay(analiseInfo.getStep(), true);
+                        lbl_doing.setText("");
                         break;
                     case doing:
                         step_sendOrder.setBackground(getActivity().getResources().getDrawable(R.drawable.background_enable_step));

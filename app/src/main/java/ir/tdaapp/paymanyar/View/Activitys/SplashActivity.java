@@ -27,23 +27,23 @@ public class SplashActivity extends AppCompatActivity {
             Animation aniFade=AnimationUtils.loadAnimation(this,R.anim.fadein);
             image2.setAnimation(aniFade);
             image2.setVisibility(View.VISIBLE);
-        },500);
+        },1000);
 
         new Handler().postDelayed(() -> {
             Animation aniFade=AnimationUtils.loadAnimation(this,R.anim.fadein);
             image3.setAnimation(aniFade);
             image3.setVisibility(View.VISIBLE);
-        },1000);
+        },1500);
 
         new Handler().postDelayed(() -> {
             Animation aniFade=AnimationUtils.loadAnimation(this,R.anim.fadein);
             image4.setAnimation(aniFade);
             image4.setVisibility(View.VISIBLE);
-        },1500);
+        },2000);
 
         new Handler().postDelayed(() -> {
             startActivity(new Intent(this, MainActivity.class));
             finish();
-        }, 2500);
+        }, 3000);
     }
 }
