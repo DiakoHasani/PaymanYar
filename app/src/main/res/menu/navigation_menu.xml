@@ -12,6 +12,11 @@
         android:icon="@drawable/ic_login"/>
 
     <item
+        android:id="@+id/menu_Ads"
+        android:title="@string/Advertising"
+        android:icon="@drawable/ic_adds"/>
+
+    <item
         android:id="@+id/menu_smsBox"
         android:title="@string/smsBox"
         android:icon="@drawable/ic_sms_black"/>

@@ -77,11 +77,11 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.25"
                     android:layout_margin="5dp">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/btn_Tools"
+                        android:id="@+id/btn_TenderNotification"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:cardElevation="2dp"
@@ -102,21 +102,21 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:src="@drawable/ic_tools"
+                                android:layout_weight="2.5"
+                                android:src="@drawable/ic_tenders"
                                 android:padding="5dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="0.5"/>
+                                android:layout_weight="0.25"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="@string/Tools"
+                                android:text="@string/Tenders"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="14dp"
                                 android:textColor="@color/colorBlack"/>
@@ -241,11 +241,11 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.75"
                     android:layout_margin="5dp">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/btn_TenderNotification"
+                        android:id="@+id/btn_Tools"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:cardElevation="2dp"
@@ -267,7 +267,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="2"
-                                android:src="@drawable/ic_tenders"
+                                android:src="@drawable/ic_tools"
                                 android:padding="5dp"/>
 
                             <LinearLayout
@@ -280,7 +280,7 @@
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="@string/Tenders"
+                                android:text="@string/Tools"
                                 android:fontFamily="@font/vazir"
                                 android:textSize="14dp"
                                 android:textColor="@color/colorBlack"/>
@@ -290,7 +290,6 @@
                     </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
-
 
             </LinearLayout>
 

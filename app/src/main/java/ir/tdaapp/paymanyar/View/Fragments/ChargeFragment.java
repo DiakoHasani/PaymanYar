@@ -112,7 +112,7 @@ public class ChargeFragment extends BaseFragment implements S_ChargeFragment,Vie
         chargeAdapter.setOnClickChargeItem(charge -> {
 
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(FilterWideDialog.TAG);
+            Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(BuyChargeDialog.TAG);
 
             if (prev == null) {
                 ft.addToBackStack(null);

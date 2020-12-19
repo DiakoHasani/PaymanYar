@@ -24,6 +24,7 @@ import ir.tdaapp.li_volley.Volleys.PostJsonObject_And_GetJsonArrayVolley;
 import ir.tdaapp.paymanyar.Model.Enums.AdType;
 import ir.tdaapp.paymanyar.Model.Enums.AdTypeCondition;
 import ir.tdaapp.paymanyar.Model.Enums.AdTypeMaterial;
+import ir.tdaapp.paymanyar.Model.Enums.NetworkItemType;
 import ir.tdaapp.paymanyar.Model.Enums.StepsAddPower;
 import ir.tdaapp.paymanyar.Model.Services.onUploadFiles;
 import ir.tdaapp.paymanyar.Model.Utilitys.Base_Api;
@@ -113,8 +114,22 @@ public class Api_PowerSupply extends Base_Api {
                                     if (!object.getString("DateInsert").equalsIgnoreCase("null"))
                                         supplyNetwork.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
 
-                                    if (!object.getString("Special").equalsIgnoreCase("null"))
-                                        supplyNetwork.setSpecial(object.getBoolean("Special"));
+                                    if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                        switch (object.getInt("Special")) {
+                                            case 0:
+                                                supplyNetwork.setNetworkItemType(NetworkItemType.normal);
+                                                supplyNetwork.setSpecial(false);
+                                                break;
+                                            case 1:
+                                                supplyNetwork.setNetworkItemType(NetworkItemType.bronze);
+                                                supplyNetwork.setSpecial(true);
+                                                break;
+                                            case 2:
+                                                supplyNetwork.setNetworkItemType(NetworkItemType.silver);
+                                                supplyNetwork.setSpecial(true);
+                                                break;
+                                        }
+                                    }
 
                                     if (!object.getString("JobTitle").equalsIgnoreCase("null")) {
                                         supplyNetwork.setJobTitle(object.getString("JobTitle"));
@@ -252,6 +267,23 @@ public class Api_PowerSupply extends Base_Api {
                                             machinery.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                         }
 
+                                        if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                            switch (object.getInt("Special")) {
+                                                case 0:
+                                                    machinery.setNetworkItemType(NetworkItemType.normal);
+                                                    machinery.setSpecial(false);
+                                                    break;
+                                                case 1:
+                                                    machinery.setNetworkItemType(NetworkItemType.bronze);
+                                                    machinery.setSpecial(true);
+                                                    break;
+                                                case 2:
+                                                    machinery.setNetworkItemType(NetworkItemType.silver);
+                                                    machinery.setSpecial(true);
+                                                    break;
+                                            }
+                                        }
+
                                     } catch (Exception e) {
                                     } finally {
                                         vals.add(machinery);
@@ -354,6 +386,23 @@ public class Api_PowerSupply extends Base_Api {
                                         material.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                     }
 
+                                    if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                        switch (object.getInt("Special")) {
+                                            case 0:
+                                                material.setNetworkItemType(NetworkItemType.normal);
+                                                material.setSpecial(false);
+                                                break;
+                                            case 1:
+                                                material.setNetworkItemType(NetworkItemType.bronze);
+                                                material.setSpecial(true);
+                                                break;
+                                            case 2:
+                                                material.setNetworkItemType(NetworkItemType.silver);
+                                                material.setSpecial(true);
+                                                break;
+                                        }
+                                    }
+
                                 } catch (Exception e) {
                                 } finally {
                                     vals.add(material);
@@ -431,9 +480,6 @@ public class Api_PowerSupply extends Base_Api {
 
                             if (!object.getString("Description").equalsIgnoreCase("null"))
                                 detailPowerSupply.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
-
-                            if (!object.getString("Special").equalsIgnoreCase("null"))
-                                detailPowerSupply.setSpecial(object.getBoolean("Special"));
 
                             JSONArray images = object.getJSONArray("AllPicsAd");
 
@@ -1036,8 +1082,22 @@ public class Api_PowerSupply extends Base_Api {
                                     if (!object.getString("DateInsert").equalsIgnoreCase("null"))
                                         supplyNetwork.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
 
-                                    if (!object.getString("Special").equalsIgnoreCase("null"))
-                                        supplyNetwork.setSpecial(object.getBoolean("Special"));
+                                    if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                        switch (object.getInt("Special")) {
+                                            case 0:
+                                                supplyNetwork.setNetworkItemType(NetworkItemType.normal);
+                                                supplyNetwork.setSpecial(false);
+                                                break;
+                                            case 1:
+                                                supplyNetwork.setNetworkItemType(NetworkItemType.bronze);
+                                                supplyNetwork.setSpecial(true);
+                                                break;
+                                            case 2:
+                                                supplyNetwork.setNetworkItemType(NetworkItemType.silver);
+                                                supplyNetwork.setSpecial(true);
+                                                break;
+                                        }
+                                    }
 
                                     if (!object.getString("JobTitle").equalsIgnoreCase("null"))
                                         supplyNetwork.setJobTitle(object.getString("JobTitle"));
@@ -1164,6 +1224,23 @@ public class Api_PowerSupply extends Base_Api {
                                         machinery.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                     }
 
+                                    if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                        switch (object.getInt("Special")) {
+                                            case 0:
+                                                machinery.setNetworkItemType(NetworkItemType.normal);
+                                                machinery.setSpecial(false);
+                                                break;
+                                            case 1:
+                                                machinery.setNetworkItemType(NetworkItemType.bronze);
+                                                machinery.setSpecial(true);
+                                                break;
+                                            case 2:
+                                                machinery.setNetworkItemType(NetworkItemType.silver);
+                                                machinery.setSpecial(true);
+                                                break;
+                                        }
+                                    }
+
                                 } catch (Exception e) {
                                 } finally {
                                     vals.add(machinery);
@@ -1253,6 +1330,23 @@ public class Api_PowerSupply extends Base_Api {
                                     material.setDate(Replace.Number_en_To_fa(object.getString("DateInsert")));
                                 }
 
+                                if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                    switch (object.getInt("Special")) {
+                                        case 0:
+                                            material.setNetworkItemType(NetworkItemType.normal);
+                                            material.setSpecial(false);
+                                            break;
+                                        case 1:
+                                            material.setNetworkItemType(NetworkItemType.bronze);
+                                            material.setSpecial(true);
+                                            break;
+                                        case 2:
+                                            material.setNetworkItemType(NetworkItemType.silver);
+                                            material.setSpecial(true);
+                                            break;
+                                    }
+                                }
+
                             } catch (Exception e) {
                             } finally {
                                 vals.add(material);
@@ -1324,8 +1418,17 @@ public class Api_PowerSupply extends Base_Api {
                                 model.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             //ویژه
-                            if (!object.getString("Special").equalsIgnoreCase("null"))
-                                model.setSpecial(object.getBoolean("Special"));
+                            if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                switch (object.getInt("Special")) {
+                                    case 0:
+                                        model.setSpecial(false);
+                                        break;
+                                    case 1:
+                                    case 2:
+                                        model.setSpecial(true);
+                                        break;
+                                }
+                            }
 
                             //در اینجا وضعیت سفارش گرفته می شود
                             if (!object.getString("IsActive").equalsIgnoreCase("null")) {
@@ -1414,8 +1517,17 @@ public class Api_PowerSupply extends Base_Api {
                                 model.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             //ویژه
-                            if (!object.getString("Special").equalsIgnoreCase("null"))
-                                model.setSpecial(object.getBoolean("Special"));
+                            if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                switch (object.getInt("Special")) {
+                                    case 0:
+                                        model.setSpecial(false);
+                                        break;
+                                    case 1:
+                                    case 2:
+                                        model.setSpecial(true);
+                                        break;
+                                }
+                            }
 
                             //عنوان
                             if (!object.getString("Title").equalsIgnoreCase("null"))
@@ -1500,8 +1612,17 @@ public class Api_PowerSupply extends Base_Api {
                                 material.setDescription(Replace.Number_en_To_fa(object.getString("Description")));
 
                             //ویژه
-                            if (!object.getString("Special").equalsIgnoreCase("null"))
-                                material.setSpecial(object.getBoolean("Special"));
+                            if (!object.getString("Special").equalsIgnoreCase("null")) {
+                                switch (object.getInt("Special")) {
+                                    case 0:
+                                        material.setSpecial(false);
+                                        break;
+                                    case 1:
+                                    case 2:
+                                        material.setSpecial(true);
+                                        break;
+                                }
+                            }
 
                             //عنوان
                             if (!object.getString("Title").equalsIgnoreCase("null"))

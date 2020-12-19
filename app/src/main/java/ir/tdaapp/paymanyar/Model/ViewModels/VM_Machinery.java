@@ -1,6 +1,7 @@
 package ir.tdaapp.paymanyar.Model.ViewModels;
 
 import ir.tdaapp.paymanyar.Model.Enums.AdTypeCondition;
+import ir.tdaapp.paymanyar.Model.Enums.NetworkItemType;
 
 /**
  * مربوط به آیتم های رسایکلر صفحه ماشین آلات
@@ -32,6 +33,9 @@ public class VM_Machinery {
 
     //برای ویژه بودن
     boolean special;
+
+    //مربوط به عادی یا برنزی یا نقره ای بودن آگهی می باشد
+    NetworkItemType networkItemType;
 
     public int getId() {
         return id;
@@ -103,5 +107,13 @@ public class VM_Machinery {
 
     public void setSpecial(boolean special) {
         this.special = special;
+    }
+
+    public NetworkItemType getNetworkItemType() {
+        return networkItemType;
+    }
+
+    public void setNetworkItemType(NetworkItemType networkItemType) {
+        this.networkItemType = networkItemType;
     }
 }

@@ -395,6 +395,9 @@ public class HomeFragment extends BaseFragment implements S_HomeFragment, View.O
             case R.id.menu_telegramChannel:
                 openUrl.getTelegram("http://telegram.me/paimanyar", getContext());
                 break;
+            case R.id.menu_Ads:
+                ((MainActivity) getActivity()).onAddFragment(new AdvertisingFragment(), R.anim.fadein, R.anim.fadeout, true, AdvertisingFragment.TAG);
+                break;
         }
 
         drawer.closeDrawers();

@@ -117,6 +117,7 @@
     <string name="Hour">ساعت</string>
     <string name="LessThanAnHour">کمتر از یک ساعت</string>
     <string name="BuyCharge">خرید شارژ</string>
+    <string name="BuyAd">خرید تبلیغ</string>
     <string name="TenderAmount">مبلغ مناقصه</string>
     <string name="AmountToToman">مبلغ به تومان</string>
     <string name="Number_of_Participants">تعداد شرکت کنندگان</string>
@@ -261,5 +262,7 @@
     <string name="medium">زیاد</string>
     <string name="Much">بسیار زیاد</string>
     <string name="Agreement">توافقی</string>
+    <string name="Special">ویژه</string>
+    <string name="Advertising">تبلیغات</string>
 
 </resources>

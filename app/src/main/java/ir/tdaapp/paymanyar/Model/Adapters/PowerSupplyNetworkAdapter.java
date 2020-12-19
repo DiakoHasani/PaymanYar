@@ -52,7 +52,7 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
 
     public void delete(int id) {
         for (int i = 0; i < powerSupplyNetworks.size(); i++) {
-            if (powerSupplyNetworks.get(i).getId()==id){
+            if (powerSupplyNetworks.get(i).getId() == id) {
                 powerSupplyNetworks.remove(i);
                 notifyItemRemoved(i);
                 notifyItemRangeChanged(i, powerSupplyNetworks.size());
@@ -87,6 +87,29 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
                 holder.setAnimationSpecial(holder.layout2, false);
             }
 
+            //در اینجا ستاره آگهی ها که مربوط به عادی یا برنزی یا نقره ای بودن آگهی ها می باشد ست می شود
+            //normal بدون ستاره
+            //bronze یک ستاره
+            //silver دو ستاره
+            if (powerSupplyNetworks.get(position).getNetworkItemType() != null) {
+                switch (powerSupplyNetworks.get(position).getNetworkItemType()) {
+                    case normal:
+                        holder.star1ImageView.setVisibility(View.GONE);
+                        holder.star2ImageView.setVisibility(View.GONE);
+                        break;
+                    case bronze:
+                        holder.star1ImageView.setVisibility(View.VISIBLE);
+                        break;
+                    case silver:
+                        holder.star1ImageView.setVisibility(View.VISIBLE);
+                        holder.star2ImageView.setVisibility(View.VISIBLE);
+                        break;
+                }
+            } else {
+                holder.star1ImageView.setVisibility(View.GONE);
+                holder.star2ImageView.setVisibility(View.GONE);
+            }
+
             Glide.with(context)
                     .load(powerSupplyNetworks.get(position).getImage())
                     .error(R.drawable.no_photography)
@@ -113,7 +136,7 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
 
         CardView layout;
         TextView lbl_job, lbl_name, lbl_work_experience, lbl_cellPhone, lbl_City, lbl_Date;
-        ImageView img, removeButton;
+        ImageView img, removeButton, star1ImageView, star2ImageView;
         LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -139,6 +162,8 @@ public class PowerSupplyNetworkAdapter extends RecyclerView.Adapter<PowerSupplyN
             img = view.findViewById(R.id.img);
             layout2 = view.findViewById(R.id.layout2);
             removeButton = view.findViewById(R.id.removeButton);
+            star1ImageView = view.findViewById(R.id.star1ImageView);
+            star2ImageView = view.findViewById(R.id.star2ImageView);
         }
 
         /**

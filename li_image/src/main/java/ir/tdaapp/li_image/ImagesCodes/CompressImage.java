@@ -18,18 +18,18 @@ import id.zelory.compressor.Compressor;
 
 public class CompressImage {
 
-    int Width,Height,Quality;
+    int Width, Height, Quality;
     Context context;
 
-    public CompressImage(int Width,int Height,int Quality,Context context){
-        this.Width=Width;
-        this.Height=Height;
-        this.Quality=Quality;
-        this.context=context;
+    public CompressImage(int Width, int Height, int Quality, Context context) {
+        this.Width = Width;
+        this.Height = Height;
+        this.Quality = Quality;
+        this.context = context;
     }
 
-    public Bitmap Compress(String Path){
-        File file=new File(Path);
+    public Bitmap Compress(String Path) {
+        File file = new File(Path);
         Bitmap img = null;
 
         try {
@@ -41,7 +41,7 @@ public class CompressImage {
                     .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES).getAbsolutePath())
                     .compressToBitmap(file);
-            img=compressedImage;
+            img = compressedImage;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class CompressImage {
 
         String Name = "temp.jpg";
 
-        File file=new File(SaveImageToMob.SaveImageCamera(Name,bmp));
+        File file = new File(SaveImageToMob.SaveImageCamera(Name, bmp));
         Bitmap img = null;
         try {
             Bitmap compressedImage = new Compressor(context)

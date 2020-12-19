@@ -1,5 +1,7 @@
 package ir.tdaapp.paymanyar.Model.ViewModels;
 
+import ir.tdaapp.paymanyar.Model.Enums.NetworkItemType;
+
 /**
  * مربوط به آیتم های رسایکلر صفحه شبکه تامین مالی
  * **/
@@ -29,6 +31,9 @@ public class VM_PowerSupplyNetwork {
 
     //برای ویژه بودن
     boolean special;
+
+    //مربوط به عادی یا برنزی یا نقره ای بودن آگهی می باشد
+    NetworkItemType networkItemType;
 
     public int getId() {
         return id;
@@ -100,5 +105,13 @@ public class VM_PowerSupplyNetwork {
 
     public void setSpecial(boolean special) {
         this.special = special;
+    }
+
+    public NetworkItemType getNetworkItemType() {
+        return networkItemType;
+    }
+
+    public void setNetworkItemType(NetworkItemType networkItemType) {
+        this.networkItemType = networkItemType;
     }
 }

@@ -63,6 +63,8 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
 
             holder.specialLayout.setVisibility(View.VISIBLE);
 
+            holder.specialTextView.setVisibility(View.VISIBLE);
+
             if (charges.get(position).getTotalHour() > 0) {
 
                 int day = charges.get(position).getTotalHour() / 24;
@@ -91,7 +93,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
         } else {
             holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_charge_store));
 //            holder.anim.stopShimmerAnimation();
-
+            holder.specialTextView.setVisibility(View.GONE);
             holder.specialLayout.setVisibility(View.GONE);
         }
 
@@ -115,6 +117,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
         ImageView img;
         ShimmerFrameLayout anim;
         LinearLayout specialLayout, hourLayout, dayLayout;
+        TextView specialTextView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,6 +137,7 @@ public class ChargeAdapter extends RecyclerView.Adapter<ChargeAdapter.MyViewHold
             hourLayout = view.findViewById(R.id.hourLayout);
             dayLayout = view.findViewById(R.id.dayLayout);
             lbl_LessThanAnHour = view.findViewById(R.id.lbl_LessThanAnHour);
+            specialTextView = view.findViewById(R.id.specialTextView);
         }
     }
 

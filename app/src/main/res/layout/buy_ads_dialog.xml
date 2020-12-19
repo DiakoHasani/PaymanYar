@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:clickable="true"
+    android:textDirection="rtl"
+    android:layoutDirection="rtl">
+
+
+    <RelativeLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:fontFamily="@font/vazir"
+            android:textColor="@color/colorTitle"
+            android:text="@string/BuyAd"
+            android:layout_marginRight="24dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorUnderline"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head"
+        android:orientation="horizontal"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="100dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_charge_store" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vazir"
+                android:textColor="@color/colorTitle"
+                android:textSize="16dp"
+                android:singleLine="true"/>
+
+            <TextView
+                android:id="@+id/lbl_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vazir"
+                android:textColor="@color/colorSubTitle"
+                android:textSize="16dp"
+                android:singleLine="true"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/main">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorUnderline"
+            android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/btn_Cancel"
+                android:layout_width="64dp"
+                android:layout_height="36dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/Cancel"
+                android:gravity="center"
+                android:fontFamily="@font/vazir"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimary"
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/btn_Buy"
+                android:layout_width="64dp"
+                android:layout_height="36dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/Buy"
+                android:gravity="center"
+                android:fontFamily="@font/vazir"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimary"
+                android:clickable="true"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

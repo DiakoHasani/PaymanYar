@@ -52,7 +52,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.MyView
 
     public void delete(int id) {
         for (int i = 0; i < vals.size(); i++) {
-            if (vals.get(i).getId()==id){
+            if (vals.get(i).getId() == id) {
                 vals.remove(i);
                 notifyItemRemoved(i);
                 notifyItemRangeChanged(i, vals.size());
@@ -80,9 +80,9 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.MyView
 
             //در اینجا انیمیشن آگهی ویژه ست می شود
             if (vals.get(position).isSpecial()) {
-                holder.setAnimationSpecial(holder.layout2,true);
+                holder.setAnimationSpecial(holder.layout2, true);
             } else {
-                holder.setAnimationSpecial(holder.layout2,false);
+                holder.setAnimationSpecial(holder.layout2, false);
             }
 
             switch (vals.get(position).getAdType()) {
@@ -92,6 +92,29 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.MyView
                 case Buy:
                     holder.lbl_AdType.setText(context.getString(R.string.Buy));
                     break;
+            }
+
+            //در اینجا ستاره آگهی ها که مربوط به عادی یا برنزی یا نقره ای بودن آگهی ها می باشد ست می شود
+            //normal بدون ستاره
+            //bronze یک ستاره
+            //silver دو ستاره
+            if (vals.get(position).getNetworkItemType() != null) {
+                switch (vals.get(position).getNetworkItemType()) {
+                    case normal:
+                        holder.star1ImageView.setVisibility(View.GONE);
+                        holder.star2ImageView.setVisibility(View.GONE);
+                        break;
+                    case bronze:
+                        holder.star1ImageView.setVisibility(View.VISIBLE);
+                        break;
+                    case silver:
+                        holder.star1ImageView.setVisibility(View.VISIBLE);
+                        holder.star2ImageView.setVisibility(View.VISIBLE);
+                        break;
+                }
+            } else {
+                holder.star1ImageView.setVisibility(View.GONE);
+                holder.star2ImageView.setVisibility(View.GONE);
             }
 
             Glide.with(context)
@@ -120,7 +143,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.MyView
 
         CardView layout;
         TextView lbl_Material, lbl_AdType, lbl_Price, lbl_cellPhone, lbl_City, lbl_Date;
-        ImageView img,removeButton;
+        ImageView img, removeButton, star1ImageView, star2ImageView;
         LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -128,9 +151,9 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.MyView
 
             findItem(itemView);
 
-            if (showDeleteButton){
+            if (showDeleteButton) {
                 removeButton.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 removeButton.setVisibility(View.GONE);
             }
         }
@@ -146,6 +169,8 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialAdapter.MyView
             img = view.findViewById(R.id.img);
             layout2 = view.findViewById(R.id.layout2);
             removeButton = view.findViewById(R.id.removeButton);
+            star1ImageView = view.findViewById(R.id.star1ImageView);
+            star2ImageView = view.findViewById(R.id.star2ImageView);
         }
 
         /**

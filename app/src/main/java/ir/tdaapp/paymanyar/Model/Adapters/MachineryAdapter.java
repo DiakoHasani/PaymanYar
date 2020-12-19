@@ -99,6 +99,29 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
                 holder.setAnimationSpecial(holder.layout2, false);
             }
 
+            //در اینجا ستاره آگهی ها که مربوط به عادی یا برنزی یا نقره ای بودن آگهی ها می باشد ست می شود
+            //normal بدون ستاره
+            //bronze یک ستاره
+            //silver دو ستاره
+            if (vals.get(position).getNetworkItemType() != null) {
+                switch (vals.get(position).getNetworkItemType()) {
+                    case normal:
+                        holder.star1ImageView.setVisibility(View.GONE);
+                        holder.star2ImageView.setVisibility(View.GONE);
+                        break;
+                    case bronze:
+                        holder.star1ImageView.setVisibility(View.VISIBLE);
+                        break;
+                    case silver:
+                        holder.star1ImageView.setVisibility(View.VISIBLE);
+                        holder.star2ImageView.setVisibility(View.VISIBLE);
+                        break;
+                }
+            } else {
+                holder.star1ImageView.setVisibility(View.GONE);
+                holder.star2ImageView.setVisibility(View.GONE);
+            }
+
             Glide.with(context)
                     .load(vals.get(position).getImage())
                     .error(R.drawable.no_photography)
@@ -125,7 +148,7 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
 
         CardView layout;
         TextView lbl_Machinery, lbl_AdTypeCondition, lbl_Price, lbl_cellPhone, lbl_City, lbl_Date;
-        ImageView img, removeButton;
+        ImageView img, removeButton,star1ImageView, star2ImageView;
         LinearLayout layout2;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -150,6 +173,8 @@ public class MachineryAdapter extends RecyclerView.Adapter<MachineryAdapter.MyVi
             img = view.findViewById(R.id.img);
             layout2 = view.findViewById(R.id.layout2);
             removeButton = view.findViewById(R.id.removeButton);
+            star1ImageView = view.findViewById(R.id.star1ImageView);
+            star2ImageView = view.findViewById(R.id.star2ImageView);
         }
 
         /**

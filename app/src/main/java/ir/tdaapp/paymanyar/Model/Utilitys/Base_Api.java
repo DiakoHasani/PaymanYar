@@ -14,12 +14,12 @@ import ir.tdaapp.li_volley.Volleys.PostJsonObjectVolley;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 
 public abstract class Base_Api {
-    public String ApiUrl = "http://tiptop.tdaapp.ir/api/";
-    public String SliderImageUrl = "http://tiptop.tdaapp.ir/Content/data/Sliders/";
-    public String ImageAd = "http://tiptop.tdaapp.ir/Content/data/Ad/";
-    public String PDFurl="http://tiptop.tdaapp.ir/Content/data/Books/";
-    public String Orderurl="http://tiptop.tdaapp.ir/Content/data/OrderFile/";
-    public String SupportImageurl="http://tiptop.tdaapp.ir/Content/data/Supporter/";
+    public String ApiUrl = "http://api.paimanyar.ir/api/";
+    public String SliderImageUrl = "http://api.paimanyar.ir/Content/data/Sliders/";
+    public String ImageAd = "http://api.paimanyar.ir/Content/data/Ad/";
+    public String PDFurl="http://api.paimanyar.ir/Content/data/Books/";
+    public String Orderurl="http://api.paimanyar.ir/Content/data/OrderFile/";
+    public String SupportImageurl="http://api.paimanyar.ir/Content/data/Supporter/";
 
     PostJsonObjectVolley volley_PostError;
     Disposable dispose_postError;
