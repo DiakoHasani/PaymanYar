@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.tuyenmonkey.mkloader.MKLoader;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import es.dmoral.toasty.Toasty;
@@ -19,7 +21,6 @@ import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_DetailSMS;
 import ir.tdaapp.paymanyar.Presenter.P_Detail_SMS_Dialog;
 import ir.tdaapp.paymanyar.R;
-import pl.droidsonroids.gif.GifImageView;
 
 public class Detail_SMS_Dialog extends BaseDialogFragment implements S_Detail_SMS_Dialog,View.OnClickListener {
 
@@ -34,7 +35,7 @@ public class Detail_SMS_Dialog extends BaseDialogFragment implements S_Detail_SM
     ImageView close;
     TextView lbl_Title,lbl_Description;
     P_Detail_SMS_Dialog p_detail_sms_dialog;
-    GifImageView loading;
+    MKLoader loading;
     ImageView btn_reload;
 
     @Nullable

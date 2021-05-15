@@ -29,11 +29,13 @@ import ir.tdaapp.paymanyar.Model.Services.S_MyMachineriesFragment;
 import ir.tdaapp.paymanyar.Model.Services.clickDeleteDialog;
 import ir.tdaapp.paymanyar.Model.Services.onClickPowerSupplyNetwork;
 import ir.tdaapp.paymanyar.Model.Utilitys.BaseFragment;
+import ir.tdaapp.paymanyar.Model.Utilitys.openUrl;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Machinery;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_Message;
 import ir.tdaapp.paymanyar.Presenter.P_MyMachineriesFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
+import ir.tdaapp.paymanyar.View.Dialogs.AdUpgradeDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.DeleteDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 
@@ -178,6 +180,17 @@ public class MyMachineriesFragment extends BaseFragment implements S_MyMachineri
                     }
                 });
                 deleteDialog.show(getActivity().getSupportFragmentManager(), DeleteDialog.TAG);
+            }
+
+            @Override
+            public void upgrade(int adId) {
+                if (adId != 0) {
+                    AdUpgradeDialog adUpgradeDialog = new AdUpgradeDialog(id -> {
+                        String url = paymentUrl + "PaymentAd/Index?Parmetr=" + adId + ":" + id + ":3";
+                        openUrl.getWeb(url, getContext());
+                    });
+                    adUpgradeDialog.show(getActivity().getSupportFragmentManager(), AdUpgradeDialog.TAG);
+                }
             }
         });
     }

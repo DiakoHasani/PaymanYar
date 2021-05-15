@@ -62,43 +62,44 @@
                 android:layout_centerVertical="true">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/vazir"
-                    android:gravity="center"
-                    android:text="@string/UpdatePlayStore"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:fontFamily="@font/vazir"
+                  android:gravity="center"
+                  android:paddingLeft="16dp"
+                  android:paddingRight="16dp"
+                  android:text="@string/UpdateBazaar"
+                  android:textColor="@color/colorWhite"
+                  android:textSize="14dp" />
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/btn_update"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                app:cardBackgroundColor="@color/colorPrimary"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="4dp"
-                android:clipToPadding="false"
-                app:cardUseCompatPadding="false"
-                android:clickable="true"
-                android:theme="@style/AppTheme.MyRipple"
-                android:layout_centerVertical="true">
+              android:id="@+id/btn_update"
+              android:layout_width="match_parent"
+              android:layout_height="36dp"
+              android:layout_centerVertical="true"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:layout_marginTop="8dp"
+              android:clickable="true"
+              android:clipToPadding="false"
+              android:theme="@style/AppTheme.MyRipple"
+              android:visibility="gone"
+              app:cardBackgroundColor="@color/colorPrimary"
+              app:cardCornerRadius="4dp"
+              app:cardUseCompatPadding="false">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/vazir"
-                    android:gravity="center"
-                    android:text="@string/Update"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="14dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:fontFamily="@font/vazir"
+                  android:gravity="center"
+                  android:paddingLeft="16dp"
+                  android:paddingRight="16dp"
+                  android:text="@string/Update"
+                  android:textColor="@color/colorWhite"
+                  android:textSize="14dp" />
 
             </androidx.cardview.widget.CardView>
 

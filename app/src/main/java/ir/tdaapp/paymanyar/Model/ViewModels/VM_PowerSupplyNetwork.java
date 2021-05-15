@@ -32,6 +32,9 @@ public class VM_PowerSupplyNetwork {
     //برای ویژه بودن
     boolean special;
 
+    //برای وضعیت تایید آگهی
+    boolean isActive;
+
     //مربوط به عادی یا برنزی یا نقره ای بودن آگهی می باشد
     NetworkItemType networkItemType;
 
@@ -113,5 +116,13 @@ public class VM_PowerSupplyNetwork {
 
     public void setNetworkItemType(NetworkItemType networkItemType) {
         this.networkItemType = networkItemType;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

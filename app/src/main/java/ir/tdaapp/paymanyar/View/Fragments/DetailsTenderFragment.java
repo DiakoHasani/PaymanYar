@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.tuyenmonkey.mkloader.MKLoader;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -32,7 +34,6 @@ import ir.tdaapp.paymanyar.Model.ViewModels.VM_InputAnalizeTender;
 import ir.tdaapp.paymanyar.Presenter.P_DetailsTenderFragment;
 import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
-import pl.droidsonroids.gif.GifImageView;
 
 //صفحه جزئیات مناقصه
 public class DetailsTenderFragment extends BaseFragment implements S_DetailsTenderFragment, View.OnClickListener {
@@ -73,7 +74,7 @@ public class DetailsTenderFragment extends BaseFragment implements S_DetailsTend
 
     ScrollView detail;
     ImageView btn_reload;
-    GifImageView loading;
+    MKLoader loading;
     CardView btn_Analize, btn_Share, btn_Star, btn_Right, btn_Left;
     TextView lbl_PaymanyarCode, lbl_NationalEstimate, lbl_ReopeningDate, lbl_SendSuggestionsUp, lbl_GetDocumentsUp;
     TextView lbl_Place_of_Receipt_of_Documents, lbl_TenderDevice, lbl_website, lbl_Description;

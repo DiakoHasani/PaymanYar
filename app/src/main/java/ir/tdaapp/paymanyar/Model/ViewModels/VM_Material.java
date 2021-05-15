@@ -5,115 +5,126 @@ import ir.tdaapp.paymanyar.Model.Enums.NetworkItemType;
 
 /**
  * مربوط به آیتم های رسایکلر صفحه مصالح
- * **/
+ **/
 public class VM_Material {
 
-    int id;
+  int id;
 
-    //دسته مصالح
-    String Material;
+  //دسته مصالح
+  String Material;
 
-    //نوع آگهی
-    AdTypeMaterial adType;
+  //نوع آگهی
+  AdTypeMaterial adType;
 
-    //قیمت
-    String price;
+  //قیمت
+  String price;
 
-    //شماره موبایل
-    String cellPhone;
+  //شماره موبایل
+  String cellPhone;
 
-    //نام استان و شهر
-    String ProvinceAndCity;
+  //نام استان و شهر
+  String ProvinceAndCity;
 
-    //تاریخ
-    String date;
+  //تاریخ
+  String date;
 
-    //عکس
-    String image;
+  //عکس
+  String image;
 
-    //برای ویژه بودن
-    boolean special;
+  //برای ویژه بودن
+  boolean special;
 
-    //مربوط به عادی یا برنزی یا نقره ای بودن آگهی می باشد
-    NetworkItemType networkItemType;
+  //برای وضعیت تایید آگهی
+  boolean isActive;
 
-    public int getId() {
-        return id;
-    }
+  //مربوط به عادی یا برنزی یا نقره ای بودن آگهی می باشد
+  NetworkItemType networkItemType;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getMaterial() {
-        return Material;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setMaterial(String material) {
-        Material = material;
-    }
+  public String getMaterial() {
+    return Material;
+  }
 
-    public AdTypeMaterial getAdType() {
-        return adType;
-    }
+  public void setMaterial(String material) {
+    Material = material;
+  }
 
-    public void setAdType(AdTypeMaterial adType) {
-        this.adType = adType;
-    }
+  public AdTypeMaterial getAdType() {
+    return adType;
+  }
 
-    public String getPrice() {
-        return price;
-    }
+  public void setAdType(AdTypeMaterial adType) {
+    this.adType = adType;
+  }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+  public String getPrice() {
+    return price;
+  }
 
-    public String getCellPhone() {
-        return cellPhone;
-    }
+  public void setPrice(String price) {
+    this.price = price;
+  }
 
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
-    }
+  public String getCellPhone() {
+    return cellPhone;
+  }
 
-    public String getProvinceAndCity() {
-        return ProvinceAndCity;
-    }
+  public void setCellPhone(String cellPhone) {
+    this.cellPhone = cellPhone;
+  }
 
-    public void setProvinceAndCity(String provinceAndCity) {
-        ProvinceAndCity = provinceAndCity;
-    }
+  public String getProvinceAndCity() {
+    return ProvinceAndCity;
+  }
 
-    public String getDate() {
-        return date;
-    }
+  public void setProvinceAndCity(String provinceAndCity) {
+    ProvinceAndCity = provinceAndCity;
+  }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+  public String getDate() {
+    return date;
+  }
 
-    public String getImage() {
-        return image;
-    }
+  public void setDate(String date) {
+    this.date = date;
+  }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+  public String getImage() {
+    return image;
+  }
 
-    public boolean isSpecial() {
-        return special;
-    }
+  public void setImage(String image) {
+    this.image = image;
+  }
 
-    public void setSpecial(boolean special) {
-        this.special = special;
-    }
+  public boolean isSpecial() {
+    return special;
+  }
 
-    public NetworkItemType getNetworkItemType() {
-        return networkItemType;
-    }
+  public void setSpecial(boolean special) {
+    this.special = special;
+  }
 
-    public void setNetworkItemType(NetworkItemType networkItemType) {
-        this.networkItemType = networkItemType;
-    }
+  public NetworkItemType getNetworkItemType() {
+    return networkItemType;
+  }
+
+  public void setNetworkItemType(NetworkItemType networkItemType) {
+    this.networkItemType = networkItemType;
+  }
+
+  public boolean isActive() {
+    return isActive;
+  }
+
+  public void setActive(boolean active) {
+    isActive = active;
+  }
 }

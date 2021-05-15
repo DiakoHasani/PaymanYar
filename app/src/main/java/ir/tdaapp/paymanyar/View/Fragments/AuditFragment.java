@@ -39,6 +39,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.tuyenmonkey.mkloader.MKLoader;
 
 import java.io.File;
 import java.util.List;
@@ -79,7 +80,6 @@ import ir.tdaapp.paymanyar.R;
 import ir.tdaapp.paymanyar.View.Activitys.MainActivity;
 import ir.tdaapp.paymanyar.View.Dialogs.ErrorAplicationDialog;
 import ir.tdaapp.paymanyar.View.Dialogs.FileTypeOrderDialog;
-import pl.droidsonroids.gif.GifImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
@@ -105,7 +105,7 @@ public class AuditFragment extends BaseFragment implements S_AuditFragment, View
     NestedScrollView scroll;
     Handler handler_clear;
     RelativeLayout step_sendOrder, step_orderCheck, step_duration, step_orderCost, step_pay, step_doing;
-    GifImageView progress_loading;
+    MKLoader progress_loading;
     ImageView btn_reload;
     RelativeLayout loading;
     TextView lbl_Time_Pay, lbl_price_order_cost, lbl_Time_duration;

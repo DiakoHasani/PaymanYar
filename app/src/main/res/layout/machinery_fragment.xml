@@ -250,4 +250,15 @@
         android:src="@drawable/ic_plus"
         android:clickable="true"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/btn_MyPowerSupply"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentLeft="true"
+      android:layout_marginBottom="16dp"
+      android:layout_marginLeft="16dp"
+      android:clickable="true"
+      android:src="@drawable/ic_my_ad" />
+
 </RelativeLayout>

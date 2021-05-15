@@ -2,52 +2,61 @@ package ir.tdaapp.paymanyar.Model.ViewModels;
 
 //ویو مدل مربوط به شارژ
 public class VM_Charge {
-    private int Id;
-    private String Title;
-    private String SubTitle;
-    private boolean IsSpecial;
-    private int TotalHour;
+  private int Id;
+  private String Title;
+  private String SubTitle;
+  private boolean IsSpecial;
+  private int TotalHour;
+  private int Days;
 
-    public VM_Charge() {
-    }
+  public VM_Charge() {
+  }
 
-    public int getId() {
-        return Id;
-    }
+  public int getId() {
+    return Id;
+  }
 
-    public void setId(int id) {
-        Id = id;
-    }
+  public void setId(int id) {
+    Id = id;
+  }
 
-    public String getTitle() {
-        return Title;
-    }
+  public String getTitle() {
+    return Title;
+  }
 
-    public void setTitle(String title) {
-        Title = title;
-    }
+  public void setTitle(String title) {
+    Title = title;
+  }
 
-    public String getSubTitle() {
-        return SubTitle;
-    }
+  public String getSubTitle() {
+    return SubTitle;
+  }
 
-    public void setSubTitle(String subTitle) {
-        SubTitle = subTitle;
-    }
+  public void setSubTitle(String subTitle) {
+    SubTitle = subTitle;
+  }
 
-    public boolean isSpecial() {
-        return IsSpecial;
-    }
+  public boolean isSpecial() {
+    return IsSpecial;
+  }
 
-    public void setSpecial(boolean special) {
-        IsSpecial = special;
-    }
+  public void setSpecial(boolean special) {
+    IsSpecial = special;
+  }
 
-    public int getTotalHour() {
-        return TotalHour;
-    }
+  public int getTotalHour() {
+    return TotalHour;
+  }
 
-    public void setTotalHour(int totalHour) {
-        TotalHour = totalHour;
-    }
+  public void setTotalHour(int totalHour) {
+    TotalHour = totalHour;
+  }
+
+  public int getDays() {
+    return Days;
+  }
+
+  public void setDays(int days) {
+    Days = days;
+  }
 }

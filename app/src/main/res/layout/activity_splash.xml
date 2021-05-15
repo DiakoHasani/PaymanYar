@@ -1,28 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/splash_image1">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/splashRoot"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/splash_image1">
 
     <RelativeLayout
-        android:id="@+id/image2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/splash_image2"
-        android:visibility="gone"/>
+      android:id="@+id/image2"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/splash_image2"
+      android:visibility="gone" />
 
     <RelativeLayout
-        android:id="@+id/image3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/splash_image3"
-        android:visibility="gone"/>
+      android:id="@+id/image3"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/splash_image3"
+      android:visibility="gone" />
 
     <RelativeLayout
-        android:id="@+id/image4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/splash_image4"
-        android:visibility="gone"/>
+      android:id="@+id/image4"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/splash_image4"
+      android:visibility="gone">
+
+    </RelativeLayout>
+
+    <LinearLayout
+      android:id="@+id/splashStatisticsRoot"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_marginTop="8dp"
+      android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="0.33"
+          android:orientation="vertical"
+          android:padding="8dp">
+
+            <ImageView
+              android:id="@+id/imgSplash1"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="0.6"
+              android:tint="#595959"
+              android:visibility="gone"
+              app:srcCompat="@drawable/ic_megaphone__1_" />
+
+            <TextView
+              android:id="@+id/txtSplash1"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="4dp"
+              android:fontFamily="@font/vazir"
+              android:text="@string/Ad"
+              android:textAlignment="center"
+              android:textColor="#1a1d24"
+              android:visibility="invisible" />
+
+            <TextView
+              android:id="@+id/txtAdCount"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/vazir"
+              android:text="0"
+              android:textAlignment="center"
+              android:textColor="#1a1d24"
+              android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="0.33"
+          android:orientation="vertical"
+          android:padding="8dp">
+
+            <ImageView
+              android:id="@+id/imgSplash2"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="0.6"
+              android:tint="#595959"
+              android:visibility="gone"
+              app:srcCompat="@drawable/ic_box__1_" />
+
+            <TextView
+              android:id="@+id/txtSplash2"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="4dp"
+              android:fontFamily="@font/vazir"
+              android:text="@string/installCount"
+              android:textAlignment="center"
+              android:textColor="#1a1d24"
+              android:visibility="invisible" />
+
+            <TextView
+              android:id="@+id/txtInstallCount"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/vazir"
+              android:text="0"
+              android:textAlignment="center"
+              android:textColor="#1a1d24"
+              android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="0.33"
+          android:orientation="vertical"
+          android:padding="8dp">
+
+            <ImageView
+              android:id="@+id/imgSplash3"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="0.6"
+              android:tint="#595959"
+              android:visibility="gone"
+              app:srcCompat="@drawable/ic_shipping__1_" />
+
+            <TextView
+              android:id="@+id/txtSplash3"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="4dp"
+              android:fontFamily="@font/vazir"
+              android:text="@string/order"
+              android:textAlignment="center"
+              android:textColor="#1a1d24"
+              android:visibility="invisible" />
+
+            <TextView
+              android:id="@+id/txtOrderCount"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/vazir"
+              android:text="0"
+              android:textAlignment="center"
+              android:textColor="#1a1d24"
+              android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

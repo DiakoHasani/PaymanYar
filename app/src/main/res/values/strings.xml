@@ -136,6 +136,7 @@
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="UpdatePlayStore">بروزرسانی در فروشگاه گوگل پلی</string>
+    <string name="UpdateBazaar">بروزرسانی در کافه بازار</string>
     <string name="Back_to_the_app">بازگشت به برنامه</string>
     <string name="filter_frames">فیلتر شده ها</string>
     <string name="share">اشتراک</string>
@@ -145,6 +146,8 @@
     <string name="SelectedOneMajor">رشته</string>
     <string name="rial">ریال</string>
     <string name="close">بستن</string>
+    <string name="installCount">تعداد نصب</string>
+    <string name="order">سفارشات</string>
     <string name="Suggest_or_Criticize">پیشنهاد یا انتقاد</string>
     <string name="ContactUs">ارتباط با ما</string>
     <string name="smsBox">جعبه پیام</string>
@@ -219,6 +222,7 @@
     <string name="Province">استان</string>
     <string name="City">شهر</string>
     <string name="AdType">نوع آگهی</string>
+    <string name="Ad">آگهی</string>
     <string name="Price">قیمت</string>
     <string name="Price2">قیمت (توافقی)</string>
     <string name="MachineryCategory">دسته ماشین آلات</string>
@@ -264,5 +268,9 @@
     <string name="Agreement">توافقی</string>
     <string name="Special">ویژه</string>
     <string name="Advertising">تبلیغات</string>
+    <string name="purchase_submitted">پرداخت شما با موفقیت در سیستم پیمانیار ثبت شد</string>
+  <string name="cafebazaar_notfound">در برقراری ارتباط با کافه بازار مشکلی پیش آمده است</string>
+  <string name="purchase_notsubmitted">پرداخت شما در سیستم پیمانیار ثبت نشد. لطفا با استفاده از توکن پرداخت خود از کافه بازار با بخش پشتیبانی پیمانیار تماس بگیرید تا حساب شما را شارژ کنند</string>
+  <string name="ad_details">جهت هماهنگی و رزرو، در صفحه ارتباط با ما با کارشناس تبلیغات تماس بگیرید.\nطراحی بنر ساده توسط طراح تیم پیمان یار+ قابل انجام است.\n\nهر تبلیغ میتواند شامل یک لینک اتصال (شماره تماس، سایت، واتساپ، تلگرام، اینستاگرام و ...) باشد.</string>
 
 </resources>

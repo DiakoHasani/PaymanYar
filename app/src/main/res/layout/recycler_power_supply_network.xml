@@ -161,6 +161,22 @@
                 android:background="@color/colorWhite"
                 android:visibility="gone"/>
 
+            <TextView
+              android:id="@+id/upgradeButton"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentLeft="true"
+              android:background="#B3878787"
+              android:fontFamily="@font/vazir"
+              android:padding="8dp"
+              android:text="@string/Ad_upgrade"
+              android:textAlignment="center"
+              android:textColor="#FFFFFF"
+              android:textSize="14sp"
+              android:visibility="visible" />
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

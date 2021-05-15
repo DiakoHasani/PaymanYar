@@ -10,8 +10,9 @@ android {
         applicationId "ir.tdaapp.paymanyar"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 2
-        versionName "2.0"
+        versionCode 5
+        versionName "3.2"
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -35,6 +36,7 @@ dependencies {
 
     //مربوط به تنظیمات فایربیس
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'androidx.annotation:annotation:1.1.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
@@ -76,8 +78,8 @@ dependencies {
 
     implementation files('libs/UnitOf.jar')
 
-    //برای نمایش گیف
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+    //برای نمایش لودینگ
+    implementation 'com.tuyenmonkey:mkloader:1.4.0'
 
     //برای بررسی دسترسی مجوزها
     implementation 'com.karumi:dexter:5.0.0'

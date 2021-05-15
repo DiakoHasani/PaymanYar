@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.tuyenmonkey.mkloader.MKLoader;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +25,6 @@ import ir.tdaapp.paymanyar.Model.Utilitys.BaseDialogFragment;
 import ir.tdaapp.paymanyar.Model.ViewModels.VM_AdUpgrade;
 import ir.tdaapp.paymanyar.Presenter.P_AdUpgradeDialog;
 import ir.tdaapp.paymanyar.R;
-import pl.droidsonroids.gif.GifImageView;
 
 /**
  * مربوط به دیالوگ ارتقا آگهی نیروکار یا مصالح یا ماشین آلات
@@ -34,7 +35,7 @@ public class AdUpgradeDialog extends BaseDialogFragment implements S_AdUpgradeDi
 
     RecyclerView recycler;
     ImageView reload;
-    GifImageView loading;
+    MKLoader loading;
     P_AdUpgradeDialog p_adUpgradeDialog;
     AdUpgradeAdapter adUpgradeAdapter;
     LinearLayoutManager layoutManager;

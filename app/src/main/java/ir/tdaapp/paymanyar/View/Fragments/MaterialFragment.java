@@ -61,7 +61,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
     LinearLayout empty;
     LinearLayoutManager layoutManager;
     ErrorAplicationDialog errorAplicationDialog;
-    FloatingActionButton btn_PowerSupply;
+    FloatingActionButton btn_PowerSupply,btn_MyPowerSupply;
     CardView btn_Search;
     int paging = 0;
     SwipeRefreshLayout refresh;
@@ -98,6 +98,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
         empty = view.findViewById(R.id.empty);
         cmb_Material = view.findViewById(R.id.cmb_Material);
         btn_PowerSupply = view.findViewById(R.id.btn_PowerSupply);
+        btn_MyPowerSupply = view.findViewById(R.id.btn_MyPowerSupply);
         btn_Search = view.findViewById(R.id.btn_Search);
         refresh = view.findViewById(R.id.refresh);
         nestedScroll = view.findViewById(R.id.nestedScroll);
@@ -107,6 +108,7 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
     void implement() {
         p_materialFragment = new P_MaterialFragment(getContext(), this);
         btn_PowerSupply.setOnClickListener(this);
+        btn_MyPowerSupply.setOnClickListener(this);
         btn_Search.setOnClickListener(this);
         reload.setOnClickListener(this);
 
@@ -214,6 +216,11 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
 
                 @Override
                 public void remove(int id) {
+
+                }
+
+                @Override
+                public void upgrade(int id) {
 
                 }
             });
@@ -445,13 +452,16 @@ public class MaterialFragment extends BaseFragment implements S_MaterialFragment
                 paging = 0;
                 p_materialFragment.start();
                 break;
+            case R.id.btn_MyPowerSupply:
+                ((MainActivity) getActivity()).onAddFragment(new MyMaterialFragment(), R.anim.fadein, R.anim.short_fadeout, true, MyMaterialFragment.TAG);
+                break;
         }
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.my_ad_menu, menu);
+        //menu.clear();
+        //inflater.inflate(R.menu.my_ad_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
