@@ -186,7 +186,7 @@ public class MyPowerSupplyNetworkFragment extends BaseFragment implements S_MyPo
             public void upgrade(int adId) {
                 if (adId != 0) {
                     AdUpgradeDialog adUpgradeDialog = new AdUpgradeDialog(id -> {
-                        String url = paymentUrl + "PaymentAd/Index?Parmetr=" + adId + ":" + id + ":3";
+                        String url = paymentUrl + "PaymentAd/Index?Parmetr=" + adId + ":" + id + ":1";
                         openUrl.getWeb(url, getContext());
                     });
                     adUpgradeDialog.show(getActivity().getSupportFragmentManager(), AdUpgradeDialog.TAG);
